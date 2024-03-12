@@ -48,6 +48,7 @@ public class Andie {
      */
     private static void createAndShowGUI() throws Exception {
         //Pushing YAY!!
+        //Checking 
         //push test
         // Set up the main GUI frame
         JFrame frame = new JFrame("ANDIE");
