@@ -38,7 +38,7 @@ public class FilterActions {
         actions = new ArrayList<Action>();
         actions.add(new MeanFilterAction("Mean filter", null, "Apply a mean filter", Integer.valueOf(KeyEvent.VK_M)));
         actions.add(new BlurOptionAction("Blur Soft", null, "Apply a soft blur", Integer.valueOf(KeyEvent.VK_M)));
-
+        actions.add(new SoftBlurAction("Blur filter", null, "Apply a blur filter", Integer.valueOf(KeyEvent.VK_M)));
     }
 
     /**
@@ -133,5 +133,38 @@ public class FilterActions {
             target.repaint();
             target.getParent().revalidate();
         }
+    }
+
+    // taken from the lab book example
+    public class SoftBlurAction extends ImageAction {
+        
+        SoftBlurAction(String name, ImageIcon icon,
+            String desc, Integer mnemonic) {
+            super(name, icon, desc, mnemonic);
+        }
+
+        public void actionPerformed(ActionEvent e) {
+            // Determine the radius - ask the user.
+            int radius = 1;
+
+            // Pop-up dialog box to ask for the radius value.
+            SpinnerNumberModel radiusModel = new SpinnerNumberModel(1, 1, 10, 1);
+            JSpinner radiusSpinner = new JSpinner(radiusModel);
+            int option = JOptionPane.showOptionDialog(null, radiusSpinner, "Enter filter radius",
+                    JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
+
+            // Check the return value from the dialog box.
+            if (option == JOptionPane.CANCEL_OPTION) {
+                return;
+            } else if (option == JOptionPane.OK_OPTION) {
+                radius = radiusModel.getNumber().intValue();
+            }
+
+            // Create and apply the filter
+            target.getImage().apply(new SoftBlur(radius));
+            target.repaint();
+            target.getParent().revalidate();
+        }
+        
     }
 }

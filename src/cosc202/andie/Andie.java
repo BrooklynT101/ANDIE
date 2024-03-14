@@ -53,11 +53,11 @@ public class Andie {
         // Set up the main GUI frame
         JFrame frame = new JFrame("ANDIE");
 
-        Image image = ImageIO.read(Andie.class.getClassLoader().getResource("icon.png"));
-        frame.setIconImage(image);
+        // Image image = ImageIO.read(Andie.class.getClassLoader().getResource("icon.png"));
+        // frame.setIconImage(image);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        // The main content area is an ImagePanel
+        // The main content area is an ImageP anel
         ImagePanel imagePanel = new ImagePanel();
         ImageAction.setTarget(imagePanel);
         JScrollPane scrollPane = new JScrollPane(imagePanel);
