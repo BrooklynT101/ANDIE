@@ -29,18 +29,25 @@ public class SoftBlur implements ImageOperation, java.io.Serializable {
     * @return The output image.
     */
    public BufferedImage apply (BufferedImage input) {
-      //
+      //creating the kernal array
       float[] array = {
            0,    1/8.0f,   0,
          1/8.0f, 1/2.0f, 1/8.0f,
            0,    1/8.0f,   0
       };
+      
       //Creating kernel, mimicking same dimensions as MeanFilter, using array as input
       Kernel kernel = new Kernel(2*radius+1, 2*radius+1, array);
       ConvolveOp convOp = new ConvolveOp(kernel);
+      
       //output image? taken from MeanFilter
-      BufferedImage output = new BufferedImage(input.getColorModel(), input.copyData(null), input.isAlphaPremultiplied(), null);
+      BufferedImage output = new BufferedImage(input.getColorModel(),
+      input.copyData(null),
+      input.isAlphaPremultiplied(), null);
       convOp.filter(input, output);
+      
+      // And we're done
       return output;
+
    }
 }
