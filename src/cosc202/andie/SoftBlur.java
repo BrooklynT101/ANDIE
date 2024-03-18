@@ -2,8 +2,8 @@ package cosc202.andie;
 import java.awt.image.*;
 
 /**
- * Default Constructor for the soft blue filter, with a default
- * radius of 1
+ * A filter class that applies a variable blur to the whole image
+ * @author Brooklyn Taylor
  */
 public class SoftBlur implements ImageOperation, java.io.Serializable {
 
@@ -44,13 +44,13 @@ public class SoftBlur implements ImageOperation, java.io.Serializable {
       Kernel kernel = new Kernel(2*radius+1, 2*radius+1, array);
       ConvolveOp convOp = new ConvolveOp(kernel);
       
-      //output image? taken from MeanFilter
+      //Applying filter to the input image
       BufferedImage output = new BufferedImage(input.getColorModel(),
-      input.copyData(null),
-      input.isAlphaPremultiplied(), null);
+         input.copyData(null),
+         input.isAlphaPremultiplied(), null);
       convOp.filter(input, output);
       
-      // And we're done
+      // return the output image
       return output;
 
    }
