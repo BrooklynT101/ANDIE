@@ -1,4 +1,5 @@
 package cosc202.andie;
+
 import java.awt.image.*;
 
 /**
@@ -10,21 +11,14 @@ public class SoftBlur implements ImageOperation, java.io.Serializable {
    private int radius;
 
    /**
-    * Default Constructor for the soft blue filter, with a default
+    * Default Constructor for the soft blur filter, with a default
     * radius of 1
     */
    SoftBlur() {
       this.radius = 1;
    }
 
-   /**
-    * Constructor for the soft blur filter, radius set by input
-    * @param radius of type int
-    */
-   SoftBlur(int radius) {
-      this.radius = radius;
-   }
-
+   
    /**
     * Applys the filter to a given buffered image object, returning the output 
     * image with the blur filter added. Implemented via convolution, where the 
