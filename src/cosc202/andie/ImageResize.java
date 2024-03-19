@@ -5,12 +5,17 @@ import java.util.*;
 
 public class ImageResize {
 
-    ImageResize(){
+    ImageResize() {
 
     }
-
 
     public BufferedImage apply(BufferedImage input) {
+        BufferedImage output = new BufferedImage(input.getColorModel(),
+                input.copyData(null),
+                input.isAlphaPremultiplied(), null);
+
+
+        return output;
     }
-    
+
 }
