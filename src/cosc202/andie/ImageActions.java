@@ -29,7 +29,9 @@ public class ImageActions {
             super(name, icon, desc, mnemonic);
         }
 
-        public void actionPerformed(ActionEvent e) {
+        public void actionPerformed(ActionEvent e) { 
+
+            //create and apply the filter 
             target.getImage().apply(new ImageRotation());
             target.repaint();
             target.getParent().revalidate();
