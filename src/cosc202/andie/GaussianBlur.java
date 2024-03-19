@@ -9,7 +9,7 @@ public class GaussianBlur implements ImageOperation, java.io.Serializable {
 
     private int radius;
 
-    /* Constructor */
+    /* Constructor takes in a radius value. */
     GaussianBlur(int radius) {
         this.radius = radius;
     }
@@ -18,16 +18,18 @@ public class GaussianBlur implements ImageOperation, java.io.Serializable {
         this.radius = 1;
     }
 
+
+    /*Buffered image method applys  the Gaussian filter to the image */
     public BufferedImage apply(BufferedImage input) {
         int size = (2 * radius + 1) * (2 * radius + 1);
 
-        /*
-         * NEeed to do this but for mine float [] array = new float[size];
-         * Arrays. (array, 1.0f/size); but do it as a 2d array?
-         */
-
         float[] array = new float[size];
 
+
+        /*A nested for loop which goes through each x and y corrdinate and makes it 
+        puts in the array for the corresponding entry calculting the value with the 
+        gaussian formuala. 
+        */
         int l = this.radius / 3;
         int x = 0;
         while (x < size) {
@@ -49,20 +51,17 @@ public class GaussianBlur implements ImageOperation, java.io.Serializable {
 
         x = 0;
 
+
+        //Normalised all the gaussian values, by dividing each entry by the sum of all of them.
         for (int i = 0; i < size; i++) {
 
-            array[x] = array[x] / size;
+            array[x] = array[x] / sum;
+            x++;
         }
 
-        while (x < size) {
-            for (int i = 0; i < 2 * radius + 1; i++) {
-                for (int j = 0; j < 2 * radius + 1; j++) {
-                    System.out.print(array[x] + " ");
-                    x++;
-                }
-                System.out.println();
-            }
-        }
+
+
+        
 
         Kernel kernel = new Kernel(2 * radius + 1, 2 * radius + 1, array);
 
