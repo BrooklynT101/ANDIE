@@ -27,7 +27,7 @@ Error avoidance (ie: making sure it doesn't crash when opening a non image )
 
 
 
-Color cycling - Amelia
+Color cycling - Amelia, done 
 Median - Marcus
 Sharpen - Brooklyn
 Gaussian - Ari
@@ -44,7 +44,7 @@ Gaussian
 Median 
 Sharpen
 
-Imagerotation
+Image rotation - Amelia
 Image Flip 
 Multilingual
 Image resize 
