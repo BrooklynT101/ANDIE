@@ -1,11 +1,13 @@
+package cosc202.andie;
+
 import java.awt.image.*;
 import java.util.*;
 
 /**
- * ImageOperation to flip a photo vertically or horizontally.
+ * ImageFlipVertical to flip a photo vertically.
  * 
- * The slip involves flipping, in place, each pixel by its y 
- * coordinates for vertical or x coordinates for the horizontal flip. 
+ * The flip involves flipping in place, each pixel by its y 
+ * coordinates. 
  * 
  * @author Brooklyn Taylor
  */
