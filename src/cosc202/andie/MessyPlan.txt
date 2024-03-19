@@ -35,13 +35,13 @@ Todo list
 Hard-
 Gaussian - Ari -  DONE
 Median - Marcus
-Sharpen - Brooklyn
+Sharpen - Brooklyn - DONE
 Color Cycling -Amelia - DONE
 
 
 Easy-
-Imagerotation - Amelia
-Image Flip 
+Image rotation - Amelia
+Image Flip - Brooklyn
 Multilingual Support
 
 Exception Handling(try Catchs for everything, apparently quite important)
@@ -50,7 +50,7 @@ Medium-
 Image resize - Ari
 Image Inversion - Amelia - DONE
 Image Export
-Error avoidance (ie: making sure it doesn't crash when opening a non image )
+Error avoidance (ie: making sure it doesn't crash when opening a non image)
 
 
 
