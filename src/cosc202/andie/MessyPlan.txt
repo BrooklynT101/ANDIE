@@ -1,7 +1,7 @@
 2 weeks
 
 
-Color cycling - Amelia
+Color cycling - Amelia, done 
 Median - Marcus
 Sharpen - Brooklyn
 Gaussian - Ari
@@ -18,7 +18,7 @@ Gaussian
 Median 
 Sharpen
 
-Imagerotation
+Image rotation - Amelia
 Image Flip 
 Multilingual
 Image resize 
