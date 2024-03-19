@@ -14,6 +14,7 @@ public class ImageResize {
                 input.copyData(null),
                 input.isAlphaPremultiplied(), null);
 
+                input.getScaledInstance();
 
         return output;
     }
