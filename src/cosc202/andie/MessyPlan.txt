@@ -20,8 +20,8 @@ Multilingual Support
 Exception Handling(try Catchs for everything, apparently quite important)
 
 Medium- 
-Image resize
-Image Inversion - Ari 
+Image resize - Ari
+Image Inversion - Amelia - DONE
 Image Export
 Error avoidance (ie: making sure it doesn't crash when opening a non image )
 
