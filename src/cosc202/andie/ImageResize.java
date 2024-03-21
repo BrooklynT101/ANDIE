@@ -27,8 +27,12 @@ public class ImageResize implements ImageOperation, java.io.Serializable {
         int w = ogWidth;
         int h = ogheight;
 
+        float scaleh = (h / 100);
+        float scalew = (w / 100);
+
         if (height < 100) {
             int newH = (int) (height * scaleh);
+            int newW = (int) (width * scalew);
 
             System.out.println(newH + " also width" + newW);
 
