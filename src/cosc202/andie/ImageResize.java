@@ -1,22 +1,68 @@
 package cosc202.andie;
 
 import java.awt.image.*;
+import java.awt.Graphics2D;
+import java.awt.Image;
 import java.util.*;
 
-public class ImageResize {
+public class ImageResize implements ImageOperation, java.io.Serializable {
+
+    private int width;
+    private int height;
+    private int ogheight;
+    private int ogWidth;
 
     ImageResize() {
 
     }
 
+    ImageResize(int width, int height, int ogheight, int ogWidth) {
+        this.width = width;
+        this.height = height;
+        this.ogheight = ogheight;
+        this.ogWidth = ogWidth;
+    }
+
     public BufferedImage apply(BufferedImage input) {
-        BufferedImage output = new BufferedImage(input.getColorModel(),
-                input.copyData(null),
-                input.isAlphaPremultiplied(), null);
+        int w = ogWidth;
+        int h = ogheight;
 
-                input.getScaledInstance();
+        if (height < 100) {
+            int newH = (int) (height * scaleh);
 
-        return output;
+            System.out.println(newH + " also width" + newW);
+
+            Image result = input.getScaledInstance(newW, newH, Image.SCALE_AREA_AVERAGING);
+
+            BufferedImage output = new BufferedImage(newW, newH, BufferedImage.TYPE_INT_RGB);
+
+            output.getGraphics().drawImage(result, 0, 0, null);
+
+            return output;
+        } else if (height > 100) {
+            int newH = (int) (height * scaleh);
+            int newW = (int) (width * scalew);
+
+            System.out.println(newH + " also width" + newW);
+
+            Image result = input.getScaledInstance(newW, newH, Image.SCALE_SMOOTH);
+
+            BufferedImage output = new BufferedImage(newW, newH, BufferedImage.TYPE_INT_RGB);
+
+            output.getGraphics().drawImage(result, 0, 0, null);
+
+            return output;
+        } else {
+
+            System.out.println(input.getHeight() + " also width" + input.getWidth());
+            System.out.println("og" + ogheight + " also width" + ogWidth);
+            Image result = input.getScaledInstance(ogheight, ogWidth, Image.SCALE_AREA_AVERAGING);
+
+            BufferedImage output = new BufferedImage(ogheight, ogWidth, BufferedImage.TYPE_INT_RGB);
+
+            output.getGraphics().drawImage(result, 0, 0, null);
+            return output;
+        }
     }
 
 }
