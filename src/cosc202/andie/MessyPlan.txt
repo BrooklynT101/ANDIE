@@ -30,7 +30,35 @@ Error avoidance (ie: making sure it doesn't crash when opening a non image )
 
 
 Todo list 
+- change so by default file explorer opens to last file directory explored
+- add default clocktower image to program for easy testing
 
+Hard-
+Gaussian - Ari -  DONE
+Median - Marcus
+Sharpen - Brooklyn
+Color Cycling -Amelia - DONE
+
+
+Easy-
+Imagerotation - Amelia
+Image Flip 
+Multilingual Support
+
+Exception Handling(try Catchs for everything, apparently quite important)
+
+Medium- 
+Image resize
+Image Inversion - Ari 
+Image Export
+Error avoidance (ie: making sure it doesn't crash when opening a non image )
+
+
+
+
+Todo list 
+- add a default image (clocktower) for easy testing
+- have the file explorer open to the last path that was on the system
 
 Hard-
 Gaussian - Ari -  DONE
@@ -52,7 +80,7 @@ Image Inversion - Amelia - DONE
 Image Export
 Error avoidance (ie: making sure it doesn't crash when opening a non image)
 
-
+Week 1
 
 Color cycling - Amelia, done 
 Median - Marcus
