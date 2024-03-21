@@ -1,7 +1,33 @@
 2 weeks
 
 
-Color cycling - Amelia
+
+Todo list 
+
+
+Hard-
+Gaussian - Ari -  DONE
+Median - Marcus
+Sharpen - Brooklyn - DONE
+Color Cycling -Amelia - DONE
+
+
+Easy-
+Image rotation - Amelia
+Image Flip - Brooklyn
+Multilingual Support
+
+Exception Handling(try Catchs for everything, apparently quite important)
+
+Medium- 
+Image resize - Ari
+Image Inversion - Amelia - DONE
+Image Export
+Error avoidance (ie: making sure it doesn't crash when opening a non image)
+
+
+
+Color cycling - Amelia, done 
 Median - Marcus
 Sharpen - Brooklyn
 Gaussian - Ari
@@ -18,7 +44,7 @@ Gaussian
 Median 
 Sharpen
 
-Imagerotation
+Image rotation - Amelia
 Image Flip 
 Multilingual
 Image resize 
@@ -26,6 +52,12 @@ Image resize
 
 
 get the medium one done the second week 
-
 //Brooklyn
     I'm going to try and get the JUnit testing pushed too, idk what its for but apparently the tutors are super keen on it
+
+
+
+
+
+
+
