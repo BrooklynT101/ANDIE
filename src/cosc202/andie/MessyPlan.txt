@@ -33,6 +33,12 @@ Sharpen - Brooklyn
 Gaussian - Ari
 
 
+
+
+
+-------------------------------
+
+
 Maybe Start hard, and also mid way through week get easy done
 then start of the week after get medium done and last few days the
 error and exception handling?
