@@ -1,6 +1,10 @@
 package cosc202.andie;
 import java.awt.image.*;
 
+/**
+ * Default Constructor for the soft blue filter, with a default
+ * radius of 1
+ */
 public class SoftBlur implements ImageOperation, java.io.Serializable {
 
    private int radius;

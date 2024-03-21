@@ -27,4 +27,5 @@ Image resize
 
 get the medium one done the second week 
 
-
+//Brooklyn
+    I'm going to try and get the JUnit testing pushed too, idk what its for but apparently the tutors are super keen on it
