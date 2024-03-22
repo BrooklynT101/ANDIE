@@ -5,32 +5,25 @@ import java.awt.*;
 import javax.swing.*;
 
 public class ImageRotation implements ImageOperation, java.io.Serializable{
-    /** Constructor that tae in the degrees of rotation*/
 
     //default constructor
-    public ImageRotation() {
-        image = new EditableImage();
-    }
-
-    private EditableImage image;
-    private double scale;
-
-
-    //BufferedImage b = new BufferedImage();
-
-    public void paintComponent(Graphics g) {
-        //super.paintComponent(g);
-        if (image.hasImage()) {
-            Graphics2D g2  = (Graphics2D) g.create();
-            g2.scale(scale, scale);
-            g2.drawImage(image.getCurrentImage(), null, 90, 90);
-            g2.dispose();
-        }
+    public ImageRotation() { 
+        //image = new EditableImage(); 
     }
 
     public BufferedImage apply(BufferedImage input) {
-  
-        for (int y = 0; y < input.getHeight(); ++y) {
+
+        // Image image = input.getScaledInstance(600, 800, Image.SCALE_AREA_AVERAGING);
+
+        // BufferedImage output = new BufferedImage(input.getColorModel(), input.copyData(null), input.isAlphaPremultiplied(), null);
+        
+        // Graphics2D graphics = output.createGraphics();
+        // graphics.rotate(Math.PI);
+        // graphics.drawImage(image, 0, 0, null);
+
+        // return output;
+
+        for (int y = 0; y < input.getHeight(); ++y) { //iterate through the piels and move around 
             for (int x = 0; x < input.getWidth(); ++x) {
                 int argb = input.getRGB(x, y);
                 int a = (argb & 0xFF000000) >> 24;
@@ -38,12 +31,10 @@ public class ImageRotation implements ImageOperation, java.io.Serializable{
                 int g = (argb & 0x0000FF00) >> 8;
                 int b = (argb & 0x000000FF);
 
-                argb = (a << 24) | (r << 16) | (g << 8) | b;
+                argb = (a << 24) | (g << 16) | (b << 8) | r;
                 input.setRGB(x, y, argb);
-
             }
-        } 
-        
+        }
         return input;
     }
 

@@ -32,10 +32,8 @@ public class ImageActions {
         public void actionPerformed(ActionEvent e) { 
 
             //create and apply the filter 
-            //target.getImage().apply(new ImageRotation());
-            target.drawImage();
-            target.repaint();
-            target.getParent().revalidate();
+            target.getImage().apply(new ImageRotation());
+    
         }
     }
     
