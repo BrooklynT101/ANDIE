@@ -36,6 +36,8 @@ public class ColourActions {
         actions = new ArrayList<Action>();
         actions.add(new ConvertToGreyAction("Greyscale", null, "Convert to greyscale", Integer.valueOf(KeyEvent.VK_G)));
         actions.add(new ImageInversionAction("Image Inversion", null, "Colour Inversion", Integer.valueOf(KeyEvent.VK_I)));
+        actions.add(new ColourChannelCyclingAction("Colour Channel Cycling", null, "Colour Channel Cycling", Integer.valueOf(KeyEvent.VK_C)));
+
     }
 
     /**
@@ -115,6 +117,30 @@ public class ColourActions {
          */
         public void actionPerformed(ActionEvent e) {
             target.getImage().apply(new ImageInversion());
+            target.repaint();
+            target.getParent().revalidate();
+        }
+
+
+    }
+
+    public class ColourChannelCyclingAction extends ImageAction{
+
+        /** create a new image inversion action 
+         * @param name The name of the action (ignored if null).
+         * @param icon An icon to use to represent the action (ignored if null).
+         * @param desc A brief description of the action  (ignored if null).
+         * @param mnemonic A mnemonic key to use as a shortcut  (ignored if null).
+        */
+        ColourChannelCyclingAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
+            super(name, icon, desc, mnemonic);
+        }
+
+        /** callback for when the image inversion is triggered 
+         * @param e The even triggering this callback
+         */
+        public void actionPerformed(ActionEvent e) {
+            target.getImage().apply(new ColourChannelCycling());
             target.repaint();
             target.getParent().revalidate();
         }

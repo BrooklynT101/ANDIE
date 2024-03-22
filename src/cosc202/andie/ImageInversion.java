@@ -20,10 +20,12 @@ public class ImageInversion implements ImageOperation, java.io.Serializable{
                 int g = (argb & 0x0000FF00) >> 8;
                 int b = (argb & 0x000000FF);
 
-                int invert = (int) Math.round((255-r) + (255-g) + (255-b));
+                int rNew = 255 - r;
+                int gNew = 255 - g;
+                int bNew = 255 - b;
                 
 
-                argb = (a << 24) | (invert << 16) | (invert << 8) | invert;
+                argb = (a << 24) | (rNew << 16) | (gNew << 8) | bNew;
                 input.setRGB(x, y, argb);
             }
         }
