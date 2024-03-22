@@ -41,4 +41,76 @@ public class ImageActions {
         }
     }
 
+    /**
+     * 
+     * 
+     * @author BrooklynT
+     */
+    public class ImageFlipVerticalAction extends ImageAction {
+
+        ImageFlipVerticalAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
+            super(name, icon, desc, mnemonic);
+        }
+
+        public void actionPerformed(ActionEvent e) {
+            target.getImage().apply(new ImageFlipVertical());
+            target.repaint();
+            target.getParent().revalidate();
+        }
+    }
+
+    /**
+     * 
+     * 
+     * @author BrooklynT
+     */
+    public class ImageFlipHorizontalAction extends ImageAction {
+
+        ImageFlipHorizontalAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
+            super(name, icon, desc, mnemonic);
+        }
+
+        public void actionPerformed(ActionEvent e) {
+            target.getImage().apply(new ImageFlipHorizontal());
+            target.repaint();
+            target.getParent().revalidate();
+        }
+    }
+
+    public class ImageResizeAction extends ImageAction {
+
+        ImageResizeAction(String name, ImageIcon icon,
+                String desc, Integer mnemonic) {
+            super(name, icon, desc, mnemonic);
+        }
+
+        public void actionPerformed(ActionEvent e) {
+            // Determine the height and width - ask the user.
+
+            int scale = 100;
+
+            // Pop-up dialog box to ask for the scale value.
+            SpinnerNumberModel scaleModel = new SpinnerNumberModel(100, 1, 1000, 4);
+            JSpinner scaleSpinner = new JSpinner(scaleModel);
+            int option1 = JOptionPane.showOptionDialog(null, scaleSpinner, "Enter Percent Scaled",
+                    JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
+
+            // Check the return value from the dialog box.
+            if (option1 == JOptionPane.CANCEL_OPTION) {
+                return;
+            } else if (option1 == JOptionPane.OK_OPTION) {
+                scale = scaleModel.getNumber().intValue();
+            }
+
+            // Create and apply the filter
+            int ogWidth = target.getImage().getOriginalImage().getWidth();
+            int ogheight = target.getImage().getOriginalImage().getHeight();
+            target.getImage()
+                    .apply(new ImageResize(scale, scale, ogWidth, ogheight, target.getImage().getOriginalImage()));
+            target.repaint();
+            target.getParent().revalidate();
+        }
+
+    }
+
 }

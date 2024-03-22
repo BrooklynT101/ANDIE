@@ -11,8 +11,7 @@ public class ImageResize implements ImageOperation, java.io.Serializable {
     private int height;
     private int ogheight;
     private int ogWidth;
-
-    }
+    private Image ogImage;
 
     ImageResize(int width, int height, int ogheight, int ogWidth, Image ogImage) {
         this.width = width;
@@ -56,7 +55,7 @@ public class ImageResize implements ImageOperation, java.io.Serializable {
 
             return output;
         } else {
-
+            //How to make it keep filter 
             System.out.println(input.getHeight() + " also width" + input.getWidth());
             System.out.println("og" + ogheight + " also width" + ogWidth);
 
