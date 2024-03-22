@@ -9,7 +9,6 @@ public class MedianFilter implements ImageOperation, java.io.Serializable{
      * The size of filter to apply. A radius of 1 is a 3x3 filter, a radius of 2 a 5x5 filter, and so forth.
      */
     private int radius;
-    private int neighbourhoodSize;
 
     /**
      * <p>
@@ -26,7 +25,6 @@ public class MedianFilter implements ImageOperation, java.io.Serializable{
      */
     MedianFilter(int radius){
         this.radius = radius;
-        this.neighbourhoodSize = (radius*2+1)^2;
     }
 
     /**
@@ -41,8 +39,7 @@ public class MedianFilter implements ImageOperation, java.io.Serializable{
      * @see MedianFilter(int)
      */
     MedianFilter(){
-        this.radius = 1;
-        this.neighbourhoodSize = (radius*2+1)^2;
+        this(1);
     }
    
     /**
@@ -61,9 +58,12 @@ public class MedianFilter implements ImageOperation, java.io.Serializable{
      */
     public BufferedImage apply(BufferedImage input) {
 
+        int neighbourhoodSize = ((radius*2+1)*(radius*2+1));
+        System.out.println(neighbourhoodSize);
 
-        for (int y = radius; y < input.getHeight() - radius; ++y) {
-            for (int x = radius; x < input.getWidth() - radius; ++x) {
+        for (int y = radius; y < input.getHeight() - radius; y++) {
+            
+            for (int x = radius; x < input.getWidth() - radius; x++) {
             int argb = input.getRGB(x, y);
             int a = (argb & 0xFF000000) >> 24; 
             int[] red = new int[neighbourhoodSize];
@@ -71,29 +71,43 @@ public class MedianFilter implements ImageOperation, java.io.Serializable{
             int[] blue = new int[neighbourhoodSize];
             int index = 0;
 
-                for(int i = y - radius; i < (radius * 2) + 1; i++){
-                    for(int j = x - radius; j < (radius * 2) + 1; j++){
 
-                    int argbNeighbourhood = input.getRGB(i, j);
+
+                for(int ny = y - radius; ny <= y + radius; ny++){
+                    for(int nx = x - radius; nx <= x + radius; nx++){
+
+                    int argbNeighbourhood = input.getRGB(nx, ny);
+                    
                     red[index] = (argbNeighbourhood & 0x00FF0000) >> 16;
                     green[index] = (argbNeighbourhood & 0x0000FF00) >> 8;
                     blue[index] = (argbNeighbourhood & 0x000000FF);
+
+                    // System.out.println(Arrays.toString(red));
+                    // System.out.println(Arrays.toString(green)); 
+                    // System.out.println(Arrays.toString(blue)); 
                     index++;
                     }
                 }
-        
+                
                 Arrays.sort(red);
+               // System.out.println(Arrays.toString(red));
                 Arrays.sort(green);
                 Arrays.sort(blue);
 
-                argb = (a << 24) | ((red[(red.length)/2]) << 16) | ((green[(green.length/2)]) << 8) | (blue[(blue.length)/2]);
+                int redMedian = (red[(red.length)/2]);
+                int greenMedian = (green[(green.length/2)]);
+                int blueMedian = (blue[(blue.length)/2]);
+                
+
+                argb = (a << 24) | (redMedian << 16) | (greenMedian << 8) | (blueMedian);
 
                 input.setRGB(x, y, argb);
             }
         }
         
-        BufferedImage output = new BufferedImage(input.getColorModel(), input.copyData(null), input.isAlphaPremultiplied(), null);
-        //TODO: How to add this to filter actions
+         BufferedImage output = new BufferedImage(input.getColorModel(), input.copyData(null), input.isAlphaPremultiplied(), null);
+         System.out.println("Done");
+        // //TODO: How to add this to filter actions
         //TODO: replace this with the actual image
         return output;
 
