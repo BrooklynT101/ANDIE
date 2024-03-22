@@ -59,6 +59,9 @@ Error avoidance (ie: making sure it doesn't crash when opening a non image )
 Todo list 
 - add a default image (clocktower) for easy testing
 - have the file explorer open to the last path that was on the system
+- error handing for apply filter to no loaded image
+- make sure it doesn't crash when opening a non image
+- general error avoidance
 
 Hard-
 Gaussian - Ari -  DONE
@@ -78,7 +81,7 @@ Medium-
 Image resize - Ari
 Image Inversion - Amelia - DONE
 Image Export
-Error avoidance (ie: making sure it doesn't crash when opening a non image)
+Error avoidance
 
 Week 1
 
