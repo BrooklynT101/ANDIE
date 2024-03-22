@@ -65,7 +65,7 @@ public class ImageActions {
             // Create and apply the filter
             int ogWidth = target.getImage().getOriginalImage().getWidth();
             int ogheight = target.getImage().getOriginalImage().getHeight();
-            target.getImage().apply(new ImageResize(scale, scale, ogWidth, ogheight));
+            target.getImage().apply(new ImageResize(scale, scale, ogWidth, ogheight,target.getImage().getOriginalImage()));
             target.repaint();
             target.getParent().revalidate();
         }
