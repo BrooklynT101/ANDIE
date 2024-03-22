@@ -11,16 +11,20 @@ public class ImageResize implements ImageOperation, java.io.Serializable {
     private int height;
     private int ogheight;
     private int ogWidth;
+    private Image ogImage;
+
 
     ImageResize() {
 
     }
 
-    ImageResize(int width, int height, int ogheight, int ogWidth) {
+    ImageResize(int width, int height, int ogheight, int ogWidth, Image ogImage) {
         this.width = width;
         this.height = height;
         this.ogheight = ogheight;
         this.ogWidth = ogWidth;
+        this.ogImage = ogImage;
+
     }
 
     public BufferedImage apply(BufferedImage input) {
@@ -60,11 +64,10 @@ public class ImageResize implements ImageOperation, java.io.Serializable {
 
             System.out.println(input.getHeight() + " also width" + input.getWidth());
             System.out.println("og" + ogheight + " also width" + ogWidth);
-            Image result = input.getScaledInstance(ogheight, ogWidth, Image.SCALE_AREA_AVERAGING);
 
             BufferedImage output = new BufferedImage(ogheight, ogWidth, BufferedImage.TYPE_INT_RGB);
 
-            output.getGraphics().drawImage(result, 0, 0, null);
+            output.getGraphics().drawImage(ogImage, 0, 0, null);
             return output;
         }
     }
