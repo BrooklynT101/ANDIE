@@ -11,20 +11,17 @@ public class ImageResize implements ImageOperation, java.io.Serializable {
     private int height;
     private int ogheight;
     private int ogWidth;
-    private Image ogImage;
+    ImaeRes
 
+        }  
 
-    ImageResize() {
+    
 
-    }
-
-    ImageResize(int width, int height, int ogheight, int ogWidth, Image ogImage) {
-        this.width = width;
+                this.width = width;
         this.height = height;
         this.ogheight = ogheight;
         this.ogWidth = ogWidth;
         this.ogImage = ogImage;
-
     }
 
     public BufferedImage apply(BufferedImage input) {
