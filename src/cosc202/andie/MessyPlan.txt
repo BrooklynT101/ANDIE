@@ -86,6 +86,34 @@ Error avoidance
 Week 1
 
 Color cycling - Amelia, done 
+
+Todo list 
+- add a default image (clocktower) for easy testing
+- have the file explorer open to the last path that was on the system
+
+Hard-
+Gaussian - Ari -  DONE
+Median - Marcus
+Sharpen - Brooklyn - DONE
+Color Cycling -Amelia - DONE
+
+
+Easy-
+Image rotation - Amelia
+Image Flip - Brooklyn
+Multilingual Support
+
+Exception Handling(try Catchs for everything, apparently quite important)
+
+Medium- 
+Image resize - Ari
+Image Inversion - Amelia - DONE
+Image Export
+Error avoidance (ie: making sure it doesn't crash when opening a non image)
+
+Week 1
+
+Color cycling - Amelia, done 
 Median - Marcus
 Sharpen - Brooklyn
 Gaussian - Ari
@@ -111,15 +139,12 @@ Image resize
 
 get the medium one done the second week 
 
-
-
-
-
-
-
-
-
-
-
 //Brooklyn
     I'm going to try and get the JUnit testing pushed too, idk what its for but apparently the tutors are super keen on it
+
+
+
+
+
+
+

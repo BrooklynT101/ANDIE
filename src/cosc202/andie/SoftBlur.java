@@ -27,6 +27,7 @@ public class SoftBlur implements ImageOperation, java.io.Serializable {
     * @return The output image.
     */
    public BufferedImage apply (BufferedImage input) {
+      
       //creating the kernal array
       float[] array = {
            0,    1/8.0f,   0,
