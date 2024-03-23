@@ -19,16 +19,16 @@ public class ImageFlipVertical implements ImageOperation, java.io.Serializable{
 
     public BufferedImage apply(BufferedImage input) {
         int width = input.getWidth();
-        int height = input.getHeight();
+        int imageHeight = input.getHeight();
 
-        BufferedImage result = new BufferedImage(width, height, input.getType());
-        System.out.println("Test1");
-        for (int y = 0; y < height; y++) {
-            System.out.println("test2");
+        BufferedImage result = new BufferedImage(width, imageHeight, input.getType());
+        //System.out.println("Test1");
+        for (int y = 0; y < imageHeight; y++) {
+            //System.out.println("test2");
             for (int x = 0; x < width; x++) {
-                result.setRGB(x, height - 1 - y, input.getRGB(x, y));
+                result.setRGB(x, imageHeight - 1- y, input.getRGB(x, y));
             }
         }
-        return input; //TODO: replace this with the actual image
+        return result; //TODO: replace this with the actual image
     }
 }
