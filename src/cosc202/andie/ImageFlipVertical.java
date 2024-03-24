@@ -1,7 +1,6 @@
 package cosc202.andie;
 
 import java.awt.image.*;
-import java.util.*;
 
 /**
  * ImageFlipVertical to flip a photo vertically.
@@ -18,17 +17,17 @@ public class ImageFlipVertical implements ImageOperation, java.io.Serializable{
     }
 
     public BufferedImage apply(BufferedImage input) {
-        int width = input.getWidth();
+        int imageWidth = input.getWidth();
         int imageHeight = input.getHeight();
 
-        BufferedImage result = new BufferedImage(width, imageHeight, input.getType());
+        BufferedImage result = new BufferedImage(imageWidth, imageHeight, input.getType());
         //System.out.println("Test1");
         for (int y = 0; y < imageHeight; y++) {
             //System.out.println("test2");
-            for (int x = 0; x < width; x++) {
-                result.setRGB(x, imageHeight - 1- y, input.getRGB(x, y));
+            for (int x = 0; x < imageWidth; x++) {
+                result.setRGB(x, imageHeight-y-1, input.getRGB(x, y)); //need to minus one off the y value because 0 indexing
             }
         }
-        return result; //TODO: replace this with the actual image
+        return result;
     }
 }

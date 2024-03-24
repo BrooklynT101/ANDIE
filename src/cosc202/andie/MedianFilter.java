@@ -1,7 +1,6 @@
 package cosc202.andie;
 
 import java.awt.image.*;
-import java.util.*;
 
 public class MedianFilter {
     
@@ -19,6 +18,6 @@ public class MedianFilter {
 
         // BufferedImage output = new BufferedImage(input.getColorModel(), input.copyData(null), input.isAlphaPremultiplied(), null);
 
-        return input; // TODO: replace this with the actual image
+        return input; 
 }
 }
