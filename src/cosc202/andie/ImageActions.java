@@ -10,73 +10,28 @@ public class ImageActions {
 
     public ImageActions() {
         actions = new ArrayList<Action>();
-        actions.add(new ImageRotationAction("Image Rotation", null, "Image Rotation", Integer.valueOf(KeyEvent.VK_R)));
-        actions.add(new ImageFlipVerticalAction("Vertical Flip", null, "Flips image vertically",
-                Integer.valueOf(KeyEvent.VK_R)));
-        actions.add(new ImageFlipHorizontalAction("Horizontal Flip", null, "Flips image horizontally",
-                Integer.valueOf(KeyEvent.VK_R)));
         actions.add(new ImageResizeAction("Image Resize", null, "Resize Image", Integer.valueOf(KeyEvent.VK_R)));
+
+
+
+
+
+
     }
 
     public JMenu createMenu() {
         JMenu editMenu = new JMenu("Image");
-
         for (Action action : actions) {
             editMenu.add(new JMenuItem(action));
         }
-
         return editMenu;
     }
-
-    public class ImageRotationAction extends ImageAction {
-
-        ImageRotationAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
-            super(name, icon, desc, mnemonic);
-        }
-
-        public void actionPerformed(ActionEvent e) {
-            target.getImage().apply(new ImageRotation());
-            target.repaint();
-            target.getParent().revalidate();
-        }
-    }
-
+    
     /**
+     * Resizing an image by a value given by the user
      * 
-     * 
-     * @author BrooklynT
+     * @author Ari
      */
-    public class ImageFlipVerticalAction extends ImageAction {
-
-        ImageFlipVerticalAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
-            super(name, icon, desc, mnemonic);
-        }
-
-        public void actionPerformed(ActionEvent e) {
-            target.getImage().apply(new ImageFlipVertical());
-            target.repaint();
-            target.getParent().revalidate();
-        }
-    }
-
-    /**
-     * 
-     * 
-     * @author BrooklynT
-     */
-    public class ImageFlipHorizontalAction extends ImageAction {
-
-        ImageFlipHorizontalAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
-            super(name, icon, desc, mnemonic);
-        }
-
-        public void actionPerformed(ActionEvent e) {
-            target.getImage().apply(new ImageFlipHorizontal());
-            target.repaint();
-            target.getParent().revalidate();
-        }
-    }
-
     public class ImageResizeAction extends ImageAction {
 
         ImageResizeAction(String name, ImageIcon icon,
@@ -86,7 +41,6 @@ public class ImageActions {
 
         public void actionPerformed(ActionEvent e) {
             // Determine the height and width - ask the user.
-
             int scale = 100;
 
             // Pop-up dialog box to ask for the scale value.

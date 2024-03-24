@@ -36,13 +36,12 @@ public class FilterActions {
      */
     public FilterActions() {
         actions = new ArrayList<Action>();
-        actions.add(new MeanFilterAction("Mean filter", null, "Apply a mean filter", Integer.valueOf(KeyEvent.VK_M)));
-        actions.add(new BlurOptionAction("Blur Soft", null, "Apply a soft blur", Integer.valueOf(KeyEvent.VK_M)));
-        actions.add(new SoftBlurAction("Blur filter", null, "Apply a blur filter", Integer.valueOf(KeyEvent.VK_M)));
-        actions.add(new MedianFilterAction("Median filter", null, "Apply a median filter", Integer.valueOf(KeyEvent.VK_M)));
+        actions.add(new MeanFilterAction("Mean Filter", null, "Apply a mean filter", Integer.valueOf(KeyEvent.VK_M)));
+        actions.add(new BlurOptionAction("Blur Filter", null, "Apply a blur", Integer.valueOf(KeyEvent.VK_M)));
+        actions.add(new SoftBlurAction("Soft Blur", null, "Apply a blur filter", Integer.valueOf(KeyEvent.VK_M)));
+        actions.add(new MedianFilterAction("Median Filter", null, "Apply a median filter", Integer.valueOf(KeyEvent.VK_M)));
         actions.add(new GaussianBlurAction("Gaussian Blur", null, "Apply Gaussian blur", Integer.valueOf(KeyEvent.VK_M)));
-
-        actions.add(new SharpenAction("Sharpen filter", null, "Apply a sharpen filter", Integer.valueOf(KeyEvent.VK_M)));
+        actions.add(new SharpenAction("Sharpen Filter", null, "Apply a sharpen filter", Integer.valueOf(KeyEvent.VK_M)));
     }  
 
     /**
@@ -132,40 +131,13 @@ public class FilterActions {
         }
 
         public void actionPerformed(ActionEvent e) {
-            // Create and apply the filter
-            target.getImage().apply(new BlurOption());
-            target.repaint();
-            target.getParent().revalidate();
-        }
-    }
-
-    // taken from the lab book example
-    /**
-     * 
-     */
-    public class SoftBlurAction extends ImageAction {
-        
-        /**
-         * Create a new sharpen filter action.
-         * 
-         * @param name     The name of the action (ignored if null).
-         * @param icon     An icon to use to represent the action (ignored if null).
-         * @param desc     A brief description of the action (ignored if null).
-         * @param mnemonic A mnemonic key to use as a shortcut (ignored if null).
-         */
-        SoftBlurAction(String name, ImageIcon icon,
-            String desc, Integer mnemonic) {
-            super(name, icon, desc, mnemonic);
-        }
-
-        public void actionPerformed(ActionEvent e) {
             // Determine the number of times to apply the blur - ask the user.
             int repeat = 1;
 
             // Pop-up dialog box to ask for the radius value.
             SpinnerNumberModel repeatModel = new SpinnerNumberModel(1, 1, 100000, 1);
             JSpinner repeatSpinner = new JSpinner(repeatModel);
-            int option = JOptionPane.showOptionDialog(null, repeatSpinner, "Enter SoftBlur Intensity",
+            int option = JOptionPane.showOptionDialog(null, repeatSpinner, "How many times to apply filter?",
                     JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
 
             // Check the return value from the dialog box.
@@ -183,7 +155,33 @@ public class FilterActions {
                 target.getParent().revalidate();
             }
         }
+    }
+
+    // taken from the lab book example
+    /**
+     * Softblur applies the filter across the whole image once
+     */
+    public class SoftBlurAction extends ImageAction {
         
+        /**
+         * Create a new sharpen filter action.
+         * 
+         * @param name     The name of the action (ignored if null).
+         * @param icon     An icon to use to represent the action (ignored if null).
+         * @param desc     A brief description of the action (ignored if null).
+         * @param mnemonic A mnemonic key to use as a shortcut (ignored if null).
+         */
+        SoftBlurAction(String name, ImageIcon icon,
+            String desc, Integer mnemonic) {
+            super(name, icon, desc, mnemonic);
+        }
+
+        public void actionPerformed(ActionEvent e) {
+            // Create and apply the filter
+            target.getImage().apply(new SoftBlur());
+            target.repaint();
+            target.getParent().revalidate();
+        }
     }
 
     /**
