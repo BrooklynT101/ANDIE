@@ -8,11 +8,6 @@ public class ImageActions {
 
     protected ArrayList<Action> actions;
 
-    public ImageActions() {
-        actions = new ArrayList<Action>();
-        actions.add(new ImageRotationAction("Image Rotation", null, "Image Rotation", Integer.valueOf(KeyEvent.VK_R)));
-    }
-
     public JMenu createMenu() {
         JMenu editMenu = new JMenu("Image");
 
@@ -23,16 +18,41 @@ public class ImageActions {
         return editMenu;
     }
 
-    public class ImageRotationAction extends ImageAction {
+    public ImageActions() {
+        actions = new ArrayList<Action>();
+        actions.add(new RotateClockwiseAction("Rotate Clockwise", null, "Rotate Clockwise", Integer.valueOf(KeyEvent.VK_C)));
+        actions.add(new RotateAnticlockwiseAction("Rotate Anticlockwise", null, "Rotate Anticlockwise", Integer.valueOf(KeyEvent.VK_A)));
+    }
 
-        ImageRotationAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
+    public class RotateClockwiseAction extends ImageAction {
+
+        RotateClockwiseAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
             super(name, icon, desc, mnemonic);
         }
 
         public void actionPerformed(ActionEvent e) { 
 
             //create and apply the filter 
-            target.getImage().apply(new ImageRotation());
+            target.getImage().apply(new ImageRotation(true));
+            target.repaint();
+            target.getParent().revalidate();
+    
+        }
+    }
+
+    public class RotateAnticlockwiseAction extends ImageAction {
+
+        RotateAnticlockwiseAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
+            super(name, icon, desc, mnemonic);
+        }
+
+        public void actionPerformed(ActionEvent e) { 
+
+            //create and apply the filter 
+            target.getImage().apply(new ImageRotation(false));
+            target.repaint();
+            target.getParent().revalidate();
+
     
         }
     }
