@@ -2,6 +2,8 @@ package cosc202.andie;
 
 import java.util.*;
 import java.awt.event.*;
+import java.io.File;
+
 import javax.swing.*;
 
 /**
@@ -37,6 +39,7 @@ public class FileActions {
         actions.add(new FileOpenAction("Open", null, "Open a file", Integer.valueOf(KeyEvent.VK_O)));
         actions.add(new FileSaveAction("Save", null, "Save the file", Integer.valueOf(KeyEvent.VK_S)));
         actions.add(new FileSaveAsAction("Save As", null, "Save a copy", Integer.valueOf(KeyEvent.VK_A)));
+        actions.add(new FileExportAction("Export", null, "Export image", Integer.valueOf(KeyEvent.VK_A)));
         actions.add(new FileExitAction("Exit", null, "Exit the program", Integer.valueOf(0)));
     }
 
@@ -94,8 +97,9 @@ public class FileActions {
          */
         public void actionPerformed(ActionEvent e) {
             JFileChooser fileChooser = new JFileChooser();
+            
             int result = fileChooser.showOpenDialog(target);
-
+            
             if (result == JFileChooser.APPROVE_OPTION) {
                 try {
                     String imageFilepath = fileChooser.getSelectedFile().getCanonicalPath();
@@ -208,6 +212,51 @@ public class FileActions {
     }
 
     /**
+     * Action to save an image to a new file location.
+     * 
+     * @see EditableImage#saveAs(String)
+     */
+    public class FileExportAction extends ImageAction {
+
+        /**
+         * @param name The name of the action (ignored if null).
+         * @param icon An icon to use to represent the action (ignored if null).
+         * @param desc A brief description of the action  (ignored if null).
+         * @param mnemonic A mnemonic key to use as a shortcut  (ignored if null).
+         */
+        FileExportAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
+            super(name, icon, desc, mnemonic);
+        }
+
+         /**
+         * Prompts the user to select a file and saves the image to it.
+         * 
+         * @param e The event triggering this callback.
+         */
+        public void actionPerformed(ActionEvent e) {
+            // Get the resources directory
+            String resourcesPath = System.getProperty("user.dir") + File.separator + "src" + File.separator + "main";
+        
+            JFileChooser fileChooser = new JFileChooser();
+            
+            // Set the default directory for the "Save As" dialog box
+            fileChooser.setSelectedFile(new File(resourcesPath));
+            
+            int result = fileChooser.showSaveDialog(null);
+
+            if (result == JFileChooser.APPROVE_OPTION) {
+                try {
+                    String imageFilepath = fileChooser.getSelectedFile().getCanonicalPath();
+                    target.getImage().saveAs(imageFilepath);
+                } catch (Exception ex) {
+                    System.exit(1);
+                }
+            }
+        }
+
+    }
+
+    /**
      * <p>
      * Action to quit the ANDIE application.
      * </p>
@@ -247,5 +296,7 @@ public class FileActions {
         }
 
     }
+
+    
 
 }

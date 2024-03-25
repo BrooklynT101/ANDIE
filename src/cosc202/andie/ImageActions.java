@@ -33,6 +33,11 @@ public class ImageActions {
         return editMenu;
     }
 
+    /**
+     * Rotates an images 90° Clockwise
+     * 
+     * @author Amelia
+     */
     public class RotateClockwiseAction extends ImageAction {
 
         RotateClockwiseAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
@@ -49,6 +54,11 @@ public class ImageActions {
         }
     }
 
+    /**
+     * Rotates an images 90° AntiClockwise
+     * 
+     * @author Amelia
+     */
     public class RotateAnticlockwiseAction extends ImageAction {
 
         RotateAnticlockwiseAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
@@ -67,7 +77,7 @@ public class ImageActions {
     }
 
     /**
-     * 
+     * Flips an image vertically
      * 
      * @author BrooklynT
      */
@@ -85,7 +95,25 @@ public class ImageActions {
     }
 
     /**
+     * Flips an image horizontally
      * 
+     * @author BrooklynT
+     */
+    public class ImageFlipHorizontalAction extends ImageAction {
+
+        ImageFlipHorizontalAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
+            super(name, icon, desc, mnemonic);
+        }
+
+        public void actionPerformed(ActionEvent e) {
+            target.getImage().apply(new ImageFlipHorizontal());
+            target.repaint();
+            target.getParent().revalidate();
+        }
+    }
+
+    /**
+     * Resizes an image
      * 
      * @author Ari
      */
@@ -124,4 +152,5 @@ public class ImageActions {
 
     }
 
+    
 }
