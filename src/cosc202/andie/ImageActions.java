@@ -10,6 +10,12 @@ public class ImageActions {
 
     public ImageActions() {
         actions = new ArrayList<Action>();
+        actions.add(new RotateClockwiseAction("Rotate Clockwise", null, "Rotate Clockwise", Integer.valueOf(KeyEvent.VK_C)));
+        actions.add(new RotateAnticlockwiseAction("Rotate Anticlockwise", null, "Rotate Anticlockwise", Integer.valueOf(KeyEvent.VK_A)));
+        actions.add(new ImageFlipVerticalAction("Vertical Flip", null, "Flips image vertically",
+                Integer.valueOf(KeyEvent.VK_R)));
+        actions.add(new ImageFlipHorizontalAction("Horizontal Flip", null, "Flips image horizontally",
+                Integer.valueOf(KeyEvent.VK_R)));
         actions.add(new ImageResizeAction("Image Resize", null, "Resize Image", Integer.valueOf(KeyEvent.VK_R)));
 
 
@@ -26,9 +32,60 @@ public class ImageActions {
         }
         return editMenu;
     }
+
+    public class RotateClockwiseAction extends ImageAction {
+
+        RotateClockwiseAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
+            super(name, icon, desc, mnemonic);
+        }
+
+        public void actionPerformed(ActionEvent e) { 
+
+            //create and apply the filter 
+            target.getImage().apply(new ImageRotation(true));
+            target.repaint();
+            target.getParent().revalidate();
     
+        }
+    }
+
+    public class RotateAnticlockwiseAction extends ImageAction {
+
+        RotateAnticlockwiseAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
+            super(name, icon, desc, mnemonic);
+        }
+
+        public void actionPerformed(ActionEvent e) { 
+
+            //create and apply the filter 
+            target.getImage().apply(new ImageRotation(false));
+            target.repaint();
+            target.getParent().revalidate();
+
+    
+        }
+    }
+
     /**
-     * Resizing an image by a value given by the user
+     * 
+     * 
+     * @author BrooklynT
+     */
+    public class ImageFlipVerticalAction extends ImageAction {
+
+        ImageFlipVerticalAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
+            super(name, icon, desc, mnemonic);
+        }
+
+        public void actionPerformed(ActionEvent e) {
+            target.getImage().apply(new ImageFlipVertical());
+            target.repaint();
+            target.getParent().revalidate();
+        }
+    }
+
+    /**
+     * 
      * 
      * @author Ari
      */
