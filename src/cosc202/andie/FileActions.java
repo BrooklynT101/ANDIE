@@ -38,8 +38,8 @@ public class FileActions {
         actions = new ArrayList<Action>();
         actions.add(new FileOpenAction("Open", null, "Open a file", Integer.valueOf(KeyEvent.VK_O)));
         actions.add(new FileSaveAction("Save", null, "Save the file", Integer.valueOf(KeyEvent.VK_S)));
-        actions.add(new FileSaveAsAction("Save As", null, "Save a copy", Integer.valueOf(KeyEvent.VK_A)));
-        actions.add(new FileExportAction("Export", null, "Export image", Integer.valueOf(KeyEvent.VK_A)));
+        actions.add(new FileSaveAsAction("Save As", null, "Save a copy", Integer.valueOf(KeyEvent.VK_S)));
+        actions.add(new FileExportAction("Export", null, "Export image", Integer.valueOf(KeyEvent.VK_E)));
         actions.add(new FileExitAction("Exit", null, "Exit the program", Integer.valueOf(0)));
     }
 
@@ -197,6 +197,7 @@ public class FileActions {
          */
         public void actionPerformed(ActionEvent e) {
             JFileChooser fileChooser = new JFileChooser();
+            fileChooser.setDialogTitle("Save as"); //changed this to save as to be distinctive between save and export
             int result = fileChooser.showSaveDialog(target);
 
             if (result == JFileChooser.APPROVE_OPTION) {
@@ -212,8 +213,13 @@ public class FileActions {
     }
 
     /**
-     * Action to save an image to a new file location.
+     * <p>
+     * Action to export an image to a new file location. 
+     * <p>
      * 
+     * <p>
+     * This means to save the image file with all its edits, and no operations file to accompany it
+     * <p>
      * @see EditableImage#saveAs(String)
      */
     public class FileExportAction extends ImageAction {
@@ -229,19 +235,15 @@ public class FileActions {
         }
 
          /**
-         * Prompts the user to select a file and saves the image to it.
+         * Prompts the user to select a file and exports the image file to it.
          * 
          * @param e The event triggering this callback.
          */
         public void actionPerformed(ActionEvent e) {
-            // Get the resources directory
-            String resourcesPath = System.getProperty("user.dir") + File.separator + "src" + File.separator + "main";
-            
+            // Set the default directory for the "Export" dialog box
+            //fileChooser.setSelectedFile(new File());
             JFileChooser fileChooser = new JFileChooser();
-            
-            // Set the default directory for the "Save As" dialog box
-            fileChooser.setSelectedFile(new File(resourcesPath));
-            
+            fileChooser.setDialogTitle("Export to");
             int result = fileChooser.showSaveDialog(null);
 
             if (result == JFileChooser.APPROVE_OPTION) {

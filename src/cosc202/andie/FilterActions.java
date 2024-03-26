@@ -37,11 +37,11 @@ public class FilterActions {
     public FilterActions() {
         actions = new ArrayList<Action>();
         actions.add(new MeanFilterAction("Mean Filter", null, "Apply a mean filter", Integer.valueOf(KeyEvent.VK_M)));
-        actions.add(new BlurOptionAction("Blur Filter", null, "Apply a blur", Integer.valueOf(KeyEvent.VK_M)));
-        actions.add(new SoftBlurAction("Soft Blur", null, "Apply a blur filter", Integer.valueOf(KeyEvent.VK_M)));
+        actions.add(new BlurOptionAction("Blur Filter", null, "Apply a blur", Integer.valueOf(KeyEvent.VK_B)));
+        actions.add(new SoftBlurAction("Soft Blur", null, "Apply a blur filter", Integer.valueOf(KeyEvent.VK_S)));
         actions.add(new MedianFilterAction("Median Filter", null, "Apply a median filter", Integer.valueOf(KeyEvent.VK_M)));
-        actions.add(new SharpenAction("Sharpen filter", null, "Apply a sharpen filter", Integer.valueOf(KeyEvent.VK_M)));
-        actions.add(new GaussianBlurAction("Gaussian Blur", null, "Apply Gaussian blur", Integer.valueOf(KeyEvent.VK_M)));
+        actions.add(new SharpenAction("Sharpen filter", null, "Apply a sharpen filter", Integer.valueOf(KeyEvent.VK_S)));
+        actions.add(new GaussianBlurAction("Gaussian Blur", null, "Apply Gaussian blur", Integer.valueOf(KeyEvent.VK_G)));
 
     }
 

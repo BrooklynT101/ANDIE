@@ -12,11 +12,9 @@ public class ImageActions {
         actions = new ArrayList<Action>();
         actions.add(new RotateClockwiseAction("Rotate Clockwise", null, "Rotate Clockwise", Integer.valueOf(KeyEvent.VK_C)));
         actions.add(new RotateAnticlockwiseAction("Rotate Anticlockwise", null, "Rotate Anticlockwise", Integer.valueOf(KeyEvent.VK_A)));
-        actions.add(new ImageFlipVerticalAction("Vertical Flip", null, "Flips image vertically",
-                Integer.valueOf(KeyEvent.VK_R)));
-        actions.add(new ImageFlipHorizontalAction("Horizontal Flip", null, "Flips image horizontally",
-                Integer.valueOf(KeyEvent.VK_R)));
-        actions.add(new ImageResizeAction("Image Resize", null, "Resize Image", Integer.valueOf(KeyEvent.VK_R)));
+        actions.add(new ImageFlipVerticalAction("Vertical Flip", null, "Flips image vertically", Integer.valueOf(KeyEvent.VK_V)));
+        actions.add(new ImageFlipHorizontalAction("Horizontal Flip", null, "Flips image horizontally", Integer.valueOf(KeyEvent.VK_H)));
+        actions.add(new ImageResizeAction("Resize Image", null, "Resize Image", Integer.valueOf(KeyEvent.VK_R)));
 
 
 
