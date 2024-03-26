@@ -8,6 +8,7 @@ import javax.swing.*;
 public class LanguageActions {
 
     protected ArrayList<Action> actions;
+    protected ResourceBundle bundle = ResourceBundle.getBundle("Commands");
 
     public LanguageActions() {
         actions = new ArrayList<Action>();
@@ -25,7 +26,7 @@ public class LanguageActions {
      * @return The filter menu UI element.
      */
     public JMenu createMenu() {
-        JMenu languageMenu = new JMenu("languages");
+        JMenu languageMenu = new JMenu(bundle.getString("languages"));
 
         for (Action action : actions) {
             languageMenu.add(new JMenuItem(action));
@@ -43,11 +44,11 @@ public class LanguageActions {
         public void actionPerformed(ActionEvent e) {
             Preferences prefs = Preferences.userNodeForPackage(Andie.class);
 
+            Locale locale = Locale.ENGLISH;
+            ResourceBundle commands = ResourceBundle.getBundle("commands", locale);
             prefs.put("language", "mi");
             prefs.put("country", "NZ");
 
-            Locale englishLocale = Locale.ENGLISH;
-            ResourceBundle commands = commands.getBundle("commands", englishLocale);
 
         }
 
@@ -75,8 +76,10 @@ public class LanguageActions {
             super(name, icon, desc, mnemonic);
         }
 
+        
         public void actionPerformed(ActionEvent e) {
             Preferences prefs = Preferences.userNodeForPackage(Andie.class);
+            Locale locale = new Locale.Builder().setLanguage("mi").setRegion("NZ").build();
             prefs.put("language", "mi");
             prefs.put("country", "NZ");
 
