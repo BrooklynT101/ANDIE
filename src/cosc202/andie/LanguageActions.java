@@ -2,6 +2,7 @@ package cosc202.andie;
 
 import java.util.*;
 import java.util.prefs.Preferences;
+import java.awt.Window;
 import java.awt.event.*;
 import javax.swing.*;
 
@@ -11,10 +12,10 @@ public class LanguageActions {
 
     public LanguageActions() {
         actions = new ArrayList<Action>();
-        actions.add(new EnglishAction("English", null, "Language: English", Integer.valueOf(KeyEvent.VK_M)));
-        actions.add(new TeReoAction("Te Reo", null, "Language: Te Reo", Integer.valueOf(KeyEvent.VK_M)));
-        actions.add(new FrenchAction("French", null, "Language: French", Integer.valueOf(KeyEvent.VK_M)));
-
+        actions.add(new EnglishAction("English", null, Andie.bundle.getString("language") + ": English",
+                Integer.valueOf(KeyEvent.VK_M)));
+        actions.add(new TeReoAction("TeReo", null, Andie.bundle.getString("language") + ": Te Reo",
+                Integer.valueOf(KeyEvent.VK_M)));
     }
 
     /**
@@ -42,27 +43,44 @@ public class LanguageActions {
 
         public void actionPerformed(ActionEvent e) {
 
-            Andie.prefs.put("language", "en");
-            Andie.prefs.put("country", "NZ");
+            int option = JOptionPane.showConfirmDialog(null,
+                    "Restart Application To Apply Changes \n\s\s\s\s\s\s\s\s\s\s\s\s\s\s\s\s\s\s\s\s\s\s\s\s\sApply?",
+                    "Continue?",
+                    JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null);
+
+            // Check the return value from the dialog box.
+            if (option == JOptionPane.CANCEL_OPTION) {
+                return;
+            } else if (option == JOptionPane.OK_OPTION) {
+                try {
+                    Andie.prefs.put("language", "en");
+                    Andie.prefs.put("country", "NZ");
+                } catch (Exception q) {
+
+                }
+
+            }
 
         }
 
     }
 
-    public class FrenchAction extends ImageAction {
-
-        FrenchAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
-            super(name, icon, desc, mnemonic);
-        }
-
-        public void actionPerformed(ActionEvent e) {
-
-            Andie.prefs.put("language", "mi");
-            Andie.prefs.put("country", "NZ");
-
-        }
-
-    }
+    /*
+     * public class FrenchAction extends ImageAction {
+     * 
+     * FrenchAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
+     * super(name, icon, desc, mnemonic);
+     * }
+     * 
+     * public void actionPerformed(ActionEvent e) {
+     * 
+     * Andie.prefs.put("language", "mi");
+     * Andie.prefs.put("country", "NZ");
+     * 
+     * }
+     * 
+     * }
+     */
 
     public class TeReoAction extends ImageAction {
 
@@ -71,9 +89,23 @@ public class LanguageActions {
         }
 
         public void actionPerformed(ActionEvent e) {
-            Andie.prefs.put("language", "mi");
-            Andie.prefs.put("country", "NZ");
+            int option = JOptionPane.showConfirmDialog(null,
+                    "You Must Exit Application \n\s\s\s\s\s\s\s\s\s\s\s\s\s\s\s\s\s and \nReopen To Apply Changes",
+                    "Continue?",
+                    JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null);
 
+            // Check the return value from the dialog box.
+            if (option == JOptionPane.CANCEL_OPTION) {
+                return;
+            } else if (option == JOptionPane.OK_OPTION) {
+                try {
+                    Andie.prefs.put("language", "mi");
+                    Andie.prefs.put("country", "NZ");
+                } catch (Exception q) {
+
+                }
+
+            }
         }
 
     }

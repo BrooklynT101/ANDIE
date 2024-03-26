@@ -29,9 +29,10 @@ import javax.imageio.*;
  */
 public class Andie {
     // make these protected
-    public static Preferences prefs = Preferences.userNodeForPackage(Andie.class);
-    public static Locale locale = new Locale.Builder().setLanguage("en").setRegion("NZ").build();
-    public static ResourceBundle bundle = ResourceBundle.getBundle("CommandsBundle");
+    protected static Preferences prefs = Preferences.userNodeForPackage(Andie.class);
+    protected static Locale locale = new Locale.Builder().setLanguage(prefs.get("language", "en"))
+            .setRegion(prefs.get("country", "NZ")).build();
+    protected static ResourceBundle bundle = ResourceBundle.getBundle("CommandsBundle", locale);
 
     // public prefs get
 
@@ -116,7 +117,6 @@ public class Andie {
         frame.setJMenuBar(menuBar);
         frame.pack();
         frame.setVisible(true);
-        System.out.println(prefs.get("languages", "test2"));
     }
 
     /**
@@ -145,4 +145,5 @@ public class Andie {
             }
         });
     }
+
 }
