@@ -27,7 +27,7 @@ public class BlurOption implements ImageOperation, java.io.Serializable {
     * @return The output image.
     */
    public BufferedImage apply (BufferedImage input) {
-      // Idea for a variably changable blur effect
+      // Idea for a variably changable blur effect from StackOverflow
       // // Calculate the weight for each element based on the radius
       // float weight = 1.0f / ((2 * radius + 1) * (2 * radius + 1));
 

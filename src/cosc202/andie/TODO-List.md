@@ -6,7 +6,7 @@ This just a markdown file will get removed at the end of this project, feel free
 - Median Filter - Marcus DONE? 
 - Multilingual Support - ALL
 - Image Export - Brooklyn DONE? 
-- JUnit Tests - Brooklyn (Ill commit it to main so we all have it)
+- JUnit Tests - Brooklyn
 - More exception handling (just put try catches everywhere the system might try to do something where there's null) - ALL
 - Error avoidance (so it doesn't just die and crash) - ALL
 - Colour Cycling User Input (see **below**)
