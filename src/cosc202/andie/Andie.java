@@ -1,8 +1,13 @@
 package cosc202.andie;
 
 import java.awt.*;
+import java.util.Locale;
+import java.util.ResourceBundle;
+import java.util.prefs.Preferences;
+
 import javax.swing.*;
 import javax.imageio.*;
+
 /**
  * <p>
  * Main class for A Non-Destructive Image Editor (ANDIE).
@@ -10,17 +15,26 @@ import javax.imageio.*;
  * 
  * <p>
  * This class is the entry point for the program.
- * It creates a Graphical User Interface (GUI) that provides access to various image editing and processing operations.
+ * It creates a Graphical User Interface (GUI) that provides access to various
+ * image editing and processing operations.
  * </p>
  * 
  * <p>
- * <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a>
+ * <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA
+ * 4.0</a>
  * </p>
  * 
  * @author Steven Mills
  * @version 1.0
  */
 public class Andie {
+    // make these protected
+    protected static Preferences prefs = Preferences.userNodeForPackage(Andie.class);
+    protected static Locale locale = new Locale.Builder().setLanguage(prefs.get("language", "en"))
+            .setRegion(prefs.get("country", "NZ")).build();
+    protected static ResourceBundle bundle = ResourceBundle.getBundle("CommandsBundle", locale);
+
+    // public prefs get
 
     /**
      * <p>
@@ -28,8 +42,10 @@ public class Andie {
      * </p>
      * 
      * <p>
-     * This method sets up an interface consisting of an active image (an {@code ImagePanel})
-     * and various menus which can be used to trigger operations to load, save, edit, etc. 
+     * This method sets up an interface consisting of an active image (an
+     * {@code ImagePanel})
+     * and various menus which can be used to trigger operations to load, save,
+     * edit, etc.
      * These operations are implemented {@link ImageOperation}s and triggered via
      * {@code ImageAction}s grouped by their general purpose into menus.
      * </p>
@@ -45,10 +61,11 @@ public class Andie {
      * 
      * @throws Exception if something goes wrong.
      */
+
     private static void createAndShowGUI() throws Exception {
-        //Pushing YAY!!
-        //Checking 
-        //push test
+        // Pushing YAY!!
+        // Checking
+        // push test
         // Set up the main GUI frame
         JFrame frame = new JFrame("ANDIE");
 
@@ -61,11 +78,12 @@ public class Andie {
         ImageAction.setTarget(imagePanel);
         JScrollPane scrollPane = new JScrollPane(imagePanel);
         frame.add(scrollPane, BorderLayout.CENTER);
-        
+
         // Add in menus for various types of action the user may perform.
         JMenuBar menuBar = new JMenuBar();
 
-        // File menus are pretty standard, so things that usually go in File menus go here.
+        // File menus are pretty standard, so things that usually go in File menus go
+        // here.
         FileActions fileActions = new FileActions();
         menuBar.add(fileActions.createMenu());
 
@@ -73,11 +91,13 @@ public class Andie {
         EditActions editActions = new EditActions();
         menuBar.add(editActions.createMenu());
 
-        // View actions control how the image is displayed, but do not alter its actual content
+        // View actions control how the image is displayed, but do not alter its actual
+        // content
         ViewActions viewActions = new ViewActions();
         menuBar.add(viewActions.createMenu());
 
-        // Filters apply a per-pixel operation to the image, generally based on a local window
+        // Filters apply a per-pixel operation to the image, generally based on a local
+        // window
         FilterActions filterActions = new FilterActions();
         menuBar.add(filterActions.createMenu());
 
@@ -88,7 +108,11 @@ public class Andie {
         // Actions that affect the rotation and size in the image
         ImageActions imageActions = new ImageActions();
         menuBar.add(imageActions.createMenu());
-        
+
+        // Language options, change language of each menu
+        LanguageActions languageActions = new LanguageActions();
+        menuBar.add(languageActions.createMenu());
+
         frame.setJMenuBar(menuBar);
         frame.pack();
         frame.setVisible(true);
@@ -120,4 +144,5 @@ public class Andie {
             }
         });
     }
+
 }

@@ -10,18 +10,17 @@ public class ImageActions {
 
     public ImageActions() {
         actions = new ArrayList<Action>();
-        actions.add(new RotateClockwiseAction("Rotate Clockwise", null, "Rotate Clockwise", Integer.valueOf(KeyEvent.VK_C)));
-        actions.add(new RotateAnticlockwiseAction("Rotate Anticlockwise", null, "Rotate Anticlockwise", Integer.valueOf(KeyEvent.VK_A)));
-        actions.add(new ImageFlipVerticalAction("Vertical Flip", null, "Flips image vertically",
+        actions.add(new RotateClockwiseAction(Andie.bundle.getString("RotateClockwise"), null,
+                Andie.bundle.getString("RotateClockwise"), Integer.valueOf(KeyEvent.VK_C)));
+        actions.add(new RotateAnticlockwiseAction(Andie.bundle.getString("RotateAnticlockwise"), null,
+                Andie.bundle.getString("RotateAnticlockwise"), Integer.valueOf(KeyEvent.VK_A)));
+        actions.add(new ImageFlipVerticalAction(Andie.bundle.getString("VerticalFlip"), null,
+                Andie.bundle.getString("Flipsimagevertically"),
                 Integer.valueOf(KeyEvent.VK_R)));
-        actions.add(new ImageFlipHorizontalAction("Horizontal Flip", null, "Flips image horizontally",
+        actions.add(new ImageFlipHorizontalAction(Andie.bundle.getString("HorizontalFlip"), null,
+                Andie.bundle.getString("Flipsimagehorizontally"),
                 Integer.valueOf(KeyEvent.VK_R)));
         actions.add(new ImageResizeAction("Image Resize", null, "Resize Image", Integer.valueOf(KeyEvent.VK_R)));
-
-
-
-
-
 
     }
 
@@ -44,13 +43,13 @@ public class ImageActions {
             super(name, icon, desc, mnemonic);
         }
 
-        public void actionPerformed(ActionEvent e) { 
+        public void actionPerformed(ActionEvent e) {
 
-            //create and apply the filter 
+            // create and apply the filter
             target.getImage().apply(new ImageRotation(true));
             target.repaint();
             target.getParent().revalidate();
-    
+
         }
     }
 
@@ -65,14 +64,13 @@ public class ImageActions {
             super(name, icon, desc, mnemonic);
         }
 
-        public void actionPerformed(ActionEvent e) { 
+        public void actionPerformed(ActionEvent e) {
 
-            //create and apply the filter 
+            // create and apply the filter
             target.getImage().apply(new ImageRotation(false));
             target.repaint();
             target.getParent().revalidate();
 
-    
         }
     }
 
@@ -131,7 +129,7 @@ public class ImageActions {
             // Pop-up dialog box to ask for the scale value.
             SpinnerNumberModel scaleModel = new SpinnerNumberModel(100, 1, 1000, 4);
             JSpinner scaleSpinner = new JSpinner(scaleModel);
-            int option1 = JOptionPane.showOptionDialog(null, scaleSpinner, "Enter Percent Scaled",
+            int option1 = JOptionPane.showOptionDialog(null, scaleSpinner, Andie.bundle.getString("EnterPercentScaled"),
                     JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
 
             // Check the return value from the dialog box.
@@ -152,5 +150,4 @@ public class ImageActions {
 
     }
 
-    
 }
