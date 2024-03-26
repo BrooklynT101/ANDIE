@@ -247,7 +247,7 @@ public class FileActions {
             if (result == JFileChooser.APPROVE_OPTION) {
                 try {
                     String imageFilepath = fileChooser.getSelectedFile().getCanonicalPath();
-                    target.getImage().saveAs(imageFilepath);
+                    target.getImage().export(imageFilepath);
                 } catch (Exception ex) {
                     System.exit(1);
                 }

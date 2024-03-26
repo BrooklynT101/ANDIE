@@ -3,9 +3,9 @@ This just a markdown file will get removed at the end of this project, feel free
 
 ## Features to implement
 - Image rotation(90° Left & Right) - Amelia DONE
-- Median Filter - Marcus DONE? 
-- Multilingual Support - ALL
+- Median Filter - Marcus DONE?
 - Image Export - Brooklyn DONE? 
+- Multilingual Support - ALL
 - JUnit Tests - Brooklyn
 - More exception handling (just put try catches everywhere the system might try to do something where there's null) - ALL
 - Error avoidance (so it doesn't just die and crash) - ALL

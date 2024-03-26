@@ -238,6 +238,26 @@ class EditableImage {
         save();
     }
 
+    public void export(String imageFileName) throws Exception {
+        String extension;
+        
+        if (!imageFileName.contains(".png")) {
+            this.imageFilename = imageFileName;
+            imageFileName = imageFilename.substring(0, imageFilename.lastIndexOf(".")).toLowerCase();
+            extension = ".png";
+        } else {
+            extension = imageFilename.substring(1 + imageFilename.lastIndexOf(".")).toLowerCase();
+        }
+        
+        // Write image file based on file extension
+        try {
+            ImageIO.write(current, extension, new File(imageFilename+"."+extension));
+            System.out.println("saved file "+imageFilename+extension);
+        } catch (IOException e) {
+            System.out.println("Couldn't save file: "+imageFileName+extension+"\n Exception: "+e);
+        }
+    }
+    
     /**
      * <p>
      * Apply an {@link ImageOperation} to this image.

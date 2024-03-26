@@ -2,7 +2,6 @@ package cosc202.andie;
 
 import java.util.*;
 import java.awt.event.*;
-import java.awt.*;
 import javax.swing.*;
 
 /**
@@ -38,7 +37,6 @@ public class ColourActions {
         actions.add(new ConvertToGreyAction("Greyscale", null, "Convert to greyscale", Integer.valueOf(KeyEvent.VK_G)));
         actions.add(new ImageInversionAction("Image Inversion", null, "Colour Inversion", Integer.valueOf(KeyEvent.VK_I)));
         actions.add(new ColourChannelCyclingAction("Colour Channel Cycling", null, "Colour Channel Cycling", Integer.valueOf(KeyEvent.VK_C)));
-        actions.add(new colourRearrangerAction("Colour Cycler", null, "Rearrange RBG Values", Integer.valueOf(KeyEvent.VK_R)))
     }
 
     /**
@@ -149,29 +147,4 @@ public class ColourActions {
 
     }
     
-    public class colourRearrangerAction extends ImageAction{
-
-        /** create a new image inversion action 
-         * @param name The name of the action (ignored if null).
-         * @param icon An icon to use to represent the action (ignored if null).
-         * @param desc A brief description of the action  (ignored if null).
-         * @param mnemonic A mnemonic key to use as a shortcut  (ignored if null).
-        */
-        colourRearrangerAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
-            super(name, icon, desc, mnemonic);
-        }
-
-        /** callback for when the image inversion is triggered 
-         * @param e The even triggering this callback
-         */
-        public void actionPerformed(ActionEvent e) {
-            
-            target.getImage().apply(new ColourChannelCycling());
-            target.repaint();
-            target.getParent().revalidate();
-        }
-
-
-    }
-
 }
