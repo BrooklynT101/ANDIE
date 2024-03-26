@@ -10,8 +10,7 @@ public class ImageActions {
 
     public ImageActions() {
         actions = new ArrayList<Action>();
-        actions.add(new RotateClockwiseAction("Rotate Clockwise", null, "Rotate Clockwise", Integer.valueOf(KeyEvent.VK_C)));
-        actions.add(new RotateAnticlockwiseAction("Rotate Anticlockwise", null, "Rotate Anticlockwise", Integer.valueOf(KeyEvent.VK_A)));
+        actions.add(new ImageRotationAction("Image Rotation", null, "Image Rotation", Integer.valueOf(KeyEvent.VK_R)));
         actions.add(new ImageFlipVerticalAction("Vertical Flip", null, "Flips image vertically",
                 Integer.valueOf(KeyEvent.VK_R)));
         actions.add(new ImageFlipHorizontalAction("Horizontal Flip", null, "Flips image horizontally",
@@ -27,6 +26,12 @@ public class ImageActions {
         }
 
         return editMenu;
+    }
+
+    public ImageActions() {
+        actions = new ArrayList<Action>();
+        actions.add(new RotateClockwiseAction("Rotate Clockwise", null, "Rotate Clockwise", Integer.valueOf(KeyEvent.VK_C)));
+        actions.add(new RotateAnticlockwiseAction("Rotate Anticlockwise", null, "Rotate Anticlockwise", Integer.valueOf(KeyEvent.VK_A)));
     }
 
     public class RotateClockwiseAction extends ImageAction {
