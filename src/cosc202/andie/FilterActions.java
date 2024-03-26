@@ -130,27 +130,18 @@ public class FilterActions {
 
     }
 
-    // From lab book
-    public class BlurOptionAction extends ImageAction {
-        BlurOptionAction(String name, ImageIcon icon,
-                String desc, Integer mnemonic) {
-            super(name, icon, desc, mnemonic);
-        }
-
-        public void actionPerformed(ActionEvent e) {
-            // Create and apply the filter
-            target.getImage().apply(new BlurOption());
-            target.repaint();
-            target.getParent().revalidate();
-        }
-    }
-
-    // taken from the lab book example
     /**
+     * <p>
+     * Applies a multitude of blur effects to the image.
+     * <p>
      * 
+     * <p>
+     * Prompts the user for a number between 1 and 50
+     * <p>
+     * 
+     * @author Brooklyn
      */
-    public class SoftBlurAction extends ImageAction {
-
+    public class BlurOptionAction extends ImageAction {
         /**
          * Create a new sharpen filter action.
          * 
@@ -159,7 +150,7 @@ public class FilterActions {
          * @param desc     A brief description of the action (ignored if null).
          * @param mnemonic A mnemonic key to use as a shortcut (ignored if null).
          */
-        SoftBlurAction(String name, ImageIcon icon,
+        BlurOptionAction(String name, ImageIcon icon,
                 String desc, Integer mnemonic) {
             super(name, icon, desc, mnemonic);
         }
@@ -172,7 +163,8 @@ public class FilterActions {
             SpinnerNumberModel repeatModel = new SpinnerNumberModel(1, 1, 100000, 1);
             JSpinner repeatSpinner = new JSpinner(repeatModel);
             int option = JOptionPane.showOptionDialog(null, repeatSpinner,
-                    Andie.bundle.getString("EnterSoftBlurIntensity"),
+                    "Amount of times to blur image\n\nPlease enter a number between 1 and 50",
+                    //Andie.bundle.getString("blurOption"), TODO: create a language pref for this
                     JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
 
             // Check the return value from the dialog box.
@@ -182,14 +174,36 @@ public class FilterActions {
                 repeat = repeatModel.getNumber().intValue();
             }
 
-            // TODO: this need to be considered a single action so when you redo it redos
+            // TODO: action needs to be considered a single action so when you redo it redos
             // the whole stack
             // Create and apply the filter 'repeat' number of times
             for (int i = 1; i < repeat; i++) {
-                target.getImage().apply(new SoftBlur());
+                target.getImage().apply(new BlurOption());
                 target.repaint();
                 target.getParent().revalidate();
             }
+        }
+    }
+
+    // taken from the lab book example
+    /**
+     * <p>
+     * Applies a soft blur effect to the image
+     * <p>
+     * 
+     * @author Ari
+     */
+    public class SoftBlurAction extends ImageAction {
+        SoftBlurAction(String name, ImageIcon icon,
+                String desc, Integer mnemonic) {
+            super(name, icon, desc, mnemonic);
+        }
+
+        public void actionPerformed(ActionEvent e) {
+            // Create and apply the filter
+            target.getImage().apply(new SoftBlur());
+            target.repaint();
+            target.getParent().revalidate();
         }
 
     }

@@ -1,8 +1,6 @@
 package cosc202.andie;
 
 import java.util.*;
-import java.util.prefs.Preferences;
-import java.awt.Window;
 import java.awt.event.*;
 import javax.swing.*;
 
@@ -44,7 +42,7 @@ public class LanguageActions {
         public void actionPerformed(ActionEvent e) {
 
             int option = JOptionPane.showConfirmDialog(null,
-                    "Restart Application To Apply Changes \n\s\s\s\s\s\s\s\s\s\s\s\s\s\s\s\s\s\s\s\s\s\s\s\s\sApply?",
+                    "Restart Application To Apply Changes \n Apply?", // removed the \s\s\s\s\s\s\s\s\s\s\s\s\s\s\s\s\s\s\s\s\s\s\s\s\s
                     "Continue?",
                     JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null);
 
@@ -90,9 +88,9 @@ public class LanguageActions {
 
         public void actionPerformed(ActionEvent e) {
             int option = JOptionPane.showConfirmDialog(null,
-                    "You Must Exit Application \n\s\s\s\s\s\s\s\s\s\s\s\s\s\s\s\s\s and \nReopen To Apply Changes",
+                    "Restart Application To Apply Changes \n Apply?", //removed the \s\s thing here too
                     "Continue?",
-                    JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null);
+                JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null);
 
             // Check the return value from the dialog box.
             if (option == JOptionPane.CANCEL_OPTION) {
@@ -101,8 +99,8 @@ public class LanguageActions {
                 try {
                     Andie.prefs.put("language", "mi");
                     Andie.prefs.put("country", "NZ");
-                } catch (Exception q) {
-
+                } catch (Exception ex) {
+                    //TODO: add exception here
                 }
 
             }

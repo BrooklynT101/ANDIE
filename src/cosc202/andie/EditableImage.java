@@ -160,7 +160,6 @@ class EditableImage {
         try {
             FileInputStream fileIn = new FileInputStream(this.opsFilename);
             ObjectInputStream objIn = new ObjectInputStream(fileIn);
-            //TODO: check out type erasure
             // Silence the Java compiler warning about type casting.
             // Understanding the cause of the warning is way beyond
             // the scope of COSC202, but if you're interested, it has
@@ -169,7 +168,6 @@ class EditableImage {
             // which there is actually a type mismatch for one of the
             // elements within the Stack, i.e., a non-ImageOperation.
             @SuppressWarnings("unchecked")
-            //TODO: Undo/Redo Stack refresher
             //Operations file is taken from a saved file (if any), and saved to a stack that holds ImageOperations 
             Stack<ImageOperation> opsFromFile = (Stack<ImageOperation>) objIn.readObject();
             ops = opsFromFile;
