@@ -105,7 +105,9 @@ public class FileActions {
                     String imageFilepath = fileChooser.getSelectedFile().getCanonicalPath();
                     target.getImage().open(imageFilepath);
                 } catch (Exception ex) {
-                    System.exit(1);
+                   // System.exit(1);
+                   JFrame frame = new JFrame();
+                   JOptionPane.showMessageDialog(frame, "Please choose an image file!");
                 }
             }
 

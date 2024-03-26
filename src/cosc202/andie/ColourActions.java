@@ -38,7 +38,7 @@ public class ColourActions {
         actions.add(new ConvertToGreyAction("Greyscale", null, "Convert to greyscale", Integer.valueOf(KeyEvent.VK_G)));
         actions.add(new ImageInversionAction("Image Inversion", null, "Colour Inversion", Integer.valueOf(KeyEvent.VK_I)));
         actions.add(new ColourChannelCyclingAction("Colour Channel Cycling", null, "Colour Channel Cycling", Integer.valueOf(KeyEvent.VK_C)));
-        actions.add(new colourRearrangerAction("Colour Cycler", null, "Rearrange RBG Values", Integer.valueOf(KeyEvent.VK_R)))
+        actions.add(new colourRearrangerAction("Colour Cycler", null, "Rearrange RBG Values", Integer.valueOf(KeyEvent.VK_R)));
     }
 
     /**

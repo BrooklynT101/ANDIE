@@ -3,7 +3,7 @@ This just a markdown file will get removed at the end of this project, feel free
 
 ## Features to implement
 - Image rotation(90° Left & Right) - Amelia DONE
-- Median Filter - Marcus DONE? 
+- Median Filter - Marcus DONE 
 - Multilingual Support - ALL
 - Image Export - Brooklyn DONE? 
 - JUnit Tests - Brooklyn
