@@ -52,8 +52,15 @@ public class Andie {
         // Set up the main GUI frame
         JFrame frame = new JFrame("ANDIE");
 
-        Image image = ImageIO.read(Andie.class.getClassLoader().getResource("icon.png"));
-        frame.setIconImage(image);
+        try {
+            Image image = ImageIO.read(Andie.class.getClassLoader().getResource("icon.png"));
+            frame.setIconImage(image);
+        
+        } catch(Exception e) {
+            System.out.println("Error loading icon.png");
+            e.printStackTrace();
+        }
+        
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         // The main content area is an ImagePanel

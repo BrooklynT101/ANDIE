@@ -179,6 +179,7 @@ class EditableImage {
             fileIn.close();
         } catch (Exception ex) {
             // Could be no file or something else. Carry on for now.
+            System.err.println("Could not open file: "+ex);
             ops.clear();
             redoOps.clear();
         }
@@ -238,26 +239,41 @@ class EditableImage {
         save();
     }
 
-    public void export(String imageFileName) throws Exception {
+    
+    public void export(String destinationFilePath) throws Exception {
         String extension;
-        
-        if (!imageFileName.contains(".png")) {
-            this.imageFilename = imageFileName;
-            imageFileName = imageFilename.substring(0, imageFilename.lastIndexOf(".")).toLowerCase();
-            extension = ".png";
+        if (destinationFilePath.lastIndexOf(".") != -1) {
+            extension = destinationFilePath.substring(1+this.imageFilename.lastIndexOf(".")).toLowerCase(); //saves extension given by user if there is one (without the dot)
         } else {
-            extension = imageFilename.substring(1 + imageFilename.lastIndexOf(".")).toLowerCase();
+            extension = this.imageFilename.substring(1+this.imageFilename.lastIndexOf(".")).toLowerCase(); //saves extension stored by original that was saved when opened (without the dot)
         }
-        
         // Write image file based on file extension
         try {
-            ImageIO.write(current, extension, new File(imageFilename+"."+extension));
-            System.out.println("saved file "+imageFilename+extension);
+            ImageIO.write(current, extension, new File(destinationFilePath+"."+extension));
+            System.out.println("successfully saved file "+destinationFilePath+"."+extension);
         } catch (IOException e) {
-            System.out.println("Couldn't save file: "+imageFileName+extension+"\n Exception: "+e);
+            System.err.println("Couldn't save file: "+imageFilename+extension+"\n Exception: "+e);
         }
     }
-    
+
+    // public void export(String imageFilename) throws Exception {
+    //     String extension;
+    //     if (imageFilename.lastIndexOf(".") != -1) {
+    //         //If theres already an extension
+    //         extension = this.imageFilename.substring(1 + this.imageFilename.lastIndexOf(".")).toLowerCase();
+    //     } else {
+    //         extension = ".png"; 
+    //     }
+        
+    //     // Write image file based on file extension
+    //     try {
+    //         ImageIO.write(current, extension, new File(imageFilename+extension));
+    //         System.out.println("saved file "+imageFilename+extension);
+    //     } catch (IOException e) {
+    //         System.err.println("Couldn't save file: "+imageFilename+extension+"\n Exception: "+e);
+    //     }
+    // }
+
     /**
      * <p>
      * Apply an {@link ImageOperation} to this image.

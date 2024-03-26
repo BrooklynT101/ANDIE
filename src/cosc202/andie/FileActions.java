@@ -236,7 +236,7 @@ public class FileActions {
         public void actionPerformed(ActionEvent e) {
             // Get the resources directory
             String resourcesPath = System.getProperty("user.dir") + File.separator + "src" + File.separator + "main";
-        
+            
             JFileChooser fileChooser = new JFileChooser();
             
             // Set the default directory for the "Save As" dialog box
@@ -249,7 +249,8 @@ public class FileActions {
                     String imageFilepath = fileChooser.getSelectedFile().getCanonicalPath();
                     target.getImage().export(imageFilepath);
                 } catch (Exception ex) {
-                    System.exit(1);
+                    System.err.println("Couldn't export file"+"\n");
+                    ex.printStackTrace();
                 }
             }
         }
