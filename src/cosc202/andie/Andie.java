@@ -1,6 +1,10 @@
 package cosc202.andie;
 
 import java.awt.*;
+import java.util.Locale;
+import java.util.ResourceBundle;
+import java.util.prefs.Preferences;
+
 import javax.swing.*;
 import javax.imageio.*;
 
@@ -24,6 +28,12 @@ import javax.imageio.*;
  * @version 1.0
  */
 public class Andie {
+    // make these protected
+    public static Preferences prefs = Preferences.userNodeForPackage(Andie.class);
+    public static Locale locale = new Locale.Builder().setLanguage("en").setRegion("NZ").build();
+    public static ResourceBundle bundle = ResourceBundle.getBundle("CommandsBundle");
+
+    // public prefs get
 
     /**
      * <p>
@@ -50,6 +60,7 @@ public class Andie {
      * 
      * @throws Exception if something goes wrong.
      */
+
     private static void createAndShowGUI() throws Exception {
         // Pushing YAY!!
         // Checking
@@ -105,6 +116,7 @@ public class Andie {
         frame.setJMenuBar(menuBar);
         frame.pack();
         frame.setVisible(true);
+        System.out.println(prefs.get("languages", "test2"));
     }
 
     /**
