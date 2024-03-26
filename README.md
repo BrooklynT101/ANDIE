@@ -26,15 +26,35 @@ The ANDIE program contains many simple image operations implemented, including:
 - `Zoom Out`: allows the user to zoom out at a ___ percent? each time applied.
 - `Zoom In`: zooms the image back to its original size.?
 
-## Image Operations to be added
-
-
-
 ## Saving images
 With `Save` the program by default saves the image in the file directory it was opened in, replacing the original image. With the option `Save As` you can specify the file name and directory directly. Each option will save along with the image file an *operations* file, this file saves the image operations that were performed.
 
 > If you want to just export the image, to save it without an operations file, you can use the `Export` function to do so, specifying file type as well as directory.
 
+## MultiLingual Support
+The Multilingual support features allows users to use our ANDIE project in the set language of both English and Maori. The default langauge is set to English but if the user choses to they can set the language to Maori, this restarts the system to change the language and all the menu options convert to the new chosen language. DOES THIS LOOSE OPERATIONS ON IMAGE? 
+
 
 ## Contribution
 Within our group of 4 we divided the project up to fit our strengths. We each took a 'difficult' operation to begin then later moved on to the simpler areas of this project. Once all the actions were added we went back into our code adding the MultiLingual feature and developing our exception handling within any area of code that seemed necessary. 
+The specific areas that each of out team members completed includes:
+> Ari Josephson: Completed the Gaussian blur, ...
+
+
+> Amelia Johnston: Completed the Colour actions (Colour Inversion and Colour Channel Cycling), ...
+
+
+> Brooklyn Taylor: Completed the 
+
+
+> Marcus Woodward: Completed the Median Filter,...
+
+
+## Testing 
+Throughout the creation of this project we all preformed individual tests on our code such as adding print line statements and ____. We also preforms JUnit tests _____. 
+Some examples of testing included:
+- `Gaussian Blur`: how did we test if this worked?
+- `Another example`: how did we test if this worked?
+
+## Authors
+Created by Amelia Johnston, Ari Josephson, Brooklyn Taylor, and Marcus Woodard
