@@ -36,16 +36,19 @@ public class FilterActions {
      */
     public FilterActions() {
         actions = new ArrayList<Action>();
-        actions.add(new MeanFilterAction("Mean filter", null, "Apply a mean filter", Integer.valueOf(KeyEvent.VK_M)));
-        actions.add(new BlurOptionAction("Blur Soft", null, "Apply a soft blur", Integer.valueOf(KeyEvent.VK_M)));
-        actions.add(new SoftBlurAction("Blur filter", null, "Apply a blur filter", Integer.valueOf(KeyEvent.VK_M)));
-        actions.add(
-                new MedianFilterAction("Median filter", null, "Apply a median filter", Integer.valueOf(KeyEvent.VK_M)));
-        actions.add(
-                new GaussianBlurAction("Gaussian Blur", null, "Apply Gaussian blur", Integer.valueOf(KeyEvent.VK_M)));
+        actions.add(new MeanFilterAction(Andie.bundle.getString("Meanfilter"), null,
+                Andie.bundle.getString("Applyameanfilter"), Integer.valueOf(KeyEvent.VK_M)));
+        actions.add(new BlurOptionAction(Andie.bundle.getString("BlurSoft"), null,
+                Andie.bundle.getString("Applyasoftblur"), Integer.valueOf(KeyEvent.VK_M)));
+        actions.add(new SoftBlurAction(Andie.bundle.getString("Blurfilter"), null,
+                Andie.bundle.getString("Applyablurfilter"), Integer.valueOf(KeyEvent.VK_M)));
+        actions.add(new MedianFilterAction(Andie.bundle.getString("Medianfilter"), null,
+                Andie.bundle.getString("Applyamedianfilter"), Integer.valueOf(KeyEvent.VK_M)));
+        actions.add(new GaussianBlurAction(Andie.bundle.getString("GaussianBlur"), null,
+                Andie.bundle.getString("ApplyGaussianblur"), Integer.valueOf(KeyEvent.VK_M)));
 
-        actions.add(
-                new SharpenAction("Sharpen filter", null, "Apply a sharpen filter", Integer.valueOf(KeyEvent.VK_M)));
+        actions.add(new SharpenAction(Andie.bundle.getString("Sharpenfilter"), null,
+                Andie.bundle.getString("Applyasharpenfilter"), Integer.valueOf(KeyEvent.VK_M)));
     }
 
     /**
@@ -56,7 +59,7 @@ public class FilterActions {
      * @return The filter menu UI element.
      */
     public JMenu createMenu() {
-        JMenu fileMenu = new JMenu("Filter");
+        JMenu fileMenu = new JMenu(Andie.bundle.getString("Filter"));
 
         for (Action action : actions) {
             fileMenu.add(new JMenuItem(action));
@@ -109,7 +112,7 @@ public class FilterActions {
             // Pop-up dialog box to ask for the radius value.
             SpinnerNumberModel radiusModel = new SpinnerNumberModel(1, 1, 10, 1);
             JSpinner radiusSpinner = new JSpinner(radiusModel);
-            int option = JOptionPane.showOptionDialog(null, radiusSpinner, "Enter filter radius",
+            int option = JOptionPane.showOptionDialog(null, radiusSpinner, Andie.bundle.getString("Enterfilterradius"),
                     JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
 
             // Check the return value from the dialog box.
@@ -168,7 +171,8 @@ public class FilterActions {
             // Pop-up dialog box to ask for the radius value.
             SpinnerNumberModel repeatModel = new SpinnerNumberModel(1, 1, 100000, 1);
             JSpinner repeatSpinner = new JSpinner(repeatModel);
-            int option = JOptionPane.showOptionDialog(null, repeatSpinner, "Enter SoftBlur Intensity",
+            int option = JOptionPane.showOptionDialog(null, repeatSpinner,
+                    Andie.bundle.getString("EnterSoftBlurIntensity"),
                     JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
 
             // Check the return value from the dialog box.
@@ -210,7 +214,8 @@ public class FilterActions {
             // to apply the filter.
             SpinnerNumberModel repeatModel = new SpinnerNumberModel(1, 1, 100000, 1);
             JSpinner repeatSpinner = new JSpinner(repeatModel);
-            int option = JOptionPane.showOptionDialog(null, repeatSpinner, "Enter Sharpen Intensity",
+            int option = JOptionPane.showOptionDialog(null, repeatSpinner,
+                    Andie.bundle.getString("EnterSharpenIntensity"),
                     JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
 
             // Check the return value from the dialog box.
@@ -246,7 +251,7 @@ public class FilterActions {
             // Pop-up dialog box to ask for the radius value.
             SpinnerNumberModel radiusModel = new SpinnerNumberModel(1, 1, 10, 1);
             JSpinner radiusSpinner = new JSpinner(radiusModel);
-            int option = JOptionPane.showOptionDialog(null, radiusSpinner, "Enter filter radius",
+            int option = JOptionPane.showOptionDialog(null, radiusSpinner, Andie.bundle.getString("Enterfilterradius"),
                     JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
 
             // Check the return value from the dialog box.
@@ -308,7 +313,7 @@ public class FilterActions {
             // Pop-up dialog box to ask for the radius value.
             SpinnerNumberModel radiusModel = new SpinnerNumberModel(1, 1, 10, 1);
             JSpinner radiusSpinner = new JSpinner(radiusModel);
-            int option = JOptionPane.showOptionDialog(null, radiusSpinner, "Enter filter radius",
+            int option = JOptionPane.showOptionDialog(null, radiusSpinner, Andie.bundle.getString("Enterfilterradius"),
                     JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
 
             // Check the return value from the dialog box.

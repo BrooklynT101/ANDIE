@@ -38,12 +38,14 @@ public class ColourActions {
      */
     public ColourActions() {
         actions = new ArrayList<Action>();
-        actions.add(new ConvertToGreyAction("Greyscale", null, "Convert to greyscale", Integer.valueOf(KeyEvent.VK_G)));
-        actions.add(
-                new ImageInversionAction("Image Inversion", null, "Colour Inversion", Integer.valueOf(KeyEvent.VK_I)));
-        actions.add(new ColourChannelCyclingAction("Colour Channel Cycling", null, "Colour Channel Cycling",
-                Integer.valueOf(KeyEvent.VK_C)));
-        actions.add(new colourRearrangerAction("Colour Cycler", null, "Rearrange RBG Values",
+        actions.add(new ConvertToGreyAction(Andie.bundle.getString("Greyscale"), null,
+                Andie.bundle.getString("Converttogreyscale"), Integer.valueOf(KeyEvent.VK_G)));
+        actions.add(new ImageInversionAction(Andie.bundle.getString("ImageInversion"), null,
+                Andie.bundle.getString("ColourInversion"), Integer.valueOf(KeyEvent.VK_I)));
+        actions.add(new ColourChannelCyclingAction(Andie.bundle.getString("ColourChannelCycling"), null,
+                Andie.bundle.getString("ColourChannelCycling"), Integer.valueOf(KeyEvent.VK_C)));
+        actions.add(new colourRearrangerAction(Andie.bundle.getString("ColourCycler"), null,
+                Andie.bundle.getString("RearrangeRBGValues"),
                 Integer.valueOf(KeyEvent.VK_R)));
     }
 

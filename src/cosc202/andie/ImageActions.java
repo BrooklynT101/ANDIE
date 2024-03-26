@@ -20,12 +20,13 @@ public class ImageActions {
         actions.add(new ImageFlipHorizontalAction(Andie.bundle.getString("HorizontalFlip"), null,
                 Andie.bundle.getString("Flipsimagehorizontally"),
                 Integer.valueOf(KeyEvent.VK_R)));
-        actions.add(new ImageResizeAction("Image Resize", null, "Resize Image", Integer.valueOf(KeyEvent.VK_R)));
+        actions.add(new ImageResizeAction(Andie.bundle.getString("ImageResize"), null,
+                Andie.bundle.getString("ResizeImage"), Integer.valueOf(KeyEvent.VK_R)));
 
     }
 
     public JMenu createMenu() {
-        JMenu editMenu = new JMenu("Image");
+        JMenu editMenu = new JMenu(Andie.bundle.getString("Image"));
         for (Action action : actions) {
             editMenu.add(new JMenuItem(action));
         }

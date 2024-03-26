@@ -43,7 +43,8 @@ public class FileActions {
                 Integer.valueOf(KeyEvent.VK_S)));
         actions.add(new FileSaveAsAction(Andie.bundle.getString("SaveAs"), null, Andie.bundle.getString("Saveacopy"),
                 Integer.valueOf(KeyEvent.VK_A)));
-        actions.add(new FileExportAction("Export", null, "Export image", Integer.valueOf(KeyEvent.VK_A)));
+        actions.add(new FileExportAction(Andie.bundle.getString("Export"), null, Andie.bundle.getString("Exportimage"),
+                Integer.valueOf(KeyEvent.VK_A)));
         actions.add(new FileExitAction(Andie.bundle.getString("Exit"), null, Andie.bundle.getString("Exittheprogram"),
                 Integer.valueOf(0)));
     }
@@ -112,7 +113,7 @@ public class FileActions {
                 } catch (Exception ex) {
                     // System.exit(1);
                     JFrame frame = new JFrame();
-                    JOptionPane.showMessageDialog(frame, "Please choose an image file!");
+                    JOptionPane.showMessageDialog(frame, Andie.bundle.getString("Pleasechooseanimagefile!"));
                 }
             }
 
@@ -163,7 +164,7 @@ public class FileActions {
             } catch (Exception ex) {
                 // System.exit(1);
                 JFrame frame = new JFrame();
-                JOptionPane.showMessageDialog(frame, "Please open an image file first");
+                JOptionPane.showMessageDialog(frame, Andie.bundle.getString("Pleaseopenanimagefilefirst"));
             }
         }
 
@@ -215,7 +216,7 @@ public class FileActions {
                 } catch (Exception ex) {
                     // System.exit(1);
                     JFrame frame = new JFrame();
-                    JOptionPane.showMessageDialog(frame, "Please open an image file first");
+                    JOptionPane.showMessageDialog(frame, Andie.bundle.getString("Pleaseopenanimagefilefirst"));
                 }
             }
         }
@@ -262,7 +263,7 @@ public class FileActions {
                 } catch (Exception ex) {
                     // System.exit(1);
                     JFrame frame = new JFrame();
-                    JOptionPane.showMessageDialog(frame, "Please open an image file first");
+                    JOptionPane.showMessageDialog(frame, Andie.bundle.getString("Pleaseopenanimagefilefirst"));
                 }
             }
         }
