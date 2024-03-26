@@ -17,18 +17,27 @@ public class ImageActions {
         actions.add(new ImageFlipHorizontalAction("Horizontal Flip", null, "Flips image horizontally",
                 Integer.valueOf(KeyEvent.VK_R)));
         actions.add(new ImageResizeAction("Image Resize", null, "Resize Image", Integer.valueOf(KeyEvent.VK_R)));
+
+
+
+
+
+
     }
 
     public JMenu createMenu() {
         JMenu editMenu = new JMenu("Image");
-
         for (Action action : actions) {
             editMenu.add(new JMenuItem(action));
         }
-
         return editMenu;
     }
 
+    /**
+     * Rotates an images 90° Clockwise
+     * 
+     * @author Amelia
+     */
     public class RotateClockwiseAction extends ImageAction {
 
         RotateClockwiseAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
@@ -45,6 +54,11 @@ public class ImageActions {
         }
     }
 
+    /**
+     * Rotates an images 90° AntiClockwise
+     * 
+     * @author Amelia
+     */
     public class RotateAnticlockwiseAction extends ImageAction {
 
         RotateAnticlockwiseAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
@@ -63,7 +77,7 @@ public class ImageActions {
     }
 
     /**
-     * 
+     * Flips an image vertically
      * 
      * @author BrooklynT
      */
@@ -81,7 +95,7 @@ public class ImageActions {
     }
 
     /**
-     * 
+     * Flips an image horizontally
      * 
      * @author BrooklynT
      */
@@ -98,6 +112,11 @@ public class ImageActions {
         }
     }
 
+    /**
+     * Resizes an image
+     * 
+     * @author Ari
+     */
     public class ImageResizeAction extends ImageAction {
 
         ImageResizeAction(String name, ImageIcon icon,
@@ -107,7 +126,6 @@ public class ImageActions {
 
         public void actionPerformed(ActionEvent e) {
             // Determine the height and width - ask the user.
-
             int scale = 100;
 
             // Pop-up dialog box to ask for the scale value.
@@ -134,4 +152,5 @@ public class ImageActions {
 
     }
 
+    
 }

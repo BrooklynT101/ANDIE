@@ -108,8 +108,6 @@ public class MedianFilter implements ImageOperation, java.io.Serializable{
         
          BufferedImage output = new BufferedImage(input.getColorModel(), input.copyData(null), input.isAlphaPremultiplied(), null);
          System.out.println("Done");
-        // //TODO: How to add this to filter actions
-        //TODO: replace this with the actual image
         return output;
 
     }
