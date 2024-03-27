@@ -177,6 +177,7 @@ class EditableImage {
             fileIn.close();
         } catch (Exception ex) {
             // Could be no file or something else. Carry on for now.
+            System.err.println("Could not open file: "+ex);
             ops.clear();
             redoOps.clear();
         }
@@ -234,6 +235,39 @@ class EditableImage {
         this.imageFilename = imageFilename;
         this.opsFilename = imageFilename + ".ops";
         save();
+    }
+
+    
+    /**
+     * <p>
+     * Exports an image to a specified file.
+     * </p>
+     * 
+     * <p>
+     * Exports an image to the file provided as a parameter.
+     * If an extension is given the file type will change accordingly, otherwise the file type
+     * is taken from the original file path name when first opened.
+     * Doesn't save the set of operations from the file.
+     * <p>
+     * 
+     * @param destinationFilePath
+     * @throws Exception
+     */
+    public void export(String destinationFilePath) throws Exception {
+        String extension;
+        if (destinationFilePath.lastIndexOf(".") != -1) {
+            extension = destinationFilePath.substring(1+destinationFilePath.lastIndexOf(".")).toLowerCase(); //saves extension given by user if there is one (without the dot)
+            destinationFilePath = destinationFilePath.substring(0, destinationFilePath.lastIndexOf(".")); //trims the file path to the name without the extension
+        } else {
+            extension = this.imageFilename.substring(1+this.imageFilename.lastIndexOf(".")).toLowerCase(); //saves extension stored by original that was saved when opened (without the dot)
+        }
+        // Write image file based on file extension
+        try {
+            ImageIO.write(current, extension, new File(destinationFilePath+"."+extension));
+            System.out.println("Successfully saved file "+destinationFilePath+"."+extension);
+        } catch (IOException e) {
+            System.err.println("Couldn't save file: "+imageFilename+extension+"\n Exception: "+e);
+        }
     }
 
     /**

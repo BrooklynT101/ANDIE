@@ -43,9 +43,6 @@ public class ColourActions {
                 Andie.bundle.getString("ColourInversion"), Integer.valueOf(KeyEvent.VK_I)));
         actions.add(new ColourChannelCyclingAction(Andie.bundle.getString("ColourChannelCycling"), null,
                 Andie.bundle.getString("ColourChannelCycling"), Integer.valueOf(KeyEvent.VK_C)));
-        actions.add(new colourRearrangerAction(Andie.bundle.getString("ColourCycler"), null,
-                Andie.bundle.getString("RearrangeRBGValues"),
-                Integer.valueOf(KeyEvent.VK_R)));
     }
 
     /**
@@ -160,34 +157,7 @@ public class ColourActions {
             target.getParent().revalidate();
         }
 
-    }
-
-    public class colourRearrangerAction extends ImageAction {
-
-        /**
-         * create a new image inversion action
-         * 
-         * @param name     The name of the action (ignored if null).
-         * @param icon     An icon to use to represent the action (ignored if null).
-         * @param desc     A brief description of the action (ignored if null).
-         * @param mnemonic A mnemonic key to use as a shortcut (ignored if null).
-         */
-        colourRearrangerAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
-            super(name, icon, desc, mnemonic);
-        }
-
-        /**
-         * callback for when the image inversion is triggered
-         * 
-         * @param e The even triggering this callback
-         */
-        public void actionPerformed(ActionEvent e) {
-
-            target.getImage().apply(new ColourChannelCycling());
-            target.repaint();
-            target.getParent().revalidate();
-        }
 
     }
-
+    
 }
