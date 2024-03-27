@@ -68,7 +68,7 @@ public class MedianFilter implements ImageOperation, java.io.Serializable {
      * 
      * <p>
      * Unlike the mean filter, the Median filter is not implemented via convolution.
-     * Instead we use a local neibourhood with a specified radius -->
+     * Instead we use a local neibourhood with a specified radius.
      * {@link radius}.
      * Larger radii results in stronger blurring.
      * </p>
