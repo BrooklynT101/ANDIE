@@ -6,15 +6,18 @@ import java.awt.image.*;
  * A filter class that applies a variable blur to the whole image
  * @author Brooklyn Taylor
  */
-public class BlurOption implements ImageOperation, java.io.Serializable {
+public class BlurFilter implements ImageOperation, java.io.Serializable {
 
    private int radius;
+   private int t;
 
    /**
     * Default Constructor for the soft blur filter, with a default
     * radius of 1
+    * @param t of type int, the number of times to apply the filter
     */
-   BlurOption() {
+   BlurFilter(int t) {
+      this.t = t;
       this.radius = 1;
    }
 
@@ -36,7 +39,7 @@ public class BlurOption implements ImageOperation, java.io.Serializable {
       // for (int i = 0; i < array.length; i++) {
       //    array[i] = weight;
       // }
-      
+      BufferedImage output = input;
       
       //creating the kernal array
       float[] array = {
@@ -49,11 +52,10 @@ public class BlurOption implements ImageOperation, java.io.Serializable {
       Kernel kernel = new Kernel(2*radius+1, 2*radius+1, array);
       ConvolveOp convOp = new ConvolveOp(kernel);
       
-      //Applying filter to the input image
-      BufferedImage output = new BufferedImage(input.getColorModel(),
-         input.copyData(null),
-         input.isAlphaPremultiplied(), null);
-      convOp.filter(input, output);
+      //apply filter 'repeat' number of times 
+      for (int i = 1; i <= t; i++) {
+         output = convOp.filter(output, null);
+      }
       
       // return the output image
       return output;

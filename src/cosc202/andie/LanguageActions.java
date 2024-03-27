@@ -48,7 +48,7 @@ public class LanguageActions {
         public void actionPerformed(ActionEvent e) {
 
             int option = JOptionPane.showConfirmDialog(null,
-                    Andie.bundle.getString("YouMustExitApplication") + " \n\s\s\s\s\s\s\s\s\s\s\s\s\s\s\s\s\s "
+                    Andie.bundle.getString("YouMustExitApplication") + " \n\t\t\t\t\t\t "
                             + Andie.bundle.getString("and") + "\n" + Andie.bundle.getString("ReopenToApplyChanges"),
                     "Continue?",
                     JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null);
@@ -95,7 +95,7 @@ public class LanguageActions {
 
         public void actionPerformed(ActionEvent e) {
             int option = JOptionPane.showConfirmDialog(null,
-                    Andie.bundle.getString("YouMustExitApplication") + " \n\s\s\s\s\s\s\s\s\s\s\s\s\s\s\s\s\s "
+                    Andie.bundle.getString("YouMustExitApplication") + " \n\t\t\t\t\t\t "
                             + Andie.bundle.getString("and") + "\n" + Andie.bundle.getString("ReopenToApplyChanges"),
                     "Continue?",
                     JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null);

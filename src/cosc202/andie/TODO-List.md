@@ -21,5 +21,10 @@ bunch of errors pop up when I build and debug run, need to check if thats just m
 
 need to check with a tutor how they actually want the export feature to work, and how to credit someone on stack overflow for instance about *borrowing* code  
 
+blur action stack needs to be remedied (same as sharpen)
+
+blur option prompt has a weird title
+
+image rezise prompt should default show current scaling 
 ## Notes
 >I needed to add clarity to the two existing blurring options, SoftBlur changed to BlurOption and vice versa, this is just so we have a soft blur and a blur option that applies itself a user defined number of times.
