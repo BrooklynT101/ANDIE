@@ -289,17 +289,12 @@ class EditableImage {
      * </p>
      */
     public void undo() {
-        // if (redoOps.peek() != null) {
-        //     
-        // } else {
-        //     throw new Exception(EmptyStackException);
-        // }
         try {
             redoOps.push(ops.pop());
             refresh();
         } catch (EmptyStackException e) {
             JFrame frame = new JFrame();
-            JOptionPane.showMessageDialog(frame, Andie.bundle.getString("NoUndos"));    
+            JOptionPane.showMessageDialog(frame, Andie.bundle.getString("NoMoreActions"));    
             e.printStackTrace();
         }
 
@@ -312,7 +307,13 @@ class EditableImage {
      * </p>
      */
     public void redo() {
-        apply(redoOps.pop());
+        try {
+            apply(redoOps.pop());
+        } catch (EmptyStackException e) {
+            JFrame frame = new JFrame();
+            JOptionPane.showMessageDialog(frame, Andie.bundle.getString("NoMoreActions"));    
+            e.printStackTrace();
+        }
     }
 
     /**
