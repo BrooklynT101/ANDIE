@@ -253,22 +253,34 @@ class EditableImage {
      * 
      * @param destinationFilePath
      * @throws Exception
+     * @author Brooklyn
      */
     public void export(String destinationFilePath) throws Exception {
         String extension;
+        //trimming destinationFilePath and getting extension
         if (destinationFilePath.lastIndexOf(".") != -1) {
             extension = destinationFilePath.substring(1+destinationFilePath.lastIndexOf(".")).toLowerCase(); //saves extension given by user if there is one (without the dot)
             destinationFilePath = destinationFilePath.substring(0, destinationFilePath.lastIndexOf(".")); //trims the file path to the name without the extension
         } else {
             extension = this.imageFilename.substring(1+this.imageFilename.lastIndexOf(".")).toLowerCase(); //saves extension stored by original that was saved when opened (without the dot)
         }
+        
         // Write image file based on file extension
         try {
-            ImageIO.write(current, extension, new File(destinationFilePath+"."+extension));
-            System.out.println("Successfully saved file "+destinationFilePath+"."+extension);
+            File file = new File(destinationFilePath+"."+extension);
+            ImageIO.write(current, extension, file);
+            if (file.exists()) {
+                System.out.println("Successfully saved file "+destinationFilePath+"."+extension);
+                JFrame frame = new JFrame();
+                JOptionPane.showMessageDialog(frame, Andie.bundle.getString("successSave"));    
+            } else {
+                throw new Exception("File didn't successfully save: possible unsupported filetype");
+            }
         } catch (IOException e) {
-            System.err.println("Couldn't save file: "+imageFilename+extension+"\n Exception: "+e);
+            System.err.println("Couldn't export file: "+imageFilename+extension+"\n Exception: "+e);
+            throw new Exception("Couldn't save file to directory");
         }
+            
     }
 
     /**
@@ -286,6 +298,7 @@ class EditableImage {
     /**
      * <p>
      * Undo the last {@link ImageOperation} applied to the image.
+     * Added an exception catch that counts for an empty undo stack, printing a message - Brooklyn
      * </p>
      */
     public void undo() {
@@ -304,6 +317,7 @@ class EditableImage {
     /**
      * <p>
      * Reapply the most recently {@link undo}ne {@link ImageOperation} to the image.
+     * Added an exception catch that counts for an empty redo stack, printing a message - Brooklyn
      * </p>
      */
     public void redo() {
