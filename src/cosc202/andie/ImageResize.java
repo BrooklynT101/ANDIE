@@ -1,9 +1,9 @@
 package cosc202.andie;
 
 import java.awt.image.*;
-import java.awt.Graphics2D;
 import java.awt.Image;
-import java.util.*;
+//import java.awt.Graphics2D;
+//import java.util.*;
 
 public class ImageResize implements ImageOperation, java.io.Serializable {
 

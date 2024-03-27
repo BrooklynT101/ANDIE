@@ -3,7 +3,6 @@ package cosc202.andie;
 import java.awt.*;
 import javax.swing.*;
 import javax.imageio.*;
-
 /**
  * <p>
  * Main class for A Non-Destructive Image Editor (ANDIE).
@@ -53,11 +52,11 @@ public class Andie {
         // Set up the main GUI frame
         JFrame frame = new JFrame("ANDIE");
 
-        // Image image = ImageIO.read(Andie.class.getClassLoader().getResource("icon.png"));
-        // frame.setIconImage(image);
+        Image image = ImageIO.read(Andie.class.getClassLoader().getResource("icon.png"));
+        frame.setIconImage(image);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        // The main content area is an ImageP anel
+        // The main content area is an ImagePanel
         ImagePanel imagePanel = new ImagePanel();
         ImageAction.setTarget(imagePanel);
         JScrollPane scrollPane = new JScrollPane(imagePanel);
