@@ -55,8 +55,7 @@ The specific areas that each of out team members completed includes:
 ## Testing 
 Throughout the creation of this project we all preformed individual tests on our code such as adding print line statements and ____. We also preforms JUnit tests _____. 
 Some examples of testing included:
-- `Gaussian Blur`: how did we test if this worked?
-- `Another example`: how did we test if this worked?
+- `Gaussian Blur`: Ou test was to print out the outputted array and compared to the kernel that was expected for Gaussian Distribution.
 
 ## Authors
 Created by Amelia Johnston, Ari Josephson, Brooklyn Taylor, and Marcus Woodard
