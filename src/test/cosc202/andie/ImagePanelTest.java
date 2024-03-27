@@ -1,19 +1,20 @@
-package test.cosc202.andie;
-//TODO: Set up JUnit testing
-// import org.junit.jupiter.api.Assertions;
-// import org.junit.jupiter.api.Test;
+// package test.cosc202.andie;
+// //TODO: Ask tutor about unresolved import
+// //import org.junit.jupiter.api.Assertions;
 
-//import cosc202.andie.ImagePanel;
+// import org.junit.jupiter.api.*;
 
-public class ImagePanelTest {
-    //@Test
-    void initialDummyTest() {
+// //import cosc202.andie.ImagePanel;
 
-    }
+// public class ImagePanelTest {
+//     @Test
+//     void initialDummyTest() {
 
-    //@Test
-    void getZoomInitialValue() {
-        //ImagePanel testPanel = new ImagePanel();
-        //Assertions.assertEquals(100.0, testPanel.getZoom());
-    }
-}
+//     }
+// }
+// //     @Test
+// //     void getZoomInitialValue() {
+// //         ImagePanel testPanel = new ImagePanel();
+// //         Assertions.assertEquals(100.0, testPanel.getZoom());
+// //     }
+// // }

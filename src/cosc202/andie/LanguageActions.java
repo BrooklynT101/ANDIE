@@ -107,8 +107,8 @@ public class LanguageActions {
                 try {
                     Andie.prefs.put("language", "mi");
                     Andie.prefs.put("country", "NZ");
-                } catch (Exception q) {
-
+                } catch (Exception ex) {
+                    // TODO: add exception here
                 }
 
             }
