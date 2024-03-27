@@ -3,7 +3,19 @@ package cosc202.andie;
 import java.awt.image.*;
 import java.util.*;
 
-
+/**
+ * <p>
+ * ImageOperation to apply a Median (simple blur) filter.
+ * </p>
+ * 
+ * <p>
+ * A Median filter blurs an image by replacing each pixel by the average of the
+ * pixels in a surrounding neighbourhood, its size determined by a user provided radius.
+ * This is not implemented using convolution.
+ * </p>
+ * 
+ * @author Marcus
+ */
 public class MedianFilter implements ImageOperation, java.io.Serializable{
     
     /**

@@ -11,7 +11,7 @@ The ANDIE program contains many simple image operations implemented, including:
 - `Colour Channel Cycling`: Allows a user to cycle the colour channels to any possible configuration based on how the user specifies the colour channel.
 - `Undo`: Allows the users to undo their previous operations one by one as many times as needed.
 - `Redo`: Allows the users to red their undo operations back to the edited version of the image.
-- `Mean Filter`: A simple blurrng filter that smoths out the image by finding the mean value of the surrounding kernel around a pixel and applyig the mean value to that pixel.
+- `Mean Filter`: A simple blurrng filter that smooths out the image by finding the mean value of the surrounding kernel around a pixel and applyig the mean value to that pixel.
 - `Soft Blur`: Blurs an image by a *soft* margin.
 - `Median Filter`: Uses a local neighbourhood with a specified radius to blur an image.
 - `Gaussian Blur`: Blurs an image as per the mathmatical principles of Gaussian(normal) distribution.
