@@ -1,8 +1,14 @@
 package cosc202.andie;
 
-import java.util.*;
-import java.awt.event.*;
-import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.KeyEvent;
+import java.util.ArrayList;
+
+import javax.swing.Action;
+import javax.swing.ImageIcon;
+import javax.swing.JMenu;
+import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 
 public class LanguageActions {
 
@@ -42,7 +48,8 @@ public class LanguageActions {
         public void actionPerformed(ActionEvent e) {
 
             int option = JOptionPane.showConfirmDialog(null,
-                    "Restart Application To Apply Changes \n Apply?", // removed the \s\s\s\s\s\s\s\s\s\s\s\s\s\s\s\s\s\s\s\s\s\s\s\s\s
+                    Andie.bundle.getString("YouMustExitApplication") + " \n\s\s\s\s\s\s\s\s\s\s\s\s\s\s\s\s\s "
+                            + Andie.bundle.getString("and") + "\n" + Andie.bundle.getString("ReopenToApplyChanges"),
                     "Continue?",
                     JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null);
 
@@ -88,9 +95,10 @@ public class LanguageActions {
 
         public void actionPerformed(ActionEvent e) {
             int option = JOptionPane.showConfirmDialog(null,
-                    "Restart Application To Apply Changes \n Apply?", //removed the \s\s thing here too
+                    Andie.bundle.getString("YouMustExitApplication") + " \n\s\s\s\s\s\s\s\s\s\s\s\s\s\s\s\s\s "
+                            + Andie.bundle.getString("and") + "\n" + Andie.bundle.getString("ReopenToApplyChanges"),
                     "Continue?",
-                JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null);
+                    JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null);
 
             // Check the return value from the dialog box.
             if (option == JOptionPane.CANCEL_OPTION) {
@@ -100,7 +108,7 @@ public class LanguageActions {
                     Andie.prefs.put("language", "mi");
                     Andie.prefs.put("country", "NZ");
                 } catch (Exception ex) {
-                    //TODO: add exception here
+                    // TODO: add exception here
                 }
 
             }

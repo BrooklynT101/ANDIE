@@ -52,9 +52,14 @@ public class ImageResize implements ImageOperation, java.io.Serializable {
             return output;
         } else {
 
-            BufferedImage output = new BufferedImage(ogheight, ogWidth, BufferedImage.TYPE_INT_RGB);
+            int newH = (int) (height * scaleh);
+            int newW = (int) (width * scalew);
 
-            output.getGraphics().drawImage(ogImage, 0, 0, null);
+            Image result = input.getScaledInstance(newW, newH, Image.SCALE_DEFAULT);
+
+            BufferedImage output = new BufferedImage(newW, newH, BufferedImage.TYPE_INT_RGB);
+
+            output.getGraphics().drawImage(result, 0, 0, null);
             return output;
         }
     }
