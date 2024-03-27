@@ -162,7 +162,7 @@ public class FileActions {
             } catch (Exception ex) {
                 // System.exit(1);
                 JFrame frame = new JFrame();
-                JOptionPane.showMessageDialog(frame, Andie.bundle.getString("Pleaseopenanimagefilefirst"));
+                JOptionPane.showMessageDialog(frame, Andie.bundle.getString("Pleaseopenanimagefilefirst!"));
             }
         }
 
@@ -205,7 +205,7 @@ public class FileActions {
          */
         public void actionPerformed(ActionEvent e) {
             JFileChooser fileChooser = new JFileChooser();
-            fileChooser.setDialogTitle("Save as"); //changed this to save as to be distinctive between save and export
+            fileChooser.setDialogTitle("Save as"); // changed this to save as to be distinctive between save and export
             int result = fileChooser.showSaveDialog(target);
 
             if (result == JFileChooser.APPROVE_OPTION) {
@@ -215,7 +215,7 @@ public class FileActions {
                 } catch (Exception ex) {
                     // System.exit(1);
                     JFrame frame = new JFrame();
-                    JOptionPane.showMessageDialog(frame, Andie.bundle.getString("Pleaseopenanimagefilefirst"));
+                    JOptionPane.showMessageDialog(frame, Andie.bundle.getString("Pleaseopenanimagefilefirst!"));
                 }
             }
         }
@@ -224,11 +224,12 @@ public class FileActions {
 
     /**
      * <p>
-     * Action to export an image to a new file location. 
+     * Action to export an image to a new file location.
      * <p>
      * 
      * <p>
-     * This means to save the image file with all its edits, and no operations file to accompany it
+     * This means to save the image file with all its edits, and no operations file
+     * to accompany it
      * <p>
      * 
      * @see EditableImage#saveAs(String)
@@ -246,14 +247,15 @@ public class FileActions {
             super(name, icon, desc, mnemonic);
         }
 
-         /**
-         * Prompts the user to select a file, enter a filename, and exports the image file to it.
+        /**
+         * Prompts the user to select a file, enter a filename, and exports the image
+         * file to it.
          * 
          * @param e The event triggering this callback.
          */
         public void actionPerformed(ActionEvent e) {
             // Set the default directory for the "Export" dialog box
-            //fileChooser.setSelectedFile(new File());
+            // fileChooser.setSelectedFile(new File());
             JFileChooser fileChooser = new JFileChooser();
             fileChooser.setDialogTitle(Andie.bundle.getString("export"));
             int result = fileChooser.showSaveDialog(null);
@@ -263,12 +265,13 @@ public class FileActions {
                     String imageFilepath = fileChooser.getSelectedFile().getCanonicalPath();
                     target.getImage().export(imageFilepath);
                 } catch (Exception ex) {
-                    System.err.println("Couldn't export file"+"\n");
+                    System.err.println("Couldn't export file" + "\n");
                     ex.printStackTrace();
                     // System.exit(1);
                     JFrame frame = new JFrame();
-                    JOptionPane.showMessageDialog(frame, Andie.bundle.getString("CouldntExport\n"+ex));
-                    // JOptionPane.showMessageDialog(frame, Andie.bundle.getString("CouldntExport"));
+                    JOptionPane.showMessageDialog(frame, Andie.bundle.getString("CouldntExport\n" + ex));
+                    // JOptionPane.showMessageDialog(frame,
+                    // Andie.bundle.getString("CouldntExport"));
                 }
             }
         }
