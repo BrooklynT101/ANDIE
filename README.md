@@ -30,6 +30,9 @@ With `Save` the program by default saves the image in the file directory it was 
 
 > If you want to just export the image, to save it without an operations file, you can use the `Export` function to do so, specifying file type as well as directory.
 
+## Undo and Redo Action 
+The Undo and Redo action allows you to go back or forward at one step at a time. Some of the actions applied on the image are applied multiple times so the undo and redo feature will need to be used multiple times to make it back to the original image. When asked to apply a filter multiple times the user should understand that it may take multiple actions to undo the operations fully.
+
 ## MultiLingual Support
 The Multilingual support features allows users to use our ANDIE project in the set language of both English and Maori. The default langauge is set to English but if the user choses to they can set the language to Maori, this restarts the system to change the language and all the menu options convert to the new chosen language. DOES THIS LOOSE OPERATIONS ON IMAGE? 
 
@@ -57,6 +60,3 @@ Some examples of testing included:
 
 ## Authors
 Created by Amelia Johnston, Ari Josephson, Brooklyn Taylor, and Marcus Woodard
-
-## To finish 
-Adjust the colour channel cycling to more possibilities 
