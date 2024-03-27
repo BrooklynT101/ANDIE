@@ -76,7 +76,7 @@ During development two blurring actions were added to the ANDIE program, the nam
 Marcus worked on removing the excess clutter from the main branch. At some point during our merging-to-main race to ensure our own filters and actions were now in main an excess of unesscessary file commits were pushed to main. This causes confusion in the priority of files and added clutter to the workspace so Marcus went through the code and removed the files not pertaining to the project.
 
 ## Testing 
-Throughout the creation of this project we all preformed individual tests on our code such as adding print line statements and comparing the outcome with the specified task and examples. 
+Throughout the creation of this project we all performed individual tests on our code such as adding print line statements and comparing the outcome with the specified task and examples. 
 
 We tryed to use Junit testing, but were able to as the importing of the Junit resource weren't working for our
 Gradle build.
@@ -101,7 +101,9 @@ Alpha: -1, Red: 210, Green: 208, Blue: 222
 ## Known errors and/or exceptions
 When trying to perform an operation on an image when one isnt currently loaded it throws a lot of exceptions into the output, this doesn't affect the program but is something to note as these are caught and printed to the terminal.
 
+If an image size (width and height) is too small the ImageResize option may not work correctly.
 
+The Image operations file not existing exception needs to be caught and display a message to terminal about creating a new one if not located 
 
 ## Authors
 Created by Amelia Johnston, Ari Josephson, Brooklyn Taylor, and Marcus Woodward
