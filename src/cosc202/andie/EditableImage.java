@@ -4,6 +4,7 @@ import java.util.*;
 import java.io.*;
 import java.awt.image.*;
 import javax.imageio.*;
+import javax.swing.*;
 
 /**
  * <p>
@@ -288,9 +289,22 @@ class EditableImage {
      * </p>
      */
     public void undo() {
-        redoOps.push(ops.pop());
-        refresh();
+        // if (redoOps.peek() != null) {
+        //     
+        // } else {
+        //     throw new Exception(EmptyStackException);
+        // }
+        try {
+            redoOps.push(ops.pop());
+            refresh();
+        } catch (EmptyStackException e) {
+            JFrame frame = new JFrame();
+            JOptionPane.showMessageDialog(frame, Andie.bundle.getString("NoUndos"));    
+            e.printStackTrace();
+        }
+
     }
+
 
     /**
      * <p>
