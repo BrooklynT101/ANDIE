@@ -27,6 +27,7 @@ The ANDIE program contains many simple image operations implemented, including:
 
 ## Saving images
 With `Save` the program by default saves the image in the file directory it was opened in, replacing the original image. With the option `Save As` you can specify the file name and directory directly. Each option will save along with the image file an *operations* file, this file saves the image operations that were performed.
+The export image action allows the user to export the image with the operations preformed and in one single file, this can only export to an area with correct permission. 
 
 > If you want to just export the image, to save it without an operations file, you can use the `Export` function to do so, specifying file type as well as directory.
 
@@ -43,7 +44,7 @@ The specific areas that each of out team members completed includes:
 > Ari Josephson: Completed the Gaussian blur, ...
 
 
-> Amelia Johnston: Completed the Colour actions (Colour Inversion and Colour Channel Cycling), ...
+> Amelia Johnston: Completed the Colour actions...
 
 
 > Brooklyn Taylor: Completed the 
@@ -55,7 +56,7 @@ The specific areas that each of out team members completed includes:
 ## Testing 
 Throughout the creation of this project we all preformed individual tests on our code such as adding print line statements and ____. We also preforms JUnit tests _____. 
 Some examples of testing included:
-- `Gaussian Blur`: Ou test was to print out the outputted array and compared to the kernel that was expected for Gaussian Distribution.
+- `Gaussian Blur`: Our test was to print out the outputted array and compared to the kernel that was expected for Gaussian Distribution.
 
 ## Authors
 Created by Amelia Johnston, Ari Josephson, Brooklyn Taylor, and Marcus Woodard
