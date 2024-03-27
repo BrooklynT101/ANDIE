@@ -43,6 +43,7 @@ public class MedianFilter implements ImageOperation, java.io.Serializable {
      */
     MedianFilter(int radius) {
         this.radius = radius;
+
     }
 
     /**

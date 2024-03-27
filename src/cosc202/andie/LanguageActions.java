@@ -16,8 +16,9 @@ import javax.swing.JOptionPane;
  * </p>
  * 
  * <p>
- * The Language menu contains actions that affect how the text is displayed in the
- * application, currently showing English (native) and a Māori translation, when 
+ * The Language menu contains actions that affect how the text is displayed in
+ * the
+ * application, currently showing English (native) and a Māori translation, when
  * the other is selected the user is prompted to restart the application.
  * </p>
  * 
@@ -26,7 +27,7 @@ import javax.swing.JOptionPane;
  * 4.0</a>
  * </p>
  * 
- * @author Steven Mills
+ * @author Ari Josephson
  * @version 1.0
  */
 public class LanguageActions {
@@ -58,6 +59,25 @@ public class LanguageActions {
         return languageMenu;
     }
 
+    /*
+     * <p>
+     * Translates to english.
+     * </p>
+     * 
+     * <p>
+     * English Action applys the english properties, changing the language to
+     * english.
+     * </p>
+     * 
+     * <p>
+     * <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA
+     * 4.0</a>
+     * </p>
+     * 
+     * @author Ari Josephson
+     * 
+     * @version 1.0
+     */
     public class EnglishAction extends ImageAction {
 
         EnglishAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
@@ -67,10 +87,7 @@ public class LanguageActions {
         public void actionPerformed(ActionEvent e) {
 
             int option = JOptionPane.showConfirmDialog(null,
-                    // Andie.bundle.getString("YouMustExitApplication") + " \n\t\t\t\t\t\t "
-                    //         + Andie.bundle.getString("and") + "\n" + Andie.bundle.getString("ReopenToApplyChanges"),
-                    // "Continue?",
-                    // JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null);
+
                     Andie.bundle.getString("ReopenToApplyChanges"),
                     Andie.bundle.getString("continue"),
                     JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null);
@@ -91,22 +108,24 @@ public class LanguageActions {
     }
 
     /*
-     * public class FrenchAction extends ImageAction {
+     * <p>
+     * Translates to Māori.
+     * </p>
      * 
-     * FrenchAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
-     * super(name, icon, desc, mnemonic);
-     * }
+     * <p>
+     * English Action applys the Te Reo Māori properties, changing the language to
+     * Te Reo Māori.
+     * </p>
      * 
-     * public void actionPerformed(ActionEvent e) {
+     * <p>
+     * <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA
+     * 4.0</a>
+     * </p>
      * 
-     * Andie.prefs.put("language", "mi");
-     * Andie.prefs.put("country", "NZ");
+     * @author Ari Josephson
      * 
-     * }
-     * 
-     * }
+     * @version 1.0
      */
-
     public class TeReoAction extends ImageAction {
 
         TeReoAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
@@ -116,7 +135,8 @@ public class LanguageActions {
         public void actionPerformed(ActionEvent e) {
             int option = JOptionPane.showConfirmDialog(null,
                     // Andie.bundle.getString("YouMustExitApplication") + " \n\t\t\t\t\t\t "
-                    //         + Andie.bundle.getString("and") + "\n" + Andie.bundle.getString("ReopenToApplyChanges"),
+                    // + Andie.bundle.getString("and") + "\n" +
+                    // Andie.bundle.getString("ReopenToApplyChanges"),
                     // "Continue?",
                     // JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null);
                     Andie.bundle.getString("ReopenToApplyChanges"),

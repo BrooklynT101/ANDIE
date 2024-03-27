@@ -420,12 +420,23 @@ public class FilterActions {
                 return;
             } else if (option == JOptionPane.OK_OPTION) {
                 radius = radiusModel.getNumber().intValue();
+
             }
 
             // Create and apply the filter
-            target.getImage().apply(new MedianFilter(radius));
-            target.repaint();
-            target.getParent().revalidate();
+            if (5 <= radius) {
+                JFrame frame = new JFrame();
+                int cont = JOptionPane.showConfirmDialog(frame, Andie.bundle.getString("JustLoading,PleasebePatient"));
+                if (cont == JOptionPane.OK_OPTION) {
+                    target.getImage().apply(new MedianFilter(radius));
+                    target.repaint();
+                    target.getParent().revalidate();
+                }
+            } else {
+                target.getImage().apply(new MedianFilter(radius));
+                target.repaint();
+                target.getParent().revalidate();
+            }
         }
 
     }

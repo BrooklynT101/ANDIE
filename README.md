@@ -55,6 +55,8 @@ The Multilingual support feature allows users to use our ANDIE project in the se
 
 ### Contribution
 Within our group of 4 we divided the project up to fit our strengths. We each took a 'difficult' operation to begin, later moving on to simpler areas of the project. Once all the image and file actions were added we went back into our code, implementing the Multilingual feature and developing our exception handling within any area of code that seemed necessary. 
+We Developed our Andie, Incramentally, implementing our features in seperate branchs, ensuring each individual feature is tested and known to work before merged to main.
+
 The main contributions our team members made are as follows:
 
 
