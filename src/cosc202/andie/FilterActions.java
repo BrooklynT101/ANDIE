@@ -36,13 +36,19 @@ public class FilterActions {
      */
     public FilterActions() {
         actions = new ArrayList<Action>();
-        actions.add(new MeanFilterAction("Mean Filter", null, "Apply a mean filter", Integer.valueOf(KeyEvent.VK_M)));
-        actions.add(new BlurOptionAction("Blur Filter", null, "Apply a blur", Integer.valueOf(KeyEvent.VK_M)));
-        actions.add(new SoftBlurAction("Soft Blur", null, "Apply a blur filter", Integer.valueOf(KeyEvent.VK_M)));
-        actions.add(new MedianFilterAction("Median Filter", null, "Apply a median filter", Integer.valueOf(KeyEvent.VK_M)));
-        actions.add(new SharpenAction("Sharpen filter", null, "Apply a sharpen filter", Integer.valueOf(KeyEvent.VK_M)));
-        actions.add(new GaussianBlurAction("Gaussian Blur", null, "Apply Gaussian blur", Integer.valueOf(KeyEvent.VK_M)));
+        actions.add(new MeanFilterAction(Andie.bundle.getString("Meanfilter"), null,
+                Andie.bundle.getString("Applyameanfilter"), Integer.valueOf(KeyEvent.VK_M)));
+        actions.add(new BlurOptionAction(Andie.bundle.getString("BlurSoft"), null,
+                Andie.bundle.getString("Applyasoftblur"), Integer.valueOf(KeyEvent.VK_M)));
+        actions.add(new SoftBlurAction(Andie.bundle.getString("Blurfilter"), null,
+                Andie.bundle.getString("Applyablurfilter"), Integer.valueOf(KeyEvent.VK_M)));
+        actions.add(new MedianFilterAction(Andie.bundle.getString("Medianfilter"), null,
+                Andie.bundle.getString("Applyamedianfilter"), Integer.valueOf(KeyEvent.VK_M)));
+        actions.add(new GaussianBlurAction(Andie.bundle.getString("GaussianBlur"), null,
+                Andie.bundle.getString("ApplyGaussianblur"), Integer.valueOf(KeyEvent.VK_M)));
 
+        actions.add(new SharpenAction(Andie.bundle.getString("Sharpenfilter"), null,
+                Andie.bundle.getString("Applyasharpenfilter"), Integer.valueOf(KeyEvent.VK_M)));
     }
 
     /**
@@ -53,7 +59,7 @@ public class FilterActions {
      * @return The filter menu UI element.
      */
     public JMenu createMenu() {
-        JMenu fileMenu = new JMenu("Filter");
+        JMenu fileMenu = new JMenu(Andie.bundle.getString("Filter"));
 
         for (Action action : actions) {
             fileMenu.add(new JMenuItem(action));
@@ -106,7 +112,7 @@ public class FilterActions {
             // Pop-up dialog box to ask for the radius value.
             SpinnerNumberModel radiusModel = new SpinnerNumberModel(1, 1, 10, 1);
             JSpinner radiusSpinner = new JSpinner(radiusModel);
-            int option = JOptionPane.showOptionDialog(null, radiusSpinner, "Enter filter radius",
+            int option = JOptionPane.showOptionDialog(null, radiusSpinner, Andie.bundle.getString("Enterfilterradius"),
                     JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
 
             // Check the return value from the dialog box.
@@ -124,8 +130,26 @@ public class FilterActions {
 
     }
 
-    // From lab book
+    /**
+     * <p>
+     * Applies a multitude of blur effects to the image.
+     * <p>
+     * 
+     * <p>
+     * Prompts the user for a number between 1 and 50
+     * <p>
+     * 
+     * @author Brooklyn
+     */
     public class BlurOptionAction extends ImageAction {
+        /**
+         * Create a new sharpen filter action.
+         * 
+         * @param name     The name of the action (ignored if null).
+         * @param icon     An icon to use to represent the action (ignored if null).
+         * @param desc     A brief description of the action (ignored if null).
+         * @param mnemonic A mnemonic key to use as a shortcut (ignored if null).
+         */
         BlurOptionAction(String name, ImageIcon icon,
                 String desc, Integer mnemonic) {
             super(name, icon, desc, mnemonic);
@@ -138,7 +162,9 @@ public class FilterActions {
             // Pop-up dialog box to ask for the radius value.
             SpinnerNumberModel repeatModel = new SpinnerNumberModel(1, 1, 100000, 1);
             JSpinner repeatSpinner = new JSpinner(repeatModel);
-            int option = JOptionPane.showOptionDialog(null, repeatSpinner, "How many times to apply filter?",
+            int option = JOptionPane.showOptionDialog(null, repeatSpinner,
+                    "Amount of times to blur image\n\nPlease enter a number between 1 and 50",
+                    //Andie.bundle.getString("blurOption"), TODO: create a language pref for this
                     JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
 
             // Check the return value from the dialog box.
@@ -148,10 +174,11 @@ public class FilterActions {
                 repeat = repeatModel.getNumber().intValue();
             }
 
-            //TODO: this need to be considered a single action so when you redo it redos the whole stack
+            // TODO: action needs to be considered a single action so when you redo it redos
+            // the whole stack
             // Create and apply the filter 'repeat' number of times
             for (int i = 1; i < repeat; i++) {
-                target.getImage().apply(new SoftBlur());
+                target.getImage().apply(new BlurOption());
                 target.repaint();
                 target.getParent().revalidate();
             }
@@ -160,20 +187,15 @@ public class FilterActions {
 
     // taken from the lab book example
     /**
-     * Softblur applies the filter across the whole image once
+     * <p>
+     * Applies a soft blur effect to the image
+     * <p>
+     * 
+     * @author Ari
      */
     public class SoftBlurAction extends ImageAction {
-        
-        /**
-         * Create a new blur filter action.
-         * 
-         * @param name     The name of the action (ignored if null).
-         * @param icon     An icon to use to represent the action (ignored if null).
-         * @param desc     A brief description of the action (ignored if null).
-         * @param mnemonic A mnemonic key to use as a shortcut (ignored if null).
-         */
         SoftBlurAction(String name, ImageIcon icon,
-            String desc, Integer mnemonic) {
+                String desc, Integer mnemonic) {
             super(name, icon, desc, mnemonic);
         }
 
@@ -183,6 +205,7 @@ public class FilterActions {
             target.repaint();
             target.getParent().revalidate();
         }
+
     }
 
     /**
@@ -191,9 +214,9 @@ public class FilterActions {
      * @see SharpenFilter
      */
     public class SharpenAction extends ImageAction {
-        
+
         SharpenAction(String name, ImageIcon icon,
-            String desc, Integer mnemonic) {
+                String desc, Integer mnemonic) {
             super(name, icon, desc, mnemonic);
         }
 
@@ -201,10 +224,12 @@ public class FilterActions {
             // Determine the number of times to apply the sharpen - ask the user.
             int repeat = 1;
 
-            // Pop-up dialog box to ask for the "intensity" or actually, the amount of times to apply the filter.
+            // Pop-up dialog box to ask for the "intensity" or actually, the amount of times
+            // to apply the filter.
             SpinnerNumberModel repeatModel = new SpinnerNumberModel(1, 1, 100000, 1);
             JSpinner repeatSpinner = new JSpinner(repeatModel);
-            int option = JOptionPane.showOptionDialog(null, repeatSpinner, "Enter Sharpen Intensity",
+            int option = JOptionPane.showOptionDialog(null, repeatSpinner,
+                    Andie.bundle.getString("EnterSharpenIntensity"),
                     JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
 
             // Check the return value from the dialog box.
@@ -214,7 +239,8 @@ public class FilterActions {
                 repeat = repeatModel.getNumber().intValue();
             }
 
-            //TODO: this need to be considered a single action so when you redo it redos the whole stack
+            // TODO: this need to be considered a single action so when you redo it redos
+            // the whole stack
             // Create and apply the filter 'repeat' number of times
             for (int i = 1; i <= repeat; i++) {
                 target.getImage().apply(new SharpenFilter());
@@ -222,48 +248,13 @@ public class FilterActions {
                 target.getParent().revalidate();
             }
         }
-        
+
     }
 
+    public class GaussianBlurAction extends ImageAction {
 
-    public class GaussianBlurAction extends ImageAction { //a
-        
         GaussianBlurAction(String name, ImageIcon icon,
-            String desc, Integer mnemonic) {
-            super(name, icon, desc, mnemonic);
-        }
-
-        public void actionPerformed(ActionEvent e) {
-            // Determine the number of times to apply the blur - ask the user.
-            int repeat = 1;
-
-            // Pop-up dialog box to ask for the radius value.
-            SpinnerNumberModel repeatModel = new SpinnerNumberModel(1, 1, 100000, 1);
-            JSpinner repeatSpinner = new JSpinner(repeatModel);
-            int option = JOptionPane.showOptionDialog(null, repeatSpinner, "Times to apply filter",
-                    JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
-
-            // Check the return value from the dialog box.
-            if (option == JOptionPane.CANCEL_OPTION) {
-                return;
-            } else if (option == JOptionPane.OK_OPTION) {
-                repeat = repeatModel.getNumber().intValue();
-            }
-
-            //TODO: this need to be considered a single action so when you redo it redos the whole stack
-            // Create and apply the filter 'repeat' number of times
-            for (int i = 1; i < repeat; i++) {
-                target.getImage().apply(new SoftBlur());
-                target.repaint();
-                target.getParent().revalidate();
-            }
-        }
-        
-    }
-
-    public class SharpenFilterAction extends ImageAction {
-        SharpenFilterAction(String name, ImageIcon icon,
-            String desc, Integer mnemonic) {
+                String desc, Integer mnemonic) {
             super(name, icon, desc, mnemonic);
         }
 
@@ -274,7 +265,7 @@ public class FilterActions {
             // Pop-up dialog box to ask for the radius value.
             SpinnerNumberModel radiusModel = new SpinnerNumberModel(1, 1, 10, 1);
             JSpinner radiusSpinner = new JSpinner(radiusModel);
-            int option = JOptionPane.showOptionDialog(null, radiusSpinner, "Enter filter radius",
+            int option = JOptionPane.showOptionDialog(null, radiusSpinner, Andie.bundle.getString("Enterfilterradius"),
                     JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
 
             // Check the return value from the dialog box.
@@ -285,11 +276,11 @@ public class FilterActions {
             }
 
             // Create and apply the filter
-            target.getImage().apply(new Sharpen(radius));
+            target.getImage().apply(new GaussianBlur(radius));
             target.repaint();
             target.getParent().revalidate();
         }
-        
+
     }
 
     /**
@@ -336,7 +327,7 @@ public class FilterActions {
             // Pop-up dialog box to ask for the radius value.
             SpinnerNumberModel radiusModel = new SpinnerNumberModel(1, 1, 10, 1);
             JSpinner radiusSpinner = new JSpinner(radiusModel);
-            int option = JOptionPane.showOptionDialog(null, radiusSpinner, "Enter filter radius",
+            int option = JOptionPane.showOptionDialog(null, radiusSpinner, Andie.bundle.getString("Enterfilterradius"),
                     JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
 
             // Check the return value from the dialog box.
@@ -353,4 +344,5 @@ public class FilterActions {
         }
 
     }
+
 }

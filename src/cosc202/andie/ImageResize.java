@@ -32,8 +32,6 @@ public class ImageResize implements ImageOperation, java.io.Serializable {
             int newH = (int) (height * scaleh);
             int newW = (int) (width * scalew);
 
-            System.out.println(newH + " also width" + newW);
-
             Image result = input.getScaledInstance(newW, newH, Image.SCALE_AREA_AVERAGING);
 
             BufferedImage output = new BufferedImage(newW, newH, BufferedImage.TYPE_INT_RGB);
@@ -45,8 +43,6 @@ public class ImageResize implements ImageOperation, java.io.Serializable {
             int newH = (int) (height * scaleh);
             int newW = (int) (width * scalew);
 
-            System.out.println(newH + " also width" + newW);
-
             Image result = input.getScaledInstance(newW, newH, Image.SCALE_SMOOTH);
 
             BufferedImage output = new BufferedImage(newW, newH, BufferedImage.TYPE_INT_RGB);
@@ -55,9 +51,6 @@ public class ImageResize implements ImageOperation, java.io.Serializable {
 
             return output;
         } else {
-            //How to make it keep filter 
-            System.out.println(input.getHeight() + " also width" + input.getWidth());
-            System.out.println("og" + ogheight + " also width" + ogWidth);
 
             BufferedImage output = new BufferedImage(ogheight, ogWidth, BufferedImage.TYPE_INT_RGB);
 
