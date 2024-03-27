@@ -6,10 +6,9 @@ public class ColourChannelCycling implements ImageOperation, java.io.Serializabl
 
     /** Creates an ColourChannelCycling operation */
     ColourChannelCycling(){
-
     }
 
-    /** Applies the colour inversion filter */
+    /** Applies the colour cycling filter */
     public BufferedImage apply(BufferedImage input) {
   
         for (int y = 0; y < input.getHeight(); ++y) {
@@ -20,7 +19,7 @@ public class ColourChannelCycling implements ImageOperation, java.io.Serializabl
                 int g = (argb & 0x0000FF00) >> 8;
                 int b = (argb & 0x000000FF);
 
-                argb = (a << 24) | (g << 16) | (b << 8) | r;
+                argb = (a << 24) | (g << 16) | (b << 8) | r; //rotates the RGB values 
                 input.setRGB(x, y, argb);
             }
         }
