@@ -6,25 +6,24 @@ Welcome to ANDIE, ANDIE is used to perform simple operations on image files and 
 
 The ANDIE program contains many simple image operations implemented, including:
 
-- `Convert To Grey`: convert an image to become greyscale, by editing each pixels RBG values.
-- `Image Inversion`: converts an iamges RGB values to the inverse of their original values.
-- `Colour Channel Cycling`: allows a user to cycle the colour channels to any possible configuration based on how the user specifies the colour channel.
-- `Undo`: allows the users to undo their previous operations one by one as many times as needed.
-- `Redo`: allows the users to red their undo operations back to the edited version of the image.
+- `Convert To Grey`: Convert an image to become greyscale, by editing each pixels RBG values.
+- `Image Inversion`: Converts an iamges RGB values to the inverse of their original values.
+- `Colour Channel Cycling`: Allows a user to cycle the colour channels to any possible configuration based on how the user specifies the colour channel.
+- `Undo`: Allows the users to undo their previous operations one by one as many times as needed.
+- `Redo`: Allows the users to red their undo operations back to the edited version of the image.
 - `Mean Filter`: A simple blurrng filter that smoths out the image by finding the mean value of the surrounding kernel around a pixel and applyig the mean value to that pixel.
-- `Soft Blur`: blurs an image by a *soft* margin.
-- `Blur Filter`: ?
+- `Soft Blur`: Blurs an image by a *soft* margin.
 - `Median Filter`: Uses a local neighbourhood with a specified radius to blur an image.
-- `Gaussian Blur`: blurs an image as per the mathmatical principles of Gaussian(normal) distribution.
-- `Sharpen Filter`: sharpens an image by using a set kernal and convolution.
-- `Image Rotation Clockwise`: rotates an image 90° in the clockwise direction.
-- `Image Rotation Anticlockwise`: rotates an image 90° in the anticlockwise direction.
-- `Image Flip Vertically`: flip an image either vertically across the y-axis.
-- `Image Flip Horizontally`: flip an image either horizontally across the x-axis.
-- `Image Resize`: scales an image by a given percentage.
-- `Zoom In`: allows the user to zoom in at a ___ percent? each time applied.
-- `Zoom Out`: allows the user to zoom out at a ___ percent? each time applied.
-- `Zoom In`: zooms the image back to its original size.?
+- `Gaussian Blur`: Blurs an image as per the mathmatical principles of Gaussian(normal) distribution.
+- `Sharpen Filter`: Sharpens an image by using a set kernal and convolution.
+- `Image Rotation Clockwise`: Rotates an image 90° in the clockwise direction.
+- `Image Rotation Anticlockwise`: Rotates an image 90° in the anticlockwise direction.
+- `Image Flip Vertically`: Flip an image either vertically across the y-axis.
+- `Image Flip Horizontally`: Flip an image either horizontally across the x-axis.
+- `Image Resize`: Scales an image by a given percentage.
+- `Zoom In`: Allows the user to zoom in at 10 percent each time applied.
+- `Zoom Out`: Allows the user to zoom out at a 10 percent each time applied.
+- `Zoom In`: Zooms the image back to it's original size.
 
 ## Saving images
 With `Save` the program by default saves the image in the file directory it was opened in, replacing the original image. With the option `Save As` you can specify the file name and directory directly. Each option will save along with the image file an *operations* file, this file saves the image operations that were performed.
@@ -58,3 +57,6 @@ Some examples of testing included:
 
 ## Authors
 Created by Amelia Johnston, Ari Josephson, Brooklyn Taylor, and Marcus Woodard
+
+## To finish 
+Adjust the colour channel cycling to more possibilities 
