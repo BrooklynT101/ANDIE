@@ -226,7 +226,7 @@ public class FilterActions {
 
             // Pop-up dialog box to ask for the "intensity" or actually, the amount of times
             // to apply the filter.
-            SpinnerNumberModel repeatModel = new SpinnerNumberModel(1, 1, 100000, 1);
+            SpinnerNumberModel repeatModel = new SpinnerNumberModel(1, 1, 10, 1);
             JSpinner repeatSpinner = new JSpinner(repeatModel);
             int option = JOptionPane.showOptionDialog(null, repeatSpinner,
                     Andie.bundle.getString("EnterSharpenIntensity"),
@@ -239,14 +239,11 @@ public class FilterActions {
                 repeat = repeatModel.getNumber().intValue();
             }
 
-            // TODO: this need to be considered a single action so when you redo it redos
-            // the whole stack
             // Create and apply the filter 'repeat' number of times
-            for (int i = 1; i <= repeat; i++) {
-                target.getImage().apply(new SharpenFilter());
-                target.repaint();
-                target.getParent().revalidate();
-            }
+            target.getImage().apply(new SharpenFilter(repeat));
+            target.repaint();
+            target.getParent().revalidate();
+            
         }
 
     }
