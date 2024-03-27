@@ -4,6 +4,21 @@ import java.awt.image.*;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
+/**
+ * <p>
+ * Soft Blur Class, allows image to be blurred using a reduction array into a
+ * kernel
+ * <p>
+ * 
+ * <p>
+ * Creates a Soft Blur object creates a float array of fractions, putting into
+ * a kernel.
+ * 
+ * <p>
+ * 
+ * @implNote Implements ImageOperation, java.io.Serializable
+ * @author Ari Josephson
+ */
 public class SoftBlur implements ImageOperation, java.io.Serializable {
 
     /*
@@ -18,7 +33,7 @@ public class SoftBlur implements ImageOperation, java.io.Serializable {
         if (input == null) {
             JFrame frame = new JFrame();
             JOptionPane.showMessageDialog(frame, Andie.bundle.getString("Pleaseopenanimagefilefirst!"));
-   
+
         }
         // Code From Lab document
         // The values for the kernel as a 9-element array
