@@ -1,10 +1,14 @@
 package cosc202.andie;
 
-import java.util.*;
-import java.util.prefs.Preferences;
-import java.awt.Window;
-import java.awt.event.*;
-import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.KeyEvent;
+import java.util.ArrayList;
+
+import javax.swing.Action;
+import javax.swing.ImageIcon;
+import javax.swing.JMenu;
+import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 
 public class LanguageActions {
 
@@ -44,7 +48,8 @@ public class LanguageActions {
         public void actionPerformed(ActionEvent e) {
 
             int option = JOptionPane.showConfirmDialog(null,
-                    "Restart Application To Apply Changes \n\s\s\s\s\s\s\s\s\s\s\s\s\s\s\s\s\s\s\s\s\s\s\s\s\sApply?",
+                    Andie.bundle.getString("YouMustExitApplication") + " \n\s\s\s\s\s\s\s\s\s\s\s\s\s\s\s\s\s "
+                            + Andie.bundle.getString("and") + "\n" + Andie.bundle.getString("ReopenToApplyChanges"),
                     "Continue?",
                     JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null);
 
@@ -90,7 +95,8 @@ public class LanguageActions {
 
         public void actionPerformed(ActionEvent e) {
             int option = JOptionPane.showConfirmDialog(null,
-                    "You Must Exit Application \n\s\s\s\s\s\s\s\s\s\s\s\s\s\s\s\s\s and \nReopen To Apply Changes",
+                    Andie.bundle.getString("YouMustExitApplication") + " \n\s\s\s\s\s\s\s\s\s\s\s\s\s\s\s\s\s "
+                            + Andie.bundle.getString("and") + "\n" + Andie.bundle.getString("ReopenToApplyChanges"),
                     "Continue?",
                     JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null);
 
