@@ -3,11 +3,10 @@ note whatever your heart desires, errors, features, notes, whatever.
 
 ## Things left to do
 - Show evidence of testing in some way
-- More exception handling (just put try catches everywhere the system might try to do something where there's null) - ALL
-- Error avoidance (so it doesn't just die and crash) - ALL
-- Finish README.md everyone adds 
+- Additional exception handling and error avoidance- ALL
+- Finish README.md - everyone adds 
   >Please remember to acknowledge any issues! Or large changes to the code for better marks.
-- added javadoc comments
+- add javadoc comments
   
 ## Done since making this markdown!
 - Image rotation(90° Left & Right) - Amelia DONE
@@ -16,46 +15,52 @@ note whatever your heart desires, errors, features, notes, whatever.
 - Multilingual Support - Ari DONE (whatta weapon)
 
 ## Known Errors
-We need to throw an error message up when we try to edit an image when theres not an image loaded
-
-
-need to check with a tutor how to credit someone on stack overflow for instance about *borrowing* code  
 
 blur action stack needs to be remedied (same as sharpen) - DONE
 
-blur option prompt has a weird title
+blur option prompt has a weird title - DONE
 
 image resize prompt should default show current scaling 
 
-file exporting needs wrong file type ex
+exporting function prints successful message twice, possibly saving twice, doubling time complx
 
 ## Notes
 >I needed to add clarity to the two existing blurring options, SoftBlur changed to BlurOption and vice versa, this is just so we have a soft blur and a blur option that applies itself a user defined number of times.
 
 > I then changed the name of blur option to blur filter to fit the class more appropiately
 
+## Exceptions Known
+file exporting wrong file type 
+trying to edit an image with no image loaded
+
+## Exceptions Fixed
+undo and redo empty stacks - Brooklyn
+non numbers being inputed into prompts - Ari
+
+
 ## Add JavaDoc comments
+- GaussianBlur
+- ImageResize
+- LanguageActions
+- SoftBlur
+- MedianFilter - DONE
 - Andie - DONE 
 - BlurFilter - DONE
 - ColourActions - DONE
 - ColorChannelCycling - DONE
-- ConvertToGrey
-- EditableImage
-- EditActions
-- FileActions
-- FilterActions
-- GaussianBlur
-- ImageAction
-- ImageActions
-- ImageFlipHori
-- ImageFlipVert
-- ImageInversion
-- ImageOperation
-- ImagePanel
-- ImageResize
-- ImageRotation
-- LanguageActions
-- MeanFilter
-- MedianFilter
-- SharpenFilter
-- ViewActions
+- ConvertToGrey - DONE
+- EditableImage - DONE
+- EditActions - DONE
+- FileActions - DONE
+- FilterActions - DONE
+- ImageAction - DONE
+- ImageActions - DONE
+- ImageFlipHori - DONE
+- ImageFlipVert - DONE
+- ImageInversion - DONE
+- ImageOperation - DONE
+- ImagePanel - DONE
+- ImageRotation - DONE
+- MeanFilter - DONE
+- SharpenFilter - DONE
+- ViewActions - DONE
