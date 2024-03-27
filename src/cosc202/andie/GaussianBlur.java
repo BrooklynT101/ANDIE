@@ -16,8 +16,6 @@ import javax.swing.JOptionPane;
  * gaussian function to apply blur to the image.
  * 
  * <p>
- * 
- * @implNote Implements ImageOperation, java.io.Serializable
  * @author Ari Josephson
  */
 

@@ -5,6 +5,24 @@ import java.awt.event.*;
 import javax.swing.*;
 import javax.swing.JSpinner.DefaultEditor;
 
+/**
+ * <p>
+ * Actions provided by the Image menu.
+ * </p>
+ * 
+ * <p>
+ * This contain the list of action or operations to be performed on a given image.
+ * Allows a user to edit an image using a variety of different actions.
+ * </p>
+ * 
+ * <p>
+ * <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA
+ * 4.0</a>
+ * </p>
+ * 
+ * @author Queeze and Quackers 
+ * @version 1.0
+ */
 public class ImageActions {
 
     protected ArrayList<Action> actions;

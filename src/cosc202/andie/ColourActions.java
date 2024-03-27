@@ -114,8 +114,6 @@ public class ColourActions {
      * a desired number of filter operations to perform 
      * 
      * <p>
-     * 
-     * @implNote Implements ImageOperation, java.io.Serializable
      * @author Amelia
      */
     public class ImageInversionAction extends ImageAction {

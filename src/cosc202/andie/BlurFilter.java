@@ -14,8 +14,6 @@ import javax.swing.JOptionPane;
  * a desired number of filter operations to perform 
  * 
  * <p>
- * 
- * @implNote Implements ImageOperation, java.io.Serializable
  * @author Brooklyn Taylor
  */
 public class BlurFilter implements ImageOperation, java.io.Serializable {
