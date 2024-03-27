@@ -154,6 +154,11 @@ public class ImageActions {
             ((DefaultEditor) scaleSpinner.getEditor()).getTextField().setEditable(false);
             int option1 = JOptionPane.showOptionDialog(null, scaleSpinner, Andie.bundle.getString("EnterPercentScaled"),
                     JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
+                    if (target.getImage().getOriginalImage() == null) {
+                        JFrame frame = new JFrame();
+                        JOptionPane.showMessageDialog(frame, Andie.bundle.getString("Pleaseopenanimagefilefirst!"));
+               
+                    }
 
             // Check the return value from the dialog box.
             if (option1 == JOptionPane.CANCEL_OPTION) {

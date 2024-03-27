@@ -39,11 +39,6 @@ public class ImageResize implements ImageOperation, java.io.Serializable {
 
     public BufferedImage apply(BufferedImage input) {
 
-        if (input == null) {
-            JFrame frame = new JFrame();
-            JOptionPane.showMessageDialog(frame, Andie.bundle.getString("Pleaseopenanimagefilefirst!"));
-   
-        }
         int w = ogWidth;
         int h = ogheight;
 
