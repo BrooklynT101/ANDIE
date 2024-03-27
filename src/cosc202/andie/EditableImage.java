@@ -258,6 +258,11 @@ class EditableImage {
     public void export(String destinationFilePath) throws Exception {
         String extension;
         //trimming destinationFilePath and getting extension
+        if (imageFilename == null) {
+            JFrame frame = new JFrame();
+            JOptionPane.showMessageDialog(frame, Andie.bundle.getString("Pleaseopenanimagefilefirst!"));
+            throw new Exception("Missing image file");
+        }
         if (destinationFilePath.lastIndexOf(".") != -1) {
             extension = destinationFilePath.substring(1+destinationFilePath.lastIndexOf(".")).toLowerCase(); //saves extension given by user if there is one (without the dot)
             destinationFilePath = destinationFilePath.substring(0, destinationFilePath.lastIndexOf(".")); //trims the file path to the name without the extension

@@ -256,6 +256,7 @@ public class FileActions {
         public void actionPerformed(ActionEvent e) {
             // Set the default directory for the "Export" dialog box
             // fileChooser.setSelectedFile(new File());
+            
             JFileChooser fileChooser = new JFileChooser();
             fileChooser.setDialogTitle(Andie.bundle.getString("export"));
             int result = fileChooser.showSaveDialog(null);
