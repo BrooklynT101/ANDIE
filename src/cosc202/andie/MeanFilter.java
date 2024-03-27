@@ -2,6 +2,8 @@ package cosc202.andie;
 
 import java.awt.image.*;
 import java.util.*;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 
 /**
  * <p>
@@ -75,6 +77,11 @@ public class MeanFilter implements ImageOperation, java.io.Serializable {
      * @return The resulting (blurred)) image.
      */
     public BufferedImage apply(BufferedImage input) {
+        if (input == null) {
+            JFrame frame = new JFrame();
+            JOptionPane.showMessageDialog(frame, Andie.bundle.getString("Pleaseopenanimagefilefirst!"));
+   
+        }
         int size = (2*radius+1) * (2*radius+1);
         float [] array = new float[size];
         Arrays.fill(array, 1.0f/size);

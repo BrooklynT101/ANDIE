@@ -1,6 +1,8 @@
 package cosc202.andie;
 
 import java.awt.image.*;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 
 /**
  * <p>
@@ -113,6 +115,11 @@ public class GaussianBlur implements ImageOperation, java.io.Serializable {
 
     /* Buffered image method applys the Gaussian filter to the image */
     public BufferedImage apply(BufferedImage input) {
+        if (input == null) {
+            JFrame frame = new JFrame();
+            JOptionPane.showMessageDialog(frame, Andie.bundle.getString("Pleaseopenanimagefilefirst!"));
+   
+        }
         int size = (2 * radius + 1) * (2 * radius + 1);
 
         this.array = new float[size];

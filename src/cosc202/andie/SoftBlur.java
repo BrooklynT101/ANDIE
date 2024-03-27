@@ -1,6 +1,8 @@
 package cosc202.andie;
 
 import java.awt.image.*;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 
 public class SoftBlur implements ImageOperation, java.io.Serializable {
 
@@ -13,6 +15,11 @@ public class SoftBlur implements ImageOperation, java.io.Serializable {
     }
 
     public BufferedImage apply(BufferedImage input) {
+        if (input == null) {
+            JFrame frame = new JFrame();
+            JOptionPane.showMessageDialog(frame, Andie.bundle.getString("Pleaseopenanimagefilefirst!"));
+   
+        }
         // Code From Lab document
         // The values for the kernel as a 9-element array
         float[] array = { 0, 1 / 8.0f, 0,

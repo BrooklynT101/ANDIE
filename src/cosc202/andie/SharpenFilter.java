@@ -1,6 +1,8 @@
 package cosc202.andie;
 
 import java.awt.image.*;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 
 /**
  * <p>
@@ -42,6 +44,11 @@ public class SharpenFilter implements ImageOperation, java.io.Serializable {
    * @return The output image.
    */
    public BufferedImage apply(BufferedImage input) {
+      if (input == null) {
+         JFrame frame = new JFrame();
+         JOptionPane.showMessageDialog(frame, Andie.bundle.getString("Pleaseopenanimagefilefirst!"));
+
+     }
       BufferedImage output = input;
       
       //creating the kernal array

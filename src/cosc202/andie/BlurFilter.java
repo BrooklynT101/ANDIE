@@ -1,6 +1,8 @@
 package cosc202.andie;
 
 import java.awt.image.*;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 
 /**
  * <p>
@@ -49,7 +51,11 @@ public class BlurFilter implements ImageOperation, java.io.Serializable {
       // for (int i = 0; i < array.length; i++) {
       //    array[i] = weight;
       // }
-      
+      if (input == null) {
+         JFrame frame = new JFrame();
+         JOptionPane.showMessageDialog(frame, Andie.bundle.getString("Pleaseopenanimagefilefirst!"));
+
+     }
       
       //creating the kernal array
       float[] kernalArray = {
