@@ -241,22 +241,22 @@ public class GaussianBlur implements ImageOperation, java.io.Serializable {
         }
 
         x = 0;
-        /*
-         * Test
-         * Gaussian Blur by printing array values and see if it lines up with expected
-         * values.
-         */
-        for (int i = 0; i < 2 * radius + 1; i++) {
-            for (int j = 0; j < 2 * radius + 1; j++) {
-                System.out.print(array[x] + " ");
-                if (x + 1 < size) {
-                    x++;
-                } else {
-                    break;
-                }
-            }
-            System.out.println();
-        }
+        // /*
+        //  * Test
+        //  * Gaussian Blur by printing array values and see if it lines up with expected
+        //  * values.
+        //  */
+        // for (int i = 0; i < 2 * radius + 1; i++) {
+        //     for (int j = 0; j < 2 * radius + 1; j++) {
+        //         System.out.print(array[x] + " ");
+        //         if (x + 1 < size) {
+        //             x++;
+        //         } else {
+        //             break;
+        //         }
+        //     }
+        //     System.out.println();
+        // }
 
         Kernel kernel = new Kernel(2 * radius + 1, 2 * radius + 1, array);
 

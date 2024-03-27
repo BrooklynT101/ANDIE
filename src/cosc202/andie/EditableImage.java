@@ -100,8 +100,6 @@ class EditableImage {
      * the
      * {@code clone()} method is not accessible.
      * </p>
-     * 
-     * <p>//TODO: Ask tutor about how we need to reference used material
      * This method makes a cloned copy of a BufferedImage.
      * This requires knowledge of some details about the internals of the
      * BufferedImage,

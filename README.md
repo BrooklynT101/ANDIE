@@ -98,6 +98,10 @@ Alpha: -1, Red: 45, Green: 47, Blue: 33
 After colour inversion
 Alpha: -1, Red: 210, Green: 208, Blue: 222
 ```
+## Known errors and/or exceptions
+When trying to perform an operation on an image when one isnt currently loaded it throws a lot of exceptions into the output, this doesn't affect the program but is something to note as these are caught and printed to the terminal.
+
+
 
 ## Authors
 Created by Amelia Johnston, Ari Josephson, Brooklyn Taylor, and Marcus Woodward
