@@ -49,6 +49,16 @@ public class ImageInversion implements ImageOperation, java.io.Serializable{
    
         }
   
+        //testing variables
+        int ba = 0;
+        int br = 0;
+        int bg = 0;
+        int bb = 0;
+        int aa = 0;
+        int ar = 0;
+        int ag = 0;
+        int ab = 0;
+
         for (int y = 0; y < input.getHeight(); ++y) {
             for (int x = 0; x < input.getWidth(); ++x) {
                 int argb = input.getRGB(x, y);
@@ -57,16 +67,32 @@ public class ImageInversion implements ImageOperation, java.io.Serializable{
                 int g = (argb & 0x0000FF00) >> 8;
                 int b = (argb & 0x000000FF);
 
+                //testing before pixel values
                 //System.out.println("Before colour inversion\nAlpha: "+a+", Red: "+r+", Green: "+g+", Blue: "+b);
+                ba = a;
+                br = r;
+                bg = g;
+                bb = b;
+                
                 int rNew = 255 - r;
                 int gNew = 255 - g;
                 int bNew = 255 - b;
-                //System.out.println("After colour inversion\nAlpha: "+a+", Red: "+r+", Green: "+g+", Blue: "+b);
-
+                
                 argb = (a << 24) | (rNew << 16) | (gNew << 8) | bNew;
+                
+                //testing after pixel values
+                //System.out.println("After colour inversion\nAlpha: "+a+", Red: "+r+", Green: "+g+", Blue: "+b);
+                aa = (argb & 0xFF000000) >> 24;
+                ar = (argb & 0x00FF0000) >> 16;
+                ag = (argb & 0x0000FF00) >> 8;
+                ab = (argb & 0x000000FF);
+
                 input.setRGB(x, y, argb);
             }
         }
+        //outputting test - if 0 theres a problem
+        System.out.println("Before colour inversion\nAlpha: "+ba+", Red: "+br+", Green: "+bg+", Blue: "+bb);
+        System.out.println("After colour inversion\nAlpha: "+aa+", Red: "+ar+", Green: "+ag+", Blue: "+ab);
         
         return input;
     }
