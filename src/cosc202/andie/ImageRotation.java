@@ -39,8 +39,8 @@ public class ImageRotation implements ImageOperation, java.io.Serializable{
      * Apply the rotation action to the image in specified direction
      * </p>
      * 
-     * @param input The image to be converted to greyscale
-     * @return The resulting greyscale image.
+     * @param input The image to be rotated
+     * @return The resulting rotated image.
      */
     public BufferedImage apply(BufferedImage input) {
 

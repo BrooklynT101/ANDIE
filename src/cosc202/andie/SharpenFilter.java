@@ -3,9 +3,22 @@ package cosc202.andie;
 import java.awt.image.*;
 
 /**
-* A filter class that applies a sharpen filter to the whole image
-* @author Brooklyn Taylor
-*/
+ * <p>
+ * Filter class that sharpens an image a number of times.
+ * <p>
+ * 
+ * <p>
+ * The operation involves creating a kernal from an int array and using convolution
+ * to apply the filter, the repeat number determined by the user
+ * <p>
+ * 
+ * <p>
+ * <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a>
+ * </p>
+ * 
+ * @version 1.0
+ * @author Brooklyn Taylor
+ */
 public class SharpenFilter implements ImageOperation, java.io.Serializable {
    
    private int radius;
@@ -14,6 +27,7 @@ public class SharpenFilter implements ImageOperation, java.io.Serializable {
    /**
    * Default Constructor for the sharpen filter, with a default
    * radius of 1
+   * /TODO: test if the radius being changed influences the filter
    */
    public SharpenFilter(int t) {
       this.t = t; //the amount of times to apply the filter
