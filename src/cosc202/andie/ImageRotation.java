@@ -1,5 +1,7 @@
 package cosc202.andie;
 import java.awt.image.*;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 
 /**
  * <p>
@@ -43,6 +45,12 @@ public class ImageRotation implements ImageOperation, java.io.Serializable{
      * @return The resulting rotated image.
      */
     public BufferedImage apply(BufferedImage input) {
+
+        if (input == null) {
+            JFrame frame = new JFrame();
+            JOptionPane.showMessageDialog(frame, Andie.bundle.getString("Pleaseopenanimagefilefirst!"));
+   
+        }
 
         int width = input.getWidth();
         int height = input.getHeight();

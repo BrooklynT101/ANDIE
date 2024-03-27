@@ -1,6 +1,8 @@
 package cosc202.andie;
 
 import java.awt.image.*;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 
 /**
  * <p>
@@ -47,6 +49,12 @@ public class ConvertToGrey implements ImageOperation, java.io.Serializable {
      * @return The resulting greyscale image.
      */
     public BufferedImage apply(BufferedImage input) {
+
+        if (input == null) {
+            JFrame frame = new JFrame();
+            JOptionPane.showMessageDialog(frame, Andie.bundle.getString("Pleaseopenanimagefilefirst!"));
+   
+        }
   
         for (int y = 0; y < input.getHeight(); ++y) {
             for (int x = 0; x < input.getWidth(); ++x) {

@@ -2,6 +2,8 @@ package cosc202.andie;
 
 import java.awt.image.*;
 import java.awt.Image;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 
 /**
  * <p>
@@ -36,6 +38,12 @@ public class ImageResize implements ImageOperation, java.io.Serializable {
     }
 
     public BufferedImage apply(BufferedImage input) {
+
+        if (input == null) {
+            JFrame frame = new JFrame();
+            JOptionPane.showMessageDialog(frame, Andie.bundle.getString("Pleaseopenanimagefilefirst!"));
+   
+        }
         int w = ogWidth;
         int h = ogheight;
 
