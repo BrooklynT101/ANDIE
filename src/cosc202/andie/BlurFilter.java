@@ -36,7 +36,7 @@ public class BlurFilter implements ImageOperation, java.io.Serializable {
     * Applys the filter to a given buffered image object, returning the output 
     * image with the blur filter effect added via convolution.
 
-    * @param input The image to apply the Soft blur filter to.
+    * @param input The image to apply the blur filter to.
     * @return The output image.
     */
    public BufferedImage apply (BufferedImage input) {

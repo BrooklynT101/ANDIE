@@ -8,7 +8,7 @@ import javax.swing.JSpinner.DefaultEditor;
 public class ImageActions {
 
     protected ArrayList<Action> actions;
-
+    
     public ImageActions() {
         actions = new ArrayList<Action>();
         actions.add(new RotateClockwiseAction(Andie.bundle.getString("RotateClockwise"), null,

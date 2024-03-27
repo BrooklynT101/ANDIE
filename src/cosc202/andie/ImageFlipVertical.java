@@ -8,9 +8,16 @@ import java.awt.image.*;
  * <p>
  * 
  * <p>
- * The flip involves flipping in place, each pixel by its y 
- * coordinates. 
+ * The operation involves flipping, in place, each pixel by its y coordinates, moving 
+ * across each pixel per row and column and sending it to its relative place on the 
+ * opposite side.
  * <p>
+ * 
+ * <p>
+ * <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a>
+ * </p>
+ * 
+ * @version 1.0
  * @see ImageFlipHorizontal
  * @author Brooklyn Taylor
  */
@@ -21,9 +28,11 @@ public class ImageFlipVertical implements ImageOperation, java.io.Serializable{
     }
 
     /**
+     * <p>
      * Applies the flip transformation to the image
-     * 
+     * <p>
      * @param input of type BufferedImage
+     * @return the resulting image as a BufferedImage
      */
     public BufferedImage apply(BufferedImage input) {
         int imageWidth = input.getWidth();

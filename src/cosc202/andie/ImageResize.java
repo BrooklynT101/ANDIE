@@ -25,14 +25,14 @@ public class ImageResize implements ImageOperation, java.io.Serializable {
     private int height;
     private int ogheight;
     private int ogWidth;
-    private Image ogImage;
+    //private Image ogImage;
 
     ImageResize(int width, int height, int ogheight, int ogWidth, Image ogImage) {
         this.width = width;
         this.height = height;
         this.ogheight = ogheight;
         this.ogWidth = ogWidth;
-        this.ogImage = ogImage;
+        //this.ogImage = ogImage;
     }
 
     public BufferedImage apply(BufferedImage input) {
@@ -65,7 +65,7 @@ public class ImageResize implements ImageOperation, java.io.Serializable {
 
             return output;
         } else {
-
+            //can you simplify this to just return ogImage?
             int newH = (int) (height * scaleh);
             int newW = (int) (width * scalew);
 

@@ -61,7 +61,7 @@ public class EditActions {
 
     /**
      * <p>
-     * Action to undo an {@link ImageOperation}.
+     * Action to undo an {@link ImageOperation}. 
      * </p>
      * 
      * @see EditableImage#undo()

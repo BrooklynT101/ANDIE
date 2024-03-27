@@ -230,7 +230,9 @@ public class FileActions {
      * <p>
      * This means to save the image file with all its edits, and no operations file to accompany it
      * <p>
+     * 
      * @see EditableImage#saveAs(String)
+     * @author Brooklyn
      */
     public class FileExportAction extends ImageAction {
 
@@ -245,7 +247,7 @@ public class FileActions {
         }
 
          /**
-         * Prompts the user to select a file and exports the image file to it.
+         * Prompts the user to select a file, enter a filename, and exports the image file to it.
          * 
          * @param e The event triggering this callback.
          */
@@ -253,7 +255,7 @@ public class FileActions {
             // Set the default directory for the "Export" dialog box
             //fileChooser.setSelectedFile(new File());
             JFileChooser fileChooser = new JFileChooser();
-            fileChooser.setDialogTitle("Export to");
+            fileChooser.setDialogTitle(Andie.bundle.getString("export"));
             int result = fileChooser.showSaveDialog(null);
 
             if (result == JFileChooser.APPROVE_OPTION) {
@@ -265,7 +267,8 @@ public class FileActions {
                     ex.printStackTrace();
                     // System.exit(1);
                     JFrame frame = new JFrame();
-                    JOptionPane.showMessageDialog(frame, Andie.bundle.getString("CouldntExport"));
+                    JOptionPane.showMessageDialog(frame, Andie.bundle.getString("CouldntExport\n"+ex));
+                    // JOptionPane.showMessageDialog(frame, Andie.bundle.getString("CouldntExport"));
                 }
             }
         }

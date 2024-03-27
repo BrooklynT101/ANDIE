@@ -39,9 +39,9 @@ public class FilterActions {
         actions = new ArrayList<Action>();
         actions.add(new MeanFilterAction(Andie.bundle.getString("Meanfilter"), null,
                 Andie.bundle.getString("Applyameanfilter"), Integer.valueOf(KeyEvent.VK_M)));
-        actions.add(new BlurFilterAction(Andie.bundle.getString("BlurSoft"), null,
+        actions.add(new BlurFilterAction(Andie.bundle.getString("Blurfilter"), null,
                 Andie.bundle.getString("Applyasoftblur"), Integer.valueOf(KeyEvent.VK_B)));
-        actions.add(new SoftBlurAction(Andie.bundle.getString("Blurfilter"), null,
+        actions.add(new SoftBlurAction(Andie.bundle.getString("BlurSoft"), null,
                 Andie.bundle.getString("Applyablurfilter"), Integer.valueOf(KeyEvent.VK_S)));
         actions.add(new MedianFilterAction(Andie.bundle.getString("Medianfilter"), null,
                 Andie.bundle.getString("Applyamedianfilter"), Integer.valueOf(KeyEvent.VK_M)));
