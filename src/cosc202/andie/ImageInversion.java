@@ -2,14 +2,43 @@ package cosc202.andie;
 
 import java.awt.image.*;
 
+/**
+ * <p>
+ * ImageOperation to inversly change the images RGB values.
+ * </p>
+ * 
+ * <p>
+ * creates an image that has inverse colour scheme to the original
+ * swapping to the opposite RGB pixel value.
+ * </p>
+ * 
+ * <p>
+ * <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a>
+ * </p>
+ * 
+ * @author Amelia Johnston
+ * @version 1.0
+ */
+
 public class ImageInversion implements ImageOperation, java.io.Serializable{
     
-    /** Creates an ImageInversion operation */
+    /**
+     * <p>
+     * Create a new ImageInversion operation.
+     * </p>
+     */
     ImageInversion(){
 
     }
 
-    /** Applies the colour inversion filter */
+    /**
+     * <p>
+     * Apply colour inversion to an image.
+     * </p>
+     * 
+     * @param input The image to be converted to greyscale
+     * @return The resulting greyscale image.
+     */
     public BufferedImage apply(BufferedImage input) {
   
         for (int y = 0; y < input.getHeight(); ++y) {

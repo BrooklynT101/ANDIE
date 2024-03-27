@@ -147,7 +147,7 @@ public class ColourActions {
         }
 
         /**
-         * callback for when the image inversion is triggered
+         * callback for when the colour channel cycling is triggered
          * 
          * @param e The even triggering this callback
          */
