@@ -3,6 +3,9 @@ package cosc202.andie;
 import java.awt.image.*;
 import java.util.*;
 
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+
 /**
  * <p>
  * ImageOperation to apply a Median (simple blur) filter.
@@ -10,16 +13,18 @@ import java.util.*;
  * 
  * <p>
  * A Median filter blurs an image by replacing each pixel by the average of the
- * pixels in a surrounding neighbourhood, its size determined by a user provided radius.
+ * pixels in a surrounding neighbourhood, its size determined by a user provided
+ * radius.
  * This is not implemented using convolution.
  * </p>
  * 
  * @author Marcus
  */
-public class MedianFilter implements ImageOperation, java.io.Serializable{
-    
+public class MedianFilter implements ImageOperation, java.io.Serializable {
+
     /**
-     * The size of filter to apply. A radius of 1 is a 3x3 filter, a radius of 2 a 5x5 filter, and so forth.
+     * The size of filter to apply. A radius of 1 is a 3x3 filter, a radius of 2 a
+     * 5x5 filter, and so forth.
      */
     private int radius;
 
@@ -36,7 +41,7 @@ public class MedianFilter implements ImageOperation, java.io.Serializable{
      * 
      * @param radius The radius of the newly constructed MedianFilter
      */
-    MedianFilter(int radius){
+    MedianFilter(int radius) {
         this.radius = radius;
     }
 
@@ -51,10 +56,10 @@ public class MedianFilter implements ImageOperation, java.io.Serializable{
      * 
      * @see MedianFilter(int)
      */
-    MedianFilter(){
+    MedianFilter() {
         this(1);
     }
-   
+
     /**
      * <p>
      * Apply a Median filter to an image.
@@ -62,7 +67,8 @@ public class MedianFilter implements ImageOperation, java.io.Serializable{
      * 
      * <p>
      * Unlike the mean filter, the Median filter is not implemented via convolution.
-     * Instead we use a local neibourhood with a specified radius --> {@link radius}.  
+     * Instead we use a local neibourhood with a specified radius -->
+     * {@link radius}.
      * Larger radii results in stronger blurring.
      * </p>
      * 
@@ -70,51 +76,54 @@ public class MedianFilter implements ImageOperation, java.io.Serializable{
      * @return The resulting (blurred)) image.
      */
     public BufferedImage apply(BufferedImage input) {
+        if (input == null) {
+            JFrame frame = new JFrame();
+            JOptionPane.showMessageDialog(frame, Andie.bundle.getString("Pleaseopenanimagefilefirst!"));
 
-        int neighbourhoodSize = ((radius*2+1)*(radius*2+1));
+        }
+
+        int neighbourhoodSize = ((radius * 2 + 1) * (radius * 2 + 1));
         System.out.println(neighbourhoodSize);
 
         for (int y = radius; y < input.getHeight() - radius; y++) {
-            
+
             for (int x = radius; x < input.getWidth() - radius; x++) {
-            int argb = input.getRGB(x, y);
-            int a = (argb & 0xFF000000) >> 24; 
-            int[] red = new int[neighbourhoodSize];
-            int[] green = new int[neighbourhoodSize];
-            int[] blue = new int[neighbourhoodSize];
-            int index = 0;
+                int argb = input.getRGB(x, y);
+                int a = (argb & 0xFF000000) >> 24;
+                int[] red = new int[neighbourhoodSize];
+                int[] green = new int[neighbourhoodSize];
+                int[] blue = new int[neighbourhoodSize];
+                int index = 0;
 
+                for (int ny = y - radius; ny <= y + radius; ny++) {
+                    for (int nx = x - radius; nx <= x + radius; nx++) {
 
+                        int argbNeighbourhood = input.getRGB(nx, ny);
 
-                for(int ny = y - radius; ny <= y + radius; ny++){
-                    for(int nx = x - radius; nx <= x + radius; nx++){
+                        red[index] = (argbNeighbourhood & 0x00FF0000) >> 16;
+                        green[index] = (argbNeighbourhood & 0x0000FF00) >> 8;
+                        blue[index] = (argbNeighbourhood & 0x000000FF);
 
-                    int argbNeighbourhood = input.getRGB(nx, ny);
-                    
-                    red[index] = (argbNeighbourhood & 0x00FF0000) >> 16;
-                    green[index] = (argbNeighbourhood & 0x0000FF00) >> 8;
-                    blue[index] = (argbNeighbourhood & 0x000000FF);
-
-                    index++;
+                        index++;
                     }
                 }
-                
+
                 Arrays.sort(red);
                 Arrays.sort(green);
                 Arrays.sort(blue);
 
-                int redMedian = (red[(red.length)/2]);
-                int greenMedian = (green[(green.length/2)]);
-                int blueMedian = (blue[(blue.length)/2]);
-                
+                int redMedian = (red[(red.length) / 2]);
+                int greenMedian = (green[(green.length / 2)]);
+                int blueMedian = (blue[(blue.length) / 2]);
 
                 argb = (a << 24) | (redMedian << 16) | (greenMedian << 8) | (blueMedian);
 
                 input.setRGB(x, y, argb);
             }
         }
-        
-         BufferedImage output = new BufferedImage(input.getColorModel(), input.copyData(null), input.isAlphaPremultiplied(), null);
+
+        BufferedImage output = new BufferedImage(input.getColorModel(), input.copyData(null),
+                input.isAlphaPremultiplied(), null);
 
         return output;
 
