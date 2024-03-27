@@ -7,29 +7,28 @@ Welcome to ANDIE, ANDIE is used to perform simple operations on image files and 
 The ANDIE program contains many simple image editing features. Here are the operations you can perform in the program:
 
 - `Convert To Grey`: Convert an image to become greyscale, by editing each pixels RBG values.
-- `Image Inversion`: Converts an iamges RGB values to the inverse of their original values.
+- `Image Inversion`: Converts an images RGB values to the inverse of their original values.
 - `Colour Channel Cycling`: Allows a user to cycle the colour channels to any possible configuration based on how the user specifies the colour channel.
 - `Mean Filter`: A simple blurring filter that smooths out the image by finding the mean value of the surrounding kernel around a pixel and applying the mean value to that pixel.
 - `Soft Blur`: Blurs an image by a *soft* margin.
 - `Median Filter`: Uses a local neighbourhood with a specified radius to blur an image.
 - `Gaussian Blur`: Blurs an image as per the mathmatical principles of Gaussian(normal) distribution.
-- `Sharpen Filter`: Sharpens an image by using a set kernal and convolution.
+- `Sharpen Filter`: Sharpens an image by using a set kernel and convolution.
 - `Image Rotation Clockwise`: Rotates an image 90° in the clockwise direction.
-- `Image Rotation Anticlockwise`: Rotates an image 90° in the anticlockwise direction.
+- `Image Rotation Anticlockwise`: Rotates an image 90° in the anti-clockwise direction.
 - `Image Flip Vertically`: Flip an image vertically along the y-axis.
 - `Image Flip Horizontally`: Flip an image horizontally along the x-axis.
 - `Image Resize`: Scales an image by a given percentage.
 - `Zoom In`: Zooms in at 10 percent.
 - `Zoom Out`: Zooms out at 10 percent.
-- `Zoom In`: Returns image back to it's original size.
+- `Zoom Full`: Returns image back to it's original size.
 
 ## Saving images
 - The `Save` action saves the image operations file in the directory the image was opened in, replacing (or creating) image operations file and keeping the original image unchanged. 
 - The `Save As` operation allows the user to specify the file name and directory directly. Each option will save along with the image file an *operations* file, this file saves the image operations that were performed.
-- The `Export` action allows the user to export the image with all operations preformed as a single image file, this means that it will create a copy of the image and saves a new one to the specified directory, leaving the original file unchanged. If the user specifies a different file type the system will attempt to save the 
+- The `Export` action allows the user to export the image with all operations preformed as a single image file, this means that it will create a copy of the image and saves a new one to the specified directory, leaving the original file unchanged. If the user specifies a different file type the system will attempt to save the desired file type and if the file doesnt correctly save to the system the method is to throw a new exception depending on the outcome.
 
 ### Known supported file types
-Supported file types;
 - JPG - pass
 - JPEG - pass
 - PNG - pass
@@ -41,7 +40,7 @@ Supported file types;
 - ICO - fail
 - PNM - fail
 - PCX - fail
->Note: the user can only export to the file directories they have permissions to write to. 
+>Note: The user can only export to the file directories they have permissions to write to. 
 
 ## Undo and Redo Action 
 This feature allows you to undo the edits you've made or redo any undone changes. Some filters are applied multiple times but the undo and redo only needs a single operation to reverse the change.
@@ -50,7 +49,7 @@ The operations performed on an image is saved with the image, meaning that after
 
 ## MultiLingual Support
 ```
-The Multilingual support feature allows users to use our ANDIE project in the set language of both English and Maori. The default langauge is set to English but if the user choses to they can set the language to Maori, this prompts a restart of the system to apply the change. Upon reopening, the language and all the menu options are converted to the new chosen language. 
+The Multilingual support feature allows users to use our ANDIE project in the set language of both English and Maori. The default langauge is set to English but if the user chooses to they can set the language to Maori, this prompts a restart of the system to apply the change. Upon reopening, the language and all the menu options are converted to the new chosen language. 
 ```
 
 ### Contribution
@@ -78,11 +77,24 @@ Marcus worked on removing the excess clutter from the main branch. At some point
 
 ## Testing 
 Throughout the creation of this project we all preformed individual tests on our code such as adding print line statements and comparing the outcome with the specified task and examples. 
-We also preformed JUnit tests _____. ????
+
 Some examples of testing included:
-- `Gaussian Blur`: Our test was to print out the outputted array and compared to the kernel that was expected for the Gaussian Distribution. Consultation with the lab tutors allowed Ari to determine that his filter was properly implemented, as well comparing the printed array values for the corrosponding radius values, with the expected values at each index plugged into the Gaussian equation and it lines up.
+- `Gaussian Blur`: Our test was to print output array and compare to the kernel that was expected for the Gaussian Distribution. Consultation with the lab tutors allowed Ari to determine that his filter was properly implemented, as well comparing the printed array values for the corrosponding radius values, with the expected values at each index plugged into the Gaussian equation and it lines up.
 - `File Saving/Exporting`: System print lines were added to ensure that the code was able to run to a certain part of the code block, usually with simple strings ("Test1", "notSaved", etc.) this allowed us to ensure that the files were being saved or just attempting to.
-- `Colour Channel Cycling`: We could use print commands to print the RGB values to the console each time the action is performed to determine if the values are actually getting rearranged. Print the RGB values before the cycle operation then print it again afterwards, then we can visualling determine if the values are cycling  
+- `Colour Channel Cycling`: Using print commands to print the RGB values to the console each time the action is performed to determine if the values are actually getting rearranged. Print the RGB values before the cycle operation then print it again afterwards, allowing us to determine the values are cycling correctly.
+```
+Before colour channel cycle
+Alpha: -1, Red: 45, Green: 47, Blue: 33
+After colour channel cycle
+Alpha: -1, Red: 47, Green: 33, Blue: 45
+```
+- `Image Inversion`: Similar to before with the colour channel cycling, we used print commands to print the RGB values of the pixels before and after. And after calculating the values ourselves as per what the filter required, we determined the filter is correctly working
+```
+Before colour inversion
+Alpha: -1, Red: 45, Green: 47, Blue: 33
+After colour inversion
+Alpha: -1, Red: 210, Green: 208, Blue: 222
+```
 
 ## Authors
-Created by Amelia Johnston, Ari Josephson, Brooklyn Taylor, and Marcus Woodard
+Created by Amelia Johnston, Ari Josephson, Brooklyn Taylor, and Marcus Woodward

@@ -39,10 +39,10 @@ non numbers being inputed into prompts - Ari
 
 
 ## Add JavaDoc comments
-- GaussianBlur
-- ImageResize
-- LanguageActions
-- SoftBlur
+- GaussianBlur - DONE
+- ImageResize - DONE
+- LanguageActions - DONE
+- SoftBlur - DONE
 - MedianFilter - DONE
 - Andie - DONE 
 - BlurFilter - DONE

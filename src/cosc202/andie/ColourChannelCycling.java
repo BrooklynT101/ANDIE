@@ -38,8 +38,8 @@ public class ColourChannelCycling implements ImageOperation, java.io.Serializabl
      * Apply colour channel cycling conversion to an image.
      * </p>
      * 
-     * @param input The image to be converted to greyscale
-     * @return The resulting greyscale image.
+     * @param input The image to be colour channel cycled
+     * @return The resulting image with rotated RGB values
      */
     public BufferedImage apply(BufferedImage input) {
 
@@ -49,6 +49,16 @@ public class ColourChannelCycling implements ImageOperation, java.io.Serializabl
    
         }
   
+        //testing variables
+        // int ba = 0;
+        // int br = 0;
+        // int bg = 0;
+        // int bb = 0;
+        // int aa = 0;
+        // int ar = 0;
+        // int ag = 0;
+        // int ab = 0;
+
         for (int y = 0; y < input.getHeight(); ++y) {
             for (int x = 0; x < input.getWidth(); ++x) {
                 int argb = input.getRGB(x, y);
@@ -56,12 +66,28 @@ public class ColourChannelCycling implements ImageOperation, java.io.Serializabl
                 int r = (argb & 0x00FF0000) >> 16;
                 int g = (argb & 0x0000FF00) >> 8;
                 int b = (argb & 0x000000FF);
+                
+                //testing before pixel values
                 //System.out.println("Before colour channel cycle\nAlpha: "+a+", Red: "+r+", Green: "+g+", Blue: "+b);
+                // ba = a;
+                // br = r;
+                // bg = g;
+                // bb = b;
+                
                 argb = (a << 24) | (g << 16) | (b << 8) | r; //rotates the RGB values 
+                
+                //testing after pixel values
                 //System.out.println("After colour channel cycle\nAlpha: "+a+", Red: "+r+", Green: "+g+", Blue: "+b);
+                // aa = (argb & 0xFF000000) >> 24;
+                // ar = (argb & 0x00FF0000) >> 16;
+                // ag = (argb & 0x0000FF00) >> 8;
+                // ab = (argb & 0x000000FF);
                 input.setRGB(x, y, argb);
             }
         }
+        //outputting test - if 0 theres a problem
+        // System.out.println("Before colour channel cycle\nAlpha: "+ba+", Red: "+br+", Green: "+bg+", Blue: "+bb);
+        // System.out.println("After colour channel cycle\nAlpha: "+aa+", Red: "+ar+", Green: "+ag+", Blue: "+ab);
         
         return input;
     }
