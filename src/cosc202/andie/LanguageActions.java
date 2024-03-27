@@ -18,7 +18,7 @@ import javax.swing.JOptionPane;
  * <p>
  * The Language menu contains actions that affect how the text is displayed in
  * the
- * application, currently showing English (native) and a Māori translation, when
+ * application, currently showing English (native) and a Maori translation, when
  * the other is selected the user is prompted to restart the application.
  * </p>
  * 
@@ -109,12 +109,12 @@ public class LanguageActions {
 
     /**
      * <p>
-     * Translates to Māori.
+     * Translates to Maori.
      * </p>
      * 
      * <p>
-     * English Action applys the Te Reo Māori properties, changing the language to
-     * Te Reo Māori.
+     * English Action applys the Te Reo Maori properties, changing the language to
+     * Te Reo Maori.
      * </p>
      * 
      * <p>
