@@ -2,13 +2,43 @@ package cosc202.andie;
 
 import java.awt.image.*;
 
+/**
+ * <p>
+ * ImageOperation to cycle the colour channeld between RGB, GBR, and BRG.
+ * </p>
+ * 
+ * <p>
+ * this produces and image that still looks similar but is differently coloured
+ * and can rotate between the other values. The individual pixels RGB values are 
+ * changed and stored for dther changes.
+ * </p>
+ * 
+ * <p>
+ * <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a>
+ * </p>
+ * 
+ * @author Amelia Johnston
+ * @version 1.0
+ */
+
 public class ColourChannelCycling implements ImageOperation, java.io.Serializable {
 
-    /** Creates an ColourChannelCycling operation */
+    /**
+     * <p>
+     * Create a new ColourChannelCycling operation.
+     * </p>
+     */
     ColourChannelCycling(){
     }
 
-    /** Applies the colour cycling filter */
+    /**
+     * <p>
+     * Apply colour channel cycling conversion to an image.
+     * </p>
+     * 
+     * @param input The image to be converted to greyscale
+     * @return The resulting greyscale image.
+     */
     public BufferedImage apply(BufferedImage input) {
   
         for (int y = 0; y < input.getHeight(); ++y) {

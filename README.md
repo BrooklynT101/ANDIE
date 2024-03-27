@@ -41,20 +41,24 @@ The Multilingual support features allows users to use our ANDIE project in the s
 ## Contribution
 Within our group of 4 we divided the project up to fit our strengths. We each took a 'difficult' operation to begin then later moved on to the simpler areas of this project. Once all the actions were added we went back into our code adding the MultiLingual feature and developing our exception handling within any area of code that seemed necessary. 
 The specific areas that each of out team members completed includes:
-> Ari Josephson: Completed the Gaussian blur, ...
+
+> Ari Josephson: Completed the Gaussian blur, image resize and the multilingual support.
 
 
-> Amelia Johnston: Completed the Colour actions...
+> Amelia Johnston: Completed the Colour actions (colour inversion and the colour channel cycling) and the image rotation. 
 
 
-> Brooklyn Taylor: Completed the 
+> Brooklyn Taylor: Completed the sharpen filter, image flip and image export. 
 
 
-> Marcus Woodward: Completed the Median Filter,...
+> Marcus Woodward: Completed the Median Filter, tackling the main part of the exception handling.
+
+As a team we went through all the code and looked at error avoidance along with any updates that we saw fit. We all did our individual testing throuhgout our methods and spoke to each other to check we were on the correct path. 
 
 
 ## Testing 
-Throughout the creation of this project we all preformed individual tests on our code such as adding print line statements and ____. We also preforms JUnit tests _____. 
+Throughout the creation of this project we all preformed individual tests on our code such as adding print line statements and comparing the outcome with the specified task and examples. 
+We also preformed JUnit tests _____. ????
 Some examples of testing included:
 - `Gaussian Blur`: Our test was to print out the outputted array and compared to the kernel that was expected for Gaussian Distribution.
 
