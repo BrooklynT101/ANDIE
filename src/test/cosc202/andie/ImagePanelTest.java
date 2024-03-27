@@ -6,14 +6,14 @@
 // //import cosc202.andie.ImagePanel;
 
 // public class ImagePanelTest {
-//     @Test
-//     void initialDummyTest() {
+// @Test
+// void initialDummyTest() {
 
-//     }
 // }
-// //     @Test
-// //     void getZoomInitialValue() {
-// //         ImagePanel testPanel = new ImagePanel();
-// //         Assertions.assertEquals(100.0, testPanel.getZoom());
-// //     }
+// }
+// // @Test
+// // void getZoomInitialValue() {
+// // ImagePanel testPanel = new ImagePanel();
+// // Assertions.assertEquals(100.0, testPanel.getZoom());
+// // }
 // // }

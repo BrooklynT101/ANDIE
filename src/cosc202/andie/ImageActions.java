@@ -3,6 +3,7 @@ package cosc202.andie;
 import java.util.*;
 import java.awt.event.*;
 import javax.swing.*;
+import javax.swing.JSpinner.DefaultEditor;
 
 public class ImageActions {
 
@@ -130,6 +131,9 @@ public class ImageActions {
             // Pop-up dialog box to ask for the scale value.
             SpinnerNumberModel scaleModel = new SpinnerNumberModel(100, 1, 1000, 4);
             JSpinner scaleSpinner = new JSpinner(scaleModel);
+            // Prevents adding no 1 - 10 integers, by making the text field un editable by
+            // default.
+            ((DefaultEditor) scaleSpinner.getEditor()).getTextField().setEditable(false);
             int option1 = JOptionPane.showOptionDialog(null, scaleSpinner, Andie.bundle.getString("EnterPercentScaled"),
                     JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
 

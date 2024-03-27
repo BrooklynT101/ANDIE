@@ -1,9 +1,23 @@
 package cosc202.andie;
 
 import java.awt.image.*;
-//import java.util.*;
 
-/*Gaussian Blur Class, allows image to be blurred using gaussian blur from a radius. */
+/**
+ * <p>
+ * Gaussian Blur Class, allows image to be blurred using gaussian function
+ * bluring from a radius inputed by user.
+ * <p>
+ * 
+ * <p>
+ * Creates a Gaussian Blur object with default radius 1, and
+ * then creates a float array for a kernel, using the
+ * gaussian function to apply blur to the image.
+ * 
+ * <p>
+ * 
+ * @implNote Implements ImageOperation, java.io.Serializable
+ * @author Ari Josephson
+ */
 
 public class GaussianBlur implements ImageOperation, java.io.Serializable {
 

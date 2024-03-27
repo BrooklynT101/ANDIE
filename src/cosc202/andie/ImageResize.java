@@ -2,8 +2,22 @@ package cosc202.andie;
 
 import java.awt.image.*;
 import java.awt.Image;
-//import java.awt.Graphics2D;
-//import java.util.*;
+
+/**
+ * <p>
+ * Image Resize to resize image, scaling image down and up pixels.
+ * <p>
+ * 
+ * <p>
+ * Makes an ImageResize object which takes an inputed height (height) scale
+ * (which will be the same as the width scale) which if less then 100 scales
+ * down,
+ * if 100 stays the same, and over 100 scales up.
+ * <p>
+ * 
+ * @see ImageResize
+ * @author Ari Josephson
+ */
 
 public class ImageResize implements ImageOperation, java.io.Serializable {
 
@@ -55,11 +69,9 @@ public class ImageResize implements ImageOperation, java.io.Serializable {
             int newH = (int) (height * scaleh);
             int newW = (int) (width * scalew);
 
-            Image result = input.getScaledInstance(newW, newH, Image.SCALE_DEFAULT);
-
             BufferedImage output = new BufferedImage(newW, newH, BufferedImage.TYPE_INT_RGB);
+            output = input;
 
-            output.getGraphics().drawImage(result, 0, 0, null);
             return output;
         }
     }

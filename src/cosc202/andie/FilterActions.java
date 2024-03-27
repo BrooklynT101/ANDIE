@@ -3,6 +3,7 @@ package cosc202.andie;
 import java.util.*;
 import java.awt.event.*;
 import javax.swing.*;
+import javax.swing.JSpinner.DefaultEditor;
 
 /**
  * <p>
@@ -111,6 +112,9 @@ public class FilterActions {
             // Pop-up dialog box to ask for the radius value.
             SpinnerNumberModel radiusModel = new SpinnerNumberModel(1, 1, 10, 1);
             JSpinner radiusSpinner = new JSpinner(radiusModel);
+            // Prevents adding no 1 - 10 integers, by making the text field un editable by
+            // default.
+            ((DefaultEditor) radiusSpinner.getEditor()).getTextField().setEditable(false);
             int option = JOptionPane.showOptionDialog(null, radiusSpinner, Andie.bundle.getString("Enterfilterradius"),
                     JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
 
@@ -135,8 +139,10 @@ public class FilterActions {
      * <p>
      * 
      * <p>
-     * Note that despite the number of filter operations, its still considered a single action.
+     * Note that despite the number of filter operations, its still considered a
+     * single action.
      * <p>
+     * 
      * @see BlurFilter
      * @author Brooklyn
      */
@@ -164,12 +170,15 @@ public class FilterActions {
          * @param e The event triggering this callback.
          */
         public void actionPerformed(ActionEvent e) {
-            // Runs at least once 
+            // Runs at least once
             int repeat = 1;
 
             // Pop-up dialog box to ask for the desired repeated operations.
             SpinnerNumberModel repeatModel = new SpinnerNumberModel(1, 1, 10, 1);
             JSpinner repeatSpinner = new JSpinner(repeatModel);
+            // Prevents adding no 1 - 10 integers, by making the text field un editable by
+            // default.
+            ((DefaultEditor) repeatSpinner.getEditor()).getTextField().setEditable(false);
             int option = JOptionPane.showOptionDialog(null, repeatSpinner,
                     Andie.bundle.getString("RepeatFilter"),
                     JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
@@ -192,12 +201,12 @@ public class FilterActions {
      * <p>
      * Action to apply a soft blur to an image once.taken from the lab book example
      * <p>
-     *  
+     * 
      * @see SoftBlur
      * @author Ari
      */
     public class SoftBlurAction extends ImageAction {
-        
+
         /**
          * Create a new blur filter action.
          * 
@@ -234,8 +243,10 @@ public class FilterActions {
      * <p>
      * 
      * <p>
-     * Note that despite the number of filter operations, its still considered a single action.
+     * Note that despite the number of filter operations, its still considered a
+     * single action.
      * <p>
+     * 
      * @see SharpenFilter
      * @author Brooklyn
      */
@@ -270,6 +281,9 @@ public class FilterActions {
             // Prompt the user for the number of times to apply the filter
             SpinnerNumberModel repeatModel = new SpinnerNumberModel(1, 1, 10, 1);
             JSpinner repeatSpinner = new JSpinner(repeatModel);
+            // Prevents adding no 1 - 10 integers, by making the text field un editable by
+            // default.
+            ((DefaultEditor) repeatSpinner.getEditor()).getTextField().setEditable(false);
             int option = JOptionPane.showOptionDialog(null, repeatSpinner,
                     Andie.bundle.getString("RepeatFilter"),
                     JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
@@ -285,7 +299,7 @@ public class FilterActions {
             target.getImage().apply(new SharpenFilter(repeat));
             target.repaint();
             target.getParent().revalidate();
-            
+
         }
 
     }
@@ -329,6 +343,9 @@ public class FilterActions {
             // Pop-up dialog box to ask for the radius value.
             SpinnerNumberModel radiusModel = new SpinnerNumberModel(1, 1, 10, 1);
             JSpinner radiusSpinner = new JSpinner(radiusModel);
+            // Prevents adding no 1 - 10 integers, by making the text field un editable by
+            // default.
+            ((DefaultEditor) radiusSpinner.getEditor()).getTextField().setEditable(false);
             int option = JOptionPane.showOptionDialog(null, radiusSpinner, Andie.bundle.getString("Enterfilterradius"),
                     JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
 
@@ -392,6 +409,9 @@ public class FilterActions {
             // Pop-up dialog box to ask for the radius value.
             SpinnerNumberModel radiusModel = new SpinnerNumberModel(1, 1, 10, 1);
             JSpinner radiusSpinner = new JSpinner(radiusModel);
+            // Prevents adding no 1 - 10 integers, by making the text field un editable by
+            // default.
+            ((DefaultEditor) radiusSpinner.getEditor()).getTextField().setEditable(false);
             int option = JOptionPane.showOptionDialog(null, radiusSpinner, Andie.bundle.getString("Enterfilterradius"),
                     JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
 
