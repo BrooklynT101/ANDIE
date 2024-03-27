@@ -51,7 +51,7 @@ public class MedianFilter implements ImageOperation, java.io.Serializable{
      * <p>
      * Unlike the mean filter, the Median filter is not implemented via convolution.
      * Instead we use a local neibourhood with a specified radius --> {@link radius}.  
-     * Larger radii lead to stronger blurring.
+     * Larger radii results in stronger blurring.
      * </p>
      * 
      * @param input The image to apply the Median filter to.
@@ -83,15 +83,11 @@ public class MedianFilter implements ImageOperation, java.io.Serializable{
                     green[index] = (argbNeighbourhood & 0x0000FF00) >> 8;
                     blue[index] = (argbNeighbourhood & 0x000000FF);
 
-                    // System.out.println(Arrays.toString(red));
-                    // System.out.println(Arrays.toString(green)); 
-                    // System.out.println(Arrays.toString(blue)); 
                     index++;
                     }
                 }
                 
                 Arrays.sort(red);
-               // System.out.println(Arrays.toString(red));
                 Arrays.sort(green);
                 Arrays.sort(blue);
 
@@ -107,7 +103,7 @@ public class MedianFilter implements ImageOperation, java.io.Serializable{
         }
         
          BufferedImage output = new BufferedImage(input.getColorModel(), input.copyData(null), input.isAlphaPremultiplied(), null);
-         System.out.println("Done");
+
         return output;
 
     }
