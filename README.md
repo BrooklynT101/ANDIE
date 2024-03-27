@@ -78,6 +78,9 @@ Marcus worked on removing the excess clutter from the main branch. At some point
 ## Testing 
 Throughout the creation of this project we all preformed individual tests on our code such as adding print line statements and comparing the outcome with the specified task and examples. 
 
+We tryed to use Junit testing, but were able to as the importing of the Junit resource weren't working for our
+Gradle build.
+
 Some examples of testing included:
 - `Gaussian Blur`: Our test was to print output array and compare to the kernel that was expected for the Gaussian Distribution. Consultation with the lab tutors allowed Ari to determine that his filter was properly implemented, as well comparing the printed array values for the corrosponding radius values, with the expected values at each index plugged into the Gaussian equation and it lines up.
 - `File Saving/Exporting`: System print lines were added to ensure that the code was able to run to a certain part of the code block, usually with simple strings ("Test1", "notSaved", etc.) this allowed us to ensure that the files were being saved or just attempting to.
