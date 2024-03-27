@@ -34,8 +34,6 @@ public class Andie {
             .setRegion(prefs.get("country", "NZ")).build();
     protected static ResourceBundle bundle = ResourceBundle.getBundle("CommandsBundle", locale);
 
-    // public prefs get
-
     /**
      * <p>
      * Launches the main GUI for the ANDIE program.

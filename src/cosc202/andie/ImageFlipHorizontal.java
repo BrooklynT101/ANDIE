@@ -3,19 +3,28 @@ package cosc202.andie;
 import java.awt.image.*;
 
 /**
+ * <p>
  * ImageOperation to flip a photo horizontally.
+ * <p>
  * 
+ * <p>
  * The slip involves flipping, in place, each pixel by its x coordinates. 
+ * <p>
  * 
- * 
+ * @see ImageFlipVertical
  * @author Brooklyn Taylor
  */
 public class ImageFlipHorizontal implements ImageOperation, java.io.Serializable{
     
-    /** Constructor */
+    /** Default Constructor */
     ImageFlipHorizontal(){
     }
-    /** Applies fliter to bufferedimage */
+    
+    /**
+     * Applies the flip transformation to the image
+     * 
+     * @param input of type BufferedImage
+     */
     public BufferedImage apply(BufferedImage input) {
         int imageWidth = input.getWidth();
         int imageHeight = input.getHeight();

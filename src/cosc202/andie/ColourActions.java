@@ -104,7 +104,20 @@ public class ColourActions {
         }
 
     }
-
+    /**
+     * <p>
+     * A filter class that applies a blur effect to the whole image
+     * <p>
+     * 
+     * <p>
+     * Creates a blur filter object, with a default radius of 1 and
+     * a desired number of filter operations to perform 
+     * 
+     * <p>
+     * 
+     * @implNote Implements ImageOperation, java.io.Serializable
+     * @author Amelia
+     */
     public class ImageInversionAction extends ImageAction {
 
         /**
@@ -132,10 +145,23 @@ public class ColourActions {
 
     }
 
+    /**
+     * <p>
+     * Cycles the RGB values of an images, 
+     * <p>
+     * 
+     * <p>
+     * Works by copying the current red values to the green, green to the blue, and blue to the red.
+     * Cycling with each action call. 
+     * <p>
+     * 
+     * @see ColourChannelCycling 
+     * @author Amelia
+     */
     public class ColourChannelCyclingAction extends ImageAction {
 
         /**
-         * create a new image inversion action
+         * Creates a new colour channel cycling action
          * 
          * @param name     The name of the action (ignored if null).
          * @param icon     An icon to use to represent the action (ignored if null).
@@ -148,8 +174,13 @@ public class ColourActions {
 
         /**
          * callback for when the colour channel cycling is triggered
+         * <p>
+         * This method is called whenever the ColourChannelCyclingAction is triggered.
+         * Cycling the RGB values by 1 step each time
+         * {@link ColourChannelCycling}.
+         * </p>
          * 
-         * @param e The even triggering this callback
+         * @param e The event triggering this callback.
          */
         public void actionPerformed(ActionEvent e) {
             target.getImage().apply(new ColourChannelCycling());

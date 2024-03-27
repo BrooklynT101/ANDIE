@@ -39,16 +39,15 @@ public class FilterActions {
         actions.add(new MeanFilterAction(Andie.bundle.getString("Meanfilter"), null,
                 Andie.bundle.getString("Applyameanfilter"), Integer.valueOf(KeyEvent.VK_M)));
         actions.add(new BlurFilterAction(Andie.bundle.getString("BlurSoft"), null,
-                Andie.bundle.getString("Applyasoftblur"), Integer.valueOf(KeyEvent.VK_M)));
+                Andie.bundle.getString("Applyasoftblur"), Integer.valueOf(KeyEvent.VK_B)));
         actions.add(new SoftBlurAction(Andie.bundle.getString("Blurfilter"), null,
-                Andie.bundle.getString("Applyablurfilter"), Integer.valueOf(KeyEvent.VK_M)));
+                Andie.bundle.getString("Applyablurfilter"), Integer.valueOf(KeyEvent.VK_S)));
         actions.add(new MedianFilterAction(Andie.bundle.getString("Medianfilter"), null,
                 Andie.bundle.getString("Applyamedianfilter"), Integer.valueOf(KeyEvent.VK_M)));
         actions.add(new GaussianBlurAction(Andie.bundle.getString("GaussianBlur"), null,
-                Andie.bundle.getString("ApplyGaussianblur"), Integer.valueOf(KeyEvent.VK_M)));
-
+                Andie.bundle.getString("ApplyGaussianblur"), Integer.valueOf(KeyEvent.VK_G)));
         actions.add(new SharpenAction(Andie.bundle.getString("Sharpenfilter"), null,
-                Andie.bundle.getString("Applyasharpenfilter"), Integer.valueOf(KeyEvent.VK_M)));
+                Andie.bundle.getString("Applyasharpenfilter"), Integer.valueOf(KeyEvent.VK_S)));
     }
 
     /**
@@ -132,18 +131,18 @@ public class FilterActions {
 
     /**
      * <p>
-     * Applies a multitude of blur effects to the image.
+     * Action to blur an image a given number of times.
      * <p>
      * 
      * <p>
-     * Prompts the user for a number between 1 and 50
+     * Note that despite the number of filter operations, its still considered a single action.
      * <p>
-     * 
+     * @see BlurFilter
      * @author Brooklyn
      */
     public class BlurFilterAction extends ImageAction {
         /**
-         * Create a new sharpen filter action.
+         * Create a new blur filter action.
          * 
          * @param name     The name of the action (ignored if null).
          * @param icon     An icon to use to represent the action (ignored if null).
@@ -155,11 +154,20 @@ public class FilterActions {
             super(name, icon, desc, mnemonic);
         }
 
+        /**
+         * <p>
+         * This method is called whenever the BlurFilterAction is triggered.
+         * It prompts the user for a value, then blurs the image that number of times
+         * {@link BlurFilter}.
+         * </p>
+         * 
+         * @param e The event triggering this callback.
+         */
         public void actionPerformed(ActionEvent e) {
-            // Determine the number of times to apply the blur - ask the user.
+            // Runs at least once 
             int repeat = 1;
 
-            // Pop-up dialog box to ask for the radius value.
+            // Pop-up dialog box to ask for the desired repeated operations.
             SpinnerNumberModel repeatModel = new SpinnerNumberModel(1, 1, 10, 1);
             JSpinner repeatSpinner = new JSpinner(repeatModel);
             int option = JOptionPane.showOptionDialog(null, repeatSpinner,
@@ -180,20 +188,37 @@ public class FilterActions {
         }
     }
 
-    // taken from the lab book example
     /**
      * <p>
-     * Applies a soft blur effect to the image
+     * Action to apply a soft blur to an image once.taken from the lab book example
      * <p>
-     * 
+     *  
+     * @see SoftBlur
      * @author Ari
      */
     public class SoftBlurAction extends ImageAction {
+        
+        /**
+         * Create a new blur filter action.
+         * 
+         * @param name     The name of the action (ignored if null).
+         * @param icon     An icon to use to represent the action (ignored if null).
+         * @param desc     A brief description of the action (ignored if null).
+         * @param mnemonic A mnemonic key to use as a shortcut (ignored if null).
+         */
         SoftBlurAction(String name, ImageIcon icon,
                 String desc, Integer mnemonic) {
             super(name, icon, desc, mnemonic);
         }
 
+        /**
+         * <p>
+         * This method is called whenever the SoftBlurAction is triggered.
+         * {@link SoftBlur}.
+         * </p>
+         * 
+         * @param e The event triggering this callback.
+         */
         public void actionPerformed(ActionEvent e) {
             // Create and apply the filter
             target.getImage().apply(new SoftBlur());
@@ -204,23 +229,45 @@ public class FilterActions {
     }
 
     /**
-     * Action to blur an image with a mean filter.
+     * <p>
+     * Action to "sharpen" an image a number of times.
+     * <p>
      * 
+     * <p>
+     * Note that despite the number of filter operations, its still considered a single action.
+     * <p>
      * @see SharpenFilter
+     * @author Brooklyn
      */
     public class SharpenAction extends ImageAction {
 
+        /**
+         * Create a new Sharpen filter action.
+         * 
+         * @param name     The name of the action (ignored if null).
+         * @param icon     An icon to use to represent the action (ignored if null).
+         * @param desc     A brief description of the action (ignored if null).
+         * @param mnemonic A mnemonic key to use as a shortcut (ignored if null).
+         */
         SharpenAction(String name, ImageIcon icon,
                 String desc, Integer mnemonic) {
             super(name, icon, desc, mnemonic);
         }
 
+        /**
+         * <p>
+         * This method is called whenever the SharpenAction is triggered.
+         * It prompts the user for a value, then sharpens the image that number of times
+         * {@link BlurFilter}.
+         * </p>
+         * 
+         * @param e The event triggering this callback.
+         */
         public void actionPerformed(ActionEvent e) {
             // Determine the number of times to apply the sharpen - ask the user.
             int repeat = 1;
 
-            // Pop-up dialog box to ask for the "intensity" or actually, the amount of times
-            // to apply the filter.
+            // Prompt the user for the number of times to apply the filter
             SpinnerNumberModel repeatModel = new SpinnerNumberModel(1, 1, 10, 1);
             JSpinner repeatSpinner = new JSpinner(repeatModel);
             int option = JOptionPane.showOptionDialog(null, repeatSpinner,
@@ -243,13 +290,38 @@ public class FilterActions {
 
     }
 
+    /**
+     * <p>
+     * Action to apply a gaussian blur to an image determined by a radius value.
+     * <p>
+     * 
+     * @see GaussianBlur
+     * @author Ari
+     */
     public class GaussianBlurAction extends ImageAction {
 
+        /**
+         * Create a new gaussian blur filter action.
+         * 
+         * @param name     The name of the action (ignored if null).
+         * @param icon     An icon to use to represent the action (ignored if null).
+         * @param desc     A brief description of the action (ignored if null).
+         * @param mnemonic A mnemonic key to use as a shortcut (ignored if null).
+         */
         GaussianBlurAction(String name, ImageIcon icon,
                 String desc, Integer mnemonic) {
             super(name, icon, desc, mnemonic);
         }
 
+        /**
+         * <p>
+         * This method is called whenever the GaussianBlurAction is triggered.
+         * It prompts the user for a radius, then blurs the image based on that radius.
+         * {@link GaussianBlur}.
+         * </p>
+         * 
+         * @param e The event triggering this callback.
+         */
         public void actionPerformed(ActionEvent e) {
             // Determine the radius - ask the user.
             int radius = 1;
@@ -281,6 +353,7 @@ public class FilterActions {
      * </p>
      * 
      * @see MedianFilter
+     * @author Marcus
      */
     public class MedianFilterAction extends ImageAction {
 

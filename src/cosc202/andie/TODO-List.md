@@ -2,7 +2,7 @@
 note whatever your heart desires, errors, features, notes, whatever.
 
 ## Things left to do
-- JUnit Tests - Brooklyn (InProgress)
+- Show evidence of testing in some way
 - More exception handling (just put try catches everywhere the system might try to do something where there's null) - ALL
 - Error avoidance (so it doesn't just die and crash) - ALL
 - Finish README.md everyone adds 
@@ -25,10 +25,37 @@ blur action stack needs to be remedied (same as sharpen) - DONE
 
 blur option prompt has a weird title
 
-image rezise prompt should default show current scaling 
+image resize prompt should default show current scaling 
 
 file exporting needs wrong file type ex
 
 ## Notes
 >I needed to add clarity to the two existing blurring options, SoftBlur changed to BlurOption and vice versa, this is just so we have a soft blur and a blur option that applies itself a user defined number of times.
-> I then changed the name of blur option to blur filter 
+
+> I then changed the name of blur option to blur filter to fit the class more appropiately
+
+## Add JavaDoc comments
+- Andie - DONE 
+- BlurFilter - DONE
+- ColourActions - DONE
+- ColorChannelCycling - DONE
+- ConvertToGrey
+- EditableImage
+- EditActions
+- FileActions
+- FilterActions
+- GaussianBlur
+- ImageAction
+- ImageActions
+- ImageFlipHori
+- ImageFlipVert
+- ImageInversion
+- ImageOperation
+- ImagePanel
+- ImageResize
+- ImageRotation
+- LanguageActions
+- MeanFilter
+- MedianFilter
+- SharpenFilter
+- ViewActions

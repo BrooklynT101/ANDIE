@@ -49,10 +49,11 @@ public class ImageInversion implements ImageOperation, java.io.Serializable{
                 int g = (argb & 0x0000FF00) >> 8;
                 int b = (argb & 0x000000FF);
 
+                //System.out.println("Before colour inversion\nAlpha: "+a+", Red: "+r+", Green: "+g+", Blue: "+b);
                 int rNew = 255 - r;
                 int gNew = 255 - g;
                 int bNew = 255 - b;
-                
+                //System.out.println("After colour inversion\nAlpha: "+a+", Red: "+r+", Green: "+g+", Blue: "+b);
 
                 argb = (a << 24) | (rNew << 16) | (gNew << 8) | bNew;
                 input.setRGB(x, y, argb);

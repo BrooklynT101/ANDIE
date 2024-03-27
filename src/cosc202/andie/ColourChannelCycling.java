@@ -48,8 +48,9 @@ public class ColourChannelCycling implements ImageOperation, java.io.Serializabl
                 int r = (argb & 0x00FF0000) >> 16;
                 int g = (argb & 0x0000FF00) >> 8;
                 int b = (argb & 0x000000FF);
-
+                //System.out.println("Before colour channel cycle\nAlpha: "+a+", Red: "+r+", Green: "+g+", Blue: "+b);
                 argb = (a << 24) | (g << 16) | (b << 8) | r; //rotates the RGB values 
+                //System.out.println("After colour channel cycle\nAlpha: "+a+", Red: "+r+", Green: "+g+", Blue: "+b);
                 input.setRGB(x, y, argb);
             }
         }

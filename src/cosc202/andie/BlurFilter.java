@@ -3,7 +3,17 @@ package cosc202.andie;
 import java.awt.image.*;
 
 /**
- * A filter class that applies a variable blur to the whole image
+ * <p>
+ * A filter class that applies a blur effect to the whole image
+ * <p>
+ * 
+ * <p>
+ * Creates a blur filter object, with a default radius of 1 and
+ * a desired number of filter operations to perform 
+ * 
+ * <p>
+ * 
+ * @implNote Implements ImageOperation, java.io.Serializable
  * @author Brooklyn Taylor
  */
 public class BlurFilter implements ImageOperation, java.io.Serializable {
@@ -24,8 +34,8 @@ public class BlurFilter implements ImageOperation, java.io.Serializable {
    
    /**
     * Applys the filter to a given buffered image object, returning the output 
-    * image with the blur filter added. Implemented via convolution, where the 
-    * convolution kernel is determined by the radius.
+    * image with the blur filter effect added via convolution.
+
     * @param input The image to apply the Soft blur filter to.
     * @return The output image.
     */
@@ -39,20 +49,21 @@ public class BlurFilter implements ImageOperation, java.io.Serializable {
       // for (int i = 0; i < array.length; i++) {
       //    array[i] = weight;
       // }
-      BufferedImage output = input;
+      
       
       //creating the kernal array
-      float[] array = {
+      float[] kernalArray = {
            0,    1/8.0f,   0,
          1/8.0f, 1/2.0f, 1/8.0f,
            0,    1/8.0f,   0
       };
       
       //Creating kernel, mimicking same dimensions as MeanFilter, using array as input
-      Kernel kernel = new Kernel(2*radius+1, 2*radius+1, array);
+      Kernel kernel = new Kernel(2*radius+1, 2*radius+1, kernalArray);
       ConvolveOp convOp = new ConvolveOp(kernel);
       
       //apply filter 'repeat' number of times 
+      BufferedImage output = input;
       for (int i = 1; i <= t; i++) {
          output = convOp.filter(output, null);
       }

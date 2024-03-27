@@ -3,11 +3,15 @@ package cosc202.andie;
 import java.awt.image.*;
 
 /**
+ * <p>
  * ImageFlipVertical to flip a photo vertically.
+ * <p>
  * 
+ * <p>
  * The flip involves flipping in place, each pixel by its y 
  * coordinates. 
- * 
+ * <p>
+ * @see ImageFlipHorizontal
  * @author Brooklyn Taylor
  */
 public class ImageFlipVertical implements ImageOperation, java.io.Serializable{
@@ -16,6 +20,11 @@ public class ImageFlipVertical implements ImageOperation, java.io.Serializable{
     ImageFlipVertical(){
     }
 
+    /**
+     * Applies the flip transformation to the image
+     * 
+     * @param input of type BufferedImage
+     */
     public BufferedImage apply(BufferedImage input) {
         int imageWidth = input.getWidth();
         int imageHeight = input.getHeight();
