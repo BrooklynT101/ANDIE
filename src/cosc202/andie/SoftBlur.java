@@ -15,8 +15,6 @@ import javax.swing.JOptionPane;
  * a kernel.
  * 
  * <p>
- * 
- * @implNote Implements ImageOperation, java.io.Serializable
  * @author Ari Josephson
  */
 public class SoftBlur implements ImageOperation, java.io.Serializable {
