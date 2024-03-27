@@ -76,11 +76,24 @@ Marcus worked on removing the excess clutter from the main branch. At some point
 
 ## Testing 
 Throughout the creation of this project we all preformed individual tests on our code such as adding print line statements and comparing the outcome with the specified task and examples. 
-We also preformed JUnit tests _____. ????
+
 Some examples of testing included:
 - `Gaussian Blur`: Our test was to print out the outputted array and compared to the kernel that was expected for the Gaussian Distribution. Consultation with the lab tutors allowed Ari to determine that his filter was properly implemented, as well comparing the printed array values for the corrosponding radius values, with the expected values at each index plugged into the Gaussian equation and it lines up.
 - `File Saving/Exporting`: System print lines were added to ensure that the code was able to run to a certain part of the code block, usually with simple strings ("Test1", "notSaved", etc.) this allowed us to ensure that the files were being saved or just attempting to.
-- `Colour Channel Cycling`: We could use print commands to print the RGB values to the console each time the action is performed to determine if the values are actually getting rearranged. Print the RGB values before the cycle operation then print it again afterwards, then we can visualling determine if the values are cycling  
+- `Colour Channel Cycling`: Using print commands to print the RGB values to the console each time the action is performed to determine if the values are actually getting rearranged. Print the RGB values before the cycle operation then print it again afterwards, allowing us to determine the values are cycling correctly.
+```
+Before colour channel cycle
+Alpha: -1, Red: 45, Green: 47, Blue: 33
+After colour channel cycle
+Alpha: -1, Red: 47, Green: 33, Blue: 45
+```
+- `Image Inversion`: Similar to before with the colour channel cycling, we used print commands to print the RGB values of the pixels before and after. And after calculating the values ourselves as per what the filter required, we determined the filter is correctly working
+```
+Before colour inversion
+Alpha: -1, Red: 45, Green: 47, Blue: 33
+After colour inversion
+Alpha: -1, Red: 210, Green: 208, Blue: 222
+```
 
 ## Authors
 Created by Amelia Johnston, Ari Josephson, Brooklyn Taylor, and Marcus Woodard
