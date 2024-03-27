@@ -59,7 +59,7 @@ public class LanguageActions {
         return languageMenu;
     }
 
-    /*
+    /**
      * <p>
      * Translates to english.
      * </p>
@@ -107,7 +107,7 @@ public class LanguageActions {
 
     }
 
-    /*
+    /**
      * <p>
      * Translates to Maori.
      * </p>

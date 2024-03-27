@@ -2,11 +2,11 @@
 note whatever your heart desires, errors, features, notes, whatever.
 
 ## Things left to do
-- Show evidence of testing in some way
+- Show evidence of testing in some way - DONE
 - Additional exception handling and error avoidance- ALL
 - Finish README.md - everyone adds 
   >Please remember to acknowledge any issues! Or large changes to the code for better marks.
-- add javadoc comments
+- add javadoc comments - DONE
   
 ## Done since making this markdown!
 - Image rotation(90° Left & Right) - Amelia DONE
@@ -39,10 +39,10 @@ non numbers being inputed into prompts - Ari
 
 
 ## Add JavaDoc comments
-- GaussianBlur
-- ImageResize
-- LanguageActions
-- SoftBlur
+- GaussianBlur - DONE
+- ImageResize - DONE
+- LanguageActions - DONE
+- SoftBlur - DONE
 - MedianFilter - DONE
 - Andie - DONE 
 - BlurFilter - DONE
