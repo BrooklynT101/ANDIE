@@ -13,12 +13,6 @@ public class ImagePanelTest {
    }
 
    @Test
-   void failDummyTest() {
-      boolean check = true;
-      Assertions.assertEquals(false, check);
-   }
-
-   @Test
    void getZoomInitialValue() {
       ImagePanel testPanel = new ImagePanel();
       Assertions.assertEquals(100.0, testPanel.getZoom());
