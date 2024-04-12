@@ -33,15 +33,36 @@ Gotta sort these into below
 
 Looks hard asf
 ---
-*  
+*  Macros for record and replay of operations
+* Path 1: Emboss and Edge Detection Filters - Ari 
+*  Toolbar
+* Path 2: Mouse-Based Region Selection - Marcus
 
 Not so hard
 ---
-*  
+* Path 1: Extended filters - Ari 
+* Path 1:Filters with Negative Results - Ari
+* Contrast adjustment and Brightness adjustment
+* Block Averaging
+* Path 2: Crop to selection - Marcus
+
+
 
 Hopefully Easy
 ---
-*
+* Random Scattering
+* Keyboard Shortcuts
+*  Path 2: Drawing Operations - Marcus
+The last thing is, 
+* Show Us Something 
+
+
+Ari - Path 1: Extended filters ->  Filters with negative results -> Emboss and Edge Detection Filters
+
+Marcus - Path 2: Mouse-Based Region Selection ->  Crop to selection -> Drawing functions – rectangle, ellipse, line
+
+What is Contrast?
+
 
 Ongoing Annoyance
 ---
