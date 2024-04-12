@@ -27,7 +27,7 @@ public class ImageResize implements ImageOperation, java.io.Serializable {
     private int ogWidth;
     //private Image ogImage;
 
-    ImageResize(int width, int height, int ogheight, int ogWidth, Image ogImage) {
+    ImageResize(int width, int height, int ogWidth,int ogheight, Image ogImage) {
         this.width = width;
         this.height = height;
         this.ogheight = ogheight;
@@ -49,7 +49,7 @@ public class ImageResize implements ImageOperation, java.io.Serializable {
 
             Image result = input.getScaledInstance(newW, newH, Image.SCALE_AREA_AVERAGING);
 
-            BufferedImage output = new BufferedImage(newW, newH, BufferedImage.TYPE_INT_RGB);
+            BufferedImage output = new BufferedImage(newW, newH, BufferedImage.TYPE_INT_ARGB);
 
             output.getGraphics().drawImage(result, 0, 0, null);
 
@@ -60,7 +60,7 @@ public class ImageResize implements ImageOperation, java.io.Serializable {
 
             Image result = input.getScaledInstance(newW, newH, Image.SCALE_SMOOTH);
 
-            BufferedImage output = new BufferedImage(newW, newH, BufferedImage.TYPE_INT_RGB);
+            BufferedImage output = new BufferedImage(newW, newH, BufferedImage.TYPE_INT_ARGB);
 
             output.getGraphics().drawImage(result, 0, 0, null);
 
@@ -70,7 +70,7 @@ public class ImageResize implements ImageOperation, java.io.Serializable {
             int newH = (int) (height * scaleh);
             int newW = (int) (width * scalew);
 
-            BufferedImage output = new BufferedImage(newW, newH, BufferedImage.TYPE_INT_RGB);
+            BufferedImage output = new BufferedImage(newW, newH, BufferedImage.TYPE_INT_ARGB);
             output = input;
 
             return output;
