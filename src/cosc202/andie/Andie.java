@@ -28,7 +28,8 @@ import javax.imageio.*;
  * @version 1.0
  */
 public class Andie {
-    // make these protected
+
+    //Setting prefs
     protected static Preferences prefs = Preferences.userNodeForPackage(Andie.class);
     protected static Locale locale = new Locale.Builder().setLanguage(prefs.get("language", "en"))
             .setRegion(prefs.get("country", "NZ")).build();
@@ -61,12 +62,11 @@ public class Andie {
      */
 
     private static void createAndShowGUI() throws Exception {
-        // Pushing YAY!!
-        // Checking
-        // push test
+
         // Set up the main GUI frame
         JFrame frame = new JFrame("ANDIE");
 
+        //getting icon
         try {
             Image image = ImageIO.read(Andie.class.getClassLoader().getResource("icon.png"));
             frame.setIconImage(image);
