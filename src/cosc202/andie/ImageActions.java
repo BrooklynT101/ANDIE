@@ -46,6 +46,9 @@ public class ImageActions {
         ImageResizeAction resize = new ImageResizeAction(Andie.bundle.getString("ImageResize"), null,
                 Andie.bundle.getString("ResizeImage"), Integer.valueOf(KeyEvent.VK_R));
 
+        // keyboard shortcuts
+        resize.putValue(Action.ACCELERATOR_KEY, KeyStroke.getKeyStroke("control R"));
+
         // adding actions to list
         actions.add(clock);
         actions.add(anticlock);
@@ -53,8 +56,6 @@ public class ImageActions {
         actions.add(horiFlip);
         actions.add(resize);
 
-        // keyboard shortcuts
-        resize.putValue(Action.ACCELERATOR_KEY, KeyStroke.getKeyStroke("control R"));
     }
 
     public JMenu createMenu() {
