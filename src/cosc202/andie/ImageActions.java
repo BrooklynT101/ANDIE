@@ -11,7 +11,8 @@ import javax.swing.JSpinner.DefaultEditor;
  * </p>
  * 
  * <p>
- * This contain the list of action or operations to be performed on a given image.
+ * This contain the list of action or operations to be performed on a given
+ * image.
  * Allows a user to edit an image using a variety of different actions.
  * </p>
  * 
@@ -20,27 +21,40 @@ import javax.swing.JSpinner.DefaultEditor;
  * 4.0</a>
  * </p>
  * 
- * @author Queeze and Quackers 
+ * @author Queeze and Quackers
  * @version 1.0
  */
 public class ImageActions {
 
     protected ArrayList<Action> actions;
-    
+
     public ImageActions() {
+        // initialising actions and action list
         actions = new ArrayList<Action>();
-        actions.add(new RotateClockwiseAction(Andie.bundle.getString("RotateClockwise"), null,
-                Andie.bundle.getString("RotateClockwise"), Integer.valueOf(KeyEvent.VK_C)));
-        actions.add(new RotateAnticlockwiseAction(Andie.bundle.getString("RotateAnticlockwise"), null,
-                Andie.bundle.getString("RotateAnticlockwise"), Integer.valueOf(KeyEvent.VK_A)));
-        actions.add(new ImageFlipVerticalAction(Andie.bundle.getString("VerticalFlip"), null,
+        RotateClockwiseAction clock = new RotateClockwiseAction(Andie.bundle.getString("RotateClockwise"), null,
+                Andie.bundle.getString("RotateClockwise"), Integer.valueOf(KeyEvent.VK_C));
+        RotateAnticlockwiseAction anticlock = new RotateAnticlockwiseAction(
+                Andie.bundle.getString("RotateAnticlockwise"), null,
+                Andie.bundle.getString("RotateAnticlockwise"), Integer.valueOf(KeyEvent.VK_A));
+        ImageFlipVerticalAction vertFlip = new ImageFlipVerticalAction(Andie.bundle.getString("VerticalFlip"), null,
                 Andie.bundle.getString("Flipsimagevertically"),
-                Integer.valueOf(KeyEvent.VK_R)));
-        actions.add(new ImageFlipHorizontalAction(Andie.bundle.getString("HorizontalFlip"), null,
+                Integer.valueOf(KeyEvent.VK_R));
+        ImageFlipHorizontalAction horiFlip = new ImageFlipHorizontalAction(Andie.bundle.getString("HorizontalFlip"),
+                null,
                 Andie.bundle.getString("Flipsimagehorizontally"),
-                Integer.valueOf(KeyEvent.VK_R)));
-        actions.add(new ImageResizeAction(Andie.bundle.getString("ImageResize"), null,
-                Andie.bundle.getString("ResizeImage"), Integer.valueOf(KeyEvent.VK_R)));
+                Integer.valueOf(KeyEvent.VK_R));
+        ImageResizeAction resize = new ImageResizeAction(Andie.bundle.getString("ImageResize"), null,
+                Andie.bundle.getString("ResizeImage"), Integer.valueOf(KeyEvent.VK_R));
+
+        // keyboard shortcuts
+        resize.putValue(Action.ACCELERATOR_KEY, KeyStroke.getKeyStroke("control R"));
+
+        // adding actions to list
+        actions.add(clock);
+        actions.add(anticlock);
+        actions.add(vertFlip);
+        actions.add(horiFlip);
+        actions.add(resize);
 
     }
 
@@ -154,11 +168,11 @@ public class ImageActions {
             ((DefaultEditor) scaleSpinner.getEditor()).getTextField().setEditable(false);
             int option1 = JOptionPane.showOptionDialog(null, scaleSpinner, Andie.bundle.getString("EnterPercentScaled"),
                     JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
-                    if (target.getImage().getOriginalImage() == null) {
-                        JFrame frame = new JFrame();
-                        JOptionPane.showMessageDialog(frame, Andie.bundle.getString("Pleaseopenanimagefilefirst!"));
-               
-                    }
+            if (target.getImage().getOriginalImage() == null) {
+                JFrame frame = new JFrame();
+                JOptionPane.showMessageDialog(frame, Andie.bundle.getString("Pleaseopenanimagefilefirst!"));
+
+            }
 
             // Check the return value from the dialog box.
             if (option1 == JOptionPane.CANCEL_OPTION) {

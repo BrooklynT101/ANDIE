@@ -35,11 +35,21 @@ public class EditActions {
      * </p>
      */
     public EditActions() {
+        // initialising actions and action list
         actions = new ArrayList<Action>();
-        actions.add(new UndoAction(Andie.bundle.getString("Undo"), null, Andie.bundle.getString("Undo"),
-                Integer.valueOf(KeyEvent.VK_Z)));
-        actions.add(new RedoAction(Andie.bundle.getString("Redo"), null, Andie.bundle.getString("Redo"),
-                Integer.valueOf(KeyEvent.VK_Y)));
+        UndoAction undo = new UndoAction(Andie.bundle.getString("Undo"), null, Andie.bundle.getString("Undo"),
+                Integer.valueOf(KeyEvent.VK_Z));
+        RedoAction redo = new RedoAction(Andie.bundle.getString("Redo"), null, Andie.bundle.getString("Redo"),
+                Integer.valueOf(KeyEvent.VK_Y));
+
+        // keyboard shortcuts
+        undo.putValue(Action.ACCELERATOR_KEY, KeyStroke.getKeyStroke("control Z"));
+        redo.putValue(Action.ACCELERATOR_KEY, KeyStroke.getKeyStroke("control Y"));
+
+        // adding actions to list
+        actions.add(undo);
+        actions.add(redo);
+
     }
 
     /**
@@ -61,7 +71,7 @@ public class EditActions {
 
     /**
      * <p>
-     * Action to undo an {@link ImageOperation}. 
+     * Action to undo an {@link ImageOperation}.
      * </p>
      * 
      * @see EditableImage#undo()
