@@ -64,7 +64,8 @@ public class ToolbarExample extends JFrame {
         };
 
         // Create toolbar
-        JToolBar toolBar = new JToolBar();
+        JToolBar toolBar = new JToolBar("Common Tools");
+        //toolBar.addSeparator();
         add(toolBar);
 
         // Add actions to toolbar buttons

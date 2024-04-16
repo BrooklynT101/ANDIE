@@ -1,4 +1,4 @@
-package cosc202.andie;
+package cosc202;
 
 import javax.swing.*;
 import java.awt.*;

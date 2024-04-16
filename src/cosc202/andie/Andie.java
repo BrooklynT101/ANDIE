@@ -4,9 +4,13 @@ import java.awt.*;
 import java.util.Locale;
 import java.util.ResourceBundle;
 import java.util.prefs.Preferences;
+import java.util.ArrayList;
+
+import cosc202.andie.FileActions.*;
 
 import javax.swing.*;
 import javax.imageio.*;
+import java.io.*;
 
 /**
  * <p>
@@ -29,12 +33,12 @@ import javax.imageio.*;
  */
 public class Andie {
 
-    //Setting prefs
+    // Setting prefs
     protected static Preferences prefs = Preferences.userNodeForPackage(Andie.class);
     protected static Locale locale = new Locale.Builder().setLanguage(prefs.get("language", "en"))
             .setRegion(prefs.get("country", "NZ")).build();
     protected static ResourceBundle bundle = ResourceBundle.getBundle("CommandsBundle", locale);
-
+    // protected static ArrayList<Action> actions = {new FileOpenAction(Andie.bundle.getString("Open"), null, Andie.bundle.getString("Openafile"), Integer.valueOf(KeyEvent.VK_O)) };
     /**
      * <p>
      * Launches the main GUI for the ANDIE program.
@@ -66,16 +70,16 @@ public class Andie {
         // Set up the main GUI frame
         JFrame frame = new JFrame("ANDIE");
 
-        //getting icon
+        // getting icon
         try {
-            Image image = ImageIO.read(Andie.class.getClassLoader().getResource("icon.png"));
-            frame.setIconImage(image);
-        
-        } catch(Exception e) {
+            Image icon = ImageIO.read(Andie.class.getClassLoader().getResource("icon.png"));
+            frame.setIconImage(icon);
+
+        } catch (Exception e) {
             System.out.println("Error loading icon.png");
             e.printStackTrace();
         }
-        
+
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         // The main content area is an ImagePanel
@@ -83,6 +87,12 @@ public class Andie {
         ImageAction.setTarget(imagePanel);
         JScrollPane scrollPane = new JScrollPane(imagePanel);
         frame.add(scrollPane, BorderLayout.CENTER);
+
+        // adding toolbar
+        ToolBar toolBar = new ToolBar("Common Tools");
+        toolBar.loadDefaultActions();
+
+        frame.add(toolBar);
 
         // Add in menus for various types of action the user may perform.
         JMenuBar menuBar = new JMenuBar();
@@ -121,6 +131,7 @@ public class Andie {
         frame.setJMenuBar(menuBar);
         frame.pack();
         frame.setVisible(true);
+
     }
 
     /**
