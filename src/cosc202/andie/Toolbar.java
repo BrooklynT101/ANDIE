@@ -35,6 +35,7 @@ public class ToolBar extends JToolBar {
         // create action list
         this.name = name;
         this.maxSize = maxSize;
+        actions = new ArrayList<>();
         // // Add actions to toolbar buttons
         // TODO: allow user to add and remove actions from tool bar, update GUI
     }

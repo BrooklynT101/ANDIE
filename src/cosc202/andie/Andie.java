@@ -89,7 +89,7 @@ public class Andie {
         frame.add(scrollPane, BorderLayout.CENTER);
 
         // adding toolbar
-        ToolBar toolBar = new ToolBar("Common Tools");
+        ToolBar toolBar = new ToolBar("Common Tools", 10);
         toolBar.loadDefaultActions();
 
         frame.add(toolBar);
