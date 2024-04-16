@@ -34,6 +34,10 @@ public class GaussianBlur implements ImageOperation, java.io.Serializable {
         this.radius = 1;
     }
 
+
+    /*Calculates the Gaussian Blur value at the pixel at i,j
+     * with the Gaussian formula.
+     */
     public float calculateGaussian(int i, int j) {
 
         float l = (float) this.radius / 3.0f;
@@ -46,6 +50,10 @@ public class GaussianBlur implements ImageOperation, java.io.Serializable {
         return w;
     }
 
+
+    /*Calculates the Gaussian Blur value at the first half
+    of the x values for the y value j.
+     */
     public void firstHalfX(int size, int j) {
         for (int i = radius; i > 0; i--) {
             array[x] = calculateGaussian(i, j);
@@ -57,6 +65,10 @@ public class GaussianBlur implements ImageOperation, java.io.Serializable {
         }
     }
 
+
+    /*Calculates the Gaussian Blur value at the middle
+    x value for the y value j.
+     */
     public void middleX(int size, int j) {
         array[x] = calculateGaussian(0, j);
         if (x + 1 < size) {
@@ -66,6 +78,10 @@ public class GaussianBlur implements ImageOperation, java.io.Serializable {
         }
     }
 
+
+    /*Calculates the Gaussian Blur value at the second half
+    of the x values for the y value j.
+     */
     public void otherHalfX(int size, int j) {
         for (int i = 1; i <= radius; i++) {
             array[x] = calculateGaussian(i, j);
@@ -77,6 +93,8 @@ public class GaussianBlur implements ImageOperation, java.io.Serializable {
         }
     }
 
+    /*Calculates the Gaussian Blur value at the centre pixel.
+     */
     public void centrePointcalc(int size) {
         array[x] = calculateGaussian(0, 0);
         if (x + 1 < size) {
@@ -87,6 +105,9 @@ public class GaussianBlur implements ImageOperation, java.io.Serializable {
 
     }
 
+    /*Calculates the Gaussian Blur values at the first half of
+    y values of the image.
+     */
     public void firstHalfY(int size) {
         for (int j = radius; j > 0; j--) {
             firstHalfX(size, j);
@@ -96,12 +117,19 @@ public class GaussianBlur implements ImageOperation, java.io.Serializable {
 
     }
 
+    /*Calculates the Gaussian Blur values at the centre
+    y value of the image.
+     */
     public void centreY(int size) {
         firstHalfX(size, 0);
         centrePointcalc(size);
         otherHalfX(size, 0);
     }
 
+
+    /*Calculates the Gaussian Blur values at the second half of
+    y values of the image.
+     */
     public void otherHalfY(int size) {
         for (int j = 1; j <= radius; j++) {
             firstHalfX(size, j);
@@ -262,13 +290,34 @@ public class GaussianBlur implements ImageOperation, java.io.Serializable {
 
         ConvolveOp convOp = new ConvolveOp(kernel);
 
+
+
+
         BufferedImage output = new BufferedImage(input.getColorModel(),
                 input.copyData(null),
                 input.isAlphaPremultiplied(), null);
+                
+            BufferedImage iamge = new BufferedImage(input.getWidth(), input.getHeight(), input.getType());
+             image.set(rg)
 
         convOp.filter(input, output);
 
         return output;
+    }
+
+    public int[][] convolution(int[][] array, int radius, Kernel kernel){
+        int[][] result = new int[2*radius+1][2*radius+1];
+        for(int y=0;y<2*radius+1;y++){
+            for(int x = 0;x<2*radius+1;x++){
+                result[x][y]=0;
+                for(int dy = -radius; dy<=radius; dy++){
+                    for(int dx = -radius; dx<=radius;dx++){
+                        result[x][y]+=array[radius+dx][radius+dy];
+                    }
+                }
+            }
+        }
+        return result;
     }
 
 }
