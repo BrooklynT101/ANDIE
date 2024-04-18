@@ -8,8 +8,8 @@ import javax.swing.JOptionPane;
 
 public class BrightnessAndContrast implements ImageOperation, java.io.Serializable{
 
-    int brightness;
-    int contrast;
+    private int brightness;
+    private int contrast;
 
     BrightnessAndContrast(){
     }
@@ -53,10 +53,13 @@ public class BrightnessAndContrast implements ImageOperation, java.io.Serializab
 
     }
 
-    private int calcColour(int x){ //x = the original pixel value 
+    private int calcColour(int pixel){ //x = the original pixel value 
         // v` = (1 + (c/100)) * (v -127.5) + 127.5 * (1 + (b/100))
-        int calc = (int) Math.round((1 + (contrast/100)) * (x -127.5) + 127.5 * (1 + (brightness/100)));
-        return calc;
+        int pixelValue = (int) Math.round((1 + (contrast/100)) * (pixel -127.5) + 127.5 * (1 + (brightness/100)));
+
+        //if out of bounds return the closest option??
+
+        return pixelValue;
     }
 
     

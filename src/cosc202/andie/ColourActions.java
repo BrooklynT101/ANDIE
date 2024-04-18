@@ -3,6 +3,9 @@ package cosc202.andie;
 import java.util.*;
 import java.awt.event.*;
 import javax.swing.*;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
+
 
 /**
  * <p>
@@ -43,6 +46,8 @@ public class ColourActions {
                 Andie.bundle.getString("ColourInversion"), Integer.valueOf(KeyEvent.VK_I)));
         actions.add(new ColourChannelCyclingAction(Andie.bundle.getString("ColourChannelCycling"), null,
                 Andie.bundle.getString("ColourChannelCycling"), Integer.valueOf(KeyEvent.VK_C)));
+        actions.add(new BrightnessAndContrastAction(Andie.bundle.getString("BrightnessAndContrast"), null,
+                Andie.bundle.getString("Applyabrightnessandcontrastfilter"), Integer.valueOf(KeyEvent.VK_S)));
     }
 
     /**
@@ -186,6 +191,140 @@ public class ColourActions {
             target.getParent().revalidate();
         }
 
+
+    }
+
+    /**
+     * <p>
+     * Action to adjust the brightness and contrast of an image 
+     * </p>
+     * 
+     * @see BrightnessAndContrast
+     * @author Amelia 
+     */
+    public class BrightnessAndContrastAction extends ImageAction {
+
+        /**
+         * <p>
+         * Create a new median-filter action.
+         * </p>
+         * 
+         * @param name     The name of the action (ignored if null).
+         * @param icon     An icon to use to represent the action (ignored if null).
+         * @param desc     A brief description of the action (ignored if null).
+         * @param mnemonic A mnemonic key to use as a shortcut (ignored if null).
+         */
+        BrightnessAndContrastAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
+            super(name, icon, desc, mnemonic);
+        }
+
+        /**
+         * <p>
+         * Callback for when the convert-to-grey action is triggered.
+         * </p>
+         * 
+         * <p>
+         * This method is called whenever the MedianFilterAction is triggered.
+         * It prompts the user for a filter radius, then applies an appropriately sized
+         * {@link MedianFilter}.
+         * </p>
+         * 
+         * @param e The event triggering this callback.
+         */
+        public void actionPerformed(ActionEvent e) {
+
+            // Determine the radius - ask the user.
+            int brightness = 0;
+            int contrast = 0;
+
+            // Pop-up dialog box to ask for the radius value.
+            SpinnerNumberModel brightnessModel = new SpinnerNumberModel(0, -100, 100, 1);
+            SpinnerNumberModel contrastModel = new SpinnerNumberModel(0, -100, 100, 1);
+            JSpinner brightnessSpinner = new JSpinner(brightnessModel);
+            JSpinner contrastSpinner = new JSpinner(contrastModel);
+
+            JSlider brightnessSlider = new JSlider(-100, 100, 0);
+            JSlider contrastSlider = new JSlider(-100, 100, 0);
+
+            brightnessSlider.setMinorTickSpacing(10);
+            brightnessSlider.setMajorTickSpacing(50);
+            brightnessSlider.setPaintTicks(true);
+            brightnessSlider.setPaintLabels(true);
+            brightnessSlider.setLabelTable(brightnessSlider.createStandardLabels(100));
+
+            contrastSlider.setMinorTickSpacing(10);
+            contrastSlider.setMajorTickSpacing(50);
+            contrastSlider.setPaintTicks(true);
+            contrastSlider.setPaintLabels(true);
+            contrastSlider.setLabelTable(contrastSlider.createStandardLabels(100));
+
+            class JSpinnerListener implements ChangeListener{ //go through and comment on this and understand
+
+                public void stateChanged(ChangeEvent e){
+                    //set brightness and contrast to spinner values
+                    brightnessSlider.setValue((int)brightnessSpinner.getValue());
+                    contrastSlider.setValue((int)contrastSpinner.getValue());
+                
+                    target.repaint();
+                    target.getParent().revalidate();
+                }
+
+            }
+
+            class JSliderListener implements ChangeListener{ //go through and comment on this and understand
+
+                public void stateChanged(ChangeEvent e){
+                    //set brightness and contrast to spinner values
+                    brightnessSpinner.setValue((int)brightnessSlider.getValue());
+                    contrastSpinner.setValue((int)contrastSlider.getValue());
+
+                    target.repaint();
+                    target.getParent().revalidate();
+                }
+
+            }
+
+            //add listener to brightness and contrast spinners
+            brightnessSpinner.addChangeListener(new JSpinnerListener());
+            contrastSpinner.addChangeListener(new JSpinnerListener());
+
+            //add listener to brightness and contrast spinners
+            brightnessSlider.addChangeListener(new JSliderListener());
+            contrastSlider.addChangeListener(new JSliderListener());
+
+            JPanel spinnerPanel = new JPanel();
+            spinnerPanel.add(new JLabel(Andie.bundle.getString("Choosepercentbrightness")));
+            spinnerPanel.add(brightnessSpinner);
+            spinnerPanel.add(brightnessSlider);
+
+            spinnerPanel.add(new JLabel(Andie.bundle.getString("Choosepercentcontrast")));
+            spinnerPanel.add(contrastSpinner);
+            spinnerPanel.add(contrastSlider);
+
+            // Prevents adding no 1 - 100 integers, by making the text field un editable by default.
+            int option = JOptionPane.showOptionDialog(null, 
+                    spinnerPanel,
+                    Andie.bundle.getString("Choosepercentbrightness"),
+                    JOptionPane.OK_CANCEL_OPTION, 
+                    JOptionPane.QUESTION_MESSAGE, 
+                    null, 
+                    null, 
+                    null);
+
+            // Check the return value from the dialog box.
+            if (option == JOptionPane.CANCEL_OPTION) { // do we need to check that one works? do both need to work?
+                return;
+            } else {
+                brightness = brightnessModel.getNumber().intValue();
+                contrast = contrastModel.getNumber().intValue();
+                target.getImage().apply(new BrightnessAndContrast(brightness, contrast));
+            }
+
+            // Create and apply the filter
+                target.repaint();
+                target.getParent().revalidate();
+
+        }
 
     }
     

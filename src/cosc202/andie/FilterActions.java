@@ -4,7 +4,6 @@ import java.util.*;
 import java.awt.event.*;
 import javax.swing.*;
 import javax.swing.JSpinner.DefaultEditor;
-import javax.swing.JSlider;
 
 /**
  * <p>
@@ -55,8 +54,7 @@ public class FilterActions {
                 Andie.bundle.getString("ApplyGaussianblur"), Integer.valueOf(KeyEvent.VK_G)));
         actions.add(new SharpenAction(Andie.bundle.getString("Sharpenfilter"), null,
                 Andie.bundle.getString("Applyasharpenfilter"), Integer.valueOf(KeyEvent.VK_S)));
-        actions.add(new BrightnessAndContrastAction(Andie.bundle.getString("BrightnessAndContrast"), null,
-                Andie.bundle.getString("Applyabrightnessandcontrastfilter"), Integer.valueOf(KeyEvent.VK_S)));
+        
     }
 
     /**
@@ -450,101 +448,6 @@ public class FilterActions {
     }
     
 
-    /**
-     * <p>
-     * Action to adjust the brightness and contrast of an image 
-     * </p>
-     * 
-     * @see BrightnessAndContrast
-     * @author Amelia 
-     */
-    public class BrightnessAndContrastAction extends ImageAction {
-
-        /**
-         * <p>
-         * Create a new median-filter action.
-         * </p>
-         * 
-         * @param name     The name of the action (ignored if null).
-         * @param icon     An icon to use to represent the action (ignored if null).
-         * @param desc     A brief description of the action (ignored if null).
-         * @param mnemonic A mnemonic key to use as a shortcut (ignored if null).
-         */
-        BrightnessAndContrastAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
-            super(name, icon, desc, mnemonic);
-        }
-
-        /**
-         * <p>
-         * Callback for when the convert-to-grey action is triggered.
-         * </p>
-         * 
-         * <p>
-         * This method is called whenever the MedianFilterAction is triggered.
-         * It prompts the user for a filter radius, then applies an appropriately sized
-         * {@link MedianFilter}.
-         * </p>
-         * 
-         * @param e The event triggering this callback.
-         */
-        public void actionPerformed(ActionEvent e) {
-
-            // Determine the radius - ask the user.
-            int brightness = 1;
-            int contrast = 1;
-
-            // Pop-up dialog box to ask for the radius value.
-            JSlider percentNumberB = new JSlider(-100, 100, 0);
-            JSlider percentNumberC = new JSlider(-100, 100, 0);
-
-            percentNumberB.setMinorTickSpacing(10);
-            percentNumberB.setMajorTickSpacing(50);
-            percentNumberB.setPaintTicks(true);
-            percentNumberB.setPaintLabels(true);
-            percentNumberB.setLabelTable(percentNumberB.createStandardLabels(100));
-            //textField.setText(percentNumberB.getValue()); //figure out how to get number to pop up 
-
-            percentNumberC.setMinorTickSpacing(10);
-            percentNumberC.setMajorTickSpacing(50);
-            percentNumberC.setPaintTicks(true);
-            percentNumberC.setPaintLabels(true);
-            percentNumberC.setLabelTable(percentNumberB.createStandardLabels(100));
-
-            // Prevents adding no 1 - 100 integers, by making the text field un editable by default.
-            int optionB = JOptionPane.showOptionDialog(null, 
-                    percentNumberB,
-                    Andie.bundle.getString("Choosepercentbrightness"),
-                    JOptionPane.OK_CANCEL_OPTION, 
-                    JOptionPane.QUESTION_MESSAGE, 
-                    null, 
-                    null, 
-                    null);
-
-            int optionC = JOptionPane.showOptionDialog(null, percentNumberC, Andie.bundle.getString("Choosepercentcontrast"),
-                    JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
-
-
-            // Check the return value from the dialog box.
-            if (optionB == JOptionPane.CANCEL_OPTION && optionC == JOptionPane.CANCEL_OPTION) { // do we need to check that one works? do both need to work?
-                return;
-            } else if (optionB == JOptionPane.OK_OPTION && optionC == JOptionPane.OK_OPTION) {
-                brightness = percentNumberB.getValue(); //this?
-                contrast = percentNumberC.getValue();
-            } else if (optionB == JOptionPane.CANCEL_OPTION && optionC == JOptionPane.OK_OPTION){
-                brightness = 0;
-                contrast = percentNumberC.getValue();
-            }else if(optionB == JOptionPane.OK_OPTION && optionC == JOptionPane.CANCEL_OPTION){
-                brightness = percentNumberB.getValue();
-                contrast = 0;
-            }
-
-            // Create and apply the filter
-                target.getImage().apply(new BrightnessAndContrast(brightness, contrast));
-                target.repaint();
-                target.getParent().revalidate();
-
-        }
-
-    }
+    
 
 }
