@@ -25,7 +25,6 @@ public class ToolBar extends JToolBar {
     private String name;
     private int maxSize;
     protected ArrayList<Action> actions;
-    protected Icon icon;
 
     /**
      * default constructor, should create the action list and create the
@@ -61,10 +60,11 @@ public class ToolBar extends JToolBar {
     }
 
     public Icon loadIcon(String name) {
+        Icon icon;
         try {
             BufferedImage image = ImageIO.read(Andie.class.getClassLoader().getResource(name + ".png"));
             Image newImg = image.getScaledInstance(20, 20, java.awt.Image.SCALE_SMOOTH); // Adjust the size as needed
-            Icon icon = new ImageIcon(newImg);
+            icon = new ImageIcon(newImg);
         } catch (Exception e) {
             System.out.println("Error loading icon.png");
             e.printStackTrace();
@@ -115,7 +115,7 @@ public class ToolBar extends JToolBar {
      * Load a set of default nothing buttons
      */
     public void loadDefaultActions() {
-        loadIcon("icon");
+        Icon icon = loadIcon("icon");
         Action open = new AbstractAction("Open", icon) {
             @Override
             public void actionPerformed(ActionEvent e) {
