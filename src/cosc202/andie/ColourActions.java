@@ -265,8 +265,8 @@ public class ColourActions {
                     brightnessSlider.setValue((int)brightnessSpinner.getValue());
                     contrastSlider.setValue((int)contrastSpinner.getValue());
                 
-                    target.repaint();
-                    target.getParent().revalidate();
+                    // target.repaint();
+                    // target.getParent().revalidate();
                 }
 
             }
@@ -278,8 +278,8 @@ public class ColourActions {
                     brightnessSpinner.setValue((int)brightnessSlider.getValue());
                     contrastSpinner.setValue((int)contrastSlider.getValue());
 
-                    target.repaint();
-                    target.getParent().revalidate();
+                    // target.repaint();
+                    // target.getParent().revalidate();
                 }
 
             }
@@ -315,12 +315,18 @@ public class ColourActions {
             if (option == JOptionPane.CANCEL_OPTION) { // do we need to check that one works? do both need to work?
                 return;
             } else {
+                System.out.println("its working");
                 brightness = brightnessModel.getNumber().intValue();
                 contrast = contrastModel.getNumber().intValue();
-                target.getImage().apply(new BrightnessAndContrast(brightness, contrast));
+                
             }
 
+            // System.out.println(brightness); //checking that the values are correctly being updated
+            // System.out.println(contrast);
+            System.out.println(brightness + " " + contrast);
+
             // Create and apply the filter
+                target.getImage().apply(new BrightnessAndContrast(brightness, contrast));
                 target.repaint();
                 target.getParent().revalidate();
 
