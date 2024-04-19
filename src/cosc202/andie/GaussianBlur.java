@@ -25,6 +25,7 @@ public class GaussianBlur implements ImageOperation, java.io.Serializable {
     private int radius;
     public int x;
     public float[] array;
+    public float[][] twoDarray;
 
     /* Constructor takes in a radius value. */
     GaussianBlur(int radius) {
@@ -294,17 +295,17 @@ public class GaussianBlur implements ImageOperation, java.io.Serializable {
 
         ConvolveOp convOp = new ConvolveOp(kernel);
 
-        BufferedImage output = new BufferedImage(input.getColorModel(),
+        /*BufferedImage output = new BufferedImage(input.getColorModel(),
                 input.copyData(null),
-                input.isAlphaPremultiplied(), null);
+                input.isAlphaPremultiplied(), null);*/
 
         // BufferedImage iamge = new BufferedImage(input.getWidth(), input.getHeight(),
         // input.getType());
         // image.set(rg)
 
-        convOp.filter(input, output);
+       // convOp.filter(input, output);
 
-        float[][] twoDarray = new float[2 * radius + 1][2 * radius + 1];
+        this.twoDarray = new float[2 * radius + 1][2 * radius + 1];
 
         int w = 0;
         for (int y = 0; y < 0; y++) {
@@ -314,23 +315,80 @@ public class GaussianBlur implements ImageOperation, java.io.Serializable {
             }
         }
 
+        for(int i = 0; i<2 * radius + 1; i++){
+            for(int j=0; j<2 * radius + 1;j++){
+                System.out.print(twoDarray[j][x]);
+            }
+            System.out.println("");
+        }
+
+        /*BufferedImage output = new BufferedImage(convolution(twoDarray, radius, input).getColorModel(),
+        convolution(twoDarray, radius, input).copyData(null),
+        convolution(twoDarray, radius, input).isAlphaPremultiplied(), null);*/
+
+        //return output;
+        System.out.println("outside");
         return convolution(twoDarray, radius, input);
     }
 
+
+    /*
+
+
     public BufferedImage convolution(float[][] array, int radius, BufferedImage input) {
-        int[][] result = new int[2 * radius + 1][2 * radius + 1];
-        for (int y = 0; y < 2 * radius + 1; y++) {
-            for (int x = 0; x < 2 * radius + 1; x++) {
+        // BufferedImage output = new BufferedImage(input.getColorModel(),
+        // input.copyData(null),
+        // input.isAlphaPremultiplied(), null);
+        BufferedImage output = new BufferedImage(input.getWidth(), input.getHeight(),
+                input.getType());
+        int[][] result = new int[input.getWidth()][input.getHeight()];
+        for (int y = 0; y < input.getHeight(); y++) {
+            for (int x = 0; x < input.getWidth(); x++) {
                 result[x][y] = 0;
                 for (int dy = -radius; dy <= radius; dy++) {
                     for (int dx = -radius; dx <= radius; dx++) {
-                        result[x][y] += array[y + dy][x + dx] * input.getRGB(x + dx, y + dy);
+                        //Out of Bounds Exceptions Below:
+                        
+                        //y cordinate value out of bounds exceptions:
+                        if(y<radius){
+                            if(x<radius){
+                                result[x][y] += array[radius + dy][radius + dx] * input.getRGB(radius + dx, radius + dy);
+                            }else if(2*radius<=x){
+                                result[x][y] += array[radius + dy][radius + dx] * input.getRGB(2*radius-1 + dx, radius + dy);
+                            }else{
+                            result[x][y] += array[radius + dy][radius + dx] * input.getRGB(x + dx, radius + dy);
+                            }
+                        }else if(2*radius<=y){
+                            if(x<radius){
+                                result[x][y] += array[radius + dy][radius + dx] * input.getRGB(radius + dx, 2*radius-1 + dy);
+                            }
+                            else if(2*radius<=x){
+                                result[x][y] += array[radius + dy][radius + dx] * input.getRGB(2*radius-1 + dx, 2*radius-1 + dy);
+                            } 
+                            else {
+                                result[x][y] += array[radius + dy][radius + dx] * input.getRGB(x + dx, 2*radius-1 + dy);
+                            }
+                            
+                        //x cordinate value out of bounds exceptions:
+                        } else if(x<radius){
+                            result[x][y] += array[radius + dy][radius + dx] * input.getRGB(radius + dx, y + dy);
+                        } else if(2*radius<=x){
+                            result[x][y] += array[radius + dy][radius + dx] * input.getRGB(2*radius-1 + dx, y + dy);
+
+                        //Non out of bounds case:
+                        }else{
+                        result[x][y] += array[radius + dy][radius + dx] * input.getRGB(x + dx, y + dy);
+                        }
                     }
                 }
-                input.setRGB(x, y, result[x][y]);
+                output.setRGB(x, y, result[x][y]);
             }
         }
-        return input;
+        
+        System.out.println("inside");
+        return output;
     }
+
+     */
 
 }
