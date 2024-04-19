@@ -34,17 +34,31 @@ public class FileActions {
      * </p>
      */
     public FileActions() {
+        // initialising actions and action list
         actions = new ArrayList<Action>();
-        actions.add(new FileOpenAction(Andie.bundle.getString("Open"), null, Andie.bundle.getString("Openafile"),
-                Integer.valueOf(KeyEvent.VK_O)));
-        actions.add(new FileSaveAction(Andie.bundle.getString("Save"), null, Andie.bundle.getString("Savethefile"),
-                Integer.valueOf(KeyEvent.VK_S)));
-        actions.add(new FileSaveAsAction(Andie.bundle.getString("SaveAs"), null, Andie.bundle.getString("Saveacopy"),
-                Integer.valueOf(KeyEvent.VK_A)));
-        actions.add(new FileExportAction(Andie.bundle.getString("Export"), null, Andie.bundle.getString("Exportimage"),
-                Integer.valueOf(KeyEvent.VK_A)));
-        actions.add(new FileExitAction(Andie.bundle.getString("Exit"), null, Andie.bundle.getString("Exittheprogram"),
-                Integer.valueOf(0)));
+        FileOpenAction open = new FileOpenAction(Andie.bundle.getString("Open"), null,
+                Andie.bundle.getString("Openafile"), Integer.valueOf(KeyEvent.VK_O));
+        FileSaveAction save = new FileSaveAction(Andie.bundle.getString("Save"), null,
+                Andie.bundle.getString("Savethefile"), Integer.valueOf(KeyEvent.VK_S));
+        FileSaveAsAction saveas = new FileSaveAsAction(Andie.bundle.getString("SaveAs"), null,
+                Andie.bundle.getString("Saveacopy"), Integer.valueOf(KeyEvent.VK_A));
+        FileExportAction export = new FileExportAction(Andie.bundle.getString("Export"), null,
+                Andie.bundle.getString("Exportimage"), Integer.valueOf(KeyEvent.VK_A));
+        FileExitAction exit = new FileExitAction(Andie.bundle.getString("Exit"), null,
+                Andie.bundle.getString("Exittheprogram"), Integer.valueOf(0));
+
+        // keyboard shortcuts
+        open.putValue(Action.ACCELERATOR_KEY, KeyStroke.getKeyStroke("control O"));
+        save.putValue(Action.ACCELERATOR_KEY, KeyStroke.getKeyStroke("control S"));
+        export.putValue(Action.ACCELERATOR_KEY, KeyStroke.getKeyStroke("control P"));
+        exit.putValue(Action.ACCELERATOR_KEY, KeyStroke.getKeyStroke("control E"));
+
+        // adding actions to list
+        actions.add(open);
+        actions.add(save);
+        actions.add(saveas);
+        actions.add(export);
+        actions.add(exit);
     }
 
     /**
@@ -260,7 +274,7 @@ public class FileActions {
         public void actionPerformed(ActionEvent e) {
             // Set the default directory for the "Export" dialog box
             // fileChooser.setSelectedFile(new File());
-            
+
             JFileChooser fileChooser = new JFileChooser();
             fileChooser.setDialogTitle(Andie.bundle.getString("export"));
             int result = fileChooser.showSaveDialog(null);

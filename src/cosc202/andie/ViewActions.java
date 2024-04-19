@@ -37,13 +37,25 @@ public class ViewActions {
      * </p>
      */
     public ViewActions() {
+        // initilsing actions and list
         actions = new ArrayList<Action>();
-        actions.add(new ZoomInAction(Andie.bundle.getString("ZoomIn"), null, Andie.bundle.getString("ZoomIn"),
-                Integer.valueOf(KeyEvent.VK_PLUS)));
-        actions.add(new ZoomOutAction(Andie.bundle.getString("ZoomOut"), null, Andie.bundle.getString("ZoomOut"),
-                Integer.valueOf(KeyEvent.VK_MINUS)));
-        actions.add(new ZoomFullAction(Andie.bundle.getString("ZoomFull"), null, Andie.bundle.getString("ZoomFull"),
-                Integer.valueOf(KeyEvent.VK_1)));
+        ZoomInAction zin = new ZoomInAction(Andie.bundle.getString("ZoomIn"), null, Andie.bundle.getString("ZoomIn"),
+                Integer.valueOf(KeyEvent.VK_PLUS));
+        ZoomOutAction zout = new ZoomOutAction(Andie.bundle.getString("ZoomOut"), null,
+                Andie.bundle.getString("ZoomOut"),
+                Integer.valueOf(KeyEvent.VK_MINUS));
+        ZoomFullAction zFull = new ZoomFullAction(Andie.bundle.getString("ZoomFull"), null,
+                Andie.bundle.getString("ZoomFull"),
+                Integer.valueOf(KeyEvent.VK_1));
+
+        // keyboard shortcuts
+        zin.putValue(Action.ACCELERATOR_KEY, KeyStroke.getKeyStroke("control ="));
+        zout.putValue(Action.ACCELERATOR_KEY, KeyStroke.getKeyStroke("control -"));
+
+        // adding actions
+        actions.add(zin);
+        actions.add(zout);
+        actions.add(zFull);
     }
 
     /**

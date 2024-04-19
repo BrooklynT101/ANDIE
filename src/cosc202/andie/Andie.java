@@ -4,13 +4,14 @@ import java.awt.*;
 import java.util.Locale;
 import java.util.ResourceBundle;
 import java.util.prefs.Preferences;
-import java.util.ArrayList;
-
-import cosc202.andie.FileActions.*;
 
 import javax.swing.*;
 import javax.imageio.*;
+
+//import for toolbar experiment, remove this if you see them and they're not needed
 import java.io.*;
+import cosc202.andie.FileActions.*;
+import java.util.ArrayList;
 
 /**
  * <p>
@@ -38,7 +39,7 @@ public class Andie {
     protected static Locale locale = new Locale.Builder().setLanguage(prefs.get("language", "en"))
             .setRegion(prefs.get("country", "NZ")).build();
     protected static ResourceBundle bundle = ResourceBundle.getBundle("CommandsBundle", locale);
-
+    private static int mainCount = 0;
     // protected static ArrayList<Action> actions = {new
     // FileOpenAction(Andie.bundle.getString("Open"), null,
     // Andie.bundle.getString("Openafile"), Integer.valueOf(KeyEvent.VK_O)) };
@@ -108,7 +109,7 @@ public class Andie {
         // Add components to the frame using BorderLayout
         
         frame.add(scrollPane, BorderLayout.CENTER);
-        frame.add(toolBar, BorderLayout.NORTH); // Add the ToolBar to the top
+        //frame.add(toolBar, BorderLayout.NORTH); // Add the ToolBar to the top
 
         // Add in menus for various types of action the user may perform.
         JMenuBar menuBar = new JMenuBar();
@@ -145,6 +146,7 @@ public class Andie {
         menuBar.add(languageActions.createMenu());
 
         frame.setJMenuBar(menuBar);
+        frame.getContentPane().add(toolBar, BorderLayout.NORTH);
         frame.pack();
         frame.setVisible(true);
 
@@ -165,16 +167,20 @@ public class Andie {
      * @see #createAndShowGUI()
      */
     public static void main(String[] args) throws Exception {
+        System.out.println("Running main");
         javax.swing.SwingUtilities.invokeLater(new Runnable() {
             public void run() {
                 try {
                     createAndShowGUI();
+                    System.out.println("creating showing GUI");
                 } catch (Exception ex) {
                     ex.printStackTrace();
                     System.exit(1);
                 }
             }
         });
+        mainCount++;
+        System.out.println("Instance run count: "+mainCount);
     }
 
 }

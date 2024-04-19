@@ -35,6 +35,7 @@ public class ToolBar extends JToolBar {
         this.name = name;
         this.maxSize = maxSize;
         actions = new ArrayList<>();
+        System.out.println("toolbar created");
         // // Add actions to toolbar buttons
         // TODO: allow user to add and remove actions from tool bar, update GUI
     }
@@ -60,16 +61,16 @@ public class ToolBar extends JToolBar {
     }
 
     public Icon loadIcon(String name) {
-        Icon icon;
         try {
             BufferedImage image = ImageIO.read(Andie.class.getClassLoader().getResource(name + ".png"));
             Image newImg = image.getScaledInstance(20, 20, java.awt.Image.SCALE_SMOOTH); // Adjust the size as needed
-            icon = new ImageIcon(newImg);
+            Icon icon = new ImageIcon(newImg);
+            return icon;
         } catch (Exception e) {
-            System.out.println("Error loading icon.png");
+            System.out.println("Error loading "+name+".png: " + e);
             e.printStackTrace();
+            return null;
         }
-        return icon;
     }
 
     /**
@@ -88,6 +89,7 @@ public class ToolBar extends JToolBar {
     /**
      * tries to load the saved actions list from file
      */
+    @SuppressWarnings("unchecked") //TODO: remove this at some stage
     public void loadActions() {
         // try dserialize the perferred common tools configuration
         actions.clear();
@@ -123,6 +125,7 @@ public class ToolBar extends JToolBar {
                 System.out.println("open action triggered");
             }
         };
+        
         Action save = new AbstractAction("Save", icon) {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -198,5 +201,6 @@ public class ToolBar extends JToolBar {
         actions.add(redo);
         actions.add(zin);
         actions.add(zout);
+        loadActions(actions);
     }
 }
