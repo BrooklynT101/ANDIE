@@ -11,8 +11,8 @@ public class BrightnessAndContrast implements ImageOperation, java.io.Serializab
     int brightness;
     int contrast;
 
-    // BrightnessAndContrast(){
-    // }
+    BrightnessAndContrast(){
+    }
 
     BrightnessAndContrast(int brightness, int contrast){
         this.brightness = brightness;
@@ -30,8 +30,8 @@ public class BrightnessAndContrast implements ImageOperation, java.io.Serializab
         BufferedImage output = new BufferedImage(input.getColorModel(), input.copyData(null), input.isAlphaPremultiplied(), null);
 
         // loop through each pixel
-        for(int y = 0; y < input.getHeight(); ++y){ //w = width
-            for(int x = 0; x < input.getWidth(); ++x){ // h = height 
+        for(int y = 0; y < input.getHeight(); ++y){ 
+            for(int x = 0; x < input.getWidth(); ++x){ 
 
                 int argb = input.getRGB(x, y); // find the pixel value from at specified position
                 int a = (argb & 0xFF000000) >> 24; // this does not change
@@ -80,7 +80,6 @@ public class BrightnessAndContrast implements ImageOperation, java.io.Serializab
 
         // System.out.println("new pixel value = " + pixelValue);
 
-        //if out of bounds return the closest option??
         return pixelValue;
     }
 

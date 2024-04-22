@@ -323,7 +323,7 @@ public class ColourActions {
 
             // System.out.println(brightness); //checking that the values are correctly being updated
             // System.out.println(contrast);
-            System.out.println(brightness + " " + contrast);
+            // System.out.println(brightness + " " + contrast);
 
             // Create and apply the filter
                 target.getImage().apply(new BrightnessAndContrast(brightness, contrast));
