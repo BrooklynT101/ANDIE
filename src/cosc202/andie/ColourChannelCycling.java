@@ -73,7 +73,8 @@ public class ColourChannelCycling implements ImageOperation, java.io.Serializabl
                 // br = r;
                 // bg = g;
                 // bb = b;
-                
+
+                //random order?
                 argb = (a << 24) | (g << 16) | (b << 8) | r; //rotates the RGB values 
                 
                 //testing after pixel values

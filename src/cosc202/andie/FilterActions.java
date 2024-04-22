@@ -54,6 +54,7 @@ public class FilterActions {
                 Andie.bundle.getString("ApplyGaussianblur"), Integer.valueOf(KeyEvent.VK_G)));
         actions.add(new SharpenAction(Andie.bundle.getString("Sharpenfilter"), null,
                 Andie.bundle.getString("Applyasharpenfilter"), Integer.valueOf(KeyEvent.VK_S)));
+        
     }
 
     /**
@@ -445,5 +446,8 @@ public class FilterActions {
         }
 
     }
+    
+
+    
 
 }
