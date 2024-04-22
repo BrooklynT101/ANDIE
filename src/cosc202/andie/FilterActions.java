@@ -453,11 +453,6 @@ public class FilterActions {
      * Action to do the block averaging filter
      * <p>
      * 
-     * <p>
-     * Note that despite the number of filter operations, its still considered a
-     * single action.
-     * <p>
-     * 
      * @see BlockAveraging
      * @author Amelia
      */
@@ -479,14 +474,14 @@ public class FilterActions {
          * <p>
          * This method is called whenever the BlurFilterAction is triggered.
          * It prompts the user for a value, then blurs the image that number of times
-         * {@link BlurFilter}.
+         * {@link BlockAveraging}.
          * </p>
          * 
          * @param e The event triggering this callback.
          */
         public void actionPerformed(ActionEvent e) {
             // Runs at least once
-            int repeat = 1;
+            int blockSize = 1;
 
             // Pop-up dialog box to ask for the desired repeated operations.
             SpinnerNumberModel repeatModel = new SpinnerNumberModel(1, 1, 10, 1);
@@ -502,11 +497,11 @@ public class FilterActions {
             if (option == JOptionPane.CANCEL_OPTION) {
                 return;
             } else if (option == JOptionPane.OK_OPTION) {
-                repeat = repeatModel.getNumber().intValue();
+                blockSize = repeatModel.getNumber().intValue();
             }
 
-            // Create and apply the filter 'repeat' number of time
-            target.getImage().apply(new BlurFilter(repeat));
+            // Create and apply the filter wth the blockSIze
+            target.getImage().apply(new BlockAveraging(blockSize));
             target.repaint();
             target.getParent().revalidate();
         }

@@ -25,14 +25,18 @@ public class BlockAveraging implements ImageOperation, java.io.Serializable{
 
         }
 
-        for (int y = 0; y < input.getHeight(); y++) {
-            for (int x = 0; x < input.getWidth(); x++) {
+        int neighbourhoodSize = blockSize * blockSize; //do i need this?
+        System.out.println(neighbourhoodSize);
+
+        for (int y = 0; y < input.getHeight(); y += blockSize) { //loop through the pixels in block size?
+            for (int x = 0; x < input.getWidth(); x += blockSize) {
+
+                
 
             }
         }
 
-        BufferedImage output = new BufferedImage(input.getColorModel(), input.copyData(null),
-                input.isAlphaPremultiplied(), null);
+        BufferedImage output = new BufferedImage(input.getColorModel(), input.copyData(null), input.isAlphaPremultiplied(), null);
 
         return output;
     }
