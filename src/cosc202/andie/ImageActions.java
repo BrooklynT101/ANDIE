@@ -36,11 +36,8 @@ public class ImageActions {
         RotateAnticlockwiseAction anticlock = new RotateAnticlockwiseAction(
                 Andie.bundle.getString("RotateAnticlockwise"), null,
                 Andie.bundle.getString("RotateAnticlockwise"), Integer.valueOf(KeyEvent.VK_A));
-        RotateClockwise180Action clock180 = new RotateClockwise180Action(Andie.bundle.getString("RotateClockwise180"), null,
-                Andie.bundle.getString("RotateClockwise180"), Integer.valueOf(KeyEvent.VK_C));
-        RotateAnticlockwise180Action anticlock180 = new RotateAnticlockwise180Action(
-                Andie.bundle.getString("RotateAnticlockwise180"), null,
-                Andie.bundle.getString("RotateAnticlockwise180"), Integer.valueOf(KeyEvent.VK_A));
+        Rotate180Action clock180 = new Rotate180Action(Andie.bundle.getString("Rotate180"), null,
+                Andie.bundle.getString("Rotate180"), Integer.valueOf(KeyEvent.VK_C));
         ImageFlipVerticalAction vertFlip = new ImageFlipVerticalAction(Andie.bundle.getString("VerticalFlip"), null,
                 Andie.bundle.getString("Flipsimagevertically"),
                 Integer.valueOf(KeyEvent.VK_R));
@@ -58,7 +55,6 @@ public class ImageActions {
         actions.add(clock);
         actions.add(anticlock);
         actions.add(clock180);
-        actions.add(anticlock180);
         actions.add(vertFlip);
         actions.add(horiFlip);
         actions.add(resize);
@@ -115,9 +111,9 @@ public class ImageActions {
         }
     }
 
-    public class RotateClockwise180Action extends ImageAction {
+    public class Rotate180Action extends ImageAction {
 
-        RotateClockwise180Action(String name, ImageIcon icon, String desc, Integer mnemonic) {
+        Rotate180Action(String name, ImageIcon icon, String desc, Integer mnemonic) {
             super(name, icon, desc, mnemonic);
         }
 
@@ -131,26 +127,6 @@ public class ImageActions {
         }
     }
 
-    /**
-     * Rotates an images 90° AntiClockwise
-     * 
-     * @author Amelia
-     */
-    public class RotateAnticlockwise180Action extends ImageAction {
-
-        RotateAnticlockwise180Action(String name, ImageIcon icon, String desc, Integer mnemonic) {
-            super(name, icon, desc, mnemonic);
-        }
-
-        public void actionPerformed(ActionEvent e) {
-
-            // create and apply the filter
-            target.getImage().apply(new ImageRotation(false, true));
-            target.repaint();
-            target.getParent().revalidate();
-
-        }
-    }
 
     /**
      * Flips an image vertically

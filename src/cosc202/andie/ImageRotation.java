@@ -39,10 +39,10 @@ public class ImageRotation implements ImageOperation, java.io.Serializable {
      */
     public ImageRotation(boolean clockwise) {
         this.clockwise = clockwise;
+        this.degrees = false;
     }
 
-    public ImageRotation(boolean clockwise, boolean degrees) { // if degrees is true then it rotates 180 degrees rather
-                                                               // than 90
+    public ImageRotation(boolean clockwise, boolean degrees) { // if degrees is true then it rotates 180 degrees rather than 90
         this.clockwise = clockwise;
         this.degrees = degrees;
     }
@@ -65,20 +65,17 @@ public class ImageRotation implements ImageOperation, java.io.Serializable {
 
         int width = input.getWidth();
         int height = input.getHeight();
-        BufferedImage output = new BufferedImage(height, width, input.getType());
+        BufferedImage output;
 
         if (degrees == true) {    
+            output = new BufferedImage(width, height, input.getType());
             for (int x = 0; x < width; x++) {
                 for (int y = 0; y < height; y++) {
-                    if (clockwise == true) {
-                        output.setRGB(height - y - 1, x, input.getRGB(x, y));
-                    } else {
-                        output.setRGB(y, width - x - 1, input.getRGB(x, y));
-                    }
+                        output.setRGB(width - x - 1, height - y - 1, input.getRGB(x, y));
                 }
             }
         } else {
-
+            output = new BufferedImage(height, width, input.getType());
             for (int x = 0; x < width; x++) {
                 for (int y = 0; y < height; y++) {
                     if (clockwise == true) {
