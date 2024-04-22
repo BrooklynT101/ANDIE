@@ -25,7 +25,7 @@ public class BrightnessAndContrast implements ImageOperation, java.io.Serializab
             JOptionPane.showMessageDialog(frame, Andie.bundle.getString("Pleaseopenanimagefilefirst!"));
         }
 
-        System.out.println("Method is calling");
+        // System.out.println("Method is calling");
 
         BufferedImage output = new BufferedImage(input.getColorModel(), input.copyData(null), input.isAlphaPremultiplied(), null);
 

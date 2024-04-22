@@ -294,10 +294,10 @@ class EditableImage {
      * @param op The operation to apply.
      */
     public void apply(ImageOperation op) {
-        System.out.println("Hi");
+        //System.out.println("Hi");
         current = op.apply(current);
-        System.out.println("Done");
-        System.out.println(ops.add(op));
+        //System.out.println("Done");
+        ops.add(op);
 
     }
 
