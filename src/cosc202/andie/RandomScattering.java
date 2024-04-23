@@ -19,6 +19,9 @@ public class RandomScattering implements ImageOperation, java.io.Serializable{
     }
 
     public BufferedImage apply(BufferedImage input) {
+
+        System.out.println("Method is calling");
+
         if (input == null) {
             JFrame frame = new JFrame();
             JOptionPane.showMessageDialog(frame, Andie.bundle.getString("Pleaseopenanimagefilefirst!"));
@@ -30,6 +33,8 @@ public class RandomScattering implements ImageOperation, java.io.Serializable{
         //loop through each pixel 
         for(int y = 0; y < input.getHeight(); y++){
             for(int x = 0; x < input.getWidth(); x++){
+
+                System.out.println("looping through pixels");
 
                 //find the value of the pixel 
                 int argb = input.getRGB(x, y); //store this somewhere
@@ -43,7 +48,7 @@ public class RandomScattering implements ImageOperation, java.io.Serializable{
                     }
                 }
 
-                System.out.println(arrList);
+                // System.out.println(arrList);
 
                 //set the value to one in the surrounding radius 
 

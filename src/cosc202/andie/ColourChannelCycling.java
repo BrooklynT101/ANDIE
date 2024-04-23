@@ -25,12 +25,15 @@ import javax.swing.JOptionPane;
 
 public class ColourChannelCycling implements ImageOperation, java.io.Serializable {
 
+    public int rotation;
+
     /**
      * <p>
      * Create a new ColourChannelCycling operation.
      * </p>
      */
-    ColourChannelCycling(){
+    ColourChannelCycling(int rotation){
+        this.rotation = rotation;
     }
 
     /**
@@ -61,7 +64,9 @@ public class ColourChannelCycling implements ImageOperation, java.io.Serializabl
 
         for (int y = 0; y < input.getHeight(); ++y) {
             for (int x = 0; x < input.getWidth(); ++x) {
-                int argb = input.getRGB(x, y);
+
+
+                int argb = original.getRGB(x, y);
                 int a = (argb & 0xFF000000) >> 24;
                 int r = (argb & 0x00FF0000) >> 16;
                 int g = (argb & 0x0000FF00) >> 8;
@@ -75,7 +80,35 @@ public class ColourChannelCycling implements ImageOperation, java.io.Serializabl
                 // bb = b;
 
                 //random order?
-                argb = (a << 24) | (g << 16) | (b << 8) | r; //rotates the RGB values 
+                switch(rotation){
+                    case 1:
+                        argb = (a << 24) | (r << 16) | (g << 8) | b; //rgb
+                        //System.out.println("rgb");
+                        break;
+                    case 2:
+                        argb = (a << 24) | (r << 16) | (b << 8) | g; //rbg
+                        //System.out.println("rbg");
+                        break;
+                    case 3:
+                        argb = (a << 24) | (g << 16) | (b << 8) | r; //gbr
+                        //System.out.println("gbr");
+                        break;
+                    case 4:
+                        argb = (a << 24) | (g << 16) | (r << 8) | b; //grb
+                        //System.out.println("grb");
+                        break;
+                    case 5:
+                        argb = (a << 24) | (b << 16) | (r << 8) | g; //brg
+                        //System.out.println("brg");
+                        break;
+                    case 6: 
+                        argb = (a << 24) | (b << 16) | (g << 8) | r; //bgr
+                        //System.out.println("bgr");
+                        break;
+                }
+
+
+                // argb = (a << 24) | (g << 16) | (b << 8) | r; //rotates the RGB values 
                 
                 //testing after pixel values
                 //System.out.println("After colour channel cycle\nAlpha: "+a+", Red: "+r+", Green: "+g+", Blue: "+b);
