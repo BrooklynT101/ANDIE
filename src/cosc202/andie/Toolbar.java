@@ -13,6 +13,8 @@ import java.io.ObjectOutputStream;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 
+import cosc202.andie.*;
+
 /**
  * A Toolbar class that creates a JToolbar that allows a user
  * to access commonly used tools to manipulate the image
@@ -36,20 +38,33 @@ public class ToolBar extends JToolBar {
         this.maxSize = maxSize;
         actions = new ArrayList<>();
         System.out.println("toolbar created");
-        // // Add actions to toolbar buttons
         // TODO: allow user to add and remove actions from tool bar, update GUI
     }
 
+    /**
+     * Mutator method to add an action from the list, returning true or false
+     * depending on the outcome.
+     * 
+     * @param action the action to remove
+     * @return true for successful removal or false for a failed operation
+     */
     public boolean addAction(Action action) {
         if (actions.size() >= maxSize) {
             return false;
         } else {
             actions.add(action);
-            this.add(action);
+            this.add(new JButton(action));
             return true;
         }
     }
 
+    /**
+     * Mutator method to remove an action from the list, returning true or false
+     * depending on the outcome.
+     * 
+     * @param action the action to remove
+     * @return true for successful removal or false for a failed operation
+     */
     public boolean removeAction(Action action) {
         if (actions.isEmpty()) {
             return false;
@@ -60,6 +75,12 @@ public class ToolBar extends JToolBar {
         }
     }
 
+    /**
+     * Getter method for finding the wanted icon in the builds' resource folder
+     * 
+     * @param name
+     * @return the requested icon if found, null otherwise
+     */
     public Icon loadIcon(String name) {
         try {
             BufferedImage image = ImageIO.read(Andie.class.getClassLoader().getResource(name + ".png"));
@@ -67,14 +88,14 @@ public class ToolBar extends JToolBar {
             Icon icon = new ImageIcon(newImg);
             return icon;
         } catch (Exception e) {
-            System.out.println("Error loading "+name+".png: " + e);
+            System.out.println("Error loading " + name + ".png: " + e);
             e.printStackTrace();
             return null;
         }
     }
 
     /**
-     * tries to save the saved actions list from file
+     * 
      */
     public void saveActions() {
         // Serialize the actions list
@@ -89,7 +110,7 @@ public class ToolBar extends JToolBar {
     /**
      * tries to load the saved actions list from file
      */
-    @SuppressWarnings("unchecked") //TODO: remove this at some stage
+    @SuppressWarnings("unchecked") // TODO: remove this at some stage
     public void loadActions() {
         // try dserialize the perferred common tools configuration
         actions.clear();
@@ -125,40 +146,40 @@ public class ToolBar extends JToolBar {
                 System.out.println("open action triggered");
             }
         };
-        
+
         Action save = new AbstractAction("Save", icon) {
             @Override
             public void actionPerformed(ActionEvent e) {
                 // Perform select action
-                System.out.println("open action triggered");
+                System.out.println("save action triggered");
             }
         };
         Action select = new AbstractAction("Select", icon) {
             @Override
             public void actionPerformed(ActionEvent e) {
                 // Perform select action
-                System.out.println("open action triggered");
+                System.out.println("select action triggered");
             }
         };
         Action crop = new AbstractAction("Crop", icon) {
             @Override
             public void actionPerformed(ActionEvent e) {
                 // Perform select action
-                System.out.println("open action triggered");
+                System.out.println("crop action triggered");
             }
         };
         Action flipHori = new AbstractAction("FlipHorizontal", icon) {
             @Override
             public void actionPerformed(ActionEvent e) {
                 // Perform select action
-                System.out.println("open action triggered");
+                System.out.println("fliphori action triggered");
             }
         };
         Action flipVert = new AbstractAction("FlipVertical", icon) {
             @Override
             public void actionPerformed(ActionEvent e) {
                 // Perform select action
-                System.out.println("open action triggered");
+                System.out.println("flipvert action triggered");
             }
         };
         Action undo = new AbstractAction("Undo", icon) {
@@ -201,6 +222,12 @@ public class ToolBar extends JToolBar {
         actions.add(redo);
         actions.add(zin);
         actions.add(zout);
+
+        //
         loadActions(actions);
+    }
+
+    public String toString() {
+        return actions.toString();
     }
 }
