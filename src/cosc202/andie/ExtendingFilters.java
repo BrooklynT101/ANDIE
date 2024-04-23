@@ -15,10 +15,13 @@ public class ExtendingFilters {
 
     public BufferedImage extending() {
         Image result = input.getScaledInstance(input.getWidth(), input.getHeight(), Image.SCALE_DEFAULT);
+        
+        Image background = input.getScaledInstance(2*radius + input.getWidth(), 2*radius + input.getHeight(), Image.SCALE_DEFAULT);
 
         BufferedImage extended = new BufferedImage(2 * radius + input.getWidth(), 2 * radius + input.getHeight(),
                 BufferedImage.TYPE_INT_ARGB);
 
+        extended.getGraphics().drawImage(background, 0, 0, null);
         extended.getGraphics().drawImage(result, radius, radius, null);
 
         return extended;
