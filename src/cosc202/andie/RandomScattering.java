@@ -8,14 +8,14 @@ import javax.swing.JOptionPane;
 
 public class RandomScattering implements ImageOperation, java.io.Serializable{
 
-    private int blockSize;
+    private int radius;
 
     RandomScattering(){
-        this(10); //what should the default size be??
+        this(1); //what should the default size be??
     }
 
-    RandomScattering(int blockSize){
-        this.blockSize = blockSize;
+    RandomScattering(int radius){
+        this.radius = radius;
     }
 
     public BufferedImage apply(BufferedImage input) {
@@ -25,16 +25,33 @@ public class RandomScattering implements ImageOperation, java.io.Serializable{
 
         }
 
-        //loop through each pixel and scatter them 
-        //does the other pixel switch? 
-        for(int w = 0; w < input.getWidth(); w++){ //loop through all the pixels 
-            for(int h = 0; h < input.getHeight(); h++){
+        BufferedImage output = new BufferedImage(input.getColorModel(), input.copyData(null), input.isAlphaPremultiplied(), null);
+
+        //loop through each pixel 
+        for(int y = 0; y < input.getHeight(); y++){
+            for(int x = 0; x < input.getWidth(); x++){
+
+                //find the value of the pixel 
+                int argb = input.getRGB(x, y); //store this somewhere
+
+                //find the neighbourhood
+                List<Integer> arrList = new ArrayList<Integer>();
+
+                for(int col = y - radius; col < radius * 2; col++){ //get each pixel in the neighbourhood 
+                    for(int row = x - radius; row < radius * 2; row++){
+                        arrList.add(input.getRGB(row, col));
+                    }
+                }
+
+                System.out.println(arrList);
+
+                //set the value to one in the surrounding radius 
+
+            
+                //should you set straught away or wait??
 
             }
-        }
-
-
-        BufferedImage output = new BufferedImage(input.getColorModel(), input.copyData(null), input.isAlphaPremultiplied(), null);
+        } 
 
         return output;
 
