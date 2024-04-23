@@ -2,6 +2,7 @@ package cosc202.andie;
 
 import java.awt.image.*;
 import java.util.*;
+import java.util.Random;
 
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -21,6 +22,7 @@ public class RandomScattering implements ImageOperation, java.io.Serializable{
     public BufferedImage apply(BufferedImage input) {
 
         System.out.println("Method is calling");
+        Random r = new Random();
 
         if (input == null) {
             JFrame frame = new JFrame();
@@ -36,25 +38,28 @@ public class RandomScattering implements ImageOperation, java.io.Serializable{
 
                 System.out.println("looping through pixels");
 
-                //find the value of the pixel 
-                int argb = input.getRGB(x, y); //store this somewhere
-
                 //find the neighbourhood
-                List<Integer> arrList = new ArrayList<Integer>();
+                List<Integer> pixelOptions = new ArrayList<>();
 
-                for(int col = y - radius; col < radius * 2; col++){ //get each pixel in the neighbourhood 
-                    for(int row = x - radius; row < radius * 2; row++){
-                        arrList.add(input.getRGB(row, col));
+                for(int col = -radius; col <= radius; col++){ //get each pixel in the neighbourhood 
+                    int neighbourY = y + col; //find the index of the neightbour for checking
+                    if(neighbourY >= 0 && neighbourY <= input.getHeight()){ // check that the neighbour is in bounds
+                        for(int row = -radius; row <= radius; row++){ 
+                            int neighbourX = x + row;
+                            if(neighbourX >= 0 && neighbourX <= input.getWidth()){
+                                pixelOptions.add(input.getRGB(row, col));
+                                System.out.println("Added an item to the arrayList");
+                            }
+                        }
                     }
-                }
-
-                // System.out.println(arrList);
+                }//put all the possible values in an array list 
 
                 //set the value to one in the surrounding radius 
-
-            
-                //should you set straught away or wait??
-
+                int randomIndex = r.nextInt(pixelOptions.size()); //choose a random index in the arrayList 
+                    System.out.println(randomIndex);
+                int getValue = pixelOptions.get(randomIndex); //get the value in the array 
+                    System.out.println(getValue);
+                output.setRGB(x, y, getValue); // set the RGB value to the new value 
             }
         } 
 

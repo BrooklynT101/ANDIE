@@ -515,7 +515,7 @@ public class FilterActions {
      * Action to do the block averaging filter
      * <p>
      * 
-     * @see BlockAveraging
+     * @see RandomScattering
      * @author Amelia
      */
     public class RandomScatteringAction extends ImageAction {
