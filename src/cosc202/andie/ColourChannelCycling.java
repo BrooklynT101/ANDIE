@@ -66,7 +66,7 @@ public class ColourChannelCycling implements ImageOperation, java.io.Serializabl
             for (int x = 0; x < input.getWidth(); ++x) {
 
 
-                int argb = original.getRGB(x, y);
+                int argb = input.getRGB(x, y);
                 int a = (argb & 0xFF000000) >> 24;
                 int r = (argb & 0x00FF0000) >> 16;
                 int g = (argb & 0x0000FF00) >> 8;
