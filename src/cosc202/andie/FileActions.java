@@ -81,6 +81,10 @@ public class FileActions {
 
         return fileMenu;
     }
+    
+    public ArrayList<Action> getActions() {
+        return this.actions;
+    }
 
     /**
      * <p>
