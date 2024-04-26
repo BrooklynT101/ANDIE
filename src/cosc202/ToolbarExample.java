@@ -1,7 +1,6 @@
 package cosc202;
 
 import javax.swing.*;
-import javax.tools.Tool;
 
 import java.awt.event.ActionEvent;
 import java.util.InputMismatchException;

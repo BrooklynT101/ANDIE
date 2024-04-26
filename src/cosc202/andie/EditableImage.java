@@ -298,7 +298,6 @@ class EditableImage {
         current = op.apply(current);
         //System.out.println("Done");
         ops.add(op);
-
     }
 
     /**
@@ -353,6 +352,13 @@ class EditableImage {
      */
     public BufferedImage getOriginalImage() {
         return original;
+    }
+
+    /*
+     * Method gets the current operations stack.
+     */
+    public Stack<ImageOperation> getCurrentOperations() {
+        return ops;
     }
 
     /**
