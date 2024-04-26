@@ -15,6 +15,7 @@ import javax.swing.JOptionPane;
  * a kernel.
  * 
  * <p>
+ * 
  * @author Ari Josephson
  */
 public class SoftBlur implements ImageOperation, java.io.Serializable {
@@ -43,13 +44,20 @@ public class SoftBlur implements ImageOperation, java.io.Serializable {
         // Apply this as a convolution - same code as in MeanFilter
         ConvolveOp convOp = new ConvolveOp(kernel);
 
-        // Creates Output image?
-        BufferedImage output = new BufferedImage(input.getColorModel(),
-                input.copyData(null),
-                input.isAlphaPremultiplied(), null);
+        // Extending Filter Addition:
+        ExtendingFilters expand = new ExtendingFilters(input, 10);
 
-        // Making Output be input with the filter on?
-        convOp.filter(input, output);
+        // Extending Filter Addition:
+        BufferedImage expanded = expand.extending();
+
+        // Extending Filter Addition:
+        BufferedImage image = new BufferedImage(expanded.getWidth(), expanded.getHeight(),
+                expanded.getType());
+
+        convOp.filter(expanded, image);
+
+        // Extending Filter Addition:
+        BufferedImage output = expand.shrinking(image);
 
         return output;
     }

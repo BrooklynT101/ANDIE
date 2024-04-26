@@ -86,24 +86,30 @@ public class MedianFilter implements ImageOperation, java.io.Serializable {
         int neighbourhoodSize = ((radius * 2 + 1) * (radius * 2 + 1));
         System.out.println(neighbourhoodSize);
 
-        for (int y = radius; y < input.getHeight() - radius; y++) {
+        // Extending Filter Addition:
+        ExtendingFilters expand = new ExtendingFilters(input, 20* radius);
+        BufferedImage expanded = expand.extending();
 
-            for (int x = radius; x < input.getWidth() - radius; x++) {
-                int argb = input.getRGB(x, y);
-                int a = (argb & 0xFF000000) >> 24;
+        for (int y = radius; y < expanded.getHeight() - radius; y++) {
+
+            for (int x = radius; x < expanded.getWidth() - radius; x++) {
+                int argb = expanded.getRGB(x, y);
+                //int a = (argb & 0xFF000000) >> 24;
                 int[] red = new int[neighbourhoodSize];
                 int[] green = new int[neighbourhoodSize];
                 int[] blue = new int[neighbourhoodSize];
+                int[] alpha = new int[neighbourhoodSize];
                 int index = 0;
 
                 for (int ny = y - radius; ny <= y + radius; ny++) {
                     for (int nx = x - radius; nx <= x + radius; nx++) {
 
-                        int argbNeighbourhood = input.getRGB(nx, ny);
+                        int argbNeighbourhood = expanded.getRGB(nx, ny);
 
                         red[index] = (argbNeighbourhood & 0x00FF0000) >> 16;
                         green[index] = (argbNeighbourhood & 0x0000FF00) >> 8;
                         blue[index] = (argbNeighbourhood & 0x000000FF);
+                        alpha[index] = (argbNeighbourhood & 0xFF000000) >> 24;
 
                         index++;
                     }
@@ -112,19 +118,21 @@ public class MedianFilter implements ImageOperation, java.io.Serializable {
                 Arrays.sort(red);
                 Arrays.sort(green);
                 Arrays.sort(blue);
+                Arrays.sort(alpha);
 
                 int redMedian = (red[(red.length) / 2]);
                 int greenMedian = (green[(green.length / 2)]);
                 int blueMedian = (blue[(blue.length) / 2]);
+                int alphaMedian = (alpha[(alpha.length) / 2]);
 
-                argb = (a << 24) | (redMedian << 16) | (greenMedian << 8) | (blueMedian);
+                argb = (alphaMedian << 24) | (redMedian << 16) | (greenMedian << 8) | (blueMedian);
 
-                input.setRGB(x, y, argb);
+                expanded.setRGB(x, y, argb);
             }
         }
 
-        BufferedImage output = new BufferedImage(input.getColorModel(), input.copyData(null),
-                input.isAlphaPremultiplied(), null);
+        // Extending Filter Addition:
+        BufferedImage output = expand.shrinking(expanded);
 
         return output;
 
