@@ -94,5 +94,10 @@ public class MeanFilter implements ImageOperation, java.io.Serializable {
         return output;
     }
 
+    @Override
+    public String getName() {
+        return "Mean Filter";
+    }
+
 
 }

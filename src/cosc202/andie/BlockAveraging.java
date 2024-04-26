@@ -1,7 +1,6 @@
 package cosc202.andie;
 
 import java.awt.image.*;
-import java.util.*;
 
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -76,6 +75,11 @@ public class BlockAveraging implements ImageOperation, java.io.Serializable{
         }
 
         return output;
+    }
+
+    @Override
+    public String getName() {
+        return "Block Averaging";
     }
 
 }

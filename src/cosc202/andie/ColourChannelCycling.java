@@ -92,4 +92,9 @@ public class ColourChannelCycling implements ImageOperation, java.io.Serializabl
         
         return input;
     }
+
+    @Override
+    public String getName() {
+        return "Colour Cycle";
+    }
 }

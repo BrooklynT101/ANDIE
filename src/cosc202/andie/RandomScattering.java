@@ -1,13 +1,11 @@
 package cosc202.andie;
 
 import java.awt.image.*;
-import java.util.*;
 
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 public class RandomScattering implements ImageOperation, java.io.Serializable{
-
     private int blockSize;
 
     RandomScattering(){
@@ -38,6 +36,11 @@ public class RandomScattering implements ImageOperation, java.io.Serializable{
 
         return output;
 
+    }
+
+    @Override
+    public String getName() {
+        return "Random Scattering";
     }
     
 }

@@ -38,5 +38,6 @@ public interface ImageOperation {
      * @param input The image to apply the operation to
      * @return The image resulting from the operation
      */
-    public BufferedImage apply(BufferedImage input);    
+    public BufferedImage apply(BufferedImage input);
+    public String getName();    
 }

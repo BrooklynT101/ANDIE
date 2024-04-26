@@ -130,4 +130,9 @@ public class MedianFilter implements ImageOperation, java.io.Serializable {
 
     }
 
+    @Override
+    public String getName() {
+        return "Median Filter";
+    }
+
 }

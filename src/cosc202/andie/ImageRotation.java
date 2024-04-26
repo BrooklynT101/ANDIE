@@ -89,4 +89,15 @@ public class ImageRotation implements ImageOperation, java.io.Serializable {
         return output;
     }
 
+    @Override
+    public String getName() {
+        if (clockwise) {
+            return "Rotate Clockwise";
+        } else if (degrees) {
+            return "Rotate 180";
+        } else { 
+            return "Rotate AntiClockwise";
+        }
+    }
+
 }
