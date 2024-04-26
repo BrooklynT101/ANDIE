@@ -73,5 +73,10 @@ public class ConvertToGrey implements ImageOperation, java.io.Serializable {
         
         return input;
     }
+
+    @Override
+    public String getName() {
+        return "Convert to Grey";
+    }
     
 }

@@ -97,4 +97,9 @@ public class ImageInversion implements ImageOperation, java.io.Serializable{
         return input;
     }
 
+    @Override
+    public String getName() {
+        return "Colour Inversion";
+    }
+
 }

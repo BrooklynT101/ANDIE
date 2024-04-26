@@ -70,4 +70,9 @@ public class SharpenFilter implements ImageOperation, java.io.Serializable {
       // return the output image
       return output;
    }
+
+   @Override
+   public String getName() {
+      return "Sharpen Filter";
+   }
 }

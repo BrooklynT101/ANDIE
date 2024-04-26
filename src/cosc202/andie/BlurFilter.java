@@ -76,4 +76,10 @@ public class BlurFilter implements ImageOperation, java.io.Serializable {
       return output;
 
    }
+
+
+   @Override
+   public String getName() {
+      return "Blur";
+   }
 }

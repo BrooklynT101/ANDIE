@@ -77,4 +77,9 @@ public class ImageResize implements ImageOperation, java.io.Serializable {
         }
     }
 
+    @Override
+    public String getName() {
+        return "Resize";
+    }
+
 }

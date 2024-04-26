@@ -56,4 +56,9 @@ public class ImageFlipVertical implements ImageOperation, java.io.Serializable{
         }
         return result;
     }
+
+    @Override
+    public String getName() {
+        return "Vetical Flip";
+    }
 }

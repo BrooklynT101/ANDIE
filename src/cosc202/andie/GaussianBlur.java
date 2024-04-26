@@ -271,4 +271,9 @@ public class GaussianBlur implements ImageOperation, java.io.Serializable {
         return output;
     }
 
+    @Override
+    public String getName() {
+        return "Gaussian Blur";
+    }
+
 }

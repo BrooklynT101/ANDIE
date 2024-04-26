@@ -58,4 +58,9 @@ public class ImageFlipHorizontal implements ImageOperation, java.io.Serializable
         return result;
 
     }
+
+    @Override
+    public String getName() {
+        return "Horizontal Flip";
+    }
 }
