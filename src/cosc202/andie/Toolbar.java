@@ -13,10 +13,10 @@ import java.io.ObjectOutputStream;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 
-import cosc202.andie.*;
-
+import cosc202.andie.*;                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 
+import cosc202.andie.FileActions.FileOpenAction;
 /**
- * A Toolbar class that creates a JToolbar that allows a user
+ * A ToolBar class that creates a JToolBar that allows a user
  * to access commonly used tools to manipulate the image
  * 
  * @author Brooklyn Taylor
@@ -37,7 +37,7 @@ public class ToolBar extends JToolBar {
         this.name = name;
         this.maxSize = maxSize;
         actions = new ArrayList<>();
-        System.out.println("toolbar created");
+        System.out.println("ToolBar created");
         // TODO: allow user to add and remove actions from tool bar, update GUI
     }
 
@@ -76,6 +76,21 @@ public class ToolBar extends JToolBar {
     }
 
     /**
+     * Tries to find all available actions from the menulists
+     * @return arraylist of actions containing all found actions
+     */
+    public ArrayList<Action> findActions() {
+        ArrayList<Action> foundActions = new ArrayList<>();
+        foundActions.addAll(ColourActions.getActions());
+        foundActions.addAll(EditActions.getActions());
+        foundActions.addAll(FileActions.getActions());
+        foundActions.addAll(FilterActions.getActions());
+        foundActions.addAll(ImageActions.getActions());
+        foundActions.addAll(ViewActions.getActions());
+        return foundActions; 
+    }
+
+    /**
      * Getter method for finding the wanted icon in the builds' resource folder
      * 
      * @param name
@@ -102,7 +117,7 @@ public class ToolBar extends JToolBar {
         try (ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream("actions.ser"))) {
             out.writeObject(actions);
         } catch (IOException e) {
-            System.err.println("Couldn't save toolbar preferences");
+            System.err.println("Couldn't save ToolBar preferences");
             e.printStackTrace();
         }
     }
@@ -111,7 +126,7 @@ public class ToolBar extends JToolBar {
      * tries to load the saved actions list from file
      */
     @SuppressWarnings("unchecked") // TODO: remove this at some stage
-    public void loadActions() {
+    public void loadActionsFromFile() {
         // try dserialize the perferred common tools configuration
         actions.clear();
         try (InputStream inputStream = Andie.class.getClassLoader().getResourceAsStream("actions.ser")) {
@@ -126,7 +141,7 @@ public class ToolBar extends JToolBar {
     }
 
     /**
-     * tries to load the given actions to the toolbar
+     * tries to load the given actions to the ToolBar
      */
     public void loadActions(ArrayList<Action> actions) {
         for (Action action : actions) {
@@ -135,18 +150,12 @@ public class ToolBar extends JToolBar {
     }
 
     /**
-     * Load a set of default nothing buttons
+     * Loads the default set of buttons
      */
     public void loadDefaultActions() {
         Icon icon = loadIcon("icon");
-        Action open = new AbstractAction("Open", icon) {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                // Perform select action
-                System.out.println("open action triggered");
-            }
-        };
-
+        
+        ArrayList<Action> allActions = findActions(); 
         Action save = new AbstractAction("Save", icon) {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -211,8 +220,6 @@ public class ToolBar extends JToolBar {
             }
         };
 
-        // adding actions
-        actions.add(open);
         actions.add(save);
         actions.add(select);
         actions.add(crop);

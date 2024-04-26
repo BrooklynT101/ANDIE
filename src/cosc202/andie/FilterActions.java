@@ -28,7 +28,7 @@ import javax.swing.JSpinner.DefaultEditor;
 public class FilterActions {
 
     /** A list of actions for the Filter menu. */
-    protected ArrayList<Action> actions;
+    protected static ArrayList<Action> actions;
 
     /**
      * <p>
@@ -446,4 +446,12 @@ public class FilterActions {
 
     }
 
+    /**
+     * Getter method to get the actions for the colour actions
+     * @return all available actions
+     */
+    public static Collection<? extends Action> getActions() {
+        ArrayList<Action> allActions = actions;
+        return allActions;
+    }
 }

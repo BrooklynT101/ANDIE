@@ -29,7 +29,7 @@ public class ViewActions {
     /**
      * A list of actions for the View menu.
      */
-    protected ArrayList<Action> actions;
+    protected static ArrayList<Action> actions;
 
     /**
      * <p>
@@ -211,6 +211,15 @@ public class ViewActions {
             target.getParent().revalidate();
         }
 
+    }
+
+    /**
+     * Getter method to get the actions for the colour actions
+     * @return all available actions
+     */
+    public static Collection<? extends Action> getActions() {
+        ArrayList<Action> allActions = actions;
+        return allActions;
     }
 
 }

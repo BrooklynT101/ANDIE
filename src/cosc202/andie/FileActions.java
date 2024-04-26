@@ -26,7 +26,7 @@ import javax.swing.*;
 public class FileActions {
 
     /** A list of actions for the File menu. */
-    protected ArrayList<Action> actions;
+    protected static ArrayList<Action> actions;
 
     /**
      * <p>
@@ -76,10 +76,6 @@ public class FileActions {
         }
 
         return fileMenu;
-    }
-    
-    public ArrayList<Action> getActions() {
-        return this.actions;
     }
 
     /**
@@ -336,6 +332,15 @@ public class FileActions {
             System.exit(0);
         }
 
+    }
+
+    /**
+     * Getter method to get the actions for the colour actions
+     * @return all available actions
+     */
+    public static Collection<? extends Action> getActions() {
+        ArrayList<Action> allActions = actions;
+        return allActions;
     }
 
 }

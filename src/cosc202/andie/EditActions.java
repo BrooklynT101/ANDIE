@@ -27,7 +27,7 @@ import javax.swing.*;
 public class EditActions {
 
     /** A list of actions for the Edit menu. */
-    protected ArrayList<Action> actions;
+    protected static ArrayList<Action> actions;
 
     /**
      * <p>
@@ -151,6 +151,15 @@ public class EditActions {
             target.repaint();
             target.getParent().revalidate();
         }
+    }
+
+    /**
+     * Getter method to get the actions for the edit actions
+     * @return all available actions
+     */
+    public static Collection<? extends Action> getActions() {
+        ArrayList<Action> allActions = actions;
+        return allActions;
     }
 
 }

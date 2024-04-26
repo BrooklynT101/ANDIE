@@ -26,7 +26,7 @@ import javax.swing.JSpinner.DefaultEditor;
  */
 public class ImageActions {
 
-    protected ArrayList<Action> actions;
+    protected static ArrayList<Action> actions;
 
     public ImageActions() {
         // initialising actions and action list
@@ -190,6 +190,15 @@ public class ImageActions {
             target.getParent().revalidate();
         }
 
+    }
+
+    /**
+     * Getter method to get the actions for the colour actions
+     * @return all available actions
+     */
+    public static Collection<? extends Action> getActions() {
+        ArrayList<Action> allActions = actions;
+        return allActions;
     }
 
 }

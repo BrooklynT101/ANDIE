@@ -28,7 +28,7 @@ import javax.swing.*;
 public class ColourActions {
 
     /** A list of actions for the Colour menu. */
-    protected ArrayList<Action> actions;
+    protected static ArrayList<Action> actions;
 
     /**
      * <p>
@@ -187,6 +187,15 @@ public class ColourActions {
         }
 
 
+    }
+
+    /**
+     * Getter method to get the actions for the colour actions
+     * @return all available actions
+     */
+    public static Collection<? extends Action> getActions() {
+        ArrayList<Action> allActions = actions;
+        return allActions;
     }
     
 }

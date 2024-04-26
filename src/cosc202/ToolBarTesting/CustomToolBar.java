@@ -1,22 +1,26 @@
-package cosc202; 
+package cosc202.ToolBarTesting;
 
 import javax.swing.*;
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.util.ArrayList;
+import java.awt.event.KeyEvent;
+
 
 public class CustomToolBar extends JToolBar {
 
     private ArrayList<Action> selectedActions;
     private ArrayList<AbstractButton> toolbarButtons;
+    private ArrayList<Action> allActions;
 
     public CustomToolBar() {
         selectedActions = new ArrayList<>();
         toolbarButtons = new ArrayList<>();
+        allActions = new ArrayList<>();
         setFloatable(true);
 
-        // Sample actions
-        ArrayList<Action> allActions = new ArrayList<>();
+        // Adding sample actions
         allActions.add(new AbstractAction("Open") {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -36,9 +40,9 @@ public class CustomToolBar extends JToolBar {
             }
         });
 
-        // Initialize selected actions (only load the first 5 actions initially)
-        for (int i = 0; i < 5 && i < allActions.size(); i++) {
-            selectedActions.add(allActions.get(i));
+        // Initialize selected actions
+        for (Action action : allActions) {
+            selectedActions.add(action);
         }
 
         // Create toolbar buttons
@@ -47,22 +51,14 @@ public class CustomToolBar extends JToolBar {
             toolbarButtons.add(button);
             add(button);
         }
-
-        JButton editButton = new JButton("Edit ToolBar");
-        editButton.addActionListener(e -> showEditDialog(allActions));
-
-        addSeparator();
-        add(editButton);
     }
 
-    private void showEditDialog(ArrayList<Action> allActions) {
-        ToolBarEditDialog dialog = new ToolBarEditDialog(null, allActions, selectedActions);
-        dialog.setVisible(true);
+    public ArrayList<Action> getAllActions() {
+        return allActions;
+    }
 
-        // Update selectedActions after dialog is closed
-        selectedActions = dialog.getSelectedActions();
-
-        // Remove existing toolbar buttons
+    public void setSelectedActions(ArrayList<Action> selectedActions) {
+        // Clear the toolbar buttons
         for (AbstractButton button : toolbarButtons) {
             remove(button);
         }
@@ -78,11 +74,24 @@ public class CustomToolBar extends JToolBar {
         revalidate(); // Refresh the toolbar layout
     }
 
+    public void showEditDialog() {
+        ToolBarEditDialog dialog = new ToolBarEditDialog(null, allActions, selectedActions);
+        dialog.setVisible(true);
+
+        // Update selectedActions after dialog is closed
+        setSelectedActions(dialog.getSelectedActions());
+    }
+
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
             JFrame frame = new JFrame("Custom ToolBar");
+            JMenuBar menuBar = new JMenuBar();
+            JButton editButton = new JButton(new EditToolBarAction("EditToolBar", null, "EditToolBar", Integer.valueOf(KeyEvent.VK_Z)));
+            CustomToolBar toolBar = new CustomToolBar();
+            menuBar.add(editButton);
+            frame.setJMenuBar(menuBar);
             frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-            frame.getContentPane().add(new CustomToolBar(), BorderLayout.NORTH);
+            frame.getContentPane().add(toolBar, BorderLayout.NORTH);
             frame.setSize(400, 200);
             frame.setLocationRelativeTo(null);
             frame.setVisible(true);

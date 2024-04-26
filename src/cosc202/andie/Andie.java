@@ -9,9 +9,9 @@ import javax.swing.*;
 import javax.imageio.*;
 
 //import for toolbar experiment, remove this if you see them and they're not needed
-import java.io.*;
-import cosc202.andie.FileActions.*;
-import java.util.ArrayList;
+// import java.io.*;
+// import cosc202.andie.FileActions.*;
+// import java.util.ArrayList;
 
 /**
  * <p>
