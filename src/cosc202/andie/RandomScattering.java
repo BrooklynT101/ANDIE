@@ -6,7 +6,7 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 public class RandomScattering implements ImageOperation, java.io.Serializable{
-    private int blockSize;
+    private int blockSize; //TODO: do we need this?
 
     RandomScattering(){
         this(10); //what should the default size be??
