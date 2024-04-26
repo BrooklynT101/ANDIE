@@ -43,6 +43,8 @@ public class RandomScattering implements ImageOperation, java.io.Serializable{
                 //find the neighbourhood
                 pixelOptions = new ArrayList<Integer>();
 
+                //TODO: use a continue for the out of bound errors??
+
                 for(int col = -radius; col <= radius; col++){ //get each pixel in the neighbourhood 
                     int neighbourY = y + col; //find the index of the neighbour for checking
                     if(neighbourY >= 0 && neighbourY <= input.getHeight()){ // check that the neighbour is in bounds
