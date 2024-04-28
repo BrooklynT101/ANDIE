@@ -2,9 +2,7 @@ package cosc202.andie;
 
 import java.util.*;
 import java.awt.event.*;
-import java.io.FileInputStream;
-import java.io.ObjectInputStream;
-
+import java.io.*;
 import javax.swing.*;
 
 public class MacroActions {
@@ -15,6 +13,7 @@ public class MacroActions {
 
     // Data Field
     protected ArrayList<Action> macroMenuActions;
+    protected boolean testing = false;
 
     /**
      * <p>
@@ -22,7 +21,6 @@ public class MacroActions {
      * </p>
      */
     public MacroActions() {
-        // defs to bundle
         // initializing actions and action list
         macroMenuActions = new ArrayList<Action>();
         MacroLoadAction mLoad = new MacroLoadAction(Andie.bundle.getString("MacroLoad"), null,
@@ -59,12 +57,6 @@ public class MacroActions {
     }
 
     // TODO: implement this, add macro quick action to menu
-    // public JMenu addMacroToMenu(Macro macro) {
-    // JMenu newMenu = new JMenu();
-    // JButton macroButton = new JButton(macro);
-    // macroMenuActions.add(macro);
-    // return createMenu();
-    // }
 
     /**
      * Getter method for the macro menu actions
@@ -91,7 +83,7 @@ public class MacroActions {
 
     /**
      * <p>
-     * Action to load an existing macro from file to the image.
+     * Action to load an existing macro from file and apply to image.
      * </p>
      * 
      * @see EditableImage#open(String)
@@ -131,7 +123,9 @@ public class MacroActions {
                     // that holds ImageOperations
                     Stack<ImageOperation> opsFromFile = (Stack<ImageOperation>) objIn.readObject();
 
-                    // apply the macro//TODO: look at this
+                    // apply the macro
+                    // TODO: change this to be a singular action similar to how the blur function
+                    // works
                     for (ImageOperation operation : opsFromFile) {
                         target.getImage().apply(operation);
                     }
@@ -146,7 +140,6 @@ public class MacroActions {
                     JOptionPane.showMessageDialog(frame, Andie.bundle.getString("CantLoadMacro"));
                 }
             }
-
             target.repaint();
             target.getParent().revalidate();
         }
@@ -154,7 +147,7 @@ public class MacroActions {
 
     /**
      * <p>
-     * Action to load a default image from resources.
+     * Action to start recording the users actions
      * </p>
      * 
      * @see EditableImage#open(String)
@@ -174,21 +167,20 @@ public class MacroActions {
         MacroStartRecording(String name, ImageIcon icon, String desc, Integer mnemonic) {
             super(name, icon, desc, mnemonic);
         }
-        // public void actionPerformed(ActionEvent e) {
-        // Macro macro = new Macro(target.getImage());
-        // }
 
+        // TODO: make it so if the macro is recording and start is called again it
+        // simply stops it
         public void actionPerformed(ActionEvent e) {
             if (isRunning) {
                 JFrame frame = new JFrame();
                 JOptionPane.showMessageDialog(frame, Andie.bundle.getString("MacroAlreadyRecording"));
-            } else {
-                // its running
+            } else { // its not running
                 isRunning = true;
 
                 // get the current operations
                 MacroActions.originalOperations = MacroActions.deepCopy(target.getImage().getCurrentOperations());
-                System.out.println("The grabbed operations:" + originalOperations);
+                if (testing)
+                    System.out.println("The grabbed operations:" + originalOperations);
                 // tell user
                 JFrame frame = new JFrame();
                 JOptionPane.showMessageDialog(frame, Andie.bundle.getString("MacroRecording"));
@@ -200,7 +192,7 @@ public class MacroActions {
 
     /**
      * <p>
-     * Action to stop the macro recording and save it to the resources folder.
+     * Action to stop the macro recording and save it.
      * </p>
      * 
      * @see EditableImage#save()
@@ -223,25 +215,30 @@ public class MacroActions {
 
         public void actionPerformed(ActionEvent e) {
             if (isRunning == false) {
-                System.err.println("Macro not running");
+                System.err.println("Macro not running"); // TODO: add an actual prompt here?
                 return;
             } else {
                 isRunning = false;
             }
+            // create a deepcopy of the operations, else it'll just mess with the images
+            // operations
             Stack<ImageOperation> newOperations = MacroActions.deepCopy(target.getImage().getCurrentOperations());
-
-            System.out.println("Original Operations: " + MacroActions.originalOperations.toString());
+//TODO: if newOps is empty then the message just says ayo
+            if (testing)
+                System.out.println("Original Operations: " + MacroActions.originalOperations.toString());
 
             if (newOperations.size() == MacroActions.originalOperations.size()) {
-                System.out.println("Lists are same size");
+                if (testing)
+                    System.out.println("Lists are same size");
             } else {
-                System.out.println("New Operations (before loop): " + newOperations.toString());
+                if (testing)
+                    System.out.println("New Operations (before loop): " + newOperations.toString());
                 for (int i = 0; i < MacroActions.originalOperations.size(); i++) {
                     newOperations.pop();
                 }
             }
-
-            System.out.println("New Operations (after loop): " + newOperations.toString());
+            if (testing)System.out.println("New Operations (after loop): " + newOperations.toString());
+            
             // Prompt to save the macro
             int option = JOptionPane.showConfirmDialog(null, buildActionListMessage(newOperations),
                     "Save Macro", JOptionPane.YES_NO_OPTION);
@@ -254,24 +251,55 @@ public class MacroActions {
         /**
          * Save the macro to the file
          */
-        public void saveMacro(Stack<ImageOperation> newOperations) {
-            System.out.println("Wow didnt actually anything but if it did that'd be cool");
-        }
+        public void saveMacro(Stack<ImageOperation> macro) {
+            //System.out.println("Wow didnt actually anything but if it did that'd be cool");
+            JFileChooser fileChooser = new JFileChooser();
 
-        public String buildActionListMessage(Stack<ImageOperation> recordedActions) {
-            if (recordedActions.isEmpty()) {
-                return "No actions recorded.";
-            } else {
-                StringBuilder message = new StringBuilder("Recorded actions:\n");
-                Collections.reverse(recordedActions);
-                int count = 1;
-                for (ImageOperation operation : recordedActions) {
-                    message.append(count+". ").append(operation.getName()).append("\n");
-                    count++;
+            // Ask user where to save
+            fileChooser.setDialogTitle("Save Macro");
+            int userSelection = fileChooser.showSaveDialog(null);
+
+            if (userSelection == JFileChooser.APPROVE_OPTION) {
+                try {
+                    String macroFilepath = fileChooser.getSelectedFile().getCanonicalPath() + ".macro"; // adding macro
+                                                                                                        // extension
+
+                    // Write macro file
+                    FileOutputStream fileOut = new FileOutputStream(macroFilepath);
+                    ObjectOutputStream objOut = new ObjectOutputStream(fileOut);
+                    objOut.writeObject(macro);
+                    objOut.close();
+                    fileOut.close();
+
+                    // Saved
+                    JFrame frame = new JFrame();
+                    JOptionPane.showMessageDialog(frame, Andie.bundle.getString("SavedMacro"));
+
+                } catch (Exception ex) {
+                    System.err.println("Could not save the macro actions:\n" + macro.toString());
+                    ex.printStackTrace();
                 }
-                return message.toString();
+            } else {
+                // User canceled or closed the dialog
+                System.out.println("Save operation cancelled.");
             }
         }
 
     }
+
+    public String buildActionListMessage(Stack<ImageOperation> recordedActions) {
+        if (recordedActions.isEmpty()) {
+            return "No actions recorded.";
+        } else {
+            StringBuilder message = new StringBuilder("Recorded actions:\n");
+            Collections.reverse(recordedActions);
+            int count = 1;
+            for (ImageOperation operation : recordedActions) {
+                message.append(count + ". ").append(operation.getName()).append("\n");
+                count++;
+            }
+            return message.toString();
+        }
+    }
+
 }
