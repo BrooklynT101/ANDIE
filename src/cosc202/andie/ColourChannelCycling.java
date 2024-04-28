@@ -11,12 +11,13 @@ import javax.swing.JOptionPane;
  * 
  * <p>
  * this produces and image that still looks similar but is differently coloured
- * and can rotate between the other values. The individual pixels RGB values are 
+ * and can rotate between the other values. The individual pixels RGB values are
  * changed and stored for dther changes.
  * </p>
  * 
  * <p>
- * <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a>
+ * <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA
+ * 4.0</a>
  * </p>
  * 
  * @author Amelia Johnston
@@ -30,7 +31,7 @@ public class ColourChannelCycling implements ImageOperation, java.io.Serializabl
      * Create a new ColourChannelCycling operation.
      * </p>
      */
-    ColourChannelCycling(){
+    ColourChannelCycling() {
     }
 
     /**
@@ -46,10 +47,10 @@ public class ColourChannelCycling implements ImageOperation, java.io.Serializabl
         if (input == null) {
             JFrame frame = new JFrame();
             JOptionPane.showMessageDialog(frame, Andie.bundle.getString("Pleaseopenanimagefilefirst!"));
-   
+
         }
-  
-        //testing variables
+
+        // testing variables
         // int ba = 0;
         // int br = 0;
         // int bg = 0;
@@ -66,19 +67,21 @@ public class ColourChannelCycling implements ImageOperation, java.io.Serializabl
                 int r = (argb & 0x00FF0000) >> 16;
                 int g = (argb & 0x0000FF00) >> 8;
                 int b = (argb & 0x000000FF);
-                
-                //testing before pixel values
-                //System.out.println("Before colour channel cycle\nAlpha: "+a+", Red: "+r+", Green: "+g+", Blue: "+b);
+
+                // testing before pixel values
+                // System.out.println("Before colour channel cycle\nAlpha: "+a+", Red: "+r+",
+                // Green: "+g+", Blue: "+b);
                 // ba = a;
                 // br = r;
                 // bg = g;
                 // bb = b;
 
-                //random order?
-                argb = (a << 24) | (g << 16) | (b << 8) | r; //rotates the RGB values 
-                
-                //testing after pixel values
-                //System.out.println("After colour channel cycle\nAlpha: "+a+", Red: "+r+", Green: "+g+", Blue: "+b);
+                // random order?
+                argb = (a << 24) | (g << 16) | (b << 8) | r; // rotates the RGB values
+
+                // testing after pixel values
+                // System.out.println("After colour channel cycle\nAlpha: "+a+", Red: "+r+",
+                // Green: "+g+", Blue: "+b);
                 // aa = (argb & 0xFF000000) >> 24;
                 // ar = (argb & 0x00FF0000) >> 16;
                 // ag = (argb & 0x0000FF00) >> 8;
@@ -86,10 +89,12 @@ public class ColourChannelCycling implements ImageOperation, java.io.Serializabl
                 input.setRGB(x, y, argb);
             }
         }
-        //outputting test - if 0 theres a problem
-        // System.out.println("Before colour channel cycle\nAlpha: "+ba+", Red: "+br+", Green: "+bg+", Blue: "+bb);
-        // System.out.println("After colour channel cycle\nAlpha: "+aa+", Red: "+ar+", Green: "+ag+", Blue: "+ab);
-        
+        // outputting test - if 0 theres a problem
+        // System.out.println("Before colour channel cycle\nAlpha: "+ba+", Red: "+br+",
+        // Green: "+bg+", Blue: "+bb);
+        // System.out.println("After colour channel cycle\nAlpha: "+aa+", Red: "+ar+",
+        // Green: "+ag+", Blue: "+ab);
+
         return input;
     }
 
@@ -97,4 +102,14 @@ public class ColourChannelCycling implements ImageOperation, java.io.Serializabl
     public String getName() {
         return "Colour Cycle";
     }
+
+    /**
+     * Method to return 'this' as an ImageOperation to support @see MacroActions
+     */
+    @Override
+    public ImageOperation clone() {
+        ColourChannelCycling copy = new ColourChannelCycling();
+        return copy;
+    }
+
 }

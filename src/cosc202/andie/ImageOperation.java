@@ -39,5 +39,6 @@ public interface ImageOperation {
      * @return The image resulting from the operation
      */
     public BufferedImage apply(BufferedImage input);
-    public String getName();    
+    public String getName();
+    public ImageOperation clone();
 }

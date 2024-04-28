@@ -67,4 +67,13 @@ public class SoftBlur implements ImageOperation, java.io.Serializable {
         return "Soft Blur";
     }
 
+    /**
+     * Method to return 'this' as an ImageOperation to support @see MacroActions
+     */
+    @Override
+    public ImageOperation clone() {
+        SoftBlur copy = new SoftBlur();
+        return copy;
+    }
+
 }

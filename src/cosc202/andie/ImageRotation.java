@@ -42,7 +42,8 @@ public class ImageRotation implements ImageOperation, java.io.Serializable {
         this.degrees = false;
     }
 
-    public ImageRotation(boolean clockwise, boolean degrees) { // if degrees is true then it rotates 180 degrees rather than 90
+    public ImageRotation(boolean clockwise, boolean degrees) { // if degrees is true then it rotates 180 degrees rather
+                                                               // than 90
         this.clockwise = clockwise;
         this.degrees = degrees;
     }
@@ -67,11 +68,11 @@ public class ImageRotation implements ImageOperation, java.io.Serializable {
         int height = input.getHeight();
         BufferedImage output;
 
-        if (degrees == true) {    
+        if (degrees == true) {
             output = new BufferedImage(width, height, input.getType());
             for (int x = 0; x < width; x++) {
                 for (int y = 0; y < height; y++) {
-                        output.setRGB(width - x - 1, height - y - 1, input.getRGB(x, y));
+                    output.setRGB(width - x - 1, height - y - 1, input.getRGB(x, y));
                 }
             }
         } else {
@@ -95,9 +96,17 @@ public class ImageRotation implements ImageOperation, java.io.Serializable {
             return "Rotate Clockwise";
         } else if (degrees) {
             return "Rotate 180";
-        } else { 
+        } else {
             return "Rotate AntiClockwise";
         }
+    }
+
+    /**
+     * Method to return 'this' as an ImageOperation to support @see MacroActions
+     */
+    @Override
+    public ImageOperation clone() {
+        return new ImageRotation(this.clockwise, this.degrees);
     }
 
 }

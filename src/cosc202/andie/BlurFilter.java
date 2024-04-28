@@ -92,4 +92,14 @@ public class BlurFilter implements ImageOperation, java.io.Serializable {
    public String getName() {
       return "Blur";
    }
+
+   /**
+    * Method to return 'this' as an ImageOperation to support @see MacroActions
+    */
+    @Override
+    public ImageOperation clone() {
+        BlurFilter copy = new BlurFilter(this.t);
+        return copy;
+    }
+    
 }

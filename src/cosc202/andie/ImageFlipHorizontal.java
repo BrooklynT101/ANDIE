@@ -10,25 +10,28 @@ import javax.swing.JOptionPane;
  * <p>
  * 
  * <p>
- * The operation involves flipping, in place, each pixel by its x coordinates, moving 
- * across each pixel per row and column and sending it to its relative place on the 
- * opposite side.  
+ * The operation involves flipping, in place, each pixel by its x coordinates,
+ * moving
+ * across each pixel per row and column and sending it to its relative place on
+ * the
+ * opposite side.
  * <p>
  * 
  * <p>
- * <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a>
+ * <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA
+ * 4.0</a>
  * </p>
  * 
  * @version 1.0
  * @see ImageFlipVertical
  * @author Brooklyn Taylor
  */
-public class ImageFlipHorizontal implements ImageOperation, java.io.Serializable{
-    
+public class ImageFlipHorizontal implements ImageOperation, java.io.Serializable {
+
     /** Default Constructor */
-    ImageFlipHorizontal(){
+    ImageFlipHorizontal() {
     }
-    
+
     /**
      * <p>
      * Applies the flip transformation to the image
@@ -42,17 +45,18 @@ public class ImageFlipHorizontal implements ImageOperation, java.io.Serializable
         if (input == null) {
             JFrame frame = new JFrame();
             JOptionPane.showMessageDialog(frame, Andie.bundle.getString("Pleaseopenanimagefilefirst!"));
-   
+
         }
         int imageWidth = input.getWidth();
         int imageHeight = input.getHeight();
 
         BufferedImage result = new BufferedImage(imageWidth, imageHeight, input.getType());
-        //System.out.println("Test1");
+        // System.out.println("Test1");
         for (int y = 0; y < imageHeight; y++) {
-            //System.out.println("test2");
+            // System.out.println("test2");
             for (int x = 0; x < imageWidth; x++) {
-                result.setRGB(imageWidth-x-1, y, input.getRGB(x, y)); //need to minus one off the x value because 0 indexing
+                result.setRGB(imageWidth - x - 1, y, input.getRGB(x, y)); // need to minus one off the x value because 0
+                                                                          // indexing
             }
         }
         return result;
@@ -63,4 +67,14 @@ public class ImageFlipHorizontal implements ImageOperation, java.io.Serializable
     public String getName() {
         return "Horizontal Flip";
     }
+
+    /**
+     * Method to return 'this' as an ImageOperation to support @see MacroActions
+     */
+    @Override
+    public ImageOperation clone() {
+        ImageFlipHorizontal copy = new ImageFlipHorizontal();
+        return copy;
+    }
+
 }

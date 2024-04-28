@@ -221,4 +221,13 @@ public class GaussianBlur implements ImageOperation, java.io.Serializable {
         return "Gaussian Blur";
     }
 
+    /**
+     * Method to return 'this' as an ImageOperation to support @see MacroActions
+     */
+    @Override
+    public ImageOperation clone() {
+        GaussianBlur copy = new GaussianBlur(this.radius);
+        return copy;
+    }
+
 }

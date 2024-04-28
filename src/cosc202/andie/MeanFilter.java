@@ -115,5 +115,12 @@ public class MeanFilter implements ImageOperation, java.io.Serializable {
         return "Mean Filter";
     }
 
+    /**
+     * Method to return 'this' as an ImageOperation to support @see MacroActions
+     */
+    @Override
+    public ImageOperation clone() {
+        return new MeanFilter(this.radius);
+    }
 
 }

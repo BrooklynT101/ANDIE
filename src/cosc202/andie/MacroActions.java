@@ -58,13 +58,14 @@ public class MacroActions {
         return macroMenu;
     }
 
-    //TODO: implement this, add macro quick action to menu
+    // TODO: implement this, add macro quick action to menu
     // public JMenu addMacroToMenu(Macro macro) {
-    //     JMenu newMenu = new JMenu();
-    //     JButton macroButton = new JButton(macro);
-    //     macroMenuActions.add(macro);
-    //     return createMenu();
+    // JMenu newMenu = new JMenu();
+    // JButton macroButton = new JButton(macro);
+    // macroMenuActions.add(macro);
+    // return createMenu();
     // }
+
     /**
      * Getter method for the macro menu actions
      * 
@@ -72,6 +73,20 @@ public class MacroActions {
      */
     public ArrayList<Action> getActions() {
         return this.macroMenuActions;
+    }
+
+    public static Stack<ImageOperation> deepCopy(Stack<ImageOperation> operations) {
+        Stack<ImageOperation> copy = new Stack<>();
+
+        for (ImageOperation operation : operations) {
+
+            // Clone each ImageOperation and push it onto the copy stack
+            copy.push(operation.clone());
+        }
+
+        // Reverse the order of the copy stack to match the og order
+        Collections.reverse(copy);
+        return copy;
     }
 
     /**
@@ -172,7 +187,7 @@ public class MacroActions {
                 isRunning = true;
 
                 // get the current operations
-                originalOperations = target.getImage().getCurrentOperations();
+                MacroActions.originalOperations = target.getImage().getCurrentOperations();
                 System.out.println("The grabbed operations:" + originalOperations);
                 // tell user
                 JFrame frame = new JFrame();
@@ -211,12 +226,18 @@ public class MacroActions {
 
             Stack<ImageOperation> newOperations = target.getImage().getCurrentOperations();
 
-            System.out.println("Original Operations: " + originalOperations.toString());
-            System.out.println("New Operations: " + newOperations.toString());
+            System.out.println("Original Operations: " + MacroActions.originalOperations.toString());
 
-            for (int i = 0; i < originalOperations.size(); i++) {
-                newOperations.remove(i);
+            if (newOperations.size() == originalOperations.size()) {
+                System.out.println("Lists are same size");
+            } else {
+                System.out.println("New Operations (before loop): " + newOperations.toString());
+                for (int i = 0; i < MacroActions.originalOperations.size(); i++) {
+                    newOperations.remove(i);
+                }
             }
+
+            System.out.println("New Operations (after loop): " + newOperations.toString());
             // Prompt to save the macro
             int option = JOptionPane.showConfirmDialog(null, buildActionListMessage(newOperations),
                     "Save Macro", JOptionPane.YES_NO_OPTION);

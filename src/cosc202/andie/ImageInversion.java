@@ -15,21 +15,22 @@ import javax.swing.JOptionPane;
  * </p>
  * 
  * <p>
- * <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a>
+ * <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA
+ * 4.0</a>
  * </p>
  * 
  * @author Amelia Johnston
  * @version 1.0
  */
 
-public class ImageInversion implements ImageOperation, java.io.Serializable{
-    
+public class ImageInversion implements ImageOperation, java.io.Serializable {
+
     /**
      * <p>
      * Create a new ImageInversion operation.
      * </p>
      */
-    ImageInversion(){
+    ImageInversion() {
 
     }
 
@@ -46,10 +47,10 @@ public class ImageInversion implements ImageOperation, java.io.Serializable{
         if (input == null) {
             JFrame frame = new JFrame();
             JOptionPane.showMessageDialog(frame, Andie.bundle.getString("Pleaseopenanimagefilefirst!"));
-   
+
         }
-  
-        //testing variables
+
+        // testing variables
         // int ba = 0;
         // int br = 0;
         // int bg = 0;
@@ -67,21 +68,23 @@ public class ImageInversion implements ImageOperation, java.io.Serializable{
                 int g = (argb & 0x0000FF00) >> 8;
                 int b = (argb & 0x000000FF);
 
-                //testing before pixel values
-                //System.out.println("Before colour inversion\nAlpha: "+a+", Red: "+r+", Green: "+g+", Blue: "+b);
+                // testing before pixel values
+                // System.out.println("Before colour inversion\nAlpha: "+a+", Red: "+r+", Green:
+                // "+g+", Blue: "+b);
                 // ba = a;
                 // br = r;
                 // bg = g;
                 // bb = b;
-                
+
                 int rNew = 255 - r;
                 int gNew = 255 - g;
                 int bNew = 255 - b;
-                
+
                 argb = (a << 24) | (rNew << 16) | (gNew << 8) | bNew;
-                
-                //testing after pixel values
-                //System.out.println("After colour inversion\nAlpha: "+a+", Red: "+r+", Green: "+g+", Blue: "+b);
+
+                // testing after pixel values
+                // System.out.println("After colour inversion\nAlpha: "+a+", Red: "+r+", Green:
+                // "+g+", Blue: "+b);
                 // aa = (argb & 0xFF000000) >> 24;
                 // ar = (argb & 0x00FF0000) >> 16;
                 // ag = (argb & 0x0000FF00) >> 8;
@@ -91,15 +94,25 @@ public class ImageInversion implements ImageOperation, java.io.Serializable{
             }
         }
         // //outputting test - if 0 theres a problem
-        // System.out.println("Before colour inversion\nAlpha: "+ba+", Red: "+br+", Green: "+bg+", Blue: "+bb);
-        // System.out.println("After colour inversion\nAlpha: "+aa+", Red: "+ar+", Green: "+ag+", Blue: "+ab);
-        
+        // System.out.println("Before colour inversion\nAlpha: "+ba+", Red: "+br+",
+        // Green: "+bg+", Blue: "+bb);
+        // System.out.println("After colour inversion\nAlpha: "+aa+", Red: "+ar+",
+        // Green: "+ag+", Blue: "+ab);
+
         return input;
     }
 
     @Override
     public String getName() {
         return "Colour Inversion";
+    }
+
+    /**
+     * Method to return 'this' as an ImageOperation to support @see MacroActions
+     */
+    @Override
+    public ImageOperation clone() {
+        return new ImageInversion();
     }
 
 }

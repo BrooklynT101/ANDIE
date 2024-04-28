@@ -87,14 +87,14 @@ public class MedianFilter implements ImageOperation, java.io.Serializable {
         System.out.println(neighbourhoodSize);
 
         // Extending Filter Addition:
-        ExtendingFilters expand = new ExtendingFilters(input, 20* radius);
+        ExtendingFilters expand = new ExtendingFilters(input, 20 * radius);
         BufferedImage expanded = expand.extending();
 
         for (int y = radius; y < expanded.getHeight() - radius; y++) {
 
             for (int x = radius; x < expanded.getWidth() - radius; x++) {
                 int argb = expanded.getRGB(x, y);
-                //int a = (argb & 0xFF000000) >> 24;
+                // int a = (argb & 0xFF000000) >> 24;
                 int[] red = new int[neighbourhoodSize];
                 int[] green = new int[neighbourhoodSize];
                 int[] blue = new int[neighbourhoodSize];
@@ -141,6 +141,15 @@ public class MedianFilter implements ImageOperation, java.io.Serializable {
     @Override
     public String getName() {
         return "Median Filter";
+    }
+
+    /**
+     * Method to return 'this' as an ImageOperation to support @see MacroActions
+     */
+    @Override
+    public ImageOperation clone() {
+        MedianFilter copy = new MedianFilter(this.radius);
+        return copy;
     }
 
 }

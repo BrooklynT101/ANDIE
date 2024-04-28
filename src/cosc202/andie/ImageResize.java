@@ -25,14 +25,14 @@ public class ImageResize implements ImageOperation, java.io.Serializable {
     private int height;
     private int ogheight;
     private int ogWidth;
-    //private Image ogImage;
+    // private Image ogImage;
 
-    ImageResize(int width, int height, int ogWidth,int ogheight, Image ogImage) {
+    ImageResize(int width, int height, int ogWidth, int ogheight, Image ogImage) {
         this.width = width;
         this.height = height;
         this.ogheight = ogheight;
         this.ogWidth = ogWidth;
-        //this.ogImage = ogImage;
+        // this.ogImage = ogImage;
     }
 
     public BufferedImage apply(BufferedImage input) {
@@ -66,7 +66,7 @@ public class ImageResize implements ImageOperation, java.io.Serializable {
 
             return output;
         } else {
-            //can you simplify this to just return ogImage?
+            // can you simplify this to just return ogImage?
             int newH = (int) (height * scaleh);
             int newW = (int) (width * scalew);
 
@@ -80,6 +80,15 @@ public class ImageResize implements ImageOperation, java.io.Serializable {
     @Override
     public String getName() {
         return "Resize";
+    }
+
+    /**
+     * Method to return 'this' as an ImageOperation to support @see MacroActions
+     */
+    @Override
+    public ImageOperation clone() {
+        return new ImageResize(this.width, this.height, this.ogWidth, this.ogheight, null); // Assuming ogImage is not
+                                                                                            // necessary for cloning
     }
 
 }

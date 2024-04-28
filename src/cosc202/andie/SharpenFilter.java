@@ -87,4 +87,14 @@ public class SharpenFilter implements ImageOperation, java.io.Serializable {
    public String getName() {
       return "Sharpen Filter";
    }
+
+   /**
+    * Method to return 'this' as an ImageOperation to support @see MacroActions
+    */
+   @Override
+   public ImageOperation clone() {
+      SharpenFilter copy = new SharpenFilter(this.t);
+      return copy;
+   }
+
 }

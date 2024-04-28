@@ -5,16 +5,16 @@ import java.awt.image.*;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
-public class RandomScattering implements ImageOperation, java.io.Serializable{
-    
-    @SuppressWarnings("unused")
-    private int blockSize; //TODO: do we need this?
+public class RandomScattering implements ImageOperation, java.io.Serializable {
 
-    RandomScattering(){
-        this(10); //what should the default size be??
+    @SuppressWarnings("unused")
+    private int blockSize; // TODO: do we need this?
+
+    RandomScattering() {
+        this(10); // what should the default size be??
     }
 
-    RandomScattering(int blockSize){
+    RandomScattering(int blockSize) {
         this.blockSize = blockSize;
     }
 
@@ -25,16 +25,16 @@ public class RandomScattering implements ImageOperation, java.io.Serializable{
 
         }
 
-        //loop through each pixel and scatter them 
-        //does the other pixel switch? 
-        for(int w = 0; w < input.getWidth(); w++){ //loop through all the pixels 
-            for(int h = 0; h < input.getHeight(); h++){
+        // loop through each pixel and scatter them
+        // does the other pixel switch?
+        for (int w = 0; w < input.getWidth(); w++) { // loop through all the pixels
+            for (int h = 0; h < input.getHeight(); h++) {
 
             }
         }
 
-
-        BufferedImage output = new BufferedImage(input.getColorModel(), input.copyData(null), input.isAlphaPremultiplied(), null);
+        BufferedImage output = new BufferedImage(input.getColorModel(), input.copyData(null),
+                input.isAlphaPremultiplied(), null);
 
         return output;
 
@@ -44,5 +44,14 @@ public class RandomScattering implements ImageOperation, java.io.Serializable{
     public String getName() {
         return "Random Scattering";
     }
-    
+
+    /**
+     * Method to return 'this' as an ImageOperation to support @see MacroActions
+     */
+    @Override
+    public ImageOperation clone() {
+        RandomScattering copy = new RandomScattering(this.blockSize);
+        return copy;
+    }
+
 }
