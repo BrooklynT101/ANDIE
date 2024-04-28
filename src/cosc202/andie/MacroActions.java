@@ -187,7 +187,7 @@ public class MacroActions {
                 isRunning = true;
 
                 // get the current operations
-                MacroActions.originalOperations = target.getImage().getCurrentOperations();
+                MacroActions.originalOperations = MacroActions.deepCopy(target.getImage().getCurrentOperations());
                 System.out.println("The grabbed operations:" + originalOperations);
                 // tell user
                 JFrame frame = new JFrame();
@@ -222,18 +222,22 @@ public class MacroActions {
         }
 
         public void actionPerformed(ActionEvent e) {
-            isRunning = false;
-
-            Stack<ImageOperation> newOperations = target.getImage().getCurrentOperations();
+            if (isRunning == false) {
+                System.err.println("Macro not running");
+                return;
+            } else {
+                isRunning = false;
+            }
+            Stack<ImageOperation> newOperations = MacroActions.deepCopy(target.getImage().getCurrentOperations());
 
             System.out.println("Original Operations: " + MacroActions.originalOperations.toString());
 
-            if (newOperations.size() == originalOperations.size()) {
+            if (newOperations.size() == MacroActions.originalOperations.size()) {
                 System.out.println("Lists are same size");
             } else {
                 System.out.println("New Operations (before loop): " + newOperations.toString());
                 for (int i = 0; i < MacroActions.originalOperations.size(); i++) {
-                    newOperations.remove(i);
+                    newOperations.pop();
                 }
             }
 
@@ -259,8 +263,11 @@ public class MacroActions {
                 return "No actions recorded.";
             } else {
                 StringBuilder message = new StringBuilder("Recorded actions:\n");
+                Collections.reverse(recordedActions);
+                int count = 1;
                 for (ImageOperation operation : recordedActions) {
-                    message.append(operation.getName()).append("\n");
+                    message.append(count+". ").append(operation.getName()).append("\n");
+                    count++;
                 }
                 return message.toString();
             }
