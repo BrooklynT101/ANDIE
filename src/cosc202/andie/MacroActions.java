@@ -14,20 +14,17 @@ public class MacroActions {
     public static boolean isRunning;
 
     // Data Field
-    protected ArrayList<Action> actions;
+    protected ArrayList<Action> macroMenuActions;
 
-    // TODO: MacroAlreadyRecording, CantLoadMacro, MacroRecording
     /**
      * <p>
      * Create a set of Macro menu actions.
      * </p>
      */
     public MacroActions() {
-
-        // TODO: add CantLoadMacro, MacroStart, MacroStop, MacroLoad, MacroMenu, and
         // defs to bundle
         // initializing actions and action list
-        actions = new ArrayList<Action>();
+        macroMenuActions = new ArrayList<Action>();
         MacroLoadAction mLoad = new MacroLoadAction(Andie.bundle.getString("MacroLoad"), null,
                 Andie.bundle.getString("MacroLoadDef"), Integer.valueOf(KeyEvent.VK_L));
         MacroStartRecording mStart = new MacroStartRecording(Andie.bundle.getString("MacroStart"), null,
@@ -41,9 +38,9 @@ public class MacroActions {
         mStop.putValue(Action.ACCELERATOR_KEY, KeyStroke.getKeyStroke("control S"));
 
         // adding actions to list
-        actions.add(mLoad);
-        actions.add(mStart);
-        actions.add(mStop);
+        macroMenuActions.add(mLoad);
+        macroMenuActions.add(mStart);
+        macroMenuActions.add(mStop);
     }
 
     /**
@@ -55,14 +52,26 @@ public class MacroActions {
      */
     public JMenu createMenu() {
         JMenu macroMenu = new JMenu(Andie.bundle.getString("MacroMenu"));
-        for (Action action : actions) {
+        for (Action action : macroMenuActions) {
             macroMenu.add(new JMenuItem(action));
         }
         return macroMenu;
     }
 
+    //TODO: implement this, add macro quick action to menu
+    // public JMenu addMacroToMenu(Macro macro) {
+    //     JMenu newMenu = new JMenu();
+    //     JButton macroButton = new JButton(macro);
+    //     macroMenuActions.add(macro);
+    //     return createMenu();
+    // }
+    /**
+     * Getter method for the macro menu actions
+     * 
+     * @return
+     */
     public ArrayList<Action> getActions() {
-        return this.actions;
+        return this.macroMenuActions;
     }
 
     /**
@@ -76,7 +85,7 @@ public class MacroActions {
 
         /**
          * <p>
-         * Create a new file-open action.
+         * Create a new file-open action. Extends ImageAction.
          * </p>
          * 
          * @param name     The name of the action (ignored if null).
@@ -164,7 +173,7 @@ public class MacroActions {
 
                 // get the current operations
                 originalOperations = target.getImage().getCurrentOperations();
-
+                System.out.println("The grabbed operations:" + originalOperations);
                 // tell user
                 JFrame frame = new JFrame();
                 JOptionPane.showMessageDialog(frame, Andie.bundle.getString("MacroRecording"));
@@ -201,7 +210,10 @@ public class MacroActions {
             isRunning = false;
 
             Stack<ImageOperation> newOperations = target.getImage().getCurrentOperations();
-            
+
+            System.out.println("Original Operations: " + originalOperations.toString());
+            System.out.println("New Operations: " + newOperations.toString());
+
             for (int i = 0; i < originalOperations.size(); i++) {
                 newOperations.remove(i);
             }
@@ -221,7 +233,7 @@ public class MacroActions {
             System.out.println("Wow didnt actually anything but if it did that'd be cool");
         }
 
-        private static String buildActionListMessage(Stack<ImageOperation> recordedActions) {
+        public String buildActionListMessage(Stack<ImageOperation> recordedActions) {
             if (recordedActions.isEmpty()) {
                 return "No actions recorded.";
             } else {
