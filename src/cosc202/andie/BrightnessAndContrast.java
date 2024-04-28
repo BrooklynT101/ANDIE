@@ -1,7 +1,6 @@
 package cosc202.andie;
 
 import java.awt.image.*;
-import java.util.*;
 
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;

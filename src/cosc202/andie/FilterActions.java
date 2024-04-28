@@ -55,7 +55,7 @@ public class FilterActions {
         actions.add(new SharpenAction(Andie.bundle.getString("Sharpenfilter"), null,
                 Andie.bundle.getString("Applyasharpenfilter"), Integer.valueOf(KeyEvent.VK_S)));
         actions.add(new BlockAveragingAction(Andie.bundle.getString("BlockAveraging"), null,
-                Andie.bundle.getString("Applyblockaveraging"), Integer.valueOf(KeyEvent.VK_S)));
+                Andie.bundle.getString("ApplyBlockAveraging"), Integer.valueOf(KeyEvent.VK_S)));
     }
 
     /**
