@@ -56,7 +56,7 @@ public class MacroActions {
         return macroMenu;
     }
 
-    // TODO: implement this, add macro quick action to menu
+    //TODO: add macro quick action to menu
 
     /**
      * Getter method for the macro menu actions
@@ -223,7 +223,7 @@ public class MacroActions {
             // create a deepcopy of the operations, else it'll just mess with the images
             // operations
             Stack<ImageOperation> newOperations = MacroActions.deepCopy(target.getImage().getCurrentOperations());
-//TODO: if newOps is empty then the message just says ayo
+            // TODO: if newOps is empty then the message just says ayo
             if (testing)
                 System.out.println("Original Operations: " + MacroActions.originalOperations.toString());
 
@@ -237,8 +237,9 @@ public class MacroActions {
                     newOperations.pop();
                 }
             }
-            if (testing)System.out.println("New Operations (after loop): " + newOperations.toString());
-            
+            if (testing)
+                System.out.println("New Operations (after loop): " + newOperations.toString());
+
             // Prompt to save the macro
             int option = JOptionPane.showConfirmDialog(null, buildActionListMessage(newOperations),
                     "Save Macro", JOptionPane.YES_NO_OPTION);
@@ -252,7 +253,8 @@ public class MacroActions {
          * Save the macro to the file
          */
         public void saveMacro(Stack<ImageOperation> macro) {
-            //System.out.println("Wow didnt actually anything but if it did that'd be cool");
+            // System.out.println("Wow didnt actually anything but if it did that'd be
+            // cool");
             JFileChooser fileChooser = new JFileChooser();
 
             // Ask user where to save

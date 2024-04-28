@@ -8,7 +8,6 @@ import java.util.Scanner;
 
 import cosc202.andie.ToolBar;
 
-// TODO: ensure this isn't in the final main build
 /**
  * example class to mess around with the toolbar, let me know if this
  * exists in the final build as it shouldn't be

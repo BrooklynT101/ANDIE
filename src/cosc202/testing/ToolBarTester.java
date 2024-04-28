@@ -1,10 +1,12 @@
-package cosc202.andie;
+package cosc202.testing;
 
 import java.awt.*;
 import javax.swing.*;
+
+import cosc202.andie.Andie;
+
 import javax.imageio.*;
 
-@SuppressWarnings("unused")
 public class ToolBarTester {
     public static void main(String[] args) {
         
