@@ -39,7 +39,6 @@ public class Andie {
     protected static Locale locale = new Locale.Builder().setLanguage(prefs.get("language", "en"))
             .setRegion(prefs.get("country", "NZ")).build();
     protected static ResourceBundle bundle = ResourceBundle.getBundle("CommandsBundle", locale);
-    private static int mainCount = 0;
     // protected static ArrayList<Action> actions = {new
     // FileOpenAction(Andie.bundle.getString("Open"), null,
     // Andie.bundle.getString("Openafile"), Integer.valueOf(KeyEvent.VK_O)) };
@@ -170,20 +169,16 @@ public class Andie {
      * @see #createAndShowGUI()
      */
     public static void main(String[] args) throws Exception {
-        System.out.println("Running main");
         javax.swing.SwingUtilities.invokeLater(new Runnable() {
             public void run() {
                 try {
                     createAndShowGUI();
-                    System.out.println("creating showing GUI");
                 } catch (Exception ex) {
                     ex.printStackTrace();
                     System.exit(1);
                 }
             }
         });
-        mainCount++;
-        System.out.println("Instance run count: "+mainCount);
     }
 
 }
