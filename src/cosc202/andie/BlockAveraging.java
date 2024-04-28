@@ -25,8 +25,8 @@ public class BlockAveraging implements ImageOperation, java.io.Serializable{
         }
         BufferedImage output = new BufferedImage(input.getColorModel(), input.copyData(null), input.isAlphaPremultiplied(), null);
 
-        int numBlocksX = input.getWidth() / blockSize; //find how many blocks are width ways
-        int numBlocksY = input.getHeight() / blockSize; //find how many blocks are height ways
+        int numBlocksX = (input.getWidth() / blockSize) + 1; //find how many blocks are width ways
+        int numBlocksY = (input.getHeight() / blockSize) + 1; //find how many blocks are height ways
 
         for (int blockY = 0; blockY < numBlocksY; blockY++) { //loop through each block in the image
             for (int blockX = 0; blockX < numBlocksX; blockX++) {
