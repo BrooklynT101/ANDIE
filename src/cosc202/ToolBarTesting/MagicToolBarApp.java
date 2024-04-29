@@ -1,4 +1,4 @@
-package cosc202;
+package cosc202.ToolBarTesting;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -18,7 +18,7 @@ public class MagicToolBarApp {
             JMenuBar menuBar = new JMenuBar();
             MagicToolBar toolBar = new MagicToolBar();
             JButton editButton = new JButton(
-                    new EditToolBarAction("EditToolBar", null, "EditToolBar", Integer.valueOf(KeyEvent.VK_Z), toolBar));
+                    new EditMagicToolBarAction("EditToolBar", null, "EditToolBar", Integer.valueOf(KeyEvent.VK_Z), toolBar));
 
             menuBar.add(editButton);
             frame.setJMenuBar(menuBar);
@@ -31,9 +31,9 @@ public class MagicToolBarApp {
     }
 }
 
-class EditToolBarAction extends ImageAction {
+class EditMagicToolBarAction extends ImageAction {
 
-    private MagicToolBar toolBar;
+    //private MagicToolBar toolBar;
 
     /**
      * <p>
@@ -45,7 +45,7 @@ class EditToolBarAction extends ImageAction {
      * @param desc     A brief description of the action (ignored if null).
      * @param mnemonic A mnemonic key to use as a shortcut (ignored if null).
      */
-    EditToolBarAction(String name, ImageIcon icon, String desc, Integer mnemonic, MagicToolBar toolBar) {
+    EditMagicToolBarAction(String name, ImageIcon icon, String desc, Integer mnemonic, MagicToolBar toolBar) {
         super(name, icon, desc, mnemonic);
     }
 

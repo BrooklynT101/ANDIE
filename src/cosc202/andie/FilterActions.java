@@ -40,7 +40,7 @@ public class FilterActions {
         actions.add(new MeanFilterAction(Andie.bundle.getString("Meanfilter"), null,
                 Andie.bundle.getString("Applyameanfilter"), Integer.valueOf(KeyEvent.VK_M)));
 
-                // adding keyboard shortcut for blur
+        // adding keyboard shortcut for blur
         BlurFilterAction blur = new BlurFilterAction(Andie.bundle.getString("Blurfilter"), null,
                 Andie.bundle.getString("Applyasoftblur"), Integer.valueOf(KeyEvent.VK_B));
         blur.putValue(Action.ACCELERATOR_KEY, KeyStroke.getKeyStroke("control B"));
@@ -509,9 +509,10 @@ public class FilterActions {
 
     /**
      * Getter method to get the actions for the colour actions
+     * 
      * @return all available actions
      */
-    public static Collection<? extends Action> getActions() {
+    public ArrayList<Action> getActions() {
         ArrayList<Action> allActions = actions;
         return allActions;
     }

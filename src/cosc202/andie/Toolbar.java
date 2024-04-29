@@ -14,38 +14,52 @@ import java.net.URL;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 
-import cosc202.andie.*;
-import cosc202.andie.FileActions.FileOpenAction;
-
 /**
  * A ToolBar class that creates a JToolBar that allows a user
  * to access commonly used tools to manipulate the image
  * 
  * @author Brooklyn Taylor
  */
-@SuppressWarnings("unused")
 public class ToolBar extends JToolBar {
+
+    // Create actions
+    private FileActions FilA = new FileActions();
+    private EditActions EA = new EditActions();
+    private ViewActions VA = new ViewActions();
+    private FilterActions FiltA = new FilterActions();
+    private ColourActions CA = new ColourActions();
+    private ImageActions IM = new ImageActions();
+    private MacroActions MA = new MacroActions();
 
     private boolean testing = true;
     private String name;
     private int maxSize;
     private int DefaultMaxSize = 10;
 
-    protected ArrayList<Action> actions;
+    protected ArrayList<Action> currentActions;
 
-        // TODO: allow user to add and remove actions from tool bar, update GUI
-        
+    // TODO: allow user to add and remove actions from tool bar, update GUI
+
     /**
      * default constructor, should create the action list and create the
-     * action components as buttons
+     * action components as buttons, a default do-nothing set of buttons
      */
     public ToolBar() {
         // create default values
         this.name = "ToolBar";
         this.maxSize = DefaultMaxSize;
-        actions = new ArrayList<>();
-        if (testing)System.out.println("toolbar created");
+        currentActions = new ArrayList<>();
+        if (testing)
+            System.out.println("toolbar created");
         loadDefaultActions();
+    }
+
+    public ToolBar(String name, int maxSize, ArrayList<Action> actions) {
+        this.name = name;
+        this.maxSize = maxSize;
+        for (Action action : actions) {
+            // action.clone();
+        }
     }
 
     /**
@@ -56,11 +70,11 @@ public class ToolBar extends JToolBar {
      * @return true for successful removal or false for a failed operation
      */
     public boolean addAction(Action action) {
-        if (actions.size() >= maxSize) {
+        if (currentActions.size() >= maxSize) {
             return false;
         } else {
-            actions.add(action);
-            this.add(new JButton(action));
+            currentActions.add(action);
+            this.add(new JButton((Action) action));
             return true;
         }
     }
@@ -73,29 +87,36 @@ public class ToolBar extends JToolBar {
      * @return true for successful removal or false for a failed operation
      */
     public boolean removeAction(Action action) {
-        if (actions.isEmpty()) {
+        if (currentActions.isEmpty()) {
             return false;
         } else {
-            actions.remove(action);
-            loadActions(actions);
+            currentActions.remove(action);
+            loadActionsToToolBar(currentActions);
             return true;
         }
-    } 
-     * 
+    }
 
+    // TODO: need to have two lists, active actions and non-active actions to
+    // support adding and removing. Each should be adjusted each time an action is
+    // added or removed, itll just be easier to display used actions and what could
+    // be added via the prompt
     /**
      * Tries to find all available actions from the menulists
+     * 
      * @return arraylist of actions containing all found actions
      */
-    public ArrayList<Action> findActions() {
+    public ArrayList<Action> getAllActions() {
         ArrayList<Action> foundActions = new ArrayList<>();
-        foundActions.addAll(ColourActions.getActions());
-        foundActions.addAll(EditActions.getActions());
-        foundActions.addAll(
-        foundActions.addAll(FilterActions.getActions());
-        foundActions.addAll(ImageActions.getActions());
-        foundActions.addAll(ViewActions.getActions());
-        return foundActions; 
+
+        foundActions.addAll(FilA.getActions());
+        foundActions.addAll(EA.getActions());
+        foundActions.addAll(VA.getActions());
+        foundActions.addAll(FiltA.getActions());
+        foundActions.addAll(CA.getActions());
+        foundActions.addAll(IM.getActions());
+        foundActions.addAll(MA.getActions());
+
+        return foundActions;
     }
 
     /**
@@ -140,7 +161,7 @@ public class ToolBar extends JToolBar {
     public void saveActions() {
         // Serialize the actions list
         try (ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream("actions.ser"))) {
-            out.writeObject(actions);
+            out.writeObject(currentActions);
         } catch (IOException e) {
             System.err.println("Couldn't save ToolBar preferences");
             e.printStackTrace();
@@ -152,12 +173,14 @@ public class ToolBar extends JToolBar {
      */
     @SuppressWarnings("unchecked") // TODO: remove this at some stage
     public void loadActionsFromFile() {
+        // clear everything that may be there
+        this.removeAllActions();
+
         // try dserialize the perferred common tools configuration
-        actions.clear();
         try (InputStream inputStream = Andie.class.getClassLoader().getResourceAsStream("actions.ser")) {
             ObjectInputStream in = new ObjectInputStream(inputStream);
-            actions = (ArrayList<Action>) in.readObject();
-            for (Action action : actions) {
+            currentActions = (ArrayList<Action>) in.readObject();
+            for (Action action : currentActions) {
                 this.add(action);
             }
         } catch (IOException | ClassNotFoundException | NullPointerException e) {
@@ -171,29 +194,60 @@ public class ToolBar extends JToolBar {
      * 
      * @param actions the list of actions to load
      */
-    public void loadActions(ArrayList<Action> actions) {
+    public void loadActionsToToolBar(ArrayList<Action> actions, Icon icon) {
+        removeAllActions();
+        // Add actions to list and ToolBar component
+        for (Action action : actions) {
+            this.currentActions.add(action);
+            //TODO: add implementation to load icons
+            this.add(new JButton(action));
+        }
+    }
+
+    /**
+     * Method that removes all actions from the Toolbar, including all the
+     * components on the toolbar itself.
+     * 
+     */
+    public void removeAllActions() {
         // Clear everything
         this.removeAll();
-        this.actions.clear();
-        // Add acitons to list and ToolBar component
-        for (Action action : actions) {
-            this.actions.add(action);
-            this.add(action);
-        }
+        this.currentActions.clear();
     }
 
     /**
      * Loads the default set of buttons
      */
     public boolean loadDefaultActions() {
-        // Clear everything
-        this.removeAll();
-        this.actions.clear();
+        //Clear everything
+        this.removeAllActions();
+
+        //Open, Save
+        ArrayList<Action> fileActions = FilA.getActions();
+        currentActions.add(fileActions.get(0));
+        currentActions.add(fileActions.get(0));
+
+        //Undo, Redo
+        ArrayList<Action> editActions = EA.getActions();
+        currentActions.add(editActions.get(0));
+        currentActions.add(editActions.get(1));
+
+        //Zoom in, Zoom out
+        ArrayList<Action> viewActions = VA.getActions();
+        currentActions.add(viewActions.get(0));
+        currentActions.add(viewActions.get(1));
+
+        //Flip Horizontally, Flip Vertically TODO:create icon for resize, rotate clock/antiClock
+        ArrayList<Action> imageActions = IM.getActions();
+        currentActions.add(imageActions.get(4));
+        currentActions.add(imageActions.get(3));
+        
+        //TODO: create icon for this and add
+        ArrayList<Action> macroActions = MA.getActions();
+        
+        
         Icon icon = null;
-        try {
-            icon = loadIcon("icon");
-        } catch (Exception e) {
-        }
+        icon = loadIcon("icon");
         Action open = new AbstractAction("Open", icon) {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -266,6 +320,8 @@ public class ToolBar extends JToolBar {
             }
         };
 
+        // Add all abstract actions to an actions list
+        ArrayList<Action> actions = new ArrayList<>();
         actions.add(save);
         actions.add(select);
         actions.add(crop);
@@ -276,16 +332,59 @@ public class ToolBar extends JToolBar {
         actions.add(zin);
         actions.add(zout);
 
-        //
-        loadActions(actions);
+        loadActionsToToolBar(actions);
         return true;
     }
 
+    /**
+     * Setter method for the toolbar instance max size
+     * 
+     * @return
+     */
+    public void setMaxSize(int maxSize) {
+        this.maxSize = maxSize;
+    }
+
+    /**
+     * Getter method for the toolbar instance max size
+     * 
+     * @return
+     */
+    public int getMaxSize() {
+        return maxSize;
+    }
+
+    /**
+     * Setter method for the toolbar instance max size
+     * 
+     * @return
+     */
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    /**
+     * Getter method for the toolbar instance max size
+     * 
+     * @return
+     */
+    public String getName() {
+        return name;
+    }
+
+    /**
+     * toString Method that concatenates the action names to a string and returns a
+     * vertical list of the current actions on the toolbar
+     * 
+     * @return a list of all the current action names
+     * 
+     */
     public String toString() {
         StringBuilder builder = new StringBuilder();
-        for (Action action : actions) {
+        for (Action action : currentActions) {
             builder.append(action.toString()).append("\n");
         }
         return builder.toString();
     }
+
 }

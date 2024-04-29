@@ -4,23 +4,39 @@ import javax.swing.*;
 
 import java.awt.event.ActionEvent;
 import java.util.InputMismatchException;
-import java.util.Scanner;
+import java.util.*;
 
+import cosc202.andie.ImageActions;
+import cosc202.andie.ImageRotation;
 import cosc202.andie.ToolBar;
 
 /**
  * example class to mess around with the toolbar, let me know if this
  * exists in the final build as it shouldn't be
  */
-public class ToolbarExample extends JFrame {
 
+@SuppressWarnings("unused")
+
+public class ToolbarTesting extends JFrame {
+
+    public static ToolBar toolbar = new ToolBar();
+    public static ArrayList<Action> allActions = new ArrayList<>(toolbar.findActions());
     private Action selectAction;
     private Action cropAction;
     private Action brushAction;
     private Action eraserAction;
     private Action zoomAction;
 
-    public ToolbarExample() {
+    public static void main(String[] args) {
+        andieToolBarDebug();
+        SwingUtilities.invokeLater(() -> {
+            ToolbarTesting example = new ToolbarTesting();
+            // ToolBarUI example2 = new ToolBarUI(example);
+            example.setVisible(true);
+        });
+    }
+
+    public ToolbarTesting() {
         setTitle("Image Manipulation Software");
         setSize(800, 600);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -79,46 +95,69 @@ public class ToolbarExample extends JFrame {
         toolBar.add(new JButton(zoomAction));
     }
 
-    public static void main(String[] args) {
-        SwingUtilities.invokeLater(() -> {
-            ToolbarExample example = new ToolbarExample();
-            // ToolBarUI example2 = new ToolBarUI(example);
-            example.setVisible(true);
-        });
-
-        SwingUtilities.invokeLater(() -> {
-            ToolbarExample example = new ToolbarExample();
-            // ToolBarUI example2 = new ToolBarUI(example);
-            example.setVisible(true);
-        });
-    }
-
     public static void andieToolBarDebug() {
         // Create toolbar
-        ToolBar toolBar = new ToolBar("Testing", 10);
-        System.out.println("Create a toolbar named Testing with a max size of 10");
+        ToolBar toolbar = new ToolBar();
+        System.out.println(
+                "Create a toolbar named " + toolbar.getName() + "Testing with a max size of " + toolbar.getMaxSize());
 
         // Print menu
         boolean correct = false;
         while (!correct) {
-            System.out.println(toolBar);
-            int input = readInt("Select Option\n1. Add Actions\n2. Delete Actions\n3. Create new toolbar\n0. exit");
+            System.out.println(toolbar.toString());
+            int input = readInt(
+                    "Select Option\n1. Add Actions\n2. Delete Actions\n3. Create new toolbar\n4. Display in a new JFrame\n0. exit");
             switch (input) {
                 case 1:
+                addActionMenu();
                     break;
                 case 2:
-                    toolBar.addAction(null);
+                    toolbar.addAction(null);
                     break;
                 case 3:
                     String name = readStr("Enter toolbar name");
                     int size = readInt("Enter the max size");
-                    toolBar = new ToolBar(name, size);
-                    System.out.println("Create a toolbar named "+name+" with a max size of "+size);
+                    toolbar = new ToolBar();
+                    toolbar.setName(name);
+                    toolbar.setMaxSize(size);
+                    toolbar.loadDefaultActions();
+                    System.out.println("Create a toolbar named " + name + " with a max size of " + size
+                            + " and default do-nothing action buttons");
+                    break;
+                case 4:
+                    JFrame frame = new JFrame("ToolBar Test");
+                    JPanel panel = new JPanel();
+                    frame.setTitle("Image Manipulation Software");
+                    frame.setSize(800, 600);
+                    frame.setDefaultCloseOperation(EXIT_ON_CLOSE);
+                    frame.add(toolbar);
+                    panel.add(toolbar);
+                    frame.add(panel);
+
+                    frame.setVisible(true);
                     break;
                 case 0:
                     System.exit(0);
             }
         }
+    }
+
+    private static void addActionMenu() {
+        boolean correct = false;
+        while (!correct) {
+            int input = readInt("Select Option\n1. option\n2. option\n0. exit");
+            switch (input) {
+                case 1:
+                    break;
+                case 2:
+                    break;
+                case 0:
+                    System.exit(0);
+            }
+        }
+        
+        ArrayList<Action> foundActions = toolbar.findActions();
+        return;
     }
 
     public static String readStr(String message) {

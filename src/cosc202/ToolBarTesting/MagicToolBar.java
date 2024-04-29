@@ -1,16 +1,94 @@
-package cosc202.testing;
+package cosc202.ToolBarTesting;
+
 import javax.swing.*;
-import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.util.ArrayList;
+import java.awt.*;
 
-public class ToolBarEditDialog extends JDialog {
+
+
+public class MagicToolBar extends JToolBar {
+
+    private ArrayList<Action> selectedActions;
+    private ArrayList<AbstractButton> toolbarButtons;
+    private ArrayList<Action> allActions;
+
+    public MagicToolBar() {
+        selectedActions = new ArrayList<>();
+        toolbarButtons = new ArrayList<>();
+        allActions = new ArrayList<>();
+        setFloatable(true);
+
+        // Adding sample actions
+        allActions.add(new AbstractAction("Open") {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                System.out.println("Open action triggered");
+            }
+        });
+        allActions.add(new AbstractAction("Save") {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                System.out.println("Save action triggered");
+            }
+        });
+        allActions.add(new AbstractAction("Crop") {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                System.out.println("Crop action triggered");
+            }
+        });
+
+        // Initialize selected actions
+        for (Action action : allActions) {
+            selectedActions.add(action);
+        }
+
+        // Create toolbar buttons
+        for (Action action : selectedActions) {
+            AbstractButton button = new JButton(action);
+            toolbarButtons.add(button);
+            add(button);
+        }
+    }
+
+    public ArrayList<Action> getAllActions() {
+        return allActions;
+    }
+
+    public void setSelectedActions(ArrayList<Action> selectedActions) {
+        // Clear the toolbar buttons
+        for (AbstractButton button : toolbarButtons) {
+            remove(button);
+        }
+        toolbarButtons.clear();
+
+        // Add updated toolbar buttons
+        for (Action action : selectedActions) {
+            AbstractButton button = new JButton(action);
+            toolbarButtons.add(button);
+            add(button);
+        }
+
+        revalidate(); // Refresh the toolbar layout
+    }
+
+    public void showEditDialog() {
+        ToolBarEditDialog dialog = new ToolBarEditDialog(null, allActions, selectedActions);
+        dialog.setVisible(true);
+
+        // Update selectedActions after dialog is closed
+        setSelectedActions(dialog.getSelectedActions());
+    }
+}
+
+class MagicToolBarEditDialog extends JDialog {
 
     private ArrayList<Action> allActions; // List of all available actions
     private ArrayList<Action> selectedActions; // List of currently selected actions
     private JPanel checkBoxPanel;
 
-    public ToolBarEditDialog(JFrame parent, ArrayList<Action> allActions, ArrayList<Action> selectedActions) {
+    public MagicToolBarEditDialog(JFrame parent, ArrayList<Action> allActions, ArrayList<Action> selectedActions) {
         super(parent, "Edit ToolBar Actions", true);
         this.allActions = allActions;
         this.selectedActions = selectedActions;
@@ -20,7 +98,6 @@ public class ToolBarEditDialog extends JDialog {
     public ArrayList<Action> getSelectedActions() {
         return selectedActions;
     }
-    
 
     private void initializeUI() {
         checkBoxPanel = new JPanel();
@@ -72,3 +149,4 @@ public class ToolBarEditDialog extends JDialog {
         dispose(); // Close the dialog after saving changes
     }
 }
+

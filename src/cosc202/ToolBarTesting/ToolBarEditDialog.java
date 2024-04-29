@@ -21,6 +21,7 @@ public class ToolBarEditDialog extends JDialog {
     public ArrayList<Action> getSelectedActions() {
         return selectedActions;
     }
+    
 
     private void initializeUI() {
         checkBoxPanel = new JPanel();

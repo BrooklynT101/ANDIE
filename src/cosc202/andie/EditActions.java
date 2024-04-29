@@ -157,7 +157,7 @@ public class EditActions {
      * Getter method to get the actions for the edit actions
      * @return all available actions
      */
-    public static Collection<? extends Action> getActions() {
+    public ArrayList<Action> getActions() {
         ArrayList<Action> allActions = actions;
         return allActions;
     }

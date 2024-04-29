@@ -1,4 +1,4 @@
-package cosc202.testing;
+package cosc202.ToolBarTesting;
 
 import javax.swing.*;
 import java.awt.*;
