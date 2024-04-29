@@ -16,7 +16,8 @@ import javax.swing.JOptionPane;
  * </p>
  * 
  * <p>
- * <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a>
+ * <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA
+ * 4.0</a>
  * </p>
  * 
  * @author Steven Mills
@@ -39,9 +40,9 @@ public class ConvertToGrey implements ImageOperation, java.io.Serializable {
      * </p>
      * 
      * <p>
-     * The conversion from red, green, and blue values to greyscale uses a 
-     * weighted average that reflects the human visual system's sensitivity 
-     * to different wavelengths -- we are most sensitive to green light and 
+     * The conversion from red, green, and blue values to greyscale uses a
+     * weighted average that reflects the human visual system's sensitivity
+     * to different wavelengths -- we are most sensitive to green light and
      * least to blue.
      * </p>
      * 
@@ -53,9 +54,9 @@ public class ConvertToGrey implements ImageOperation, java.io.Serializable {
         if (input == null) {
             JFrame frame = new JFrame();
             JOptionPane.showMessageDialog(frame, Andie.bundle.getString("Pleaseopenanimagefilefirst!"));
-   
+
         }
-  
+
         for (int y = 0; y < input.getHeight(); ++y) {
             for (int x = 0; x < input.getWidth(); ++x) {
                 int argb = input.getRGB(x, y);
@@ -64,14 +65,28 @@ public class ConvertToGrey implements ImageOperation, java.io.Serializable {
                 int g = (argb & 0x0000FF00) >> 8;
                 int b = (argb & 0x000000FF);
 
-                int grey = (int) Math.round(0.3*r + 0.6*g + 0.1*b);
+                int grey = (int) Math.round(0.3 * r + 0.6 * g + 0.1 * b);
 
                 argb = (a << 24) | (grey << 16) | (grey << 8) | grey;
                 input.setRGB(x, y, argb);
             }
         }
-        
+
         return input;
     }
-    
+
+    @Override
+    public String getName() {
+        return "Convert to Grey";
+    }
+
+    /**
+     * Method to return 'this' as an ImageOperation to support @see MacroActions
+     */
+    @Override
+    public ImageOperation clone() {
+        ConvertToGrey copy = new ConvertToGrey();
+        return copy;
+    }
+
 }

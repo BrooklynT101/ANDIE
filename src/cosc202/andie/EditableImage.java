@@ -294,7 +294,9 @@ class EditableImage {
      * @param op The operation to apply.
      */
     public void apply(ImageOperation op) {
+        //System.out.println("Hi");
         current = op.apply(current);
+        //System.out.println("Done");
         ops.add(op);
     }
 
@@ -350,6 +352,13 @@ class EditableImage {
      */
     public BufferedImage getOriginalImage() {
         return original;
+    }
+
+    /*
+     * Method gets the current operations stack.
+     */
+    public Stack<ImageOperation> getCurrentOperations() {
+        return ops;
     }
 
     /**

@@ -39,7 +39,6 @@ public class Andie {
     protected static Locale locale = new Locale.Builder().setLanguage(prefs.get("language", "en"))
             .setRegion(prefs.get("country", "NZ")).build();
     protected static ResourceBundle bundle = ResourceBundle.getBundle("CommandsBundle", locale);
-    private static int mainCount = 0;
     // protected static ArrayList<Action> actions = {new
     // FileOpenAction(Andie.bundle.getString("Open"), null,
     // Andie.bundle.getString("Openafile"), Integer.valueOf(KeyEvent.VK_O)) };
@@ -100,11 +99,11 @@ public class Andie {
         // // the images wont load, and the toolBar doesnt even show anyway
         // // frame.add(toolBar);
 
-        // Create and configure the custom ToolBar
-        ToolBar toolBar = new ToolBar("Common Tools", 10);
-        toolBar.loadDefaultActions();
-        toolBar.setFloatable(true); // Allow toolbar to be dragged
-        toolBar.setOrientation(JToolBar.HORIZONTAL); // Set the orientation of the toolbar
+        // // Create and configure the custom ToolBar
+        // ToolBar toolBar = new ToolBar("Common Tools", 10);
+        // toolBar.loadDefaultActions();
+        // toolBar.setFloatable(true); // Allow toolbar to be dragged
+        // toolBar.setOrientation(JToolBar.HORIZONTAL); // Set the orientation of the toolbar
 
         // Add components to the frame using BorderLayout
         
@@ -145,11 +144,14 @@ public class Andie {
         LanguageActions languageActions = new LanguageActions();
         menuBar.add(languageActions.createMenu());
 
+        // Macro options, create macros for operations
+        MacroActions macroActions = new MacroActions();
+        menuBar.add(macroActions.createMenu());
+
         frame.setJMenuBar(menuBar);
-        frame.getContentPane().add(toolBar, BorderLayout.NORTH);
+        // frame.getContentPane().add(toolBar, BorderLayout.NORTH);
         frame.pack();
         frame.setVisible(true);
-
     }
 
     /**
@@ -167,20 +169,16 @@ public class Andie {
      * @see #createAndShowGUI()
      */
     public static void main(String[] args) throws Exception {
-        System.out.println("Running main");
         javax.swing.SwingUtilities.invokeLater(new Runnable() {
             public void run() {
                 try {
                     createAndShowGUI();
-                    System.out.println("creating showing GUI");
                 } catch (Exception ex) {
                     ex.printStackTrace();
                     System.exit(1);
                 }
             }
         });
-        mainCount++;
-        System.out.println("Instance run count: "+mainCount);
     }
 
 }

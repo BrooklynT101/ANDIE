@@ -9,12 +9,14 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.net.URL;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
 
-import cosc202.andie.*;                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 
+import cosc202.andie.*;
 import cosc202.andie.FileActions.FileOpenAction;
+
 /**
  * A ToolBar class that creates a JToolBar that allows a user
  * to access commonly used tools to manipulate the image
@@ -24,21 +26,26 @@ import cosc202.andie.FileActions.FileOpenAction;
 @SuppressWarnings("unused")
 public class ToolBar extends JToolBar {
 
+    private boolean testing = true;
     private String name;
     private int maxSize;
+    private int DefaultMaxSize = 10;
+
     protected ArrayList<Action> actions;
 
+        // TODO: allow user to add and remove actions from tool bar, update GUI
+        
     /**
      * default constructor, should create the action list and create the
      * action components as buttons
      */
-    public ToolBar(String name, int maxSize) {
-        // create action list
-        this.name = name;
-        this.maxSize = maxSize;
+    public ToolBar() {
+        // create default values
+        this.name = "ToolBar";
+        this.maxSize = DefaultMaxSize;
         actions = new ArrayList<>();
-        System.out.println("ToolBar created");
-        // TODO: allow user to add and remove actions from tool bar, update GUI
+        if (testing)System.out.println("toolbar created");
+        loadDefaultActions();
     }
 
     /**
@@ -73,7 +80,8 @@ public class ToolBar extends JToolBar {
             loadActions(actions);
             return true;
         }
-    }
+    } 
+     * 
 
     /**
      * Tries to find all available actions from the menulists
@@ -83,7 +91,7 @@ public class ToolBar extends JToolBar {
         ArrayList<Action> foundActions = new ArrayList<>();
         foundActions.addAll(ColourActions.getActions());
         foundActions.addAll(EditActions.getActions());
-        foundActions.addAll(FileActions.getActions());
+        foundActions.addAll(
         foundActions.addAll(FilterActions.getActions());
         foundActions.addAll(ImageActions.getActions());
         foundActions.addAll(ViewActions.getActions());
@@ -97,15 +105,32 @@ public class ToolBar extends JToolBar {
      * @return the requested icon if found, null otherwise
      */
     public Icon loadIcon(String name) {
+        URL url = null;
+
+        // try to find the url
         try {
-            BufferedImage image = ImageIO.read(Andie.class.getClassLoader().getResource(name + ".png"));
-            Image newImg = image.getScaledInstance(20, 20, java.awt.Image.SCALE_SMOOTH); // Adjust the size as needed
-            Icon icon = new ImageIcon(newImg);
-            return icon;
-        } catch (Exception e) {
-            System.out.println("Error loading " + name + ".png: " + e);
-            e.printStackTrace();
+            url = Andie.class.getResource("/resources/" + name + ".png");
+        } catch (NullPointerException e) {
+            System.out.println("Couldn't create the url, couldnt find the resource");
+        }
+
+        // if the url is nothing
+        if (url == null) {
+            System.out.println("Couldn't find the url, url is NULL!");
             return null;
+        } else {
+            System.out.println("Found url! " + url.toString());
+            try {
+                // BufferedImage image =
+                // ImageIO.read(Andie.class.getClassLoader().getResource(name + ".png"));
+                BufferedImage image = ImageIO.read(url);
+                Image newImg = image.getScaledInstance(20, 20, java.awt.Image.SCALE_SMOOTH); // Adjust the size
+                Icon icon = new ImageIcon(newImg);
+                return icon;
+            } catch (Exception e) {
+                System.out.println("Error loading " + name + ".png: " + e);
+                return null;
+            }
         }
     }
 
@@ -135,16 +160,24 @@ public class ToolBar extends JToolBar {
             for (Action action : actions) {
                 this.add(action);
             }
-        } catch (IOException | ClassNotFoundException e) {
+        } catch (IOException | ClassNotFoundException | NullPointerException e) {
             loadDefaultActions();
         }
     }
 
     /**
-     * tries to load the given actions to the ToolBar
+     * Removes all stored and active actions and
+     * loads the given actions to the toolbar
+     * 
+     * @param actions the list of actions to load
      */
     public void loadActions(ArrayList<Action> actions) {
+        // Clear everything
+        this.removeAll();
+        this.actions.clear();
+        // Add acitons to list and ToolBar component
         for (Action action : actions) {
+            this.actions.add(action);
             this.add(action);
         }
     }
@@ -152,10 +185,23 @@ public class ToolBar extends JToolBar {
     /**
      * Loads the default set of buttons
      */
-    public void loadDefaultActions() {
-        Icon icon = loadIcon("icon");
-        
-        ArrayList<Action> allActions = findActions(); 
+    public boolean loadDefaultActions() {
+        // Clear everything
+        this.removeAll();
+        this.actions.clear();
+        Icon icon = null;
+        try {
+            icon = loadIcon("icon");
+        } catch (Exception e) {
+        }
+        Action open = new AbstractAction("Open", icon) {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // Perform select action
+                System.out.println("open action triggered");
+            }
+        };
+
         Action save = new AbstractAction("Save", icon) {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -232,9 +278,14 @@ public class ToolBar extends JToolBar {
 
         //
         loadActions(actions);
+        return true;
     }
 
     public String toString() {
-        return actions.toString();
+        StringBuilder builder = new StringBuilder();
+        for (Action action : actions) {
+            builder.append(action.toString()).append("\n");
+        }
+        return builder.toString();
     }
 }

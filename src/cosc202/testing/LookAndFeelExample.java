@@ -1,4 +1,4 @@
-package cosc202;
+package cosc202.testing;
 
 import javax.swing.*;
 import java.awt.*;

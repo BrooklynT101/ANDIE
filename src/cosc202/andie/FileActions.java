@@ -38,6 +38,8 @@ public class FileActions {
         actions = new ArrayList<Action>();
         FileOpenAction open = new FileOpenAction(Andie.bundle.getString("Open"), null,
                 Andie.bundle.getString("Openafile"), Integer.valueOf(KeyEvent.VK_O));
+        FileDefaultAction defaultImage = new FileDefaultAction(Andie.bundle.getString("Default"), null,
+                Andie.bundle.getString("DefaultDesc"), Integer.valueOf(KeyEvent.VK_D));
         FileSaveAction save = new FileSaveAction(Andie.bundle.getString("Save"), null,
                 Andie.bundle.getString("Savethefile"), Integer.valueOf(KeyEvent.VK_S));
         FileSaveAsAction saveas = new FileSaveAsAction(Andie.bundle.getString("SaveAs"), null,
@@ -49,12 +51,14 @@ public class FileActions {
 
         // keyboard shortcuts
         open.putValue(Action.ACCELERATOR_KEY, KeyStroke.getKeyStroke("control O"));
+        defaultImage.putValue(Action.ACCELERATOR_KEY, KeyStroke.getKeyStroke("control D"));
         save.putValue(Action.ACCELERATOR_KEY, KeyStroke.getKeyStroke("control S"));
         export.putValue(Action.ACCELERATOR_KEY, KeyStroke.getKeyStroke("control P"));
         exit.putValue(Action.ACCELERATOR_KEY, KeyStroke.getKeyStroke("control E"));
 
         // adding actions to list
         actions.add(open);
+        actions.add(defaultImage);
         actions.add(save);
         actions.add(saveas);
         actions.add(export);
@@ -137,6 +141,55 @@ public class FileActions {
 
     /**
      * <p>
+     * Action to load a default image from resources.
+     * </p>
+     * 
+     * @see EditableImage#open(String)
+     */
+    public class FileDefaultAction extends ImageAction {
+
+        /**
+         * <p>
+         * Create a new default image action.
+         * </p>
+         * 
+         * @param name     The name of the action (ignored if null).
+         * @param icon     An icon to use to represent the action (ignored if null).
+         * @param desc     A brief description of the action (ignored if null).
+         * @param mnemonic A mnemonic key to use as a shortcut (ignored if null).
+         */
+        FileDefaultAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
+            super(name, icon, desc, mnemonic);
+        }
+
+        /**
+         * 
+         * <p>
+         * This method is called whenever the LoadDefaultImageAction is triggered.
+         * It grabs an image from the resources folder called
+         * Otago_University_Clocktower.jpg, if the file isn't there or the name has been
+         * changed it'll prompt and tell you.
+         * </p>
+         * 
+         * @param e The event triggering this callback.
+         */
+        public void actionPerformed(ActionEvent e) {
+            try {
+                Andie.class.getClassLoader().getResource("icon.png");
+                target.getImage().open("src/resources/Otago_University_Clocktower.jpg");
+            } catch (Exception ex) {
+                JFrame frame = new JFrame();
+                JOptionPane.showMessageDialog(frame, Andie.bundle.getString("DefaultError"));
+            }
+
+            target.repaint();
+            target.getParent().revalidate();
+        }
+
+    }
+
+    /**
+     * <p>
      * Action to save an image to its current file location.
      * </p>
      * 
@@ -174,7 +227,6 @@ public class FileActions {
             try {
                 target.getImage().save();
             } catch (Exception ex) {
-                // System.exit(1);
                 JFrame frame = new JFrame();
                 JOptionPane.showMessageDialog(frame, Andie.bundle.getString("Pleaseopenanimagefilefirst!"));
             }

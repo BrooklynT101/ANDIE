@@ -16,6 +16,7 @@ import javax.swing.JOptionPane;
  * gaussian function to apply blur to the image.
  * 
  * <p>
+ * 
  * @author Ari Josephson
  */
 
@@ -24,6 +25,7 @@ public class GaussianBlur implements ImageOperation, java.io.Serializable {
     private int radius;
     public int x;
     public float[] array;
+    public float[][] twoDarray;
 
     /* Constructor takes in a radius value. */
     GaussianBlur(int radius) {
@@ -34,6 +36,10 @@ public class GaussianBlur implements ImageOperation, java.io.Serializable {
         this.radius = 1;
     }
 
+    /*
+     * Calculates the Gaussian Blur value at the pixel at i,j
+     * with the Gaussian formula.
+     */
     public float calculateGaussian(int i, int j) {
 
         float l = (float) this.radius / 3.0f;
@@ -46,6 +52,10 @@ public class GaussianBlur implements ImageOperation, java.io.Serializable {
         return w;
     }
 
+    /*
+     * Calculates the Gaussian Blur value at the first half
+     * of the x values for the y value j.
+     */
     public void firstHalfX(int size, int j) {
         for (int i = radius; i > 0; i--) {
             array[x] = calculateGaussian(i, j);
@@ -57,6 +67,10 @@ public class GaussianBlur implements ImageOperation, java.io.Serializable {
         }
     }
 
+    /*
+     * Calculates the Gaussian Blur value at the middle
+     * x value for the y value j.
+     */
     public void middleX(int size, int j) {
         array[x] = calculateGaussian(0, j);
         if (x + 1 < size) {
@@ -66,6 +80,10 @@ public class GaussianBlur implements ImageOperation, java.io.Serializable {
         }
     }
 
+    /*
+     * Calculates the Gaussian Blur value at the second half
+     * of the x values for the y value j.
+     */
     public void otherHalfX(int size, int j) {
         for (int i = 1; i <= radius; i++) {
             array[x] = calculateGaussian(i, j);
@@ -77,6 +95,9 @@ public class GaussianBlur implements ImageOperation, java.io.Serializable {
         }
     }
 
+    /*
+     * Calculates the Gaussian Blur value at the centre pixel.
+     */
     public void centrePointcalc(int size) {
         array[x] = calculateGaussian(0, 0);
         if (x + 1 < size) {
@@ -87,6 +108,10 @@ public class GaussianBlur implements ImageOperation, java.io.Serializable {
 
     }
 
+    /*
+     * Calculates the Gaussian Blur values at the first half of
+     * y values of the image.
+     */
     public void firstHalfY(int size) {
         for (int j = radius; j > 0; j--) {
             firstHalfX(size, j);
@@ -96,12 +121,20 @@ public class GaussianBlur implements ImageOperation, java.io.Serializable {
 
     }
 
+    /*
+     * Calculates the Gaussian Blur values at the centre
+     * y value of the image.
+     */
     public void centreY(int size) {
         firstHalfX(size, 0);
         centrePointcalc(size);
         otherHalfX(size, 0);
     }
 
+    /*
+     * Calculates the Gaussian Blur values at the second half of
+     * y values of the image.
+     */
     public void otherHalfY(int size) {
         for (int j = 1; j <= radius; j++) {
             firstHalfX(size, j);
@@ -116,7 +149,7 @@ public class GaussianBlur implements ImageOperation, java.io.Serializable {
         if (input == null) {
             JFrame frame = new JFrame();
             JOptionPane.showMessageDialog(frame, Andie.bundle.getString("Pleaseopenanimagefilefirst!"));
-   
+
         }
         int size = (2 * radius + 1) * (2 * radius + 1);
 
@@ -134,99 +167,6 @@ public class GaussianBlur implements ImageOperation, java.io.Serializable {
         centreY(size);
         otherHalfY(size);
 
-        /*
-         * for (int j = size / 2; j > 0; j--) {
-         * for (int i = size / 2; i < 0; i--) {
-         * array[x] = calculateGaussian(i, j);
-         * if (x + 1 < size) {
-         * x++;
-         * } else {
-         * break;
-         * }
-         * }
-         * 
-         * array[x] = calculateGaussian(0, j);
-         * if (x + 1 < size) {
-         * x++;
-         * } else {
-         * break;
-         * }
-         * 
-         * for (int i = 1; i <= size / 2; i++) {
-         * array[x] = calculateGaussian(i, j);
-         * if (x + 1 < size) {
-         * x++;
-         * } else {
-         * break;
-         * }
-         * }
-         * }
-         * 
-         * // When Y = 0
-         * for (int i = size / 2; i < 0; i--) {
-         * array[x] = calculateGaussian(i, 0);
-         * if (x + 1 < size) {
-         * x++;
-         * } else {
-         * break;
-         * }
-         * }
-         * 
-         * array[x] = calculateGaussian(0, 0);
-         * while (true) {
-         * if (x + 1 < size) {
-         * x++;
-         * break;
-         * } else {
-         * break;
-         * }
-         * }
-         * 
-         * for (int i = 1; i <= size / 2; i++) {
-         * array[x] = calculateGaussian(i, 0);
-         * if (x + 1 < size) {
-         * x++;
-         * } else {
-         * break;
-         * }
-         * }
-         * 
-         * for (int j = 1; j > size / 2; j++) {
-         * for (int i = size / 2; i < 0; i--) {
-         * array[x] = calculateGaussian(i, j);
-         * if (x + 1 < size) {
-         * x++;
-         * } else {
-         * break;
-         * }
-         * }
-         * 
-         * array[x] = calculateGaussian(0, j);
-         * if (x + 1 < size) {
-         * x++;
-         * } else {
-         * break;
-         * }
-         * 
-         * for (int i = 1; i <= size / 2; i++) {
-         * array[x] = calculateGaussian(i, j);
-         * if (x + 1 < size) {
-         * x++;
-         * } else {
-         * break;
-         * }
-         * }
-         * }
-         */
-
-        /*
-         * array[x] = ((float) (1 / ((float) 2 * (float) Math.PI * (float) (Math.pow(l,
-         * 2)))) *
-         * (float) Math
-         * .exp(-1 * (float) (((float) (Math.pow(i, 2)) + (float) (Math.pow(j, 2)))
-         * / (2 * (float) (Math.pow(l, 2))))));
-         */
-
         float sum = 0;
 
         for (int i = 0; i < size; i++) {
@@ -242,33 +182,52 @@ public class GaussianBlur implements ImageOperation, java.io.Serializable {
 
         x = 0;
         // /*
-        //  * Test
-        //  * Gaussian Blur by printing array values and see if it lines up with expected
-        //  * values.
-        //  */
+        // * Test
+        // * Gaussian Blur by printing array values and see if it lines up with expected
+        // * values.
+        // */
         // for (int i = 0; i < 2 * radius + 1; i++) {
-        //     for (int j = 0; j < 2 * radius + 1; j++) {
-        //         System.out.print(array[x] + " ");
-        //         if (x + 1 < size) {
-        //             x++;
-        //         } else {
-        //             break;
-        //         }
-        //     }
-        //     System.out.println();
+        // for (int j = 0; j < 2 * radius + 1; j++) {
+        // System.out.print(array[x] + " ");
+        // if (x + 1 < size) {
+        // x++;
+        // } else {
+        // break;
+        // }
+        // }
+        // System.out.println();
         // }
 
         Kernel kernel = new Kernel(2 * radius + 1, 2 * radius + 1, array);
 
-        ConvolveOp convOp = new ConvolveOp(kernel);
+        ConvolveOp convOp = new ConvolveOp(kernel, ConvolveOp.EDGE_NO_OP, null);
 
-        BufferedImage output = new BufferedImage(input.getColorModel(),
-                input.copyData(null),
-                input.isAlphaPremultiplied(), null);
+        ExtendingFilters expand = new ExtendingFilters(input, radius);
 
-        convOp.filter(input, output);
+        BufferedImage expanded = expand.extending();
+
+        BufferedImage image = new BufferedImage(expanded.getWidth(), expanded.getHeight(),
+                expanded.getType());
+
+        convOp.filter(expanded, image);
+
+        BufferedImage output = expand.shrinking(image);
 
         return output;
+    }
+
+    @Override
+    public String getName() {
+        return "Gaussian Blur";
+    }
+
+    /**
+     * Method to return 'this' as an ImageOperation to support @see MacroActions
+     */
+    @Override
+    public ImageOperation clone() {
+        GaussianBlur copy = new GaussianBlur(this.radius);
+        return copy;
     }
 
 }
