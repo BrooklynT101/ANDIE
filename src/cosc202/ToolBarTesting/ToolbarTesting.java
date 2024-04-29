@@ -20,7 +20,7 @@ import cosc202.andie.ToolBar;
 public class ToolbarTesting extends JFrame {
 
     public static ToolBar toolbar = new ToolBar();
-    public static ArrayList<Action> allActions = new ArrayList<>(toolbar.findActions());
+    public static ArrayList<Action> allActions = new ArrayList<>(toolbar.getAllActions());
     private Action selectAction;
     private Action cropAction;
     private Action brushAction;
@@ -156,7 +156,7 @@ public class ToolbarTesting extends JFrame {
             }
         }
         
-        ArrayList<Action> foundActions = toolbar.findActions();
+        ArrayList<Action> foundActions = toolbar.getAllActions();
         return;
     }
 

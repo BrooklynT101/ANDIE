@@ -2,7 +2,6 @@ package cosc202.andie;
 
 import java.util.*;
 import java.awt.Image;
-import java.awt.event.*;
 import java.awt.image.*;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -58,8 +57,16 @@ public class ToolBar extends JToolBar {
         this.name = name;
         this.maxSize = maxSize;
         for (Action action : actions) {
+            // TODO: create a deepCopy() method
             // action.clone();
         }
+    }
+
+    public ToolBar(String name, int maxSize) {
+        this.name = name;
+        this.maxSize = maxSize;
+        currentActions = new ArrayList<>();
+        loadDefaultActions();
     }
 
     /**
@@ -125,6 +132,7 @@ public class ToolBar extends JToolBar {
      * @param name
      * @return the requested icon if found, null otherwise
      */
+    //TODO: try tossing a getter for the icon when creating the action in say fileactions, who knows at this point im tired
     public Icon loadIcon(String name) {
         URL url = null;
 
@@ -194,12 +202,12 @@ public class ToolBar extends JToolBar {
      * 
      * @param actions the list of actions to load
      */
-    public void loadActionsToToolBar(ArrayList<Action> actions, Icon icon) {
+    public void loadActionsToToolBar(ArrayList<Action> actions) {
         removeAllActions();
         // Add actions to list and ToolBar component
         for (Action action : actions) {
-            this.currentActions.add(action);
-            //TODO: add implementation to load icons
+            currentActions.add(action);
+            // TODO: add implementation to load icons
             this.add(new JButton(action));
         }
     }
@@ -209,131 +217,65 @@ public class ToolBar extends JToolBar {
      * components on the toolbar itself.
      * 
      */
-    public void removeAllActions() {
-        // Clear everything
-        this.removeAll();
-        this.currentActions.clear();
+    public boolean removeAllActions() {
+        // Try to clear everything
+        try {
+            this.removeAll();
+            this.currentActions.clear();
+            return true;
+        } catch (Exception e) {
+            System.err.println("Toolbar was already empty");
+            return false;
+        }
+
     }
 
     /**
      * Loads the default set of buttons
      */
-    public boolean loadDefaultActions() {
-        //Clear everything
+    public void loadDefaultActions() { // TODO: does this need to return a boolean for successfull shit?
+        // Create arraylist for default actions
+        ArrayList<Action> defaultActions = new ArrayList<>();
+
+        // Clear everything
         this.removeAllActions();
 
-        //Open, Save
+        // Open, Save
         ArrayList<Action> fileActions = FilA.getActions();
-        currentActions.add(fileActions.get(0));
-        currentActions.add(fileActions.get(0));
+        defaultActions.add(fileActions.get(0));
+        defaultActions.add(fileActions.get(2));
 
-        //Undo, Redo
+        // Undo, Redo
         ArrayList<Action> editActions = EA.getActions();
-        currentActions.add(editActions.get(0));
-        currentActions.add(editActions.get(1));
+        defaultActions.add(editActions.get(0));
+        defaultActions.add(editActions.get(1));
 
-        //Zoom in, Zoom out
-        ArrayList<Action> viewActions = VA.getActions();
-        currentActions.add(viewActions.get(0));
-        currentActions.add(viewActions.get(1));
-
-        //Flip Horizontally, Flip Vertically TODO:create icon for resize, rotate clock/antiClock
+        // TODO: create icon for resize, rotate clock/antiClock
+        // Flip Horizontally, Flip Vertically 
         ArrayList<Action> imageActions = IM.getActions();
-        currentActions.add(imageActions.get(4));
-        currentActions.add(imageActions.get(3));
-        
-        //TODO: create icon for this and add
+        defaultActions.add(imageActions.get(4));
+        defaultActions.add(imageActions.get(3));
+
+        // Zoom in, Zoom out
+        ArrayList<Action> viewActions = VA.getActions();
+        defaultActions.add(viewActions.get(0));
+        defaultActions.add(viewActions.get(1));
+
+        // TODO: create icon for this and add
         ArrayList<Action> macroActions = MA.getActions();
+
+        // // Selection, Crop TODO: Add Selection and Crop when marcus does the mouse stuff
+        // ArrayList<Action> mouseSelectionActions = MouseSelectionActions.getActions();
+        // defaultActions.add(mouseSelectionActions.get(0));
+        // defaultActions.add(mouseSelectionActions.get(1));
         
-        
-        Icon icon = null;
-        icon = loadIcon("icon");
-        Action open = new AbstractAction("Open", icon) {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                // Perform select action
-                System.out.println("open action triggered");
-            }
-        };
+        // // Drawbox, DrawLine TODO: Add Drawbox and DrawLine when marcus does the draw stuff
+        // ArrayList<Action> drawActions = DrawingActions.getActions();
+        // defaultActions.add(drawActions.get(0));
+        // defaultActions.add(drawActions.get(1));
 
-        Action save = new AbstractAction("Save", icon) {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                // Perform select action
-                System.out.println("save action triggered");
-            }
-        };
-        Action select = new AbstractAction("Select", icon) {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                // Perform select action
-                System.out.println("select action triggered");
-            }
-        };
-        Action crop = new AbstractAction("Crop", icon) {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                // Perform select action
-                System.out.println("crop action triggered");
-            }
-        };
-        Action flipHori = new AbstractAction("FlipHorizontal", icon) {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                // Perform select action
-                System.out.println("fliphori action triggered");
-            }
-        };
-        Action flipVert = new AbstractAction("FlipVertical", icon) {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                // Perform select action
-                System.out.println("flipvert action triggered");
-            }
-        };
-        Action undo = new AbstractAction("Undo", icon) {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                // Perform select action
-                System.out.println("undo action triggered");
-            }
-        };
-        Action redo = new AbstractAction("Redo", icon) {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                // Perform select action
-                System.out.println("redo action triggered");
-            }
-        };
-        Action zin = new AbstractAction("Zoom out", icon) {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                // Perform select action
-                System.out.println("zin action triggered");
-            }
-        };
-        Action zout = new AbstractAction("Zoom in", icon) {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                // Perform select action
-                System.out.println("zout action triggered");
-            }
-        };
-
-        // Add all abstract actions to an actions list
-        ArrayList<Action> actions = new ArrayList<>();
-        actions.add(save);
-        actions.add(select);
-        actions.add(crop);
-        actions.add(flipHori);
-        actions.add(flipVert);
-        actions.add(undo);
-        actions.add(redo);
-        actions.add(zin);
-        actions.add(zout);
-
-        loadActionsToToolBar(actions);
-        return true;
+        loadActionsToToolBar(defaultActions);
+        return;
     }
 
     /**

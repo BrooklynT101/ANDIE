@@ -41,7 +41,9 @@ public class EditActions {
                 Integer.valueOf(KeyEvent.VK_Z));
         RedoAction redo = new RedoAction(Andie.bundle.getString("Redo"), null, Andie.bundle.getString("Redo"),
                 Integer.valueOf(KeyEvent.VK_Y));
-
+        ToolBarEditAction toolbarEdit = new ToolBarEditAction(Andie.bundle.getString("Redo"), null, Andie.bundle.getString("Redo"),
+                Integer.valueOf(KeyEvent.VK_T));
+        
         // keyboard shortcuts
         undo.putValue(Action.ACCELERATOR_KEY, KeyStroke.getKeyStroke("control Z"));
         redo.putValue(Action.ACCELERATOR_KEY, KeyStroke.getKeyStroke("control Y"));
@@ -49,6 +51,7 @@ public class EditActions {
         // adding actions to list
         actions.add(undo);
         actions.add(redo);
+        actions.add(toolbarEdit);
 
     }
 
@@ -160,6 +163,51 @@ public class EditActions {
     public ArrayList<Action> getActions() {
         ArrayList<Action> allActions = actions;
         return allActions;
+    }
+
+    public class ToolBarEditAction extends ImageAction {
+
+        /**
+         * <p>
+         * Create a new undo action.
+         * </p>
+         * 
+         * @param name     The name of the action (ignored if null).
+         * @param icon     An icon to use to represent the action (ignored if null).
+         * @param desc     A brief description of the action (ignored if null).
+         * @param mnemonic A mnemonic key to use as a shortcut (ignored if null).
+         */
+        ToolBarEditAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
+            super(name, icon, desc, mnemonic);
+        }
+
+        /**
+         * <p>
+         * Callback for when the undo action is triggered.
+         * </p>
+         * 
+         * <p>
+         * This method is called whenever the UndoAction is triggered.
+         * It undoes the most recently applied operation.
+         * </p>
+         * 
+         * @param e The event triggering this callback.
+         */
+        public void actionPerformed(ActionEvent e) {
+            //TODO: create a prompt that dynamically updates when each action is loaded and removed from the toolbar (see the UI_Comp toolbar edit files) 
+            boolean correct = false;
+            while (!correct) {
+                int input = 0;//readInt("Select Option\n1. option\n2. option\n0. exit");
+                switch (input) {
+                    case 1:
+                        break;
+                    case 2:
+                        break;
+                    case 0:
+                        System.exit(0);
+                }
+            }
+        }
     }
 
 }

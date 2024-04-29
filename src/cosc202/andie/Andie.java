@@ -39,9 +39,11 @@ public class Andie {
     protected static Locale locale = new Locale.Builder().setLanguage(prefs.get("language", "en"))
             .setRegion(prefs.get("country", "NZ")).build();
     protected static ResourceBundle bundle = ResourceBundle.getBundle("CommandsBundle", locale);
-    // protected static ArrayList<Action> actions = {new
-    // FileOpenAction(Andie.bundle.getString("Open"), null,
-    // Andie.bundle.getString("Openafile"), Integer.valueOf(KeyEvent.VK_O)) };
+
+    //creating static toolbar
+    protected static ToolBar toolBar = new ToolBar();
+
+
     /**
      * <p>
      * Launches the main GUI for the ANDIE program.
@@ -73,7 +75,7 @@ public class Andie {
         // Set up the main GUI frame
         JFrame frame = new JFrame("ANDIE");
 
-        // getting icon
+        // getting icon from resource folder
         try {
             Image icon = ImageIO.read(Andie.class.getClassLoader().getResource("icon.png"));
             frame.setIconImage(icon);
@@ -90,25 +92,15 @@ public class Andie {
         ImageAction.setTarget(imagePanel);
         JScrollPane scrollPane = new JScrollPane(imagePanel);
 
-        // // adding toolbar
-        // ToolBar toolBar = new ToolBar("Common Tools", 10);
-        // toolBar.loadDefaultActions();
-        // toolBar.setVisible(true);
-
-        // // if enabled, the whole program turns into a small screen with no scrolling,
-        // // the images wont load, and the toolBar doesnt even show anyway
-        // // frame.add(toolBar);
-
-        // // Create and configure the custom ToolBar
-        // ToolBar toolBar = new ToolBar("Common Tools", 10);
-        // toolBar.loadDefaultActions();
-        // toolBar.setFloatable(true); // Allow toolbar to be dragged
-        // toolBar.setOrientation(JToolBar.HORIZONTAL); // Set the orientation of the toolbar
+        // Create and configure the custom ToolBar
+        toolBar.loadDefaultActions();
+        toolBar.setFloatable(true); // Allow toolbar to be dragged
+        toolBar.setOrientation(JToolBar.HORIZONTAL); // Set the orientation of the toolbar
+        toolBar.setVisible(true);
 
         // Add components to the frame using BorderLayout
-        
         frame.add(scrollPane, BorderLayout.CENTER);
-        //frame.add(toolBar, BorderLayout.NORTH); // Add the ToolBar to the top
+        frame.add(toolBar, BorderLayout.NORTH); // Add the ToolBar to the top
 
         // Add in menus for various types of action the user may perform.
         JMenuBar menuBar = new JMenuBar();
@@ -149,7 +141,7 @@ public class Andie {
         menuBar.add(macroActions.createMenu());
 
         frame.setJMenuBar(menuBar);
-        // frame.getContentPane().add(toolBar, BorderLayout.NORTH);
+        frame.getContentPane().add(toolBar, BorderLayout.NORTH);
         frame.pack();
         frame.setVisible(true);
     }
