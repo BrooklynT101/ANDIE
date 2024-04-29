@@ -6,7 +6,6 @@ import javax.swing.*;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
-
 /**
  * <p>
  * Actions provided by the Colour menu.
@@ -48,6 +47,8 @@ public class ColourActions {
                 Andie.bundle.getString("ColourChannelCycling"), Integer.valueOf(KeyEvent.VK_C)));
         actions.add(new BrightnessAndContrastAction(Andie.bundle.getString("BrightnessAndContrast"), null,
                 Andie.bundle.getString("Applyabrightnessandcontrastfilter"), Integer.valueOf(KeyEvent.VK_S)));
+        actions.add(new ColourChannelsAction(Andie.bundle.getString("ColourChannels"), null,
+                Andie.bundle.getString("ApplyColourChannels"), Integer.valueOf(KeyEvent.VK_S)));
     }
 
     /**
@@ -109,6 +110,7 @@ public class ColourActions {
         }
 
     }
+
     /**
      * <p>
      * A filter class that applies a blur effect to the whole image
@@ -116,9 +118,10 @@ public class ColourActions {
      * 
      * <p>
      * Creates a blur filter object, with a default radius of 1 and
-     * a desired number of filter operations to perform 
+     * a desired number of filter operations to perform
      * 
      * <p>
+     * 
      * @author Amelia
      */
     public class ImageInversionAction extends ImageAction {
@@ -150,15 +153,16 @@ public class ColourActions {
 
     /**
      * <p>
-     * Cycles the RGB values of an images, 
+     * Cycles the RGB values of an images,
      * <p>
      * 
      * <p>
-     * Works by copying the current red values to the green, green to the blue, and blue to the red.
-     * Cycling with each action call. 
+     * Works by copying the current red values to the green, green to the blue, and
+     * blue to the red.
+     * Cycling with each action call.
      * <p>
      * 
-     * @see ColourChannelCycling 
+     * @see ColourChannelCycling
      * @author Amelia
      */
     public class ColourChannelCyclingAction extends ImageAction {
@@ -191,16 +195,15 @@ public class ColourActions {
             target.getParent().revalidate();
         }
 
-
     }
 
     /**
      * <p>
-     * Action to adjust the brightness and contrast of an image 
+     * Action to adjust the brightness and contrast of an image
      * </p>
      * 
      * @see BrightnessAndContrast
-     * @author Amelia 
+     * @author Amelia
      */
     public class BrightnessAndContrastAction extends ImageAction {
 
@@ -258,25 +261,12 @@ public class ColourActions {
             contrastSlider.setPaintLabels(true);
             contrastSlider.setLabelTable(contrastSlider.createStandardLabels(100));
 
-            class JSpinnerListener implements ChangeListener{ //go through and comment on this and understand
+            class JSpinnerListener implements ChangeListener { // go through and comment on this and understand
 
-                public void stateChanged(ChangeEvent e){
-                    //set brightness and contrast to spinner values
-                    brightnessSlider.setValue((int)brightnessSpinner.getValue());
-                    contrastSlider.setValue((int)contrastSpinner.getValue());
-                
-                    // target.repaint();
-                    // target.getParent().revalidate();
-                }
-
-            }
-
-            class JSliderListener implements ChangeListener{ //go through and comment on this and understand
-
-                public void stateChanged(ChangeEvent e){
-                    //set brightness and contrast to spinner values
-                    brightnessSpinner.setValue((int)brightnessSlider.getValue());
-                    contrastSpinner.setValue((int)contrastSlider.getValue());
+                public void stateChanged(ChangeEvent e) {
+                    // set brightness and contrast to spinner values
+                    brightnessSlider.setValue((int) brightnessSpinner.getValue());
+                    contrastSlider.setValue((int) contrastSpinner.getValue());
 
                     // target.repaint();
                     // target.getParent().revalidate();
@@ -284,11 +274,24 @@ public class ColourActions {
 
             }
 
-            //add listener to brightness and contrast spinners
+            class JSliderListener implements ChangeListener { // go through and comment on this and understand
+
+                public void stateChanged(ChangeEvent e) {
+                    // set brightness and contrast to spinner values
+                    brightnessSpinner.setValue((int) brightnessSlider.getValue());
+                    contrastSpinner.setValue((int) contrastSlider.getValue());
+
+                    // target.repaint();
+                    // target.getParent().revalidate();
+                }
+
+            }
+
+            // add listener to brightness and contrast spinners
             brightnessSpinner.addChangeListener(new JSpinnerListener());
             contrastSpinner.addChangeListener(new JSpinnerListener());
 
-            //add listener to brightness and contrast spinners
+            // add listener to brightness and contrast spinners
             brightnessSlider.addChangeListener(new JSliderListener());
             contrastSlider.addChangeListener(new JSliderListener());
 
@@ -301,14 +304,15 @@ public class ColourActions {
             spinnerPanel.add(contrastSpinner);
             spinnerPanel.add(contrastSlider);
 
-            // Prevents adding no 1 - 100 integers, by making the text field un editable by default.
-            int option = JOptionPane.showOptionDialog(null, 
+            // Prevents adding no 1 - 100 integers, by making the text field un editable by
+            // default.
+            int option = JOptionPane.showOptionDialog(null,
                     spinnerPanel,
                     Andie.bundle.getString("Choosepercentbrightness"),
-                    JOptionPane.OK_CANCEL_OPTION, 
-                    JOptionPane.QUESTION_MESSAGE, 
-                    null, 
-                    null, 
+                    JOptionPane.OK_CANCEL_OPTION,
+                    JOptionPane.QUESTION_MESSAGE,
+                    null,
+                    null,
                     null);
 
             // Check the return value from the dialog box.
@@ -318,20 +322,93 @@ public class ColourActions {
                 System.out.println("its working");
                 brightness = brightnessModel.getNumber().intValue();
                 contrast = contrastModel.getNumber().intValue();
-                
+
             }
 
-            // System.out.println(brightness); //checking that the values are correctly being updated
+            // System.out.println(brightness); //checking that the values are correctly
+            // being updated
             // System.out.println(contrast);
             // System.out.println(brightness + " " + contrast);
 
             // Create and apply the filter
-                target.getImage().apply(new BrightnessAndContrast(brightness, contrast));
-                target.repaint();
-                target.getParent().revalidate();
+            target.getImage().apply(new BrightnessAndContrast(brightness, contrast));
+            target.repaint();
+            target.getParent().revalidate();
 
         }
 
     }
-    
+
+    /**
+     * <p>
+     * Cycles the RGB values of an images,
+     * <p>
+     * 
+     * <p>
+     * Works by copying the current red values to the green, green to the blue, and
+     * blue to the red.
+     * Cycling with each action call.
+     * <p>
+     * 
+     * @see ColourChannelCycling
+     * @author Amelia
+     */
+    public class ColourChannelsAction extends ImageAction {
+
+        /**
+         * Creates a new colour channel cycling action
+         * 
+         * @param name     The name of the action (ignored if null).
+         * @param icon     An icon to use to represent the action (ignored if null).
+         * @param desc     A brief description of the action (ignored if null).
+         * @param mnemonic A mnemonic key to use as a shortcut (ignored if null).
+         */
+        ColourChannelsAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
+            super(name, icon, desc, mnemonic);
+        }
+
+        /**
+         * callback for when the colour channel cycling is triggered
+         * <p>
+         * This method is called whenever the ColourChannelCyclingAction is triggered.
+         * Cycling the RGB values by 1 step each time
+         * {@link ColourChannels}.
+         * </p>
+         * 
+         * @param e The event triggering this callback.
+         */
+        public void actionPerformed(ActionEvent e) {
+
+            JFrame frame = new JFrame("A Simple GUI");
+            frame.setVisible(true);
+            frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            frame.setSize(500, 500);
+            frame.setLocation(430, 100);
+
+            JPanel panel = new JPanel();
+
+            frame.add(panel);
+
+            JLabel lbl = new JLabel("Select one of the possible choices and click OK");
+            lbl.setVisible(true);
+
+            panel.add(lbl);
+
+            String[] choices = { "CHOICE 1", "CHOICE 2", "CHOICE 3", "CHOICE 4", "CHOICE 5", "CHOICE 6" };
+
+            final JComboBox<String> cb = new JComboBox<String>(choices);
+
+            cb.setVisible(true);
+            panel.add(cb);
+
+            JButton btn = new JButton("OK");
+            panel.add(btn);
+
+            target.getImage().apply(new ColourChannels());
+            target.repaint();
+            target.getParent().revalidate();
+        }
+
+    }
+
 }
