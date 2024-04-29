@@ -1,0 +1,30 @@
+@startsalt register
+{^"<b> ToolBar Actions "
+{+ <b>Actions to add
+===
+{ ^<b>FilterActions^}
+[    Mean Filter]
+[    Blur Filter]
+[      Blur Soft]
+[  Median Filter]
+[  Gaussian Blur]
+[ Sharpen Filter]
+[Block Averaging]
+
+} | <color:white>"" | {+ <b> Active Actions</b><color:white>""
+===
+[     Open]
+[     Save]
+[ Draw Box]
+[Draw Line]
+[   Select]
+[     Crop]
+[  Zoom In]
+[ Zoom Out]
+}
+<color:white>""
+
+<color:white>""|  [Accept] | [Cancel]
+
+}
+@endsalt
