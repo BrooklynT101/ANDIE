@@ -92,6 +92,19 @@ public class ToolBarTest {
     }
 
     /**
+     * 
+     */
+    @Test
+    void addOpenWithIcon() {
+        ToolBar toolBar = new ToolBar();
+
+        // Create a dummy do nothing action
+        Action dummyAction = new DummyAction("dummyAction");
+        toolBar.addAction(dummyAction);
+        // Assertions.assertTrue();
+        Assertions.assertTrue(toolBar.hasAction(dummyAction.getValue("Name").toString()));
+    }
+    /**
      * Tests the constraints of the ToolBar, ensuring the addAction method doesn't
      * go above the limit
      */

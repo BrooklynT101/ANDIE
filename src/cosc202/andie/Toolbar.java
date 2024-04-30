@@ -55,7 +55,7 @@ public class ToolBar extends JToolBar {
      * of actions to the ToolBar instance.
      * 
      * @param name    the name of the ToolBar
-     * @param maxSize the max number of Actions to add to the ToolBar
+     * @param maxActions the max number of Actions to add to the ToolBar
      */
     public ToolBar(String name, int maxActions, ArrayList<Action> actions) {
         this.name = name;
@@ -71,7 +71,7 @@ public class ToolBar extends JToolBar {
      * of actions to the ToolBar instance.
      * 
      * @param name    the name of the ToolBar
-     * @param maxSize the max number of Actions to add to the ToolBar
+     * @param maxActions the max number of Actions to add to the ToolBar
      */
     public ToolBar(String name, int maxActions) {
         this.name = name;
@@ -87,8 +87,8 @@ public class ToolBar extends JToolBar {
      * Mutator method to add an action from the list, returning true or false
      * depending on the outcome.
      * 
-     * @param action the action to remove
-     * @return true for successful removal or false for a failed operation
+     * @param action the action to add
+     * @return true for successful addition or false for a failed operation
      */
     public boolean addAction(Action action) {
         if (currentActions.size() >= this.maxActions) {
@@ -99,16 +99,37 @@ public class ToolBar extends JToolBar {
             System.err.println("Added action " + action.getValue("Name") + "!");
             this.add(new JButton((Action) action));
 
-            boolean result = false;
-            try {
-                String actionName = action.getValue("Name").toString();
-                result = hasAction(actionName);
-            } catch (Exception e) {
-                e.printStackTrace();
-                System.err.println(action.getValue("Name") + " wasn't added!");
-            }
+            String actionName = action.getValue("Name").toString();
+            boolean result = hasAction(actionName);
+            if (result == false)
+                System.err.println(actionName + " wasn't added!");
             return result;
         }
+    }
+
+    /**
+     * Overloaded addAction method, allows you to add an icon as well as an action.
+     * Creates a new JButton, adds it as a component to this ToolBar (@see java.awt.Container).
+     * 
+     * Keeps continuity with the currentActions list too, keeping to the constraint of maxActions.
+     * 
+     * @param action the action to add
+     * @param icon   the icon to add to the action
+     * @return true for successful removal or false for a failed operation
+     */
+    public boolean addAction(Action action, String iconName) {
+        // If we're at our limits
+        if (currentActions.size() >= this.maxActions) {
+            System.err.println("Too many actions in the ToolBar!");
+            return false;
+        }
+        // Nah we good;
+        String actionName = action.getValue("Name").toString();
+        JButton button = new JButton(actionName, loadIcon(actionName));
+        button.setAction(action);
+        this.add(button);
+        currentActions.add(action);
+        return this.hasAction(actionName);
     }
 
     /**
@@ -140,7 +161,6 @@ public class ToolBar extends JToolBar {
      * 
      * @param actionName
      * @return true if found, false if not found or list is empty
-     * @throws Exception
      */
     public boolean hasAction(String actionName) {
         if (currentActions.isEmpty()) {
