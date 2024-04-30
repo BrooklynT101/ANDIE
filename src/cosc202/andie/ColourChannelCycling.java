@@ -84,7 +84,8 @@ public class ColourChannelCycling implements ImageOperation, java.io.Serializabl
                 //random order?
                 switch(rotation){ // TODO: cycles through the colours correctly but doesnt go back to start?
                     case 1:
-                        argb = (a << 24) | (r << 16) | (g << 8) | b; //rgb = normal colours
+                        argb = EditableImage.getOriginalImage().getRGB(x, y);
+                        //argb = (a << 24) | (r << 16) | (g << 8) | b; //rgb = normal colours
                         //System.out.println("rgb");
                         break;
                     case 2:
