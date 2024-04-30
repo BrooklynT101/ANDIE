@@ -175,7 +175,7 @@ public class ColourActions {
             super(name, icon, desc, mnemonic);
         }
 
-        public int rotationCount = 1;
+        public int rotationCount = 2;
 
         /**
          * callback for when the colour channel cycling is triggered

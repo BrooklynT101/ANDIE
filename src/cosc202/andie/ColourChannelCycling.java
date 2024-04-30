@@ -82,30 +82,30 @@ public class ColourChannelCycling implements ImageOperation, java.io.Serializabl
                 // bb = b;
 
                 //random order?
-                switch(rotation){ // TODO: go through and change the letters to make it work through the colours correctly 
+                switch(rotation){ // TODO: cycles through the colours correctly but doesnt go back to start?
                     case 1:
                         argb = (a << 24) | (r << 16) | (g << 8) | b; //rgb = normal colours
-                        System.out.println("rgb");
+                        //System.out.println("rgb");
                         break;
                     case 2:
                         argb = (a << 24) | (r << 16) | (b << 8) | g; //rbg = dark green sky, pink tower 
-                        System.out.println("rbg");
+                        //System.out.println("rbg");
                         break;
                     case 3:
-                        argb = (a << 24) | (g << 16) | (b << 8) | r; //gbr = green sky, purple tower
-                        System.out.println("gbr");
+                        argb = (a << 24) | (b << 16) | (g << 8) | r; //gbr = green sky, purple tower
+                        //System.out.println("gbr");
                         break;
                     case 4:
-                        argb = (a << 24) | (g << 16) | (r << 8) | b; //grb = purple sky, dark green tower
-                        System.out.println("grb");
+                        argb = (a << 24) | (r << 16) | (b << 8) | g; //grb = purple sky, dark green tower
+                        //System.out.println("grb");
                         break;
                     case 5:
-                        argb = (a << 24) | (b << 16) | (r << 8) | g; //brg = pink sky, dark green tower
-                        System.out.println("brg");
+                        argb = (a << 24) | (b << 16) | (g << 8) | r; //brg = pink sky, dark green tower
+                        //System.out.println("brg");
                         break;
                     case 6: 
-                        argb = (a << 24) | (b << 16) | (g << 8) | r; //bgr = orange sky, blue tower
-                        System.out.println("bgr");
+                        argb = (a << 24) | (r << 16) | (b << 8) | g; //bgr = orange sky, blue tower
+                        //System.out.println("bgr");
                         break;
                 }
 
