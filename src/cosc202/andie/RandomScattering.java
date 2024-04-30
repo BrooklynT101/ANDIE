@@ -45,18 +45,32 @@ public class RandomScattering implements ImageOperation, java.io.Serializable{
 
                 //TODO: use a continue for the out of bound errors??
 
+                // for(int col = -radius; col <= radius; col++){ //get each pixel in the neighbourhood 
+                //     int neighbourY = y + col; //find the index of the neighbour for checking
+                //     if(neighbourY >= 0 && neighbourY <= input.getHeight()){ // check that the neighbour is in bounds
+                //         for(int row = -radius; row <= radius; row++){ 
+                //             int neighbourX = x + row;
+                //             if(neighbourX >= 0 && neighbourX <= input.getWidth()){
+                //                 pixelOptions.add(input.getRGB(row, col));
+                //                 // System.out.println("Added an item to the arrayList");
+                //             }
+                //         }
+                //     }
+                // }
+
                 for(int col = -radius; col <= radius; col++){ //get each pixel in the neighbourhood 
-                    int neighbourY = y + col; //find the index of the neighbour for checking
-                    if(neighbourY >= 0 && neighbourY <= input.getHeight()){ // check that the neighbour is in bounds
-                        for(int row = -radius; row <= radius; row++){ 
-                            int neighbourX = x + row;
-                            if(neighbourX >= 0 && neighbourX <= input.getWidth()){
-                                pixelOptions.add(input.getRGB(row, col));
-                                // System.out.println("Added an item to the arrayList");
-                            }
-                        }
+                    if(col < 0 || col > input.getWidth()){
+                        continue;
                     }
-                }//put all the possible values in an array list 
+                    for(int row = -radius; row <= radius; row++){ 
+                            if(row < 0 || row > input.getHeight()){
+                                continue;
+                            }
+                            pixelOptions.add(input.getRGB(row, col));
+                    }
+                }
+
+                //put all the possible values in an array list 
                 System.out.println(Arrays.toString(pixelOptions.toArray()));
 
                 //set the value to one in the surrounding radius 
