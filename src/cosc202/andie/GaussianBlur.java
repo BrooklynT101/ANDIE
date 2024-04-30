@@ -202,20 +202,20 @@ public class GaussianBlur implements ImageOperation, java.io.Serializable {
 
         ConvolveOp convOp = new ConvolveOp(kernel, ConvolveOp.EDGE_NO_OP, null);
 
-        // ExtendingFilters expand = new ExtendingFilters(input, radius);
+        ExtendingFilters expand = new ExtendingFilters(input, radius);
 
-        // BufferedImage expanded = expand.extending();
+        BufferedImage expanded = expand.extending();
 
-        // BufferedImage image = new BufferedImage(expanded.getWidth(), expanded.getHeight(),
-        //        expanded.getType());
+        BufferedImage image = new BufferedImage(expanded.getWidth(), expanded.getHeight(),
+               expanded.getType());
 
-        FilterswithNegativeResults f = new FilterswithNegativeResults(kernel);
+        // FilterswithNegativeResults f = new FilterswithNegativeResults(kernel);
 
-        BufferedImage output = f.filter(input, radius);
+        // BufferedImage output = f.filter(input, radius);
         
-        //convOp.filter(expanded, image);
+        convOp.filter(expanded, image);
 
-        // BufferedImage output = expand.shrinking(image);
+        BufferedImage output = expand.shrinking(image);
 
         return output;
     }
