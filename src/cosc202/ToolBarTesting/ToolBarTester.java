@@ -3,6 +3,7 @@ package cosc202.ToolBarTesting;
 import javax.swing.*;
 
 import java.awt.event.ActionEvent;
+import java.util.InputMismatchException;
 import java.util.*;
 
 import cosc202.andie.ImageActions;
@@ -20,135 +21,25 @@ public class ToolbarTester extends JFrame {
 
     public static ToolBar toolbar = new ToolBar();
     public static ArrayList<Action> allActions = new ArrayList<>(toolbar.getAllActions());
-    private static Action selectAction;
-    private static Action cropAction;
-    private static Action brushAction;
-    private static Action eraserAction;
-    private static Action zoomAction;
+    private Action selectAction;
+    private Action cropAction;
+    private Action brushAction;
+    private Action eraserAction;
+    private Action zoomAction;
 
     public static void main(String[] args) {
         andieToolBarDebug();
-        // SwingUtilities.invokeLater(() -> {
-        // ToolbarTesting example = new ToolbarTesting();
-        // ToolBarUI example2 = new ToolBarUI(example);
-        // example.setVisible(true);
-        // });
+        SwingUtilities.invokeLater(() -> {
+            ToolbarTester example = new ToolbarTester();
+            // ToolBarUI example2 = new ToolBarUI(example);
+            example.setVisible(true);
+        });
     }
 
-    public static void andieToolBarDebug() {
-        // Create toolbar
-        ToolBar toolbar = new ToolBar();
-        System.out.println(
-                "Create a toolbar named " + toolbar.getName() + "Testing with a max size of " + toolbar.getMaxSize());
-
-        // Print menu
-        boolean correct = false;
-        while (!correct) {
-            System.out.println(toolbar.toString());
-            int input = readInt(
-                    "Select Option\n1. Add Actions\n2. Delete Actions\n3. Create new toolbar\n4. Display in a new JFrame\n0. exit");
-            switch (input) {
-                case 1:
-                    addActionMenu();
-                    break;
-                case 2:
-                    toolbar.addAction(null);
-                    break;
-                case 3:
-                    String name = readStr("Enter toolbar name");
-                    int size = readInt("Enter the max size");
-                    toolbar = new ToolBar();
-                    toolbar.setName(name);
-                    toolbar.setMaxSize(size);
-                    toolbar.loadDefaultActions();
-                    System.out.println("Create a toolbar named " + name + " with a max size of " + size
-                            + " and default do-nothing action buttons");
-                    break;
-                case 4:
-                    JFrame frame = new JFrame("ToolBar Test");
-                    JPanel panel = new JPanel();
-                    frame.setTitle("Image Manipulation Software");
-                    frame.setSize(800, 600);
-                    frame.setDefaultCloseOperation(EXIT_ON_CLOSE);
-                    frame.add(toolbar);
-                    panel.add(toolbar);
-                    frame.add(panel);
-
-                    frame.setVisible(true);
-                    break;
-                case 0:
-                    System.exit(0);
-            }
-        }
-    }
-
-    private static void addActionMenu() {
-        boolean correct = false;
-        while (!correct) {
-            int input = readInt("Select Option\n1. option\n2. option\n0. exit");
-            switch (input) {
-                case 1:
-                    break;
-                case 2:
-                    break;
-                case 0:
-                    System.exit(0);
-            }
-        }
-
-        ArrayList<Action> foundActions = toolbar.getAllActions();
-        return;
-    }
-
-    public static String readStr(String message) {
-        Scanner scanner = new Scanner(System.in);
-        boolean correct = false;
-        String userInput = "";
-        while (!correct) {
-            System.out.println(message);
-            try {
-                userInput = scanner.nextLine();
-            } catch (InputMismatchException e) {
-                System.out.println("Invalid input. Please enter a String.");
-                scanner.next();
-            }
-            if (userInput.length() >= 1) {
-                correct = true;
-            } else {
-                correct = false;
-            }
-        }
-        scanner.close();
-        return userInput;
-    }
-
-    public static int readInt(String message) {
-        Scanner scanner = new Scanner(System.in);
-        boolean correct = false;
-        int userInput = 0;
-        while (!correct) {
-            System.out.println(message);
-            try {
-                userInput = scanner.nextInt();
-            } catch (InputMismatchException e) {
-                System.out.println("Invalid input. Please enter a positive integer.");
-                scanner.next();
-            }
-            if (userInput >= 0) {
-                correct = true;
-            } else {
-                correct = false;
-            }
-        }
-        scanner.close();
-        return userInput;
-    }
-
-    public void ToolbarTesting() {
-        JFrame frame = new JFrame();
-        frame.setTitle("Image Manipulation Software");
-        frame.setSize(800, 600);
-        frame.setDefaultCloseOperation(EXIT_ON_CLOSE);
+    public ToolbarTester() {
+        setTitle("Image Manipulation Software");
+        setSize(800, 600);
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
 
         // Create Actions
         selectAction = new AbstractAction("Select") {
@@ -202,5 +93,114 @@ public class ToolbarTester extends JFrame {
         toolBar.add(new JButton(brushAction));
         toolBar.add(new JButton(eraserAction));
         toolBar.add(new JButton(zoomAction));
+    }
+
+    public static void andieToolBarDebug() {
+        // Create toolbar
+        ToolBar toolbar = new ToolBar();
+        System.out.println(
+                "Create a toolbar named " + toolbar.getName() + "Testing with a max size of " + toolbar.getMaxSize());
+
+        // Print menu
+        boolean correct = false;
+        while (!correct) {
+            System.out.println(toolbar.toString());
+            int input = readInt(
+                    "Select Option\n1. Add Actions\n2. Delete Actions\n3. Create new toolbar\n4. Display in a new JFrame\n0. exit");
+            switch (input) {
+                case 1:
+                addActionMenu();
+                    break;
+                case 2:
+                    toolbar.addAction(null);
+                    break;
+                case 3:
+                    String name = readStr("Enter toolbar name");
+                    int size = readInt("Enter the max size");
+                    toolbar = new ToolBar();
+                    toolbar.setName(name);
+                    toolbar.setMaxSize(size);
+                    toolbar.loadDefaultActions();
+                    System.out.println("Create a toolbar named " + name + " with a max size of " + size
+                            + " and default do-nothing action buttons");
+                    break;
+                case 4:
+                    JFrame frame = new JFrame("ToolBar Test");
+                    JPanel panel = new JPanel();
+                    frame.setTitle("Image Manipulation Software");
+                    frame.setSize(800, 600);
+                    frame.setDefaultCloseOperation(EXIT_ON_CLOSE);
+                    frame.add(toolbar);
+                    panel.add(toolbar);
+                    frame.add(panel);
+
+                    frame.setVisible(true);
+                    break;
+                case 0:
+                    System.exit(0);
+            }
+        }
+    }
+
+    private static void addActionMenu() {
+        boolean correct = false;
+        while (!correct) {
+            int input = readInt("Select Option\n1. option\n2. option\n0. exit");
+            switch (input) {
+                case 1:
+                    break;
+                case 2:
+                    break;
+                case 0:
+                    System.exit(0);
+            }
+        }
+        
+        ArrayList<Action> foundActions = toolbar.getAllActions();
+        return;
+    }
+
+    public static String readStr(String message) {
+        Scanner scanner = new Scanner(System.in);
+        boolean correct = false;
+        String userInput = "";
+        while (!correct) {
+            System.out.println(message);
+            try {
+                userInput = scanner.nextLine();
+            } catch (InputMismatchException e) {
+                System.out.println("Invalid input. Please enter a String.");
+                scanner.next();
+            }
+            if (userInput.length() >= 1) {
+                correct = true;
+            } else {
+                correct = false;
+            }
+        }
+        scanner.close();
+        return userInput;
+    }
+
+    public static int readInt(String message) {
+        Scanner scanner = new Scanner(System.in);
+        boolean correct = false;
+        int userInput = 0;
+        while (!correct) {
+            System.out.println(message);
+            try {
+                userInput = scanner.nextInt();
+            } catch (InputMismatchException e) {
+                System.out.println("Invalid input. Please enter a positive integer.");
+                scanner.next();
+            }
+            if (userInput >= 0) {
+                correct = true;
+            } else {
+                correct = false;
+            }
+        }
+        scanner.close();
+        return userInput;
     }
 }
