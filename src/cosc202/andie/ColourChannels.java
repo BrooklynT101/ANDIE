@@ -45,15 +45,17 @@ public class ColourChannels implements ImageOperation, java.io.Serializable {
                 int b = (argb & 0x000000FF);
 
                 if(rotation == 1){ //rgb
+                    argb = (a << 24) | (r << 16) | (g << 8) | b;
+                }else if(rotation == 2){ //rbg
+                    argb = (a << 24) | (r << 16) | (b << 8) | g;
+                }else if(rotation == 3){ //gbr
                     argb = (a << 24) | (g << 16) | (b << 8) | r;
-                }else if(rotation == 2){
-
-                }else if(rotation == 3){
-
-                }else if(rotation == 4){
-
-                }else if(rotation == 5){
-
+                }else if(rotation == 4){ //grb
+                    argb = (a << 24) | (g << 16) | (r << 8) | b;
+                }else if(rotation == 5){ //bgr
+                    argb = (a << 24) | (b << 16) | (g << 8) | r;
+                }else if(rotation == 6){ //brg
+                    argb = (a << 24) | (b << 16) | (r << 8) | g;
                 }
  
                 input.setRGB(x, y, argb);
@@ -61,6 +63,20 @@ public class ColourChannels implements ImageOperation, java.io.Serializable {
         }
 
         return input;
+    }
+
+    @Override
+    public String getName() {
+        return "Colour Cycle";
+    }
+
+    /**
+     * Method to return 'this' as an ImageOperation to support @see MacroActions
+     */
+    @Override
+    public ImageOperation clone() {
+        ColourChannels copy = new ColourChannels();
+        return copy;
     }
     
 }

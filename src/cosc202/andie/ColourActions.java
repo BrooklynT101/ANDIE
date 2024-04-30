@@ -379,30 +379,31 @@ public class ColourActions {
          */
         public void actionPerformed(ActionEvent e) {
 
-            JFrame frame = new JFrame("A Simple GUI");
+            JFrame frame = new JFrame();
             frame.setVisible(true);
             frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-            frame.setSize(500, 500);
+            frame.setSize(400, 150);
             frame.setLocation(430, 100);
 
             JPanel panel = new JPanel();
-
             frame.add(panel);
 
-            JLabel lbl = new JLabel("Select one of the possible choices and click OK");
+            JLabel lbl = new JLabel("Select one of the possible choices and click OK"); //TODO: Add the language stuff
             lbl.setVisible(true);
 
             panel.add(lbl);
+            String[] choices = { "RGB", "RBG", "GBR", "GRB", "BGR", "BRG" }; //language??
 
-            String[] choices = { "CHOICE 1", "CHOICE 2", "CHOICE 3", "CHOICE 4", "CHOICE 5", "CHOICE 6" };
+            final JComboBox<String> dropdown = new JComboBox<String>(choices); 
 
-            final JComboBox<String> cb = new JComboBox<String>(choices);
-
-            cb.setVisible(true);
-            panel.add(cb);
+            dropdown.setVisible(true);
+            panel.add(dropdown);
 
             JButton btn = new JButton("OK");
             panel.add(btn);
+
+            int rotationNum = dropdown.getSelectedIndex();
+            System.out.println(rotationNum);
 
             target.getImage().apply(new ColourChannels());
             target.repaint();
