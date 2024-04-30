@@ -92,8 +92,7 @@ public class Andie {
         ImageAction.setTarget(imagePanel);
         JScrollPane scrollPane = new JScrollPane(imagePanel);
 
-        // Create and configure the custom ToolBar
-        toolBar.loadDefaultActions();
+        // Configure the custom ToolBar
         toolBar.setFloatable(true); // Allow toolbar to be dragged
         toolBar.setOrientation(JToolBar.HORIZONTAL); // Set the orientation of the toolbar
         toolBar.setVisible(true);

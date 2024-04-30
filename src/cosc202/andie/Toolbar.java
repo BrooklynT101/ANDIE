@@ -30,9 +30,8 @@ public class ToolBar extends JToolBar {
     private ImageActions IM = new ImageActions();
     private MacroActions MA = new MacroActions();
 
-    private boolean testing = true;
     private String name;
-    private int maxSize;
+    private int maxActions;
     private int DefaultMaxSize = 10;
 
     protected ArrayList<Action> currentActions;
@@ -40,36 +39,51 @@ public class ToolBar extends JToolBar {
     // TODO: allow user to add and remove actions from tool bar, update GUI
 
     /**
-     * default constructor, should create the action list and create the
-     * action components as buttons, a default do-nothing set of buttons
+     * Default ToolBar constructor, takes no parameters and loads the default values
+     * and actions in the ToolBar class.
      */
     public ToolBar() {
         // create default values
         this.name = "ToolBar";
-        this.maxSize = DefaultMaxSize;
-        currentActions = new ArrayList<>();
-        if (testing)
-            System.out.println("toolbar created");
-        loadDefaultActions();
-    }
-
-    public ToolBar(String name, int maxSize, ArrayList<Action> actions) {
-        this.name = name;
-        this.maxSize = maxSize;
-        for (Action action : actions) {
-            // TODO: create a deepCopy() method
-            // action.clone();
-        }
-    }
-
-    public ToolBar(String name, int maxSize) {
-        this.name = name;
-        this.maxSize = maxSize;
+        this.maxActions = DefaultMaxSize;
         currentActions = new ArrayList<>();
         loadDefaultActions();
     }
 
     /**
+     * ToolBar constructor, takes in a name and max size, then loads a Default list
+     * of actions to the ToolBar instance.
+     * 
+     * @param name    the name of the ToolBar
+     * @param maxSize the max number of Actions to add to the ToolBar
+     */
+    public ToolBar(String name, int maxActions, ArrayList<Action> actions) {
+        this.name = name;
+        this.maxActions = maxActions;
+        currentActions = new ArrayList<>();
+        for (Action action : actions) {
+            this.addAction(action);
+        }
+    }
+
+    /**
+     * ToolBar constructor, takes in a name and max size, then loads a Default list
+     * of actions to the ToolBar instance.
+     * 
+     * @param name    the name of the ToolBar
+     * @param maxSize the max number of Actions to add to the ToolBar
+     */
+    public ToolBar(String name, int maxActions) {
+        this.name = name;
+        this.maxActions = maxActions;
+        currentActions = new ArrayList<>();
+        loadDefaultActions();
+    }
+
+    /**
+     * Takes in an action, creates a new JButton, adds it as a component to this
+     * ToolBar (@see java.awt.Container).
+     * 
      * Mutator method to add an action from the list, returning true or false
      * depending on the outcome.
      * 
@@ -77,19 +91,78 @@ public class ToolBar extends JToolBar {
      * @return true for successful removal or false for a failed operation
      */
     public boolean addAction(Action action) {
-        if (currentActions.size() >= maxSize) {
+        if (currentActions.size() >= this.maxActions) {
+            System.err.println("Too many actions in the ToolBar!");
             return false;
         } else {
             currentActions.add(action);
+            System.err.println("Added action " + action.getValue("Name") + "!");
             this.add(new JButton((Action) action));
-            return true;
+
+            boolean result = false;
+            try {
+                String actionName = action.getValue("Name").toString();
+                result = hasAction(actionName);
+            } catch (Exception e) {
+                e.printStackTrace();
+                System.err.println(action.getValue("Name") + " wasn't added!");
+            }
+            return result;
         }
+    }
+
+    /**
+     * Getter method that retrieves a given action name as a String, throwing an
+     * exception if not found or the ToolBar currentActions list is empty.
+     * 
+     * @param actionName
+     * @return the requested Action object.
+     * @throws Exception
+     */
+    public Action getAction(String actionName) throws Exception {
+        if (currentActions.isEmpty()) {
+            System.err.println("Action list is empty!");
+            throw new Exception("No actions loaded to ToolBar (currentActions == null)");
+        }
+
+        for (Action action : currentActions) {
+            String name = (String) action.getValue("Name");
+            System.out.println(name + " found!");
+            if (actionName.equals(name)) {
+                return action;
+            }
+        }
+        throw new Exception("Action not found!");
+    }
+
+    /**
+     * Tries to find an action in the list by a string.
+     * 
+     * @param actionName
+     * @return true if found, false if not found or list is empty
+     * @throws Exception
+     */
+    public boolean hasAction(String actionName) {
+        if (currentActions.isEmpty()) {
+            System.err.println("Nothing in currentActions!");
+            return false;
+        }
+
+        for (Action action : currentActions) {
+            String name = (String) action.getValue("Name");
+            if (name.equals(actionName)) {
+                return true;
+            }
+        }
+        System.err.println("hasAction() - couldn't find action ");
+        return false; // cant find it if we're here
     }
 
     /**
      * Mutator method to remove an action from the list, returning true or false
      * depending on the outcome.
      * 
+     * @see addAction
      * @param action the action to remove
      * @return true for successful removal or false for a failed operation
      */
@@ -132,7 +205,8 @@ public class ToolBar extends JToolBar {
      * @param name
      * @return the requested icon if found, null otherwise
      */
-    //TODO: try tossing a getter for the icon when creating the action in say fileactions, who knows at this point im tired
+    // TODO: try tossing a getter for the icon when creating the action in say
+    // fileactions, who knows at this point im tired
     public Icon loadIcon(String name) {
         URL url = null;
 
@@ -251,7 +325,7 @@ public class ToolBar extends JToolBar {
         defaultActions.add(editActions.get(1));
 
         // TODO: create icon for resize, rotate clock/antiClock
-        // Flip Horizontally, Flip Vertically 
+        // Flip Horizontally, Flip Vertically
         ArrayList<Action> imageActions = IM.getActions();
         defaultActions.add(imageActions.get(4));
         defaultActions.add(imageActions.get(3));
@@ -264,12 +338,14 @@ public class ToolBar extends JToolBar {
         // TODO: create icon for this and add
         ArrayList<Action> macroActions = MA.getActions();
 
-        // // Selection, Crop TODO: Add Selection and Crop when marcus does the mouse stuff
+        // // Selection, Crop TODO: Add Selection and Crop when marcus does the mouse
+        // stuff
         // ArrayList<Action> mouseSelectionActions = MouseSelectionActions.getActions();
         // defaultActions.add(mouseSelectionActions.get(0));
         // defaultActions.add(mouseSelectionActions.get(1));
-        
-        // // Drawbox, DrawLine TODO: Add Drawbox and DrawLine when marcus does the draw stuff
+
+        // // Drawbox, DrawLine TODO: Add Drawbox and DrawLine when marcus does the draw
+        // stuff
         // ArrayList<Action> drawActions = DrawingActions.getActions();
         // defaultActions.add(drawActions.get(0));
         // defaultActions.add(drawActions.get(1));
@@ -283,8 +359,8 @@ public class ToolBar extends JToolBar {
      * 
      * @return
      */
-    public void setMaxSize(int maxSize) {
-        this.maxSize = maxSize;
+    public void setMaxSize(int maxActions) {
+        this.maxActions = maxActions;
     }
 
     /**
@@ -293,7 +369,7 @@ public class ToolBar extends JToolBar {
      * @return
      */
     public int getMaxSize() {
-        return maxSize;
+        return this.maxActions;
     }
 
     /**
