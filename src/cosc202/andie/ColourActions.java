@@ -355,6 +355,11 @@ public class ColourActions {
      */
     public class ColourChannelsAction extends ImageAction {
 
+        private JFrame frame;
+        private JComboBox<String> dropdown;
+        private static final String[] choices = { "RGB", "RBG", "GBR", "GRB", "BGR", "BRG" }; //language?
+
+
         /**
          * Creates a new colour channel cycling action
          * 
@@ -365,6 +370,31 @@ public class ColourActions {
          */
         ColourChannelsAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
             super(name, icon, desc, mnemonic);
+            setUpUI();
+        }
+
+        private void setUpUI(){
+            frame = new JFrame("Select Colour Channel"); //TODO: Add language stuff
+            frame.setVisible(true);
+            frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            frame.setSize(400, 150);
+            frame.setLocation(430, 100);
+
+            JPanel panel = new JPanel();
+            JLabel lbl = new JLabel("Select one of the possible choices and click OK"); //TODO: Add the language stuff
+            lbl.setVisible(true);
+            panel.add(lbl);
+
+            dropdown = new JComboBox<String>(choices);
+            dropdown.setVisible(true);
+            panel.add(dropdown);
+
+            JButton btn = new JButton("OK");
+            //btn.addActionListener(this);
+
+            panel.add(btn);
+            frame.add(panel);
+
         }
 
         /**
@@ -378,29 +408,6 @@ public class ColourActions {
          * @param e The event triggering this callback.
          */
         public void actionPerformed(ActionEvent e) {
-
-            JFrame frame = new JFrame();
-            frame.setVisible(true);
-            frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-            frame.setSize(400, 150);
-            frame.setLocation(430, 100);
-
-            JPanel panel = new JPanel();
-            frame.add(panel);
-
-            JLabel lbl = new JLabel("Select one of the possible choices and click OK"); //TODO: Add the language stuff
-            lbl.setVisible(true);
-
-            panel.add(lbl);
-            String[] choices = { "RGB", "RBG", "GBR", "GRB", "BGR", "BRG" }; //language??
-
-            final JComboBox<String> dropdown = new JComboBox<String>(choices); 
-
-            dropdown.setVisible(true);
-            panel.add(dropdown);
-
-            JButton btn = new JButton("OK");
-            panel.add(btn);
 
             int rotationNum = dropdown.getSelectedIndex();
             System.out.println(rotationNum);
