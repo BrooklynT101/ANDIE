@@ -34,7 +34,7 @@ public class ToolBarTest {
      */
     @Test
     void addAction() {
-        ToolBar toolBar = new ToolBar();
+        ToolBar toolBar = new ToolBar("Test", 15);
 
         // Create a dummy do nothing action
         Action dummyAction = new DummyAction("dummyAction");
@@ -48,7 +48,7 @@ public class ToolBarTest {
      */
     @Test
     void getAction() {
-        ToolBar toolBar = new ToolBar();
+        ToolBar toolBar = new ToolBar("Test", 15);
 
         String foundActionName = "";
         Action dummyAction = new DummyAction("dummyAction");
@@ -75,7 +75,7 @@ public class ToolBarTest {
         // Create a dummy do nothing action
         Action dummyAction = new DummyAction("dummyAction");
 
-        toolBar.addAction(dummyAction);
+        toolBar.addAction(dummyAction, null);
         boolean result = toolBar.removeAction(dummyAction);
         Assertions.assertTrue(result);
         Assertions.assertFalse(toolBar.hasAction("dummyAction"));
