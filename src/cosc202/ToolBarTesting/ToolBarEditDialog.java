@@ -5,6 +5,9 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.util.ArrayList;
 
+/**
+ * Class to support the MagicToolBar dialog, sucks too @see MagicToolBar
+ */
 public class ToolBarEditDialog extends JDialog {
 
     private ArrayList<Action> allActions; // List of all available actions
@@ -21,7 +24,6 @@ public class ToolBarEditDialog extends JDialog {
     public ArrayList<Action> getSelectedActions() {
         return selectedActions;
     }
-    
 
     private void initializeUI() {
         checkBoxPanel = new JPanel();

@@ -4,6 +4,13 @@ import javax.swing.*;
 import java.awt.*;
 import javax.swing.UIManager.LookAndFeelInfo;
 
+/**
+ * Class that loads a bunch of buttons with different LooksAndFeels for the
+ * buttons, add any in the comments below you know of!
+ * 
+ * 
+ * 
+ */
 public class LookAndFeelExample {
 
     public static void main(String[] args) {
@@ -43,7 +50,8 @@ public class LookAndFeelExample {
 
                 // Reset to default look and feel
                 UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-            } catch (UnsupportedLookAndFeelException | ClassNotFoundException | InstantiationException | IllegalAccessException e) {
+            } catch (UnsupportedLookAndFeelException | ClassNotFoundException | InstantiationException
+                    | IllegalAccessException e) {
                 // Skip if look and feel cannot be set
                 continue;
             }

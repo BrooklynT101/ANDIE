@@ -5,8 +5,10 @@ import java.awt.event.ActionEvent;
 import java.util.ArrayList;
 import java.awt.*;
 
-
-
+/**
+ * this is jsut a class to demonstrate a way to do the dialog to support users
+ * to add/remove actions, sucks ass and doesn't work
+ */
 public class MagicToolBar extends JToolBar {
 
     private ArrayList<Action> selectedActions;
@@ -149,4 +151,3 @@ class MagicToolBarEditDialog extends JDialog {
         dispose(); // Close the dialog after saving changes
     }
 }
-

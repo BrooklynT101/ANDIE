@@ -7,7 +7,9 @@ import java.awt.event.ActionEvent;
 import java.util.ArrayList;
 import java.awt.event.KeyEvent;
 
-
+/**
+ * Need to check this out
+ */
 public class CustomToolBar extends JToolBar {
 
     private ArrayList<Action> selectedActions;
@@ -86,8 +88,8 @@ public class CustomToolBar extends JToolBar {
         SwingUtilities.invokeLater(() -> {
             JFrame frame = new JFrame("Custom ToolBar");
             JMenuBar menuBar = new JMenuBar();
-            JButton editButton = new JButton(new EditToolBarAction("EditToolBar", null, "EditToolBar", Integer.valueOf(KeyEvent.VK_Z)));
             CustomToolBar toolBar = new CustomToolBar();
+            JButton editButton = new JButton(new EditToolBarAction("EditToolBar", null, "EditToolBar", Integer.valueOf(KeyEvent.VK_Z), toolBar));
             menuBar.add(editButton);
             frame.setJMenuBar(menuBar);
             frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

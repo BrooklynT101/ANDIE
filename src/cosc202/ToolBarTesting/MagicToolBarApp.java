@@ -6,6 +6,9 @@ import cosc202.andie.ImageAction;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 
+/**
+ * App to run the magictoolbar dialog, sucks @see MagicToolBar.java
+ */
 public class MagicToolBarApp {
     public static void main(String[] args) {
         createAndShowGUI();
@@ -18,7 +21,8 @@ public class MagicToolBarApp {
             JMenuBar menuBar = new JMenuBar();
             MagicToolBar toolBar = new MagicToolBar();
             JButton editButton = new JButton(
-                    new EditMagicToolBarAction("EditToolBar", null, "EditToolBar", Integer.valueOf(KeyEvent.VK_Z), toolBar));
+                    new EditMagicToolBarAction("EditToolBar", null, "EditToolBar", Integer.valueOf(KeyEvent.VK_Z),
+                            toolBar));
 
             menuBar.add(editButton);
             frame.setJMenuBar(menuBar);
@@ -33,7 +37,7 @@ public class MagicToolBarApp {
 
 class EditMagicToolBarAction extends ImageAction {
 
-    //private MagicToolBar toolBar;
+    // private MagicToolBar toolBar;
 
     /**
      * <p>

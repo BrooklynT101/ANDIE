@@ -1,0 +1,24 @@
+@startsalt register
+{SI"<b> ToolBar Actions "
+ <b>Actions to add
+
+
+Open | []
+"Save"
+"Save as"
+"Export"
+[    Mean Filter]
+[    Blur Filter]
+[      Blur Soft]
+[  Median Filter]
+[  Gaussian Blur]
+[ Sharpen Filter]
+[Block Averaging]
+
+} | <color:white>"" 
+<color:white>""
+
+<color:white>""|  [Accept] | [Cancel]
+
+}
+@endsalt
