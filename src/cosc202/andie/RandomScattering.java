@@ -43,21 +43,6 @@ public class RandomScattering implements ImageOperation, java.io.Serializable{
                 //find the neighbourhood
                 pixelOptions = new ArrayList<Integer>();
 
-                //TODO: use a continue for the out of bound errors??
-
-                // for(int col = -radius; col <= radius; col++){ //get each pixel in the neighbourhood 
-                //     int neighbourY = y + col; //find the index of the neighbour for checking
-                //     if(neighbourY >= 0 && neighbourY <= input.getHeight()){ // check that the neighbour is in bounds
-                //         for(int row = -radius; row <= radius; row++){ 
-                //             int neighbourX = x + row;
-                //             if(neighbourX >= 0 && neighbourX <= input.getWidth()){
-                //                 pixelOptions.add(input.getRGB(row, col));
-                //                 // System.out.println("Added an item to the arrayList");
-                //             }
-                //         }
-                //     }
-                // }
-
                 for(int col = -radius; col <= radius; col++){ //get each pixel in the neighbourhood 
                     if(col < 0 || col > input.getWidth()){
                         continue;
@@ -71,14 +56,26 @@ public class RandomScattering implements ImageOperation, java.io.Serializable{
                 }
 
                 //put all the possible values in an array list 
-                System.out.println(Arrays.toString(pixelOptions.toArray()));
+                // System.out.println(Arrays.toString(pixelOptions.toArray()));
 
                 //set the value to one in the surrounding radius 
                 int randomIndex = r.nextInt(pixelOptions.size()); //choose a random index in the arrayList 
-                    System.out.println(randomIndex);
-                int getValue = pixelOptions.get(randomIndex); //get the value in the array 
-                    System.out.println(getValue);
+                    // System.out.println(randomIndex);
+                int getValue = (int)pixelOptions.get(randomIndex); //get the value in the array 
+                int a = (getValue & 0xFF000000) >> 24;
+                int red = (getValue & 0x00FF0000) >> 16;
+                int green = (getValue & 0x0000FF00) >> 8;
+                int blue = (getValue & 0x000000FF);
+                System.out.println(a);
+                System.out.println(red);
+                System.out.println(green);
+                System.out.println(blue);
+
+                    System.out.println("original pixel value = " +input.getRGB(x,y));
+                    System.out.println("index in array = " + randomIndex + " value at that index = " + getValue);
                 output.setRGB(x, y, getValue); // set the RGB value to the new value 
+
+                pixelOptions.clear();
             }
         } 
 

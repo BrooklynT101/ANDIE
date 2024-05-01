@@ -65,6 +65,9 @@ public class BlockAveraging implements ImageOperation, java.io.Serializable{
 
                 int avgRGB = (avgRed << 16) | (avgGreen << 8) | avgBlue;
 
+                // System.out.println(input.getRGB(blockX, blockY));
+                // System.out.println(avgRGB);
+
                 for(int y = startY; y < endY; y++){
                     for(int x = startX; x < endX; x++){
                         output.setRGB(x, y, avgRGB);
