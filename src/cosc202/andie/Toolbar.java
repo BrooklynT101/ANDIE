@@ -399,10 +399,11 @@ public class ToolBar extends JToolBar {
         defaultActions.add(viewActions.get(0));
         defaultActions.add(viewActions.get(1));
 
-        // // Macro - Start Recording, Macro - Stop Recording 
-        // ArrayList<Action> macroActions = MA.getActions();
-        // defaultActions.add(macroActions.get(1));
-        // defaultActions.add(macroActions.get(2));
+        // Macro - Start Recording, Macro - Stop Recording 
+        ArrayList<Action> macroActions = MA.getActions();
+        defaultActions.add(macroActions.get(1));
+        defaultActions.add(macroActions.get(2));
+        
         // // Selection, Crop TODO: Add Selection and Crop when marcus does the mouse
         // stuff
         // ArrayList<Action> mouseSelectionActions = MouseSelectionActions.getActions();
