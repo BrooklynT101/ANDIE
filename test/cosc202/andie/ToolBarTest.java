@@ -3,9 +3,12 @@ package cosc202.andie;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-import javax.swing.AbstractAction;
-import javax.swing.Action;
+import javax.swing.*;
 
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.util.ArrayList;
 
@@ -92,18 +95,38 @@ public class ToolBarTest {
     }
 
     /**
-     * 
+     * Test that verifies that the Open button is being loaded with an icon
      */
     @Test
     void addOpenWithIcon() {
         ToolBar toolBar = new ToolBar();
-
-        // Create a dummy do nothing action
-        Action dummyAction = new DummyAction("dummyAction");
-        toolBar.addAction(dummyAction);
-        // Assertions.assertTrue();
-        Assertions.assertTrue(toolBar.hasAction(dummyAction.getValue("Name").toString()));
+        Icon icon = toolBar.loadIcon("Open");
+        assertNotNull(icon, "Icon should not be null");
+        JButton button = new JButton("Open", icon);
+        toolBar.add(button);
+        assertTrue(button.getIcon() != null, "Icon should be set on the button");
     }
+
+    /**
+     * Test to check if each icon is actually loading to each default action on the
+     * toolbar
+     */
+    @Test
+    void testDefaultActionsLoadWithIcons() {
+        ToolBar toolBar = new ToolBar();
+        Component[] components = toolBar.getComponents();
+        for (Component component : components) {
+            if (component instanceof JButton) {
+                JButton button = (JButton) component;
+                assertNotNull(button.getIcon(), "Icon should be set on all buttons");
+            }
+        }
+    }
+
+    /**
+     * Test to ensure that all the icons in the resources folder are there.
+     */
+
     /**
      * Tests the constraints of the ToolBar, ensuring the addAction method doesn't
      * go above the limit
