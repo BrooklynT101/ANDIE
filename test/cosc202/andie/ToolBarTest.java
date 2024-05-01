@@ -38,8 +38,7 @@ public class ToolBarTest {
 
         // Create a dummy do nothing action
         Action dummyAction = new DummyAction("dummyAction");
-        toolBar.addAction(dummyAction);
-        // Assertions.assertTrue();
+        toolBar.addAction(dummyAction, null);
         Assertions.assertTrue(toolBar.hasAction(dummyAction.getValue("Name").toString()));
     }
 
@@ -90,7 +89,7 @@ public class ToolBarTest {
     void loadDefaultActions() {
         ToolBar toolBar = new ToolBar();
         toolBar.loadDefaultActions();
-        int expectedSize = 8; // Number of default actions
+        int expectedSize = 10; // Number of default actions
         Assertions.assertEquals(expectedSize, toolBar.currentActions.size());
     }
 
