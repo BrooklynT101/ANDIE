@@ -1,8 +1,7 @@
 package cosc202.andie;
 
 import java.util.*;
-import java.awt.Image;
-import java.awt.image.*;
+import java.awt.*;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -32,7 +31,7 @@ public class ToolBar extends JToolBar {
 
     private String name;
     private int maxActions;
-    private int DefaultMaxSize = 10;
+    private static final int DefaultMaxSize = 10;
 
     protected ArrayList<Action> currentActions;
 
@@ -54,7 +53,7 @@ public class ToolBar extends JToolBar {
      * ToolBar constructor, takes in a name and max size, then loads a Default list
      * of actions to the ToolBar instance.
      * 
-     * @param name    the name of the ToolBar
+     * @param name       the name of the ToolBar
      * @param maxActions the max number of Actions to add to the ToolBar
      */
     public ToolBar(String name, int maxActions, ArrayList<Action> actions) {
@@ -62,7 +61,7 @@ public class ToolBar extends JToolBar {
         this.maxActions = maxActions;
         currentActions = new ArrayList<>();
         for (Action action : actions) {
-            this.addAction(action);
+            this.addAction(action, loadIcon(action.getValue("Name").toString()));
         }
     }
 
@@ -70,7 +69,7 @@ public class ToolBar extends JToolBar {
      * ToolBar constructor, takes in a name and max size, then loads a Default list
      * of actions to the ToolBar instance.
      * 
-     * @param name    the name of the ToolBar
+     * @param name       the name of the ToolBar
      * @param maxActions the max number of Actions to add to the ToolBar
      */
     public ToolBar(String name, int maxActions) {
@@ -109,15 +108,17 @@ public class ToolBar extends JToolBar {
 
     /**
      * Overloaded addAction method, allows you to add an icon as well as an action.
-     * Creates a new JButton, adds it as a component to this ToolBar (@see java.awt.Container).
+     * Creates a new JButton, adds it as a component to this ToolBar (@see
+     * java.awt.Container).
      * 
-     * Keeps continuity with the currentActions list too, keeping to the constraint of maxActions.
+     * Keeps continuity with the currentActions list too, keeping to the constraint
+     * of maxActions.
      * 
      * @param action the action to add
      * @param icon   the icon to add to the action
      * @return true for successful removal or false for a failed operation
      */
-    public boolean addAction(Action action, String iconName) {
+    public boolean addAction(Action action, Icon iconName) {
         // If we're at our limits
         if (currentActions.size() >= this.maxActions) {
             System.err.println("Too many actions in the ToolBar!");
@@ -125,10 +126,15 @@ public class ToolBar extends JToolBar {
         }
         // Nah we good;
         String actionName = action.getValue("Name").toString();
-        JButton button = new JButton(actionName, loadIcon(actionName));
+        // Create the button
+        JButton button = new JButton(actionName);
         button.setAction(action);
+        button.setIcon(loadIcon(actionName));
+        // Add the button
         this.add(button);
+        // Add the action
         currentActions.add(action);
+        // Return if it worked
         return this.hasAction(actionName);
     }
 
@@ -220,40 +226,54 @@ public class ToolBar extends JToolBar {
     }
 
     /**
-     * Getter method for finding the wanted icon in the builds' resource folder
+     * Getter method to return the current loaded list of actions
+     * 
+     * @param name
+     * @return the currently loaded ArrayList<Action> of actions
+     */
+    public ArrayList<Action> getCurrentActions() {
+        return currentActions;
+    }
+
+    /**
+     * Getter method to return the current loaded list of JButtons
+     * 
+     * @param name
+     * @return the currently loaded ArrayList<Action> of actions
+     */
+    public Component[] getButtons() {
+        return this.getComponents();
+    }
+
+    /**
+     * Getter method for finding the wanted icon in the builds' resource folder,
+     * note the icon needs the same name as the action as defined in the parameters
+     * when you create a new action.
+     * 
+     * This takes in the name of the icon, tries to load the class resources, and
+     * find the given icon.
      * 
      * @param name
      * @return the requested icon if found, null otherwise
      */
-    // TODO: try tossing a getter for the icon when creating the action in say
-    // fileactions, who knows at this point im tired
     public Icon loadIcon(String name) {
-        URL url = null;
-
-        // try to find the url
         try {
-            url = Andie.class.getResource("/resources/" + name + ".png");
-        } catch (NullPointerException e) {
-            System.out.println("Couldn't create the url, couldnt find the resource");
-        }
-
-        // if the url is nothing
-        if (url == null) {
-            System.out.println("Couldn't find the url, url is NULL!");
-            return null;
-        } else {
-            System.out.println("Found url! " + url.toString());
-            try {
-                // BufferedImage image =
-                // ImageIO.read(Andie.class.getClassLoader().getResource(name + ".png"));
-                BufferedImage image = ImageIO.read(url);
-                Image newImg = image.getScaledInstance(20, 20, java.awt.Image.SCALE_SMOOTH); // Adjust the size
-                Icon icon = new ImageIcon(newImg);
-                return icon;
-            } catch (Exception e) {
-                System.out.println("Error loading " + name + ".png: " + e);
+            URL url = Andie.class.getClassLoader().getResource(name + ".png");
+            Image image = null;
+            if (url != null) {
+                image = ImageIO.read(url);
+            } else {
+                System.err.println("Couldn't create url for " + name);
                 return null;
             }
+            Image newImg = image.getScaledInstance(20, 20, java.awt.Image.SCALE_SMOOTH);
+            Icon icon = new ImageIcon(newImg);
+            return icon;
+
+        } catch (Exception e) {
+            System.out.println("Couldn't create the icon " + name + ", couldnt find the resource");
+            e.printStackTrace();
+            return null;
         }
     }
 
@@ -297,12 +317,36 @@ public class ToolBar extends JToolBar {
      * @param actions the list of actions to load
      */
     public void loadActionsToToolBar(ArrayList<Action> actions) {
+        // Clear everything else first
         removeAllActions();
-        // Add actions to list and ToolBar component
+
+        // iterate over each action in list
         for (Action action : actions) {
+            // Get the name
+            String actionName = (String) action.getValue("Name");
+            // Find the icon
+            Icon icon = null;
+            icon = loadIcon(actionName);
+            if (icon == null) {
+                System.err.println("Could not find icon " + actionName + ".png");
+            }
+            // Create the button
+            JButton button = new JButton();
+            button.setAction(action);
+            // Add the button
+            this.add(button);
+
+            //Use the icon to display if there is one
+            if (icon != null) {
+                button.setIcon(icon);
+                button.setText("");
+            } else {
+                button.setText(actionName);
+            }
+            
+            // Add the action
             currentActions.add(action);
-            // TODO: add implementation to load icons
-            this.add(new JButton(action));
+            System.out.println("Created button " + actionName);
         }
     }
 
@@ -357,7 +401,8 @@ public class ToolBar extends JToolBar {
 
         // TODO: create icon for this and add
         ArrayList<Action> macroActions = MA.getActions();
-
+        defaultActions.add(macroActions.get(0));
+        defaultActions.add(macroActions.get(1));
         // // Selection, Crop TODO: Add Selection and Crop when marcus does the mouse
         // stuff
         // ArrayList<Action> mouseSelectionActions = MouseSelectionActions.getActions();
