@@ -356,7 +356,7 @@ public class ColourActions {
     public class ColourChannelsAction extends ImageAction {
 
         int rotationNum = 0;
-        private static final String[] choices = { "RGB", "RBG", "GBR", "GRB", "BGR", "BRG" }; //language?
+        private final String[] choices = { "RGB", "RBG", "GBR", "GRB", "BGR", "BRG" }; //language?
         
 
 
