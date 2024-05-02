@@ -389,7 +389,7 @@ public class ColourActions {
             JPanel panel = new JPanel();
 
             JComboBox<String> dropdown = new JComboBox<String>(choices);
-            int option = JOptionPane.showOptionDialog(null, dropdown, Andie.bundle.getString("Enterfilterradius"),
+            int option = JOptionPane.showOptionDialog(null, dropdown, Andie.bundle.getString("Selectcolourchannel"),
             JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
 
             dropdown.setVisible(true);
