@@ -44,18 +44,24 @@ public class ColourChannels implements ImageOperation, java.io.Serializable {
                 int g = (argb & 0x0000FF00) >> 8;
                 int b = (argb & 0x000000FF);
 
-                if(rotation == 1){ //rgb
+                if(rotation == 0){ //rgb
                     argb = (a << 24) | (r << 16) | (g << 8) | b;
-                }else if(rotation == 2){ //rbg
+                    // System.out.println("rgb");
+                }else if(rotation == 1){ //rbg
                     argb = (a << 24) | (r << 16) | (b << 8) | g;
-                }else if(rotation == 3){ //gbr
+                    // System.out.println("rbg");
+                }else if(rotation == 2){ //gbr
                     argb = (a << 24) | (g << 16) | (b << 8) | r;
-                }else if(rotation == 4){ //grb
+                    // System.out.println("gbr");
+                }else if(rotation == 3){ //grb
                     argb = (a << 24) | (g << 16) | (r << 8) | b;
-                }else if(rotation == 5){ //bgr
+                    // System.out.println("grb");
+                }else if(rotation == 4){ //bgr
                     argb = (a << 24) | (b << 16) | (g << 8) | r;
-                }else if(rotation == 6){ //brg
+                    // System.out.println("bgr");
+                }else if(rotation == 5){ //brg
                     argb = (a << 24) | (b << 16) | (r << 8) | g;
+                    // System.out.println("brg");
                 }
  
                 input.setRGB(x, y, argb);

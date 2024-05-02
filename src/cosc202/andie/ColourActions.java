@@ -355,8 +355,7 @@ public class ColourActions {
      */
     public class ColourChannelsAction extends ImageAction {
 
-        private JFrame frame;
-        private JComboBox<String> dropdown;
+        int rotationNum = 0;
         private static final String[] choices = { "RGB", "RBG", "GBR", "GRB", "BGR", "BRG" }; //language?
         
 
@@ -387,30 +386,23 @@ public class ColourActions {
          */
         public void actionPerformed(ActionEvent e) {
 
-            frame = new JFrame("Select Colour Channel"); //TODO: Add language stuff
-            frame.setVisible(true);
-            frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-            frame.setSize(400, 150);
-            frame.setLocation(430, 100);
-
             JPanel panel = new JPanel();
-            JLabel lbl = new JLabel("Select one of the possible choices and click OK"); //TODO: Add the language stuff
-            lbl.setVisible(true);
-            panel.add(lbl);
 
-            dropdown = new JComboBox<String>(choices);
+            JComboBox<String> dropdown = new JComboBox<String>(choices);
+            int option = JOptionPane.showOptionDialog(null, dropdown, Andie.bundle.getString("Enterfilterradius"),
+            JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
 
             dropdown.setVisible(true);
             panel.add(dropdown);
 
-            JButton btn = new JButton("OK");
-            btn.addActionListener(this);
-            //frame.hidePopUp();
+            // Check the return value from the dialog box.
+            if (option == JOptionPane.CANCEL_OPTION) {
+                return;
+            } else if (option == JOptionPane.OK_OPTION) {
+                rotationNum = dropdown.getSelectedIndex();
+            }
 
-            panel.add(btn);
-            frame.add(panel);
-
-            int rotationNum = dropdown.getSelectedIndex();
+            //int rotationNum = dropdown.getSelectedIndex();
             System.out.println(rotationNum);
 
             target.getImage().apply(new ColourChannels(rotationNum));
@@ -421,3 +413,5 @@ public class ColourActions {
     }
 
 }
+//option pane 
+//get selcteditem 
