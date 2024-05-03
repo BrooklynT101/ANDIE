@@ -179,6 +179,8 @@ public class ColourActions {
             super(name, icon, desc, mnemonic);
         }
 
+        public int rotationCount = 2;
+
         /**
          * callback for when the colour channel cycling is triggered
          * <p>
@@ -190,9 +192,18 @@ public class ColourActions {
          * @param e The event triggering this callback.
          */
         public void actionPerformed(ActionEvent e) {
-            target.getImage().apply(new ColourChannelCycling());
+            
+            target.getImage().apply(new ColourChannelCycling(rotationCount));
             target.repaint();
             target.getParent().revalidate();
+
+            System.out.println(rotationCount);
+
+            if(rotationCount >= 6){
+                rotationCount = 1;
+            }else{
+                rotationCount++;
+            }
         }
 
     }

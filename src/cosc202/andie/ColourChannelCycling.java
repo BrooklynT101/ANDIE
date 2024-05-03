@@ -26,12 +26,15 @@ import javax.swing.JOptionPane;
 
 public class ColourChannelCycling implements ImageOperation, java.io.Serializable {
 
+    public int rotation;
+
     /**
      * <p>
      * Create a new ColourChannelCycling operation.
      * </p>
      */
-    ColourChannelCycling() {
+    ColourChannelCycling(int rotation){
+        this.rotation = rotation;
     }
 
     /**
@@ -60,8 +63,12 @@ public class ColourChannelCycling implements ImageOperation, java.io.Serializabl
         // int ag = 0;
         // int ab = 0;
 
+        BufferedImage output = new BufferedImage(input.getColorModel(), input.copyData(null), input.isAlphaPremultiplied(), null);
+
         for (int y = 0; y < input.getHeight(); ++y) {
             for (int x = 0; x < input.getWidth(); ++x) {
+
+
                 int argb = input.getRGB(x, y);
                 int a = (argb & 0xFF000000) >> 24;
                 int r = (argb & 0x00FF0000) >> 16;
@@ -76,26 +83,52 @@ public class ColourChannelCycling implements ImageOperation, java.io.Serializabl
                 // bg = g;
                 // bb = b;
 
-                // random order?
-                argb = (a << 24) | (g << 16) | (b << 8) | r; // rotates the RGB values
+                //random order?
+                switch(rotation){ // TODO: cycles through the colours correctly but doesnt go back to start?
+                    case 1:
+                        //argb = EditableImage.getOriginalImage().getRGB(x, y);
+                        argb = (a << 24) | (r << 16) | (g << 8) | b; //rgb = normal colours
+                        //System.out.println("rgb");
+                        break;
+                    case 2:
+                        argb = (a << 24) | (r << 16) | (b << 8) | g; //rbg = dark green sky, pink tower 
+                        //System.out.println("rbg");
+                        break;
+                    case 3:
+                        argb = (a << 24) | (b << 16) | (g << 8) | r; //gbr = green sky, purple tower
+                        //System.out.println("gbr");
+                        break;
+                    case 4:
+                        argb = (a << 24) | (r << 16) | (b << 8) | g; //grb = purple sky, dark green tower
+                        //System.out.println("grb");
+                        break;
+                    case 5:
+                        argb = (a << 24) | (b << 16) | (g << 8) | r; //brg = pink sky, dark green tower
+                        //System.out.println("brg");
+                        break;
+                    case 6: 
+                        argb = (a << 24) | (r << 16) | (b << 8) | g; //bgr = orange sky, blue tower
+                        //System.out.println("bgr");
+                        break;
+                }
 
-                // testing after pixel values
-                // System.out.println("After colour channel cycle\nAlpha: "+a+", Red: "+r+",
-                // Green: "+g+", Blue: "+b);
+
+                // argb = (a << 24) | (g << 16) | (b << 8) | r; //rotates the RGB values 
+                
+                //testing after pixel values
+                //System.out.println("After colour channel cycle\nAlpha: "+a+", Red: "+r+", Green: "+g+", Blue: "+b);
                 // aa = (argb & 0xFF000000) >> 24;
                 // ar = (argb & 0x00FF0000) >> 16;
                 // ag = (argb & 0x0000FF00) >> 8;
                 // ab = (argb & 0x000000FF);
-                input.setRGB(x, y, argb);
+                output.setRGB(x, y, argb);
             }
         }
-        // outputting test - if 0 theres a problem
-        // System.out.println("Before colour channel cycle\nAlpha: "+ba+", Red: "+br+",
-        // Green: "+bg+", Blue: "+bb);
-        // System.out.println("After colour channel cycle\nAlpha: "+aa+", Red: "+ar+",
-        // Green: "+ag+", Blue: "+ab);
-
-        return input;
+        //outputting test - if 0 theres a problem
+        // System.out.println("Before colour channel cycle\nAlpha: "+ba+", Red: "+br+", Green: "+bg+", Blue: "+bb);
+        // System.out.println("After colour channel cycle\nAlpha: "+aa+", Red: "+ar+", Green: "+ag+", Blue: "+ab);
+        
+        return output;
     }
 
     @Override

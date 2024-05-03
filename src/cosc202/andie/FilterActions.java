@@ -55,7 +55,13 @@ public class FilterActions {
         actions.add(new SharpenAction(Andie.bundle.getString("Sharpenfilter"), null,
                 Andie.bundle.getString("Applyasharpenfilter"), Integer.valueOf(KeyEvent.VK_S)));
         actions.add(new BlockAveragingAction(Andie.bundle.getString("BlockAveraging"), null,
+<<<<<<< HEAD
                 Andie.bundle.getString("ApplyBlockAveraging"), Integer.valueOf(KeyEvent.VK_S)));
+=======
+                Andie.bundle.getString("Applyblockaveraging"), Integer.valueOf(KeyEvent.VK_S)));
+        actions.add(new RandomScatteringAction(Andie.bundle.getString("RandomScattering"), null,
+                Andie.bundle.getString("Applyrandomscattering"), Integer.valueOf(KeyEvent.VK_S)));
+>>>>>>> RandomScattering
     }
 
     /**
@@ -448,6 +454,7 @@ public class FilterActions {
 
     }
 
+    
     /**
      * <p>
      * Action to do the block averaging filter
@@ -490,7 +497,7 @@ public class FilterActions {
             // default.
             ((DefaultEditor) repeatSpinner.getEditor()).getTextField().setEditable(false);
             int option = JOptionPane.showOptionDialog(null, repeatSpinner,
-                    Andie.bundle.getString("RepeatFilter"),
+                    Andie.bundle.getString("Enterfilterradius"),
                     JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
 
             // Check the return value from the dialog box.
@@ -508,6 +515,7 @@ public class FilterActions {
     }
 
     /**
+<<<<<<< HEAD
      * Getter method to get the actions for the colour actions
      * 
      * @return all available actions
@@ -516,4 +524,64 @@ public class FilterActions {
         ArrayList<Action> allActions = actions;
         return allActions;
     }
+=======
+     * <p>
+     * Action to do the block averaging filter
+     * <p>
+     * 
+     * @see RandomScattering
+     * @author Amelia
+     */
+    public class RandomScatteringAction extends ImageAction {
+        /**
+         * Create a new blur filter action.
+         * 
+         * @param name     The name of the action (ignored if null).
+         * @param icon     An icon to use to represent the action (ignored if null).
+         * @param desc     A brief description of the action (ignored if null).
+         * @param mnemonic A mnemonic key to use as a shortcut (ignored if null).
+         */
+        RandomScatteringAction(String name, ImageIcon icon,
+                String desc, Integer mnemonic) {
+            super(name, icon, desc, mnemonic);
+        }
+
+        /**
+         * <p>
+         * This method is called whenever the BlurFilterAction is triggered.
+         * It prompts the user for a value, then blurs the image that number of times
+         * {@link BlockAveraging}.
+         * </p>
+         * 
+         * @param e The event triggering this callback.
+         */
+        public void actionPerformed(ActionEvent e) {
+            // Runs at least once
+            int blockSize = 1;
+
+            // Pop-up dialog box to ask for the desired repeated operations.
+            SpinnerNumberModel repeatModel = new SpinnerNumberModel(1, 1, 10, 1);
+            JSpinner repeatSpinner = new JSpinner(repeatModel);
+            // Prevents adding no 1 - 10 integers, by making the text field un editable by
+            // default.
+            ((DefaultEditor) repeatSpinner.getEditor()).getTextField().setEditable(false);
+            int option = JOptionPane.showOptionDialog(null, repeatSpinner,
+                    Andie.bundle.getString("Enterfilterradius"),
+                    JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
+
+            // Check the return value from the dialog box.
+            if (option == JOptionPane.CANCEL_OPTION) {
+                return;
+            } else if (option == JOptionPane.OK_OPTION) {
+                blockSize = repeatModel.getNumber().intValue();
+            }
+
+            // Create and apply the filter wth the blockSIze
+            target.getImage().apply(new RandomScattering(blockSize));
+            target.repaint();
+            target.getParent().revalidate();
+        }
+    }
+
+>>>>>>> RandomScattering
 }
