@@ -116,7 +116,7 @@ public class FilterswithNegativeResults {
 
         BufferedImage output = expand.shrinking(expanded);
 
-        return expanded;
+        return output;
     }
 
 }
