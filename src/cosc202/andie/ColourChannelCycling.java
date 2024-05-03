@@ -141,7 +141,7 @@ public class ColourChannelCycling implements ImageOperation, java.io.Serializabl
      */
     @Override
     public ImageOperation clone() {
-        ColourChannelCycling copy = new ColourChannelCycling();
+        ColourChannelCycling copy = new ColourChannelCycling(rotation);
         return copy;
     }
 
