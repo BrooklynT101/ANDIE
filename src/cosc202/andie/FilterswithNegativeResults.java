@@ -67,48 +67,55 @@ public class FilterswithNegativeResults {
 
                 // Cases for Negative results
                 if (Resultaf[x][y] < 0) {
-                    Resultaf[x][y] += 127.f;
-                    Resultaf[x][y] = Math.max(Resultaf[x][y], 0.f);
+                    Resultaf[x][y] += 127f;
+                    Resultaf[x][y] = Math.max(Resultaf[x][y], 0f);
+                    // Resultaf[x][y] = 0;
 
                 }
                 if (Resultrf[x][y] < 0) {
-                    Resultrf[x][y] += 127.f;
-                    Resultrf[x][y] = Math.max(Resultrf[x][y], 0.f);
+                    Resultrf[x][y] += 127f;
+                    Resultrf[x][y] = Math.max(Resultrf[x][y], 0f);
+                    // Resultrf[x][y] = 0;
 
                 }
                 if (Resultgf[x][y] < 0) {
-                    Resultgf[x][y] += 127.f;
-                    Resultgf[x][y] = Math.max(Resultgf[x][y], 0.f);
+                    Resultgf[x][y] += 127f;
+                    Resultgf[x][y] = Math.max(Resultgf[x][y], 0f);
+                    // Resultgf[x][y] = 0;
 
                 }
 
                 if (Resultbf[x][y] < 0) {
-                    Resultbf[x][y] += 127.f;
-                    Resultbf[x][y] = Math.max(Resultbf[x][y], 0.f);
+                    Resultbf[x][y] += 127f;
+                    Resultbf[x][y] = Math.max(Resultbf[x][y], 0f);
+                    // Resultbf[x][y] = 0;
                 }
 
                 // 2^32
 
                 // Cases for Over 255 results
                 if (Resultaf[x][y] > 255) {
-                    Resultaf[x][y] -= 127.f;
-                    Resultaf[x][y] = Math.min(Resultaf[x][y], 255.f);
+                    Resultaf[x][y] -= 127f;
+                    Resultaf[x][y] = Math.min(Resultaf[x][y], 255f);
+                    // Resultaf[x][y] = 255;
 
                 }
                 if (Resultrf[x][y] > 255) {
-                    Resultrf[x][y] -= 127.f;
-                    Resultrf[x][y] = Math.min(Resultrf[x][y], 255.f);
+                    Resultrf[x][y] -= 127f;
+                    Resultrf[x][y] = Math.min(Resultrf[x][y], 255f);
+                    // Resultrf[x][y] = 255;
 
                 }
                 if (Resultgf[x][y] > 255) {
-                    Resultgf[x][y] -= 127.f;
-                    Resultgf[x][y] = Math.min(Resultgf[x][y], 255.f);
+                    Resultgf[x][y] -= 127f;
+                    Resultgf[x][y] = Math.min(Resultgf[x][y], 255f);
+                    // Resultgf[x][y] = 255;
 
                 }
                 if (Resultbf[x][y] > 255) {
-                    Resultbf[x][y] -= 127.f;
-                    Resultbf[x][y] = Math.min(Resultbf[x][y], 255.f);
-
+                    Resultbf[x][y] -= 127f;
+                    Resultbf[x][y] = Math.min(Resultbf[x][y], 255f);
+                    // Resultbf[x][y] = 255;
                 }
 
                 Resulta[x][y] = (int) Resultaf[x][y];
@@ -119,7 +126,14 @@ public class FilterswithNegativeResults {
                 int argb;
                 argb = (Resulta[x][y] << 24) | (Resultr[x][y] << 16) | (Resultg[x][y] << 8) | (Resultb[x][y]);
 
+                // Color c = new Color(Resultrf[x][y], Resultgf[x][y], Resultbf[x][y],
+                // Resultaf[x][y]);
                 expanded.setRGB(x, y, argb);
+                // float[] components = { Resultrf[x][y], Resultgf[x][y], Resultbf[x][y] };
+                // Color k = new Color(expanded.getGraphics().getColor().getColorSpace(),
+                // components, Resultaf[x][y]);
+
+                // expanded.getGraphics().setColor(k);
 
             }
         }
