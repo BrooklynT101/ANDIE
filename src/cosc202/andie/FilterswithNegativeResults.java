@@ -46,85 +46,61 @@ public class FilterswithNegativeResults {
         int[][] Resultr = new int[expanded.getWidth()][expanded.getHeight()];
         int[][] Resultg = new int[expanded.getWidth()][expanded.getHeight()];
         int[][] Resultb = new int[expanded.getWidth()][expanded.getHeight()];
+
         for (int y = radius; y < input.getHeight() + radius; y++) {
             for (int x = radius; x < input.getWidth() + radius; x++) {
                 Resultaf[x][y] = 0;
                 Resultrf[x][y] = 0;
                 Resultgf[x][y] = 0;
                 Resultbf[x][y] = 0;
+                Color d = new Color(expanded.getRGB(x , y ));
+                System.out.println("Pre:" + d.getAlpha());
+                // float sumr = 0;
+                // float sumg = 0;
+                // float sumb = 0;
                 for (int dy = -radius; dy <= radius; dy++) {
                     for (int dx = -radius; dx <= radius; dx++) {
 
                         Color c = new Color(expanded.getRGB(x + dx, y + dy));
-                        Resultaf[x][y] += kernerldata2d[radius + dx][radius + dy] * c.getAlpha();
-                        // Resulta[x][y] = c.getAlpha();
+                        // Resultaf[x][y] += kernerldata2d[radius + dx][radius + dy] * c.getAlpha();
+                        // sumr += kernerldata2d[radius + dx][radius + dy] * c.getRed();
+                        // sumg += kernerldata2d[radius + dx][radius + dy] * c.getGreen();
+                        // sumb += kernerldata2d[radius + dx][radius + dy] * c.getBlue();
+                        // Resultaf[x][y] = c.getAlpha();
                         Resultrf[x][y] += kernerldata2d[radius + dx][radius + dy] * c.getRed();
                         Resultgf[x][y] += kernerldata2d[radius + dx][radius + dy] * c.getGreen();
                         Resultbf[x][y] += kernerldata2d[radius + dx][radius + dy] * c.getBlue();
-
+                        
+                        // System.out.println(kernerldata2d[radius + dx][radius + dy]);
                     }
                 }
 
                 // Cases for Negative results
-                if (Resultaf[x][y] < 0) {
-                    Resultaf[x][y] += 127f;
-                    Resultaf[x][y] = Math.max(Resultaf[x][y], 0f);
-                    // Resultaf[x][y] = 0;
+                    Resultrf[x][y] = Resultrf[x][y]/2 +127;
+                    Resultgf[x][y] = Resultgf[x][y]/2 +127;
+                    Resultbf[x][y] = Resultbf[x][y]/2 +127;
+                    // System.out.println(Resultrf[x][y] + ":" + Resultgf[x][y] + ":" +Resultbf[x][y]);
 
-                }
-                if (Resultrf[x][y] < 0) {
-                    Resultrf[x][y] += 127f;
-                    Resultrf[x][y] = Math.max(Resultrf[x][y], 0f);
-                    // Resultrf[x][y] = 0;
+                    // sumr = sumr/2 +127;
+                    // sumg = sumg/2 +127;
+                    // sumb = sumb/2 +127;
+                                Color c = new Color(expanded.getRGB(x , y ));
+                            
+                // Resulta[x][y] = (int)Resultaf[x][y];
+                Resulta[x][y] = c.getAlpha();
+                System.out.println(Resulta[x][y]);
+                Resultr[x][y] = (int) Math.min(Math.max(Resultrf[x][y],0),255);
+                Resultg[x][y] = (int) Math.min(Math.max(Resultgf[x][y],0),255);
+                Resultb[x][y] = (int) Math.min(Math.max(Resultbf[x][y],0),255);
 
-                }
-                if (Resultgf[x][y] < 0) {
-                    Resultgf[x][y] += 127f;
-                    Resultgf[x][y] = Math.max(Resultgf[x][y], 0f);
-                    // Resultgf[x][y] = 0;
-
-                }
-
-                if (Resultbf[x][y] < 0) {
-                    Resultbf[x][y] += 127f;
-                    Resultbf[x][y] = Math.max(Resultbf[x][y], 0f);
-                    // Resultbf[x][y] = 0;
-                }
-
-                // 2^32
-
-                // Cases for Over 255 results
-                if (Resultaf[x][y] > 255) {
-                    Resultaf[x][y] -= 127f;
-                    Resultaf[x][y] = Math.min(Resultaf[x][y], 255f);
-                    // Resultaf[x][y] = 255;
-
-                }
-                if (Resultrf[x][y] > 255) {
-                    Resultrf[x][y] -= 127f;
-                    Resultrf[x][y] = Math.min(Resultrf[x][y], 255f);
-                    // Resultrf[x][y] = 255;
-
-                }
-                if (Resultgf[x][y] > 255) {
-                    Resultgf[x][y] -= 127f;
-                    Resultgf[x][y] = Math.min(Resultgf[x][y], 255f);
-                    // Resultgf[x][y] = 255;
-
-                }
-                if (Resultbf[x][y] > 255) {
-                    Resultbf[x][y] -= 127f;
-                    Resultbf[x][y] = Math.min(Resultbf[x][y], 255f);
-                    // Resultbf[x][y] = 255;
-                }
-
-                Resulta[x][y] = (int) Resultaf[x][y];
-                Resultr[x][y] = (int) Resultrf[x][y];
-                Resultg[x][y] = (int) Resultgf[x][y];
-                Resultb[x][y] = (int) Resultbf[x][y];
+                // int r = (int) Math.min(Math.max(sumr,0),255);
+                // int g = (int) Math.min(Math.max(sumg,0),255);
+                // int b = (int) Math.min(Math.max(sumb,0),255);
 
                 int argb;
                 argb = (Resulta[x][y] << 24) | (Resultr[x][y] << 16) | (Resultg[x][y] << 8) | (Resultb[x][y]);
+                // Color c = new Color(expanded.getRGB(x , y ));
+                // argb = (c.getAlpha() << 24) |(r << 16) | (g << 8) | (b);
 
                 // Color c = new Color(Resultrf[x][y], Resultgf[x][y], Resultbf[x][y],
                 // Resultaf[x][y]);
@@ -140,7 +116,7 @@ public class FilterswithNegativeResults {
 
         BufferedImage output = expand.shrinking(expanded);
 
-        return output;
+        return expanded;
     }
 
 }

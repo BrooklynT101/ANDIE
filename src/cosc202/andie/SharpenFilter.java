@@ -66,21 +66,19 @@ public class SharpenFilter implements ImageOperation, java.io.Serializable {
       ConvolveOp convOp = new ConvolveOp(kernel);
 
       // Extending Filter Addition:
-      // ExtendingFilters expand = new ExtendingFilters(input, radius);
+      ExtendingFilters expand = new ExtendingFilters(input, radius);
 
       // Extending Filter Addition:
-      // BufferedImage expanded = expand.extending();
+      BufferedImage expanded = expand.extending();
 
-      FilterswithNegativeResults f = new FilterswithNegativeResults(kernel);        
 
-      BufferedImage output = f.filter(input, radius);
       // Applying filter to the input image
-      // for (int i = 1; i <= t; i++) {
-         // expanded = convOp.filter(expanded, null);
-      // }
+      for (int i = 1; i <= t; i++) {
+         expanded = convOp.filter(expanded, null);
+      }
 
       // Extending Filter Addition:
-      // BufferedImage output = expand.shrinking(expanded);
+      BufferedImage output = expand.shrinking(expanded);
 
       // return the output image
       return output;
