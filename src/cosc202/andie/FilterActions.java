@@ -55,13 +55,9 @@ public class FilterActions {
         actions.add(new SharpenAction(Andie.bundle.getString("Sharpenfilter"), null,
                 Andie.bundle.getString("Applyasharpenfilter"), Integer.valueOf(KeyEvent.VK_S)));
         actions.add(new BlockAveragingAction(Andie.bundle.getString("BlockAveraging"), null,
-<<<<<<< HEAD
                 Andie.bundle.getString("ApplyBlockAveraging"), Integer.valueOf(KeyEvent.VK_S)));
-=======
-                Andie.bundle.getString("Applyblockaveraging"), Integer.valueOf(KeyEvent.VK_S)));
         actions.add(new RandomScatteringAction(Andie.bundle.getString("RandomScattering"), null,
                 Andie.bundle.getString("Applyrandomscattering"), Integer.valueOf(KeyEvent.VK_S)));
->>>>>>> RandomScattering
     }
 
     /**
@@ -515,16 +511,6 @@ public class FilterActions {
     }
 
     /**
-<<<<<<< HEAD
-     * Getter method to get the actions for the colour actions
-     * 
-     * @return all available actions
-     */
-    public ArrayList<Action> getActions() {
-        ArrayList<Action> allActions = actions;
-        return allActions;
-    }
-=======
      * <p>
      * Action to do the block averaging filter
      * <p>
@@ -583,5 +569,13 @@ public class FilterActions {
         }
     }
 
->>>>>>> RandomScattering
+    /**
+     * Getter method to get the actions for the colour actions
+     * 
+     * @return all available actions
+     */
+    public ArrayList<Action> getActions() {
+        ArrayList<Action> allActions = actions;
+        return allActions;
+    }
 }
