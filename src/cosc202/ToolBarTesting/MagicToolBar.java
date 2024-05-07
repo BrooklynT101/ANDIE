@@ -78,7 +78,7 @@ public class MagicToolBar extends JToolBar {
     public void showEditDialog() {
         ToolBarEditDialog dialog = new ToolBarEditDialog(null, allActions, selectedActions);
         dialog.setVisible(true);
-
+        
         // Update selectedActions after dialog is closed
         setSelectedActions(dialog.getSelectedActions());
     }

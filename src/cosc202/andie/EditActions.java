@@ -41,9 +41,10 @@ public class EditActions {
                 Integer.valueOf(KeyEvent.VK_Z));
         RedoAction redo = new RedoAction(Andie.bundle.getString("Redo"), null, Andie.bundle.getString("Redo"),
                 Integer.valueOf(KeyEvent.VK_Y));
-        ToolBarEditAction toolbarEdit = new ToolBarEditAction(Andie.bundle.getString("Redo"), null, Andie.bundle.getString("Redo"),
+        ToolBarEditAction toolbarEdit = new ToolBarEditAction(Andie.bundle.getString("Redo"), null,
+                Andie.bundle.getString("Redo"),
                 Integer.valueOf(KeyEvent.VK_T));
-        
+
         // keyboard shortcuts
         undo.putValue(Action.ACCELERATOR_KEY, KeyStroke.getKeyStroke("control Z"));
         redo.putValue(Action.ACCELERATOR_KEY, KeyStroke.getKeyStroke("control Y"));
@@ -51,7 +52,7 @@ public class EditActions {
         // adding actions to list
         actions.add(undo);
         actions.add(redo);
-        actions.add(toolbarEdit);
+        // actions.add(toolbarEdit); TODO: implement this
 
     }
 
@@ -158,6 +159,7 @@ public class EditActions {
 
     /**
      * Getter method to get the actions for the edit actions
+     * 
      * @return all available actions
      */
     public ArrayList<Action> getActions() {
@@ -194,20 +196,13 @@ public class EditActions {
          * @param e The event triggering this callback.
          */
         public void actionPerformed(ActionEvent e) {
-            //TODO: create a prompt that dynamically updates when each action is loaded and removed from the toolbar (see the UI_Comp toolbar edit files) 
-            boolean correct = false;
-            while (!correct) {
-                int input = 0;//readInt("Select Option\n1. option\n2. option\n0. exit");
-                switch (input) {
-                    case 1:
-                        break;
-                    case 2:
-                        break;
-                    case 0:
-                        System.exit(0);
-                }
-            }
-        }
-    }
+            // TODO: create a prompt that dynamically updates when each action is loaded and
+            // removed from the toolbar (see the UI_Comp toolbar edit files)
 
+            JFrame frame = new JFrame("Edit ToolBar Actions");
+
+            // frame.add(null);
+        }
+
+    }
 }

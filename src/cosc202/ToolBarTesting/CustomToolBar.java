@@ -10,11 +10,28 @@ import java.awt.event.KeyEvent;
 /**
  * Need to check this out
  */
+
 public class CustomToolBar extends JToolBar {
 
     private ArrayList<Action> selectedActions;
     private ArrayList<AbstractButton> toolbarButtons;
     private ArrayList<Action> allActions;
+
+    public static void main(String[] args) {
+        SwingUtilities.invokeLater(() -> {
+            JFrame frame = new JFrame("Custom ToolBar");
+            JMenuBar menuBar = new JMenuBar();
+            CustomToolBar toolBar = new CustomToolBar();
+            JButton editButton = new JButton(
+                    new EditToolBarAction("EditToolBar", null, "EditToolBar", Integer.valueOf(KeyEvent.VK_Z), toolBar));
+            menuBar.add(editButton);
+            frame.setJMenuBar(menuBar);
+            frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            frame.getContentPane().add(toolBar, BorderLayout.NORTH);
+            frame.setSize(400, 200);
+            frame.setVisible(true);
+        });
+    }
 
     public CustomToolBar() {
         selectedActions = new ArrayList<>();
@@ -82,21 +99,5 @@ public class CustomToolBar extends JToolBar {
 
         // Update selectedActions after dialog is closed
         setSelectedActions(dialog.getSelectedActions());
-    }
-
-    public static void main(String[] args) {
-        SwingUtilities.invokeLater(() -> {
-            JFrame frame = new JFrame("Custom ToolBar");
-            JMenuBar menuBar = new JMenuBar();
-            CustomToolBar toolBar = new CustomToolBar();
-            JButton editButton = new JButton(new EditToolBarAction("EditToolBar", null, "EditToolBar", Integer.valueOf(KeyEvent.VK_Z), toolBar));
-            menuBar.add(editButton);
-            frame.setJMenuBar(menuBar);
-            frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-            frame.getContentPane().add(toolBar, BorderLayout.NORTH);
-            frame.setSize(400, 200);
-            frame.setLocationRelativeTo(null);
-            frame.setVisible(true);
-        });
     }
 }

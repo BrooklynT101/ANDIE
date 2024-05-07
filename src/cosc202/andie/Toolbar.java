@@ -33,7 +33,8 @@ public class ToolBar extends JToolBar {
     private int maxActions;
     private static final int DefaultMaxSize = 10;
 
-    protected ArrayList<Action> currentActions;
+    protected ArrayList<Action> activeActions;
+    protected ArrayList<Action> inactiveActions;
 
     // TODO: allow user to add and remove actions from tool bar, update GUI
 
@@ -45,7 +46,7 @@ public class ToolBar extends JToolBar {
         // create default values
         this.name = "ToolBar";
         this.maxActions = DefaultMaxSize;
-        currentActions = new ArrayList<>();
+        activeActions = new ArrayList<>();
         loadDefaultActions();
     }
 
@@ -59,7 +60,7 @@ public class ToolBar extends JToolBar {
     public ToolBar(String name, int maxActions, ArrayList<Action> actions) {
         this.name = name;
         this.maxActions = maxActions;
-        currentActions = new ArrayList<>();
+        activeActions = new ArrayList<>();
         for (Action action : actions) {
             this.addAction(action, loadIcon(action.getValue("Name").toString()));
         }
@@ -75,7 +76,7 @@ public class ToolBar extends JToolBar {
     public ToolBar(String name, int maxActions) {
         this.name = name;
         this.maxActions = maxActions;
-        currentActions = new ArrayList<>();
+        activeActions = new ArrayList<>();
         loadDefaultActions();
     }
 
@@ -90,11 +91,11 @@ public class ToolBar extends JToolBar {
      * @return true for successful addition or false for a failed operation
      */
     public boolean addAction(Action action) {
-        if (currentActions.size() >= this.maxActions) {
+        if (activeActions.size() >= this.maxActions) {
             System.err.println("Too many actions in the ToolBar!");
             return false;
         } else {
-            currentActions.add(action);
+            activeActions.add(action);
             System.err.println("Added action " + action.getValue("Name") + "!");
             this.add(new JButton((Action) action));
 
@@ -111,7 +112,7 @@ public class ToolBar extends JToolBar {
      * Creates a new JButton, adds it as a component to this ToolBar (@see
      * java.awt.Container).
      * 
-     * Keeps continuity with the currentActions list too, keeping to the constraint
+     * Keeps continuity with the activeActions list too, keeping to the constraint
      * of maxActions.
      * 
      * @param action the action to add
@@ -120,7 +121,7 @@ public class ToolBar extends JToolBar {
      */
     public boolean addAction(Action action, Icon iconName) {
         // If we're at our limits
-        if (currentActions.size() >= this.maxActions) {
+        if (activeActions.size() >= this.maxActions) {
             System.err.println("Too many actions in the ToolBar!");
             return false;
         }
@@ -133,26 +134,26 @@ public class ToolBar extends JToolBar {
         // Add the button
         this.add(button);
         // Add the action
-        currentActions.add(action);
+        activeActions.add(action);
         // Return if it worked
         return this.hasAction(actionName);
     }
 
     /**
      * Getter method that retrieves a given action name as a String, throwing an
-     * exception if not found or the ToolBar currentActions list is empty.
+     * exception if not found or the ToolBar activeActions list is empty.
      * 
      * @param actionName
      * @return the requested Action object.
      * @throws Exception
      */
     public Action getAction(String actionName) throws Exception {
-        if (currentActions.isEmpty()) {
+        if (activeActions.isEmpty()) {
             System.err.println("Action list is empty!");
-            throw new Exception("No actions loaded to ToolBar (currentActions == null)");
+            throw new Exception("No actions loaded to ToolBar (activeActions == null)");
         }
 
-        for (Action action : currentActions) {
+        for (Action action : activeActions) {
             String name = (String) action.getValue("Name");
             System.out.println(name + " found!");
             if (actionName.equals(name)) {
@@ -169,12 +170,12 @@ public class ToolBar extends JToolBar {
      * @return true if found, false if not found or list is empty
      */
     public boolean hasAction(String actionName) {
-        if (currentActions.isEmpty()) {
-            System.err.println("Nothing in currentActions!");
+        if (activeActions.isEmpty()) {
+            System.err.println("Nothing in activeActions!");
             return false;
         }
 
-        for (Action action : currentActions) {
+        for (Action action : activeActions) {
             String name = (String) action.getValue("Name");
             if (name.equals(actionName)) {
                 return true;
@@ -193,11 +194,11 @@ public class ToolBar extends JToolBar {
      * @return true for successful removal or false for a failed operation
      */
     public boolean removeAction(Action action) {
-        if (currentActions.isEmpty()) {
+        if (activeActions.isEmpty()) {
             return false;
         } else {
-            currentActions.remove(action);
-            loadActionsToToolBar(currentActions);
+            activeActions.remove(action);
+            loadActionsToToolBar(activeActions);
             return true;
         }
     }
@@ -232,7 +233,32 @@ public class ToolBar extends JToolBar {
      * @return the currently loaded ArrayList<Action> of actions
      */
     public ArrayList<Action> getCurrentActions() {
-        return currentActions;
+        return activeActions;
+    }
+
+    /**
+     * Getter for the inactive actions, updating before sending it.
+     * @return the list of inactive Actions
+     */
+    public ArrayList<Action> getInactiveActions() {
+        updateActions();
+        return inactiveActions;
+    }
+
+    /**
+     * Updates the inactive actions so that only the actions not loaded to the toolbar are stored.
+     */
+    public void updateActions() {
+        this.inactiveActions = getAllActions();
+        for (Action activeAction : activeActions) {
+            if (this.inactiveActions.contains(activeAction)) {
+                this.inactiveActions.remove(activeAction);
+            }
+        }
+    }
+
+    public void showEditDialog() {
+        
     }
 
     /**
@@ -283,7 +309,7 @@ public class ToolBar extends JToolBar {
     public void saveActions() {
         // Serialize the actions list
         try (ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream("actions.ser"))) {
-            out.writeObject(currentActions);
+            out.writeObject(activeActions);
         } catch (IOException e) {
             System.err.println("Couldn't save ToolBar preferences");
             e.printStackTrace();
@@ -301,8 +327,8 @@ public class ToolBar extends JToolBar {
         // try dserialize the perferred common tools configuration
         try (InputStream inputStream = Andie.class.getClassLoader().getResourceAsStream("actions.ser")) {
             ObjectInputStream in = new ObjectInputStream(inputStream);
-            currentActions = (ArrayList<Action>) in.readObject();
-            for (Action action : currentActions) {
+            activeActions = (ArrayList<Action>) in.readObject();
+            for (Action action : activeActions) {
                 this.add(action);
             }
         } catch (IOException | ClassNotFoundException | NullPointerException e) {
@@ -336,16 +362,16 @@ public class ToolBar extends JToolBar {
             // Add the button
             this.add(button);
 
-            //Use the icon to display if there is one
+            // Use the icon to display if there is one
             if (icon != null) {
                 button.setIcon(icon);
                 button.setText("");
             } else {
                 button.setText(actionName);
             }
-            
+
             // Add the action
-            currentActions.add(action);
+            activeActions.add(action);
             System.out.println("Created button " + actionName);
         }
     }
@@ -359,7 +385,7 @@ public class ToolBar extends JToolBar {
         // Try to clear everything
         try {
             this.removeAll();
-            this.currentActions.clear();
+            this.activeActions.clear();
             return true;
         } catch (Exception e) {
             System.err.println("Toolbar was already empty");
@@ -399,11 +425,11 @@ public class ToolBar extends JToolBar {
         defaultActions.add(viewActions.get(0));
         defaultActions.add(viewActions.get(1));
 
-        // Macro - Start Recording, Macro - Stop Recording 
+        // Macro - Start Recording, Macro - Stop Recording
         ArrayList<Action> macroActions = MA.getActions();
         defaultActions.add(macroActions.get(1));
         defaultActions.add(macroActions.get(2));
-        
+
         // // Selection, Crop TODO: Add Selection and Crop when marcus does the mouse
         // stuff
         // ArrayList<Action> mouseSelectionActions = MouseSelectionActions.getActions();
@@ -465,7 +491,7 @@ public class ToolBar extends JToolBar {
      */
     public String toString() {
         StringBuilder builder = new StringBuilder();
-        for (Action action : currentActions) {
+        for (Action action : activeActions) {
             builder.append(action.toString()).append("\n");
         }
         return builder.toString();
