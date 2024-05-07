@@ -486,21 +486,33 @@ public class FilterActions {
             // Runs at least once
             int blockSize = 1;
 
+            JPanel spinnerPanel = new JPanel();
+
             // Pop-up dialog box to ask for the desired repeated operations.
-            SpinnerNumberModel repeatModel = new SpinnerNumberModel(1, 1, 10, 1);
-            JSpinner repeatSpinner = new JSpinner(repeatModel);
+            SpinnerNumberModel xModel = new SpinnerNumberModel(1, 1, 10, 1);
+            SpinnerNumberModel yModel = new SpinnerNumberModel(1, 1, 10, 1);
+            JSpinner xSpinner = new JSpinner(xModel);
+            JSpinner ySpinner = new JSpinner(yModel);
             // Prevents adding no 1 - 10 integers, by making the text field un editable by
             // default.
-            ((DefaultEditor) repeatSpinner.getEditor()).getTextField().setEditable(false);
-            int option = JOptionPane.showOptionDialog(null, repeatSpinner,
+            ((DefaultEditor) xSpinner.getEditor()).getTextField().setEditable(false);
+            ((DefaultEditor) ySpinner.getEditor()).getTextField().setEditable(false);
+
+            spinnerPanel.add(xSpinner);
+            spinnerPanel.add(ySpinner);
+
+            int option1 = JOptionPane.showOptionDialog(null, xSpinner,
+                    Andie.bundle.getString("Enterfilterradius"),
+                    JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
+            int option2 = JOptionPane.showOptionDialog(null, ySpinner,
                     Andie.bundle.getString("Enterfilterradius"),
                     JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
 
             // Check the return value from the dialog box.
-            if (option == JOptionPane.CANCEL_OPTION) {
+            if (option1 == JOptionPane.CANCEL_OPTION) {
                 return;
-            } else if (option == JOptionPane.OK_OPTION) {
-                blockSize = repeatModel.getNumber().intValue();
+            } else if (option1 == JOptionPane.OK_OPTION) {
+                blockSize = xModel.getNumber().intValue();
             }
 
             // Create and apply the filter wth the blockSIze

@@ -31,11 +31,11 @@ public class BlockAveraging implements ImageOperation, java.io.Serializable {
 
         for (int blockY = 0; blockY < numBlocksY; blockY++) { // loop through each block in the image
             for (int blockX = 0; blockX < numBlocksX; blockX++) {
-                // calculate the coordinates of the current clock
+                // calculate the coordinates of the current block
                 int startX = blockX * blockSize;
                 int startY = blockY * blockSize;
-                int endX = Math.min(startX + blockSize, input.getWidth());
-                int endY = Math.min(startY + blockSize, input.getHeight());
+                int endX = Math.min(startX + blockSize, input.getWidth()-1);
+                int endY = Math.min(startY + blockSize, input.getHeight()-1);
 
                 // variables to store the total values
                 int totalRed = 0;
