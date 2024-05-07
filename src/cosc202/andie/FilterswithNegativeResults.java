@@ -2,8 +2,6 @@ package cosc202.andie;
 
 import java.awt.Color;
 import java.awt.image.*;
-import javax.swing.JFrame;
-import javax.swing.JOptionPane;
 
 public class FilterswithNegativeResults {
 
@@ -46,15 +44,13 @@ public class FilterswithNegativeResults {
         int[][] Resultr = new int[expanded.getWidth()][expanded.getHeight()];
         int[][] Resultg = new int[expanded.getWidth()][expanded.getHeight()];
         int[][] Resultb = new int[expanded.getWidth()][expanded.getHeight()];
-
         for (int y = radius; y < input.getHeight() + radius; y++) {
             for (int x = radius; x < input.getWidth() + radius; x++) {
                 Resultaf[x][y] = 0;
                 Resultrf[x][y] = 0;
                 Resultgf[x][y] = 0;
                 Resultbf[x][y] = 0;
-                Color d = new Color(expanded.getRGB(x , y ));
-                System.out.println("Pre:" + d.getAlpha());
+                // Color d = new Color(expanded.getRGB(x, y));
                 // float sumr = 0;
                 // float sumg = 0;
                 // float sumb = 0;
@@ -66,32 +62,32 @@ public class FilterswithNegativeResults {
                         // sumr += kernerldata2d[radius + dx][radius + dy] * c.getRed();
                         // sumg += kernerldata2d[radius + dx][radius + dy] * c.getGreen();
                         // sumb += kernerldata2d[radius + dx][radius + dy] * c.getBlue();
-                        // Resultaf[x][y] = c.getAlpha();
+                        Resultaf[x][y] = c.getAlpha();
                         Resultrf[x][y] += kernerldata2d[radius + dx][radius + dy] * c.getRed();
                         Resultgf[x][y] += kernerldata2d[radius + dx][radius + dy] * c.getGreen();
                         Resultbf[x][y] += kernerldata2d[radius + dx][radius + dy] * c.getBlue();
-                        
                         // System.out.println(kernerldata2d[radius + dx][radius + dy]);
                     }
                 }
-
                 // Cases for Negative results
-                    Resultrf[x][y] = Resultrf[x][y]/2 +127;
-                    Resultgf[x][y] = Resultgf[x][y]/2 +127;
-                    Resultbf[x][y] = Resultbf[x][y]/2 +127;
-                    // System.out.println(Resultrf[x][y] + ":" + Resultgf[x][y] + ":" +Resultbf[x][y]);
+                Resultrf[x][y] = Resultrf[x][y] / 2 + 127;
+                Resultgf[x][y] = Resultgf[x][y] / 2 + 127;
+                Resultbf[x][y] = Resultbf[x][y] / 2 + 127;
+                Resultaf[x][y] = Resultaf[x][y] / 2 + 127;
+                // System.out.println(Resultrf[x][y] + ":" + Resultgf[x][y] + ":"
+                // +Resultbf[x][y]);
 
-                    // sumr = sumr/2 +127;
-                    // sumg = sumg/2 +127;
-                    // sumb = sumb/2 +127;
-                                Color c = new Color(expanded.getRGB(x , y ));
-                            
-                // Resulta[x][y] = (int)Resultaf[x][y];
+                // sumr = sumr/2 +127;
+                // sumg = sumg/2 +127;
+                // sumb = sumb/2 +127;
+                Color c = new Color(expanded.getRGB(x, y));
+
+                // Resulta[x][y] = (int) Math.min(Math.max(Resultaf[x][y], 0), 255);
                 Resulta[x][y] = c.getAlpha();
-                System.out.println(Resulta[x][y]);
-                Resultr[x][y] = (int) Math.min(Math.max(Resultrf[x][y],0),255);
-                Resultg[x][y] = (int) Math.min(Math.max(Resultgf[x][y],0),255);
-                Resultb[x][y] = (int) Math.min(Math.max(Resultbf[x][y],0),255);
+                // System.out.println(Resulta[x][y]);
+                Resultr[x][y] = (int) Math.min(Math.max(Resultrf[x][y], 0), 255);
+                Resultg[x][y] = (int) Math.min(Math.max(Resultgf[x][y], 0), 255);
+                Resultb[x][y] = (int) Math.min(Math.max(Resultbf[x][y], 0), 255);
 
                 // int r = (int) Math.min(Math.max(sumr,0),255);
                 // int g = (int) Math.min(Math.max(sumg,0),255);
