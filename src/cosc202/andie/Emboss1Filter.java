@@ -26,7 +26,6 @@ public class Emboss1Filter implements ImageOperation, java.io.Serializable {
         if (input == null) {
             JFrame frame = new JFrame();
             JOptionPane.showMessageDialog(frame, Andie.bundle.getString("Pleaseopenanimagefilefirst!"));
-
         }
 
         float[] array = {

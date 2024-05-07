@@ -15,19 +15,23 @@ public class FilterswithNegativeResults {
     public BufferedImage filter(BufferedImage input, int radius) {
 
         float[] kerneldata = new float[kernel.getHeight() * kernel.getWidth()];
-        System.out.println(kerneldata.length);
+        // System.out.println(kerneldata.length);
         kernel.getKernelData(kerneldata);
         float[][] kernerldata2d = new float[kernel.getHeight()][kernel.getWidth()];
-        System.out.println(kernerldata2d.length);
-        System.out.println(kernerldata2d[0].length);
+        // System.out.println(kernerldata2d.length);
+        // System.out.println(kernerldata2d[0].length);
 
         int index = 0;
         for (int i = 0; i < kernerldata2d.length; i++) {
             for (int j = 0; j < kernerldata2d[i].length; j++) {
                 kernerldata2d[i][j] = kerneldata[index];
                 index++;
+                // System.out.println(kernerldata2d[i][j]);
             }
         }
+
+        // System.out.println("emd");
+
 
         // Expand the image.
         ExtendingFilters expand = new ExtendingFilters(input, radius);
@@ -44,6 +48,7 @@ public class FilterswithNegativeResults {
         int[][] Resultr = new int[expanded.getWidth()][expanded.getHeight()];
         int[][] Resultg = new int[expanded.getWidth()][expanded.getHeight()];
         int[][] Resultb = new int[expanded.getWidth()][expanded.getHeight()];
+        
         for (int y = radius; y < input.getHeight() + radius; y++) {
             for (int x = radius; x < input.getWidth() + radius; x++) {
                 Resultaf[x][y] = 0;
@@ -54,26 +59,39 @@ public class FilterswithNegativeResults {
                 // float sumr = 0;
                 // float sumg = 0;
                 // float sumb = 0;
+
+
                 for (int dy = -radius; dy <= radius; dy++) {
                     for (int dx = -radius; dx <= radius; dx++) {
 
                         Color c = new Color(expanded.getRGB(x + dx, y + dy));
+
                         // Resultaf[x][y] += kernerldata2d[radius + dx][radius + dy] * c.getAlpha();
                         // sumr += kernerldata2d[radius + dx][radius + dy] * c.getRed();
                         // sumg += kernerldata2d[radius + dx][radius + dy] * c.getGreen();
                         // sumb += kernerldata2d[radius + dx][radius + dy] * c.getBlue();
                         Resultaf[x][y] = c.getAlpha();
+                        // System.out.println(kernerldata2d[radius + dx][radius + dy]);
+                        // System.out.println(c.getRed());
+                        // System.out.println(kernerldata2d[radius + dx][radius + dy] * c.getRed());
+                        // System.out.println("-----");
+
                         Resultrf[x][y] += kernerldata2d[radius + dx][radius + dy] * c.getRed();
                         Resultgf[x][y] += kernerldata2d[radius + dx][radius + dy] * c.getGreen();
                         Resultbf[x][y] += kernerldata2d[radius + dx][radius + dy] * c.getBlue();
                         // System.out.println(kernerldata2d[radius + dx][radius + dy]);
                     }
                 }
+
+                // System.out.println("----------");
+                // System.out.println(Resultrf[x][y]);
+                // System.exit(0);
+
                 // Cases for Negative results
-                Resultrf[x][y] = Resultrf[x][y] / 2 + 127;
-                Resultgf[x][y] = Resultgf[x][y] / 2 + 127;
-                Resultbf[x][y] = Resultbf[x][y] / 2 + 127;
-                Resultaf[x][y] = Resultaf[x][y] / 2 + 127;
+                Resultrf[x][y] = (float)Resultrf[x][y] / 2.f + 127.f;
+                Resultgf[x][y] = (float)Resultgf[x][y] / 2.f + 127.f;
+                Resultbf[x][y] = (float)Resultbf[x][y] / 2.f + 127.f;
+                // Resultaf[x][y] = Resultaf[x][y] / 2 + 127;
                 // System.out.println(Resultrf[x][y] + ":" + Resultgf[x][y] + ":"
                 // +Resultbf[x][y]);
 
@@ -106,6 +124,21 @@ public class FilterswithNegativeResults {
                 // components, Resultaf[x][y]);
 
                 // expanded.getGraphics().setColor(k);
+
+                System.out.println("A");
+
+
+                /*
+                 * MAYBE TRY EXTENDING EDGes within 
+                 * if y>input.getheight{
+                 *     input.getheight -1 
+                 * }
+                 * 
+                 * if y<0 {
+                 * y = 0}
+                 * 
+                 */
+
 
             }
         }
