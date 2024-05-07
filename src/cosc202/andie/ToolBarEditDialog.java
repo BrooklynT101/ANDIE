@@ -1,4 +1,4 @@
-package cosc202.ToolBarTesting;
+package cosc202.andie;
 
 import javax.swing.*;
 import java.awt.*;
