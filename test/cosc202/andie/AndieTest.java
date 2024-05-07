@@ -30,7 +30,7 @@ public class AndieTest {
     void checkToolbarDefaultActions() {
         ToolBar testToolBar = new ToolBar();
         testToolBar.loadDefaultActions();
-        int defaultActionsCount = 8;
+        int defaultActionsCount = 10;
         Assertions.assertEquals(defaultActionsCount, testToolBar.getComponentCount(),
                 "Number of default actions loaded in the toolbar is incorrect");
     }

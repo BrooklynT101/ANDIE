@@ -4,11 +4,6 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 public class ImagePanelTest {
-   @Test
-   void passDummyTest() {
-      boolean check = true;
-      Assertions.assertEquals(true, check);
-   }
 
    @Test
    void getZoomInitialValue() {

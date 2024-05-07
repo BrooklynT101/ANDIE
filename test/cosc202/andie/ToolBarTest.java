@@ -34,12 +34,11 @@ public class ToolBarTest {
      */
     @Test
     void addAction() {
-        ToolBar toolBar = new ToolBar();
+        ToolBar toolBar = new ToolBar("Test", 15);
 
         // Create a dummy do nothing action
         Action dummyAction = new DummyAction("dummyAction");
-        toolBar.addAction(dummyAction);
-        // Assertions.assertTrue();
+        toolBar.addAction(dummyAction, null);
         Assertions.assertTrue(toolBar.hasAction(dummyAction.getValue("Name").toString()));
     }
 
@@ -49,7 +48,7 @@ public class ToolBarTest {
      */
     @Test
     void getAction() {
-        ToolBar toolBar = new ToolBar();
+        ToolBar toolBar = new ToolBar("Test", 15);
 
         String foundActionName = "";
         Action dummyAction = new DummyAction("dummyAction");
@@ -76,7 +75,7 @@ public class ToolBarTest {
         // Create a dummy do nothing action
         Action dummyAction = new DummyAction("dummyAction");
 
-        toolBar.addAction(dummyAction);
+        toolBar.addAction(dummyAction, null);
         boolean result = toolBar.removeAction(dummyAction);
         Assertions.assertTrue(result);
         Assertions.assertFalse(toolBar.hasAction("dummyAction"));
@@ -86,13 +85,13 @@ public class ToolBarTest {
      * Test to ensure that loadDefaultActions() method loads correct number of
      * actions
      */
-    // @Test
-    // void loadDefaultActions() {
-    //     ToolBar toolBar = new ToolBar();
-    //     toolBar.loadDefaultActions();
-    //     int expectedSize = 8; // Number of default actions
-    //     Assertions.assertEquals(expectedSize, toolBar..size());
-    // }
+    @Test
+    void loadDefaultActions() {
+        ToolBar toolBar = new ToolBar();
+        toolBar.loadDefaultActions();
+        int expectedSize = 10; // Number of default actions
+        Assertions.assertEquals(expectedSize, toolBar.activeActions.size());
+    }
 
     /**
      * Test that verifies that the Open button is being loaded with an icon
