@@ -1,17 +1,15 @@
 package cosc202.andie;
 
 import java.awt.*;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 import java.util.Locale;
 import java.util.ResourceBundle;
 import java.util.prefs.Preferences;
 
 import javax.swing.*;
 import javax.imageio.*;
-
-//import for toolbar experiment, remove this if you see them and they're not needed
-// import java.io.*;
-// import cosc202.andie.FileActions.*;
-// import java.util.ArrayList;
 
 /**
  * <p>
@@ -40,9 +38,8 @@ public class Andie {
             .setRegion(prefs.get("country", "NZ")).build();
     protected static ResourceBundle bundle = ResourceBundle.getBundle("CommandsBundle", locale);
 
-    //creating static toolbar
+    // creating static toolbar
     protected static ToolBar toolBar = new ToolBar();
-
 
     /**
      * <p>
@@ -85,7 +82,47 @@ public class Andie {
             e.printStackTrace();
         }
 
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        // Set this to nothing so the exitListener works.
+        frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+
+        /**
+         * <p>
+         * This code is taken from StackOverflow:
+         * <a href=
+         * "https://stackoverflow.com/a/6084220">https://stackoverflow.com/a/6084220</a>
+         * in response to
+         * <a href=
+         * "https://stackoverflow.com/questions/6084039/create-custom-operation-for-setdefaultcloseoperation">https://stackoverflow.com/questions/6084039/create-custom-operation-for-setdefaultcloseoperation</a>.
+         * Code by mKorbel used under the CC BY-SA 2.5 license.
+         * </p>
+         * 
+         * <p>
+         * This code block is released under
+         * <a href="https://creativecommons.org/licenses/by-sa/2.5/">CC BY-SA 2.5</a>
+         * </p>
+         */
+
+        WindowListener exitListener = new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                // TODO: language support needed
+                // Message: Are You Sure to Close Application?
+                String message = Andie.bundle.getString("WantToClose?");
+                if (!EditableImage.saved) {
+                    // Message: You haven't saved your changes yet.
+                    message += "\n" + Andie.bundle.getString("HaveNotSaved");
+                }
+                int confirm = JOptionPane.showOptionDialog(null, message,
+                        Andie.bundle.getString("ExitConfirmation"), JOptionPane.YES_NO_OPTION,
+                        JOptionPane.QUESTION_MESSAGE, null,
+                        null, null);
+                if (confirm == 0) {
+                    System.exit(0);
+                }
+            }
+        };
+
+        frame.addWindowListener(exitListener);
 
         // The main content area is an ImagePanel
         ImagePanel imagePanel = new ImagePanel();

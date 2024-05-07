@@ -111,6 +111,11 @@ public class ImageActions {
         }
     }
 
+    /**
+     * Rotates an images 180°
+     * 
+     * @author Amelia
+     */
     public class Rotate180Action extends ImageAction {
 
         Rotate180Action(String name, ImageIcon icon, String desc, Integer mnemonic) {

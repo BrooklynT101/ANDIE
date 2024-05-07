@@ -141,6 +141,54 @@ public class FileActions {
 
     /**
      * <p>
+     * Action to load the test image from resources.
+     * </p>
+     * 
+     * @see EditableImage#open(String)
+     */
+    public class FileTestImageAction extends ImageAction {
+
+        /**
+         * <p>
+         * Create a new default image action.
+         * </p>
+         * 
+         * @param name     The name of the action (ignored if null).
+         * @param icon     An icon to use to represent the action (ignored if null).
+         * @param desc     A brief description of the action (ignored if null).
+         * @param mnemonic A mnemonic key to use as a shortcut (ignored if null).
+         */
+        FileTestImageAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
+            super(name, icon, desc, mnemonic);
+        }
+
+        /**
+         * 
+         * <p>
+         * This method is called whenever the LoadDefaultImageAction is triggered.
+         * It grabs an image from the resources folder called
+         * Otago_University_Clocktower.jpg, if the file isn't there or the name has been
+         * changed it'll prompt and tell you.
+         * </p>
+         * 
+         * @param e The event triggering this callback.
+         */
+        public void actionPerformed(ActionEvent e) {
+            try {
+                target.getImage().open("src/resources/test.jpg");
+            } catch (Exception ex) {
+                JFrame frame = new JFrame();
+                JOptionPane.showMessageDialog(frame, Andie.bundle.getString("DefaultError"));
+            }
+
+            target.repaint();
+            target.getParent().revalidate();
+        }
+
+    }
+
+    /**
+     * <p>
      * Action to load a default image from resources.
      * </p>
      * 
@@ -175,7 +223,6 @@ public class FileActions {
          */
         public void actionPerformed(ActionEvent e) {
             try {
-                Andie.class.getClassLoader().getResource("icon.png");
                 target.getImage().open("src/resources/Otago_University_Clocktower.jpg");
             } catch (Exception ex) {
                 JFrame frame = new JFrame();
@@ -271,7 +318,7 @@ public class FileActions {
          */
         public void actionPerformed(ActionEvent e) {
             JFileChooser fileChooser = new JFileChooser();
-            fileChooser.setDialogTitle("Save as"); // changed this to save as to be distinctive between save and export
+            fileChooser.setDialogTitle(Andie.bundle.getString("SaveAs"));
             int result = fileChooser.showSaveDialog(target);
 
             if (result == JFileChooser.APPROVE_OPTION) {
@@ -279,7 +326,6 @@ public class FileActions {
                     String imageFilepath = fileChooser.getSelectedFile().getCanonicalPath();
                     target.getImage().saveAs(imageFilepath);
                 } catch (Exception ex) {
-                    // System.exit(1);
                     JFrame frame = new JFrame();
                     JOptionPane.showMessageDialog(frame, Andie.bundle.getString("Pleaseopenanimagefilefirst!"));
                 }
@@ -320,9 +366,6 @@ public class FileActions {
          * @param e The event triggering this callback.
          */
         public void actionPerformed(ActionEvent e) {
-            // Set the default directory for the "Export" dialog box
-            // fileChooser.setSelectedFile(new File());
-
             JFileChooser fileChooser = new JFileChooser();
             fileChooser.setDialogTitle(Andie.bundle.getString("export"));
             int result = fileChooser.showSaveDialog(null);
@@ -334,11 +377,8 @@ public class FileActions {
                 } catch (Exception ex) {
                     System.err.println("Couldn't export file" + "\n");
                     ex.printStackTrace();
-                    // System.exit(1);
                     JFrame frame = new JFrame();
-                    JOptionPane.showMessageDialog(frame, Andie.bundle.getString("CouldntExport\n" + ex));
-                    // JOptionPane.showMessageDialog(frame,
-                    // Andie.bundle.getString("CouldntExport"));
+                    JOptionPane.showMessageDialog(frame, Andie.bundle.getString("CouldntExport") + "\n" + ex);
                 }
             }
         }
@@ -388,6 +428,7 @@ public class FileActions {
 
     /**
      * Getter method to get the actions for the colour actions
+     * 
      * @return all available actions
      */
     public ArrayList<Action> getActions() {
