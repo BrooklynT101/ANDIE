@@ -38,6 +38,8 @@ public class FileActions {
         actions = new ArrayList<Action>();
         FileOpenAction open = new FileOpenAction(Andie.bundle.getString("Open"), null,
                 Andie.bundle.getString("Openafile"), Integer.valueOf(KeyEvent.VK_O));
+        FileTestImageAction testImage = new FileTestImageAction(Andie.bundle.getString("TestImage"), null,
+                Andie.bundle.getString("DefaultDesc"), Integer.valueOf(KeyEvent.VK_D));
         FileDefaultAction defaultImage = new FileDefaultAction(Andie.bundle.getString("Default"), null,
                 Andie.bundle.getString("DefaultDesc"), Integer.valueOf(KeyEvent.VK_D));
         FileSaveAction save = new FileSaveAction(Andie.bundle.getString("Save"), null,
@@ -51,6 +53,7 @@ public class FileActions {
 
         // keyboard shortcuts
         open.putValue(Action.ACCELERATOR_KEY, KeyStroke.getKeyStroke("control O"));
+        testImage.putValue(Action.ACCELERATOR_KEY, KeyStroke.getKeyStroke("control T"));
         defaultImage.putValue(Action.ACCELERATOR_KEY, KeyStroke.getKeyStroke("control D"));
         save.putValue(Action.ACCELERATOR_KEY, KeyStroke.getKeyStroke("control S"));
         export.putValue(Action.ACCELERATOR_KEY, KeyStroke.getKeyStroke("control P"));
@@ -58,6 +61,7 @@ public class FileActions {
 
         // adding actions to list
         actions.add(open);
+        actions.add(testImage);
         actions.add(defaultImage);
         actions.add(save);
         actions.add(saveas);
