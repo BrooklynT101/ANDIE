@@ -407,7 +407,7 @@ public class ToolBar extends JToolBar {
         // Open, Save
         ArrayList<Action> fileActions = FilA.getActions();
         defaultActions.add(fileActions.get(0));
-        defaultActions.add(fileActions.get(2));
+        defaultActions.add(fileActions.get(3));
 
         // Undo, Redo
         ArrayList<Action> editActions = EA.getActions();

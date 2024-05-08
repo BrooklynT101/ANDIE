@@ -41,8 +41,8 @@ public class EditActions {
                 Integer.valueOf(KeyEvent.VK_Z));
         RedoAction redo = new RedoAction(Andie.bundle.getString("Redo"), null, Andie.bundle.getString("Redo"),
                 Integer.valueOf(KeyEvent.VK_Y));
-        ToolBarEditAction toolbarEdit = new ToolBarEditAction(Andie.bundle.getString("Redo"), null,
-                Andie.bundle.getString("Redo"),
+        ToolBarEditAction toolbarEdit = new ToolBarEditAction(Andie.bundle.getString("ToolBarEdit"), null,
+                Andie.bundle.getString("ToolBarEdit"),
                 Integer.valueOf(KeyEvent.VK_T));
 
         // keyboard shortcuts
@@ -52,7 +52,7 @@ public class EditActions {
         // adding actions to list
         actions.add(undo);
         actions.add(redo);
-        // actions.add(toolbarEdit); TODO: implement this
+        actions.add(toolbarEdit);
 
     }
 
@@ -200,8 +200,9 @@ public class EditActions {
             // removed from the toolbar (see the UI_Comp toolbar edit files)
 
             JFrame frame = new JFrame("Edit ToolBar Actions");
-
-            // frame.add(null);
+            JDialog dialog = new JDialog(frame);
+            frame.setVisible(true);
+            dialog.setVisible(true);
         }
 
     }

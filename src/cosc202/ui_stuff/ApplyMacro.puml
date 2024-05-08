@@ -1,0 +1,12 @@
+@startsalt register
+{^"<b> Apply Macro?"
+<u><b> List of Operations
+ - Horizontal Flip
+ - Greyscale
+ - Block Averaging
+ - Gaussian Blur
+ - Blur Filter
+<color:white>""|  [Apply] | [Cancel]
+
+}
+@endsalt

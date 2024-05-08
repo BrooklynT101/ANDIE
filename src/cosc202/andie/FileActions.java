@@ -39,7 +39,7 @@ public class FileActions {
         FileOpenAction open = new FileOpenAction(Andie.bundle.getString("Open"), null,
                 Andie.bundle.getString("Openafile"), Integer.valueOf(KeyEvent.VK_O));
         FileTestImageAction testImage = new FileTestImageAction(Andie.bundle.getString("TestImage"), null,
-                Andie.bundle.getString("DefaultDesc"), Integer.valueOf(KeyEvent.VK_D));
+                Andie.bundle.getString("TestImageDesc"), Integer.valueOf(KeyEvent.VK_D));
         FileDefaultAction defaultImage = new FileDefaultAction(Andie.bundle.getString("Default"), null,
                 Andie.bundle.getString("DefaultDesc"), Integer.valueOf(KeyEvent.VK_D));
         FileSaveAction save = new FileSaveAction(Andie.bundle.getString("Save"), null,

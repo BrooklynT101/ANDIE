@@ -105,7 +105,6 @@ public class Andie {
         WindowListener exitListener = new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent e) {
-                // TODO: language support needed
                 // Message: Are You Sure to Close Application?
                 String message = Andie.bundle.getString("WantToClose?");
                 if (!EditableImage.saved) {
