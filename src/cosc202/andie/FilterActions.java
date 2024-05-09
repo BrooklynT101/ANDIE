@@ -490,8 +490,8 @@ public class FilterActions {
             JPanel spinnerPanel = new JPanel();
 
             // Pop-up dialog box to ask for the desired repeated operations.
-            SpinnerNumberModel xModel = new SpinnerNumberModel(1, 1, 10, 1);
-            SpinnerNumberModel yModel = new SpinnerNumberModel(1, 1, 10, 1);
+            SpinnerNumberModel xModel = new SpinnerNumberModel(1, 1, 50, 1);
+            SpinnerNumberModel yModel = new SpinnerNumberModel(1, 1, 50, 1);
             JSpinner xSpinner = new JSpinner(xModel);
             JSpinner ySpinner = new JSpinner(yModel);
             // Prevents adding no 1 - 10 integers, by making the text field un editable by

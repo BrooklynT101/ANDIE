@@ -31,8 +31,8 @@ public class BlockAveraging implements ImageOperation, java.io.Serializable {
         BufferedImage output = new BufferedImage(input.getColorModel(), input.copyData(null),
                 input.isAlphaPremultiplied(), null);
 
-        int numBlocksX = (input.getWidth() / blockWidth) + 1; // find how many blocks are width ways
-        int numBlocksY = (input.getHeight() / blockHeight) + 1; // find how many blocks are height ways
+        int numBlocksX = (input.getWidth() / blockWidth); // find how many blocks are width ways
+        int numBlocksY = (input.getHeight() / blockHeight); // find how many blocks are height ways
 
         System.out.println("number of blocks width " + numBlocksX + " number of blocks height " + numBlocksY);
 
@@ -45,7 +45,7 @@ public class BlockAveraging implements ImageOperation, java.io.Serializable {
                 int endY = Math.min(startY + blockHeight, input.getHeight()-1);
 
                 System.out.println("start x " + startX + " start y " + startY);
-                System.out.println("end x " + endX + " end y " + endY);
+                System.out.println("end x " + endX + " start y " + endY);
 
                 // variables to store the total values
                 int totalRed = 0;
@@ -75,6 +75,7 @@ public class BlockAveraging implements ImageOperation, java.io.Serializable {
                 int avgBlue = totalBlue / pixels;
 
                 int avgRGB = (avgRed << 16) | (avgGreen << 8) | avgBlue;
+                System.out.println(avgRGB);
 
                 // System.out.println(input.getRGB(blockX, blockY));
                 // System.out.println(avgRGB);
