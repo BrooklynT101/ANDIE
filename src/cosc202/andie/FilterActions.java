@@ -484,7 +484,8 @@ public class FilterActions {
          */
         public void actionPerformed(ActionEvent e) {
             // Runs at least once
-            int blockSize = 1;
+            int blockWidth = 1;
+            int blockHeight = 1;
 
             JPanel spinnerPanel = new JPanel();
 
@@ -502,21 +503,22 @@ public class FilterActions {
             spinnerPanel.add(ySpinner);
 
             int option1 = JOptionPane.showOptionDialog(null, xSpinner,
-                    Andie.bundle.getString("Enterfilterradius"),
+                    Andie.bundle.getString("EnterRadiusWidth"),
                     JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
             int option2 = JOptionPane.showOptionDialog(null, ySpinner,
-                    Andie.bundle.getString("Enterfilterradius"),
+                    Andie.bundle.getString("EnterRadiusHeight"),
                     JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
 
             // Check the return value from the dialog box.
-            if (option1 == JOptionPane.CANCEL_OPTION) {
+            if (option1 == JOptionPane.CANCEL_OPTION || option1 == JOptionPane.CANCEL_OPTION) {
                 return;
-            } else if (option1 == JOptionPane.OK_OPTION) {
-                blockSize = xModel.getNumber().intValue();
+            } else if (option1 == JOptionPane.OK_OPTION && option2 == JOptionPane.OK_OPTION) {
+                blockWidth = xModel.getNumber().intValue();
+                blockHeight = yModel.getNumber().intValue();
             }
 
             // Create and apply the filter wth the blockSIze
-            target.getImage().apply(new BlockAveraging(blockSize));
+            target.getImage().apply(new BlockAveraging(blockWidth, blockHeight));
             target.repaint();
             target.getParent().revalidate();
         }
