@@ -336,14 +336,14 @@ public class ToolBar extends JToolBar {
             // Add the button
             this.add(button);
 
-            //Use the icon to display if there is one
+            // Use the icon to display if there is one
             if (icon != null) {
                 button.setIcon(icon);
                 button.setText("");
             } else {
                 button.setText(actionName);
             }
-            
+
             // Add the action
             currentActions.add(action);
             System.out.println("Created button " + actionName);
@@ -399,11 +399,11 @@ public class ToolBar extends JToolBar {
         defaultActions.add(viewActions.get(0));
         defaultActions.add(viewActions.get(1));
 
-        // Macro - Start Recording, Macro - Stop Recording 
+        // Macro - Start Recording, Macro - Stop Recording
         ArrayList<Action> macroActions = MA.getActions();
         defaultActions.add(macroActions.get(1));
         defaultActions.add(macroActions.get(2));
-        
+
         // // Selection, Crop TODO: Add Selection and Crop when marcus does the mouse
         // stuff
         // ArrayList<Action> mouseSelectionActions = MouseSelectionActions.getActions();
