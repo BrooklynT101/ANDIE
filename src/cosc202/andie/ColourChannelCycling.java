@@ -6,13 +6,13 @@ import javax.swing.JOptionPane;
 
 /**
  * <p>
- * ImageOperation to cycle the colour channeld between RGB, GBR, and BRG.
+ * ImageOperation to cycle the colour channels.
  * </p>
  * 
  * <p>
  * this produces and image that still looks similar but is differently coloured
  * and can rotate between the other values. The individual pixels RGB values are
- * changed and stored for dther changes.
+ * changed and stored for other changes.
  * </p>
  * 
  * <p>
