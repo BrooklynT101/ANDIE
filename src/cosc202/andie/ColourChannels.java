@@ -4,6 +4,26 @@ import java.awt.image.*;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
+/**
+ * <p>
+ * ImageOperation to allow the user to chose their intended RGB colour channel
+ * </p>
+ * 
+ * <p>
+ * this produces and image that still looks similar but is differently coloured
+ * and can rotate between the other values. The individual pixels RGB values are
+ * changed and stored for other changes.
+ * </p>
+ * 
+ * <p>
+ * <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA
+ * 4.0</a>
+ * </p>
+ * 
+ * @author Amelia Johnston
+ * @version 1.0
+ */
+
 public class ColourChannels implements ImageOperation, java.io.Serializable {
 
     public int rotation;

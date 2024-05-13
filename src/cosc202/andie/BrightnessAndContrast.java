@@ -5,6 +5,21 @@ import java.awt.image.*;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
+/**
+ * <p>
+ * A color filter that allows the user to adjust the brightness and contrast.
+ * </p>
+ * 
+ * <p>
+ * This operation enables the user to separately adjust the brightness and contrast to higher or 
+ * lower values within a range of -100 to 100.
+ * </p>
+ * 
+ * @author Amelia Johnston
+ * @version 1.0
+ * @see <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a>
+ */
+
 public class BrightnessAndContrast implements ImageOperation, java.io.Serializable {
 
     int brightness;
