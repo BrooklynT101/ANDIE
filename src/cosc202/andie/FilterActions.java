@@ -104,7 +104,7 @@ public class FilterActions {
 
         /**
          * <p>
-         * Callback for when the convert-to-grey action is triggered.
+         * Callback for when the mean filter action is triggered.
          * </p>
          * 
          * <p>
@@ -210,7 +210,7 @@ public class FilterActions {
 
     /**
      * <p>
-     * Action to apply a soft blur to an image once.taken from the lab book example
+     * Action to apply a soft blur to an image once, taken from the lab book example
      * <p>
      * 
      * @see SoftBlur
@@ -401,7 +401,7 @@ public class FilterActions {
 
         /**
          * <p>
-         * Callback for when the convert-to-grey action is triggered.
+         * Callback for when the median filter action is triggered.
          * </p>
          * 
          * <p>
@@ -476,8 +476,9 @@ public class FilterActions {
 
         /**
          * <p>
-         * This method is called whenever the BlurFilterAction is triggered.
-         * It prompts the user for a value, then blurs the image that number of times
+         * This method is called whenever the block averaging action is triggered.
+         * It prompts the user for a width value and a height value for the block size
+         * and the block averaging is applied to a block of the given size 
          * {@link BlockAveraging}.
          * </p>
          * 
@@ -527,7 +528,7 @@ public class FilterActions {
 
     /**
      * <p>
-     * Action to do the block averaging filter
+     * Action to do the random scattering filter
      * <p>
      * 
      * @see RandomScattering
@@ -549,9 +550,10 @@ public class FilterActions {
 
         /**
          * <p>
-         * This method is called whenever the BlurFilterAction is triggered.
-         * It prompts the user for a value, then blurs the image that number of times
-         * {@link BlockAveraging}.
+         * This method is called whenever the random scattering action is triggered.
+         * It prompts the user for a value, then creates a neighbourhood of the given size 
+         * to apply the random scattering.
+         * {@link RandomScattering}.
          * </p>
          * 
          * @param e The event triggering this callback.
