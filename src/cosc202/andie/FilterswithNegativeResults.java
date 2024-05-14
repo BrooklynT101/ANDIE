@@ -2,7 +2,6 @@ package cosc202.andie;
 
 import java.awt.Color;
 import java.awt.image.*;
-import java.nio.Buffer;
 
 public class FilterswithNegativeResults {
 
@@ -124,13 +123,12 @@ public class FilterswithNegativeResults {
 
         // Expand the image.
         ExtendingFilters expand = new ExtendingFilters(input, radius);
+        System.out.println(input.getWidth()+"and"+input.getHeight());
 
         BufferedImage expanded = expand.extending();
 
         BufferedImage output = new BufferedImage(expanded.getWidth(), expanded.getHeight(), expanded.getType());
         
-        // BufferedImage output = new BufferedImage(expanded.getColorModel(),expanded.copyData(null),expanded.isAlphaPremultiplied(),null);
-
 
         // ALWAYS AN EXTENDED IMAGE.
         float[][] Resultaf = new float[expanded.getWidth()][expanded.getHeight()];
@@ -196,55 +194,3 @@ public class FilterswithNegativeResults {
     }
 
 }
-
-/*
-        //          * MAYBE TRY EXTENDING EDGes within 
-        //          * if y>input.getheight{
-        //          *     input.getheight -1 
-        //          * }
-        //          * 
-        //          * if y<0 {
-        //          * y = 0}
-        //          * 
-        //          */
-
-/*
- * // -255
- * -127
- * 
- * // -27
- * 100
- * 
- * 
- * - 50
- * - 70
- * 
- * 0
- * 0
- * 
- * 
- * 
- * 
- * if val < 0
- * val += 127
- * max (val, 0)
- * 
- * if val >255
- * val -= 127
- * min(val, 255)
- * 
- * 255
- * -2
- * 
- * input.getrgbs
- * now we a,r,g,b
- * kenerl
- * 
- * a * Kernel
- * 
- * 127 * {1/2, 1, }
- * 
- * {127, 127, 255, ....} * {1/2, 1/3, -1/2}
- * 
- * //matrix multiplaction
- */
