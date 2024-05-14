@@ -6,8 +6,8 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import java.awt.Color.*;
 import java.lang.Object;
-import javafx.scene.effect.Effect;
-import javafx.scene.effect.ColourAdjust;
+// import javafx.scene.effect.Effect;
+// import javafx.scene.effect.ColourAdjust;
 
 /**
  * <p>
@@ -28,7 +28,7 @@ import javafx.scene.effect.ColourAdjust;
 public class Saturation implements ImageOperation, java.io.Serializable {
 
     int saturation;
-    ColourAdjust cadj = new ColourAdjust();
+    // ColourAdjust cadj = new ColourAdjust();
 
     Saturation() {
     }
@@ -47,7 +47,7 @@ public class Saturation implements ImageOperation, java.io.Serializable {
         
         System.out.println(saturation);
 
-        int saturationPercent = saturation / 100;
+        float saturationFactor = 1 + (float) saturation / 100;
 
         // loop through all the pixels 
         for (int y = 0; y < input.getHeight(); ++y) {
@@ -59,19 +59,25 @@ public class Saturation implements ImageOperation, java.io.Serializable {
                 int g = (argb & 0x0000FF00) >> 8;
                 int b = (argb & 0x000000FF);
 
-                int red = r + (r * saturationPercent);
-                int green = g + (g * saturationPercent);
-                int blue = b + (b * saturationPercent);
+                float[] hsv = rgbToHsv(r, g, b);
+                Color.RGBtoHSB(r, g, b, hsv);
 
-                argb = (a << 24) | (red << 16) | (green << 8) | blue;
+                hsv[1] *= saturationFactor;
+                if(hsv[1] >1){
+                    hsv[1] = 1;
+                }
+
+                int rgb = Color.HSBtoRGB(hsv[0], hsv[1], hsv[2]);
                 // System.out.println(argb);
-                output.setRGB(x, y, argb);
+                output.setRGB(x, y, (a<<25) | rgb);
 
             }
         }
-
         return output;
+    }
 
+    private float[] rgbToHsv(int r, int g, int b){
+        float[] hsv = new float[3];
     }
 
     @Override
