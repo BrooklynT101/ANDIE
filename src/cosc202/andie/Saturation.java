@@ -1,0 +1,95 @@
+package cosc202.andie;
+
+import java.awt.image.*;
+
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+import java.awt.Color.*;
+import java.lang.Object;
+import javafx.scene.effect.Effect;
+import javafx.scene.effect.ColourAdjust;
+
+/**
+ * <p>
+ * A color filter that allows the user to adjust the saturation.
+ * </p>
+ * 
+ * <p>
+ * This operation enables the user to adjust the saturation of the image
+ * </p>
+ * 
+ * @author Amelia Johnston
+ * @version 1.0
+ * @see <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a>
+ * 
+ * //formula = S(HSV) = (max(R,G,B)-min(R,G,B)) ⁄ max(R,G,B).
+ */
+
+public class Saturation implements ImageOperation, java.io.Serializable {
+
+    int saturation;
+    ColourAdjust cadj = new ColourAdjust();
+
+    Saturation() {
+    }
+
+    Saturation(int saturation) {
+        this.saturation = saturation;
+    }
+
+    public BufferedImage apply(BufferedImage input) {
+        if (input == null) {
+            JFrame frame = new JFrame();
+            JOptionPane.showMessageDialog(frame, Andie.bundle.getString("Pleaseopenanimagefilefirst!"));
+        }
+        BufferedImage output = new BufferedImage(input.getColorModel(), input.copyData(null),
+                input.isAlphaPremultiplied(), null);
+        
+        System.out.println(saturation);
+
+        int saturationPercent = saturation / 100;
+
+        // loop through all the pixels 
+        for (int y = 0; y < input.getHeight(); ++y) {
+            for (int x = 0; x < input.getWidth(); ++x) {
+
+                int argb = input.getRGB(x, y); // find the pixel value from at specified position
+                int a = (argb & 0xFF000000) >> 24; // this does not change
+                int r = (argb & 0x00FF0000) >> 16;
+                int g = (argb & 0x0000FF00) >> 8;
+                int b = (argb & 0x000000FF);
+
+                int red = r + (r * saturationPercent);
+                int green = g + (g * saturationPercent);
+                int blue = b + (b * saturationPercent);
+
+                argb = (a << 24) | (red << 16) | (green << 8) | blue;
+                // System.out.println(argb);
+                output.setRGB(x, y, argb);
+
+            }
+        }
+
+        return output;
+
+    }
+
+    @Override
+    public String getName() {
+        return "Saturation";
+    }
+
+    /**
+     * Method to return 'this' as an ImageOperation to support @see MacroActions
+     */
+    @Override
+
+    public ImageOperation clone() {
+
+        Saturation copy = new Saturation();
+        copy.saturation = this.saturation;
+        return copy;
+
+    }
+
+}
