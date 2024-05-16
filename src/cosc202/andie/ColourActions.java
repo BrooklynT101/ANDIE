@@ -468,9 +468,9 @@ public class ColourActions {
             int saturation = 1;
 
             // Pop-up dialog box to ask for the radius value.
-            SpinnerNumberModel saturationModel = new SpinnerNumberModel(0, 0, 100, 1);
+            SpinnerNumberModel saturationModel = new SpinnerNumberModel(0, -100, 100, 1);
             JSpinner saturationSpinner = new JSpinner(saturationModel);
-            JSlider saturationSlider = new JSlider(0, 100, 0);
+            JSlider saturationSlider = new JSlider(-100, 100, 0);
 
             saturationSlider.setMinorTickSpacing(10);
             saturationSlider.setMajorTickSpacing(50);

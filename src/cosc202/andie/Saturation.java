@@ -4,6 +4,8 @@ import java.awt.image.*;
 
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+
+import java.awt.Color;
 import java.awt.Color.*;
 import java.lang.Object;
 // import javafx.scene.effect.Effect;
@@ -60,7 +62,7 @@ public class Saturation implements ImageOperation, java.io.Serializable {
                 int b = (argb & 0x000000FF);
 
                 float[] hsv = rgbToHsv(r, g, b);
-                Color.RGBtoHSB(r, g, b, hsv);
+                // Color.RGBtoHSB(r, g, b, hsv);
 
                 hsv[1] *= saturationFactor;
                 if(hsv[1] >1){
@@ -78,6 +80,8 @@ public class Saturation implements ImageOperation, java.io.Serializable {
 
     private float[] rgbToHsv(int r, int g, int b){
         float[] hsv = new float[3];
+        Color.RGBtoHSB(r, g, b, hsv);
+        return hsv;
     }
 
     @Override
