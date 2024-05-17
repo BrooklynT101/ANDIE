@@ -5,6 +5,7 @@ import java.awt.event.*;
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
+import javax.swing.JSpinner.DefaultEditor;
 
 /**
  * <p>
@@ -49,6 +50,8 @@ public class ColourActions {
                 Andie.bundle.getString("Applyabrightnessandcontrastfilter"), Integer.valueOf(KeyEvent.VK_S)));
         actions.add(new ColourChannelsAction(Andie.bundle.getString("ColourChannels"), null,
                 Andie.bundle.getString("ApplyColourChannels"), Integer.valueOf(KeyEvent.VK_S)));
+        actions.add(new SaturationAction(Andie.bundle.getString("Saturation"), null,
+                Andie.bundle.getString("Applysaturation"), Integer.valueOf(KeyEvent.VK_S)));
     }
 
     /**
@@ -417,6 +420,112 @@ public class ColourActions {
             System.out.println(rotationNum);
 
             target.getImage().apply(new ColourChannels(rotationNum));
+            target.repaint();
+            target.getParent().revalidate();
+        }
+
+    }
+    /**
+     * <p>
+     * Action to blur an image with a saturation filter.
+     * </p>
+     * 
+     * @see Saturation
+     * @author Amelia
+     */
+    public class SaturationAction extends ImageAction {
+
+        /**
+         * <p>
+         * Create a new saturation-filter action.
+         * </p>
+         * 
+         * @param name     The name of the action (ignored if null).
+         * @param icon     An icon to use to represent the action (ignored if null).
+         * @param desc     A brief description of the action (ignored if null).
+         * @param mnemonic A mnemonic key to use as a shortcut (ignored if null).
+         */
+        SaturationAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
+            super(name, icon, desc, mnemonic);
+        }
+
+        /**
+         * <p>
+         * Callback for when the saturation filter action is triggered.
+         * </p>
+         * 
+         * <p>
+         * This method is called whenever the SaturationAction is triggered.
+         * It prompts the user for a saturation percent, then applies the filter to that amount
+         * {@link Saturation}.
+         * </p>
+         * 
+         * @param e The event triggering this callback.
+         */
+        public void actionPerformed(ActionEvent e) {
+
+            // Determine the radius - ask the user.
+            int saturation = 1;
+
+            // Pop-up dialog box to ask for the radius value.
+            SpinnerNumberModel saturationModel = new SpinnerNumberModel(0, -100, 100, 1);
+            JSpinner saturationSpinner = new JSpinner(saturationModel);
+            JSlider saturationSlider = new JSlider(-100, 100, 0);
+
+            saturationSlider.setMinorTickSpacing(10);
+            saturationSlider.setMajorTickSpacing(50);
+            saturationSlider.setPaintTicks(true);
+            saturationSlider.setPaintLabels(true);
+            saturationSlider.setLabelTable(saturationSlider.createStandardLabels(100));
+
+            class JSpinnerListener implements ChangeListener { 
+                public void stateChanged(ChangeEvent e) {
+                    saturationSlider.setValue((int) saturationSpinner.getValue());
+                    // target.repaint();
+                    // target.getParent().revalidate();
+                }
+            }
+
+            class JSliderListener implements ChangeListener { 
+                public void stateChanged(ChangeEvent e) {
+                    saturationSpinner.setValue((int) saturationSlider.getValue());
+                    // target.repaint();
+                    // target.getParent().revalidate();
+                }
+            }
+
+            // add listener to brightness and contrast spinners
+            saturationSpinner.addChangeListener(new JSpinnerListener());
+
+            // add listener to brightness and contrast spinners
+            saturationSlider.addChangeListener(new JSliderListener());
+
+            JPanel spinnerPanel = new JPanel();
+            spinnerPanel.add(new JLabel(Andie.bundle.getString("Choosesaturationpercent")));
+            spinnerPanel.add(saturationSpinner);
+            spinnerPanel.add(saturationSlider);
+
+            // Prevents adding no 1 - 100 integers, by making the text field un editable by
+            // default.
+            int option = JOptionPane.showOptionDialog(null,
+                    spinnerPanel,
+                    Andie.bundle.getString("Choosesaturationpercent"),
+                    JOptionPane.OK_CANCEL_OPTION,
+                    JOptionPane.QUESTION_MESSAGE,
+                    null,
+                    null,
+                    null);
+
+            // Check the return value from the dialog box.
+            if (option == JOptionPane.CANCEL_OPTION) { 
+                return;
+            } else {
+                saturation = saturationModel.getNumber().intValue();
+
+            }
+
+            // Create and apply the filter
+            target.getImage().apply(new Saturation(saturation));
             target.repaint();
             target.getParent().revalidate();
         }
