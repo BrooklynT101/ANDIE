@@ -28,7 +28,7 @@ public class AndieTest {
     // Ensure the toolbar default actions is loading 10 actions
     @Test
     void checkToolbarDefaultActions() {
-        ToolBar testToolBar = new ToolBar();
+        Toolbar testToolBar = new Toolbar();
         testToolBar.loadDefaultActions();
         int defaultActionsCount = 10;
         Assertions.assertEquals(defaultActionsCount, testToolBar.getComponentCount(),

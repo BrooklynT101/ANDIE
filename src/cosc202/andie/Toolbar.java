@@ -18,7 +18,7 @@ import javax.swing.*;
  * 
  * @author Brooklyn Taylor
  */
-public class ToolBar extends JToolBar {
+public class Toolbar extends JToolBar {
 
     // Create actions
     private FileActions FilA = new FileActions();
@@ -41,7 +41,7 @@ public class ToolBar extends JToolBar {
      * Default ToolBar constructor, takes no parameters and loads the default values
      * and actions in the ToolBar class.
      */
-    public ToolBar() {
+    public Toolbar() {
         // create default values
         this.name = "ToolBar";
         this.maxActions = DefaultMaxSize;
@@ -56,7 +56,7 @@ public class ToolBar extends JToolBar {
      * @param name       the name of the ToolBar
      * @param maxActions the max number of Actions to add to the ToolBar
      */
-    public ToolBar(String name, int maxActions, ArrayList<Action> actions) {
+    public Toolbar(String name, int maxActions, ArrayList<Action> actions) {
         this.name = name;
         this.maxActions = maxActions;
         currentActions = new ArrayList<>();
@@ -72,7 +72,7 @@ public class ToolBar extends JToolBar {
      * @param name       the name of the ToolBar
      * @param maxActions the max number of Actions to add to the ToolBar
      */
-    public ToolBar(String name, int maxActions) {
+    public Toolbar(String name, int maxActions) {
         this.name = name;
         this.maxActions = maxActions;
         currentActions = new ArrayList<>();

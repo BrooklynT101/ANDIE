@@ -54,6 +54,8 @@ class EditableImage {
     private String imageFilename;
     /** The file where the operation sequence is stored. */
     private String opsFilename;
+    /** Boolean for if the image is saved. */
+    public static boolean isSaved;
 
     /**
      * <p>
@@ -72,6 +74,7 @@ class EditableImage {
         redoOps = new Stack<ImageOperation>();
         imageFilename = null;
         opsFilename = null;
+        isSaved = false;
     }
 
     /**
@@ -167,20 +170,22 @@ class EditableImage {
             // which there is actually a type mismatch for one of the
             // elements within the Stack, i.e., a non-ImageOperation.
             @SuppressWarnings("unchecked")
-            //Operations file is taken from a saved file (if any), and saved to a stack that holds ImageOperations 
+            // Operations file is taken from a saved file (if any), and saved to a stack
+            // that holds ImageOperations
             Stack<ImageOperation> opsFromFile = (Stack<ImageOperation>) objIn.readObject();
             ops = opsFromFile;
-            //takes away the redo's, leaving the undo's
+            // takes away the redo's, leaving the undo's
             redoOps.clear();
             objIn.close();
             fileIn.close();
         } catch (Exception ex) {
             // Could be no file or something else. Carry on for now.
-            System.err.println("Could not open file: "+ex);
+            System.err.println("Could not open file: " + ex);
             ops.clear();
             redoOps.clear();
         }
         this.refresh();
+        isSaved = false;
     }
 
     /**
@@ -212,6 +217,7 @@ class EditableImage {
         objOut.writeObject(this.ops);
         objOut.close();
         fileOut.close();
+        isSaved = true;
     }
 
     /**
@@ -234,9 +240,9 @@ class EditableImage {
         this.imageFilename = imageFilename;
         this.opsFilename = imageFilename + ".ops";
         save();
+        isSaved = true;
     }
 
-    
     /**
      * <p>
      * Exports an image to a specified file.
@@ -244,7 +250,8 @@ class EditableImage {
      * 
      * <p>
      * Exports an image to the file provided as a parameter.
-     * If an extension is given the file type will change accordingly, otherwise the file type
+     * If an extension is given the file type will change accordingly, otherwise the
+     * file type
      * is taken from the original file path name when first opened.
      * Doesn't save the set of operations from the file.
      * <p>
@@ -255,35 +262,59 @@ class EditableImage {
      */
     public void export(String destinationFilePath) throws Exception {
         String extension;
-        //trimming destinationFilePath and getting extension
+        // trimming destinationFilePath and getting extension
         if (imageFilename == null) {
             JFrame frame = new JFrame();
             JOptionPane.showMessageDialog(frame, Andie.bundle.getString("Pleaseopenanimagefilefirst!"));
             throw new Exception("Missing image file");
         }
         if (destinationFilePath.lastIndexOf(".") != -1) {
-            extension = destinationFilePath.substring(1+destinationFilePath.lastIndexOf(".")).toLowerCase(); //saves extension given by user if there is one (without the dot)
-            destinationFilePath = destinationFilePath.substring(0, destinationFilePath.lastIndexOf(".")); //trims the file path to the name without the extension
+            extension = destinationFilePath.substring(1 + destinationFilePath.lastIndexOf(".")).toLowerCase(); // saves
+                                                                                                               // extension
+                                                                                                               // given
+                                                                                                               // by
+                                                                                                               // user
+                                                                                                               // if
+                                                                                                               // there
+                                                                                                               // is one
+                                                                                                               // (without
+                                                                                                               // the
+                                                                                                               // dot)
+            destinationFilePath = destinationFilePath.substring(0, destinationFilePath.lastIndexOf(".")); // trims the
+                                                                                                          // file path
+                                                                                                          // to the name
+                                                                                                          // without the
+                                                                                                          // extension
         } else {
-            extension = this.imageFilename.substring(1+this.imageFilename.lastIndexOf(".")).toLowerCase(); //saves extension stored by original that was saved when opened (without the dot)
+            extension = this.imageFilename.substring(1 + this.imageFilename.lastIndexOf(".")).toLowerCase(); // saves
+                                                                                                             // extension
+                                                                                                             // stored
+                                                                                                             // by
+                                                                                                             // original
+                                                                                                             // that was
+                                                                                                             // saved
+                                                                                                             // when
+                                                                                                             // opened
+                                                                                                             // (without
+                                                                                                             // the dot)
         }
-        
+
         // Write image file based on file extension
         try {
-            File file = new File(destinationFilePath+"."+extension);
+            File file = new File(destinationFilePath + "." + extension);
             ImageIO.write(current, extension, file);
             if (file.exists()) {
-                System.out.println("Successfully saved file "+destinationFilePath+"."+extension);
+                System.out.println("Successfully saved file " + destinationFilePath + "." + extension);
                 JFrame frame = new JFrame();
-                JOptionPane.showMessageDialog(frame, Andie.bundle.getString("successSave"));    
+                JOptionPane.showMessageDialog(frame, Andie.bundle.getString("successSave"));
             } else {
                 throw new Exception("File didn't successfully save: possible unsupported filetype");
             }
         } catch (IOException e) {
-            System.err.println("Couldn't export file: "+imageFilename+extension+"\n Exception: "+e);
+            System.err.println("Couldn't export file: " + imageFilename + extension + "\n Exception: " + e);
             throw new Exception("Couldn't save file to directory");
         }
-            
+        isSaved = true;
     }
 
     /**
@@ -294,16 +325,16 @@ class EditableImage {
      * @param op The operation to apply.
      */
     public void apply(ImageOperation op) {
-        //System.out.println("Hi");
         current = op.apply(current);
-        //System.out.println("Done");
         ops.add(op);
+        isSaved = false;
     }
 
     /**
      * <p>
      * Undo the last {@link ImageOperation} applied to the image.
-     * Added an exception catch that counts for an empty undo stack, printing a message - Brooklyn
+     * Added an exception catch that counts for an empty undo stack, printing a
+     * message - Brooklyn
      * </p>
      */
     public void undo() {
@@ -312,17 +343,17 @@ class EditableImage {
             refresh();
         } catch (EmptyStackException e) {
             JFrame frame = new JFrame();
-            JOptionPane.showMessageDialog(frame, Andie.bundle.getString("NoMoreActions"));    
+            JOptionPane.showMessageDialog(frame, Andie.bundle.getString("NoMoreActions"));
             e.printStackTrace();
         }
 
     }
 
-
     /**
      * <p>
      * Reapply the most recently {@link undo}ne {@link ImageOperation} to the image.
-     * Added an exception catch that counts for an empty redo stack, printing a message - Brooklyn
+     * Added an exception catch that counts for an empty redo stack, printing a
+     * message - Brooklyn
      * </p>
      */
     public void redo() {
@@ -330,7 +361,7 @@ class EditableImage {
             apply(redoOps.pop());
         } catch (EmptyStackException e) {
             JFrame frame = new JFrame();
-            JOptionPane.showMessageDialog(frame, Andie.bundle.getString("NoMoreActions"));    
+            JOptionPane.showMessageDialog(frame, Andie.bundle.getString("NoMoreActions"));
             e.printStackTrace();
         }
     }
@@ -380,6 +411,7 @@ class EditableImage {
         for (ImageOperation op : ops) {
             current = op.apply(current);
         }
+        isSaved = false;
     }
 
 }
