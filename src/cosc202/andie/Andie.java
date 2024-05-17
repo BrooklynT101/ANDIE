@@ -41,7 +41,7 @@ public class Andie {
     protected static ResourceBundle bundle = ResourceBundle.getBundle("CommandsBundle", locale);
 
     //creating static toolbar
-    protected static ToolBar toolBar = new ToolBar();
+    protected static Toolbar toolBar = new Toolbar();
 
 
     /**
