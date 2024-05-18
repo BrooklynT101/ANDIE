@@ -7,13 +7,17 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 /**
- * Custom dialog
+ * Custom dialog for editing the actions on the toolbar and saving them to save
+ * via the toolbar methods
+ * 
+ * @author Brooklyn Taylor
  */
 public class ToolbarEditDialog extends JFrame {
 
     // static panels so methods can freely update these
     private static JPanel inactiveActionsPanel = new JPanel();
     private static JPanel activeActionsPanel = new JPanel();
+    private boolean testing = true; // set to true to print statements for whats happening
 
     // default constructor
     public ToolbarEditDialog() {
@@ -44,14 +48,11 @@ public class ToolbarEditDialog extends JFrame {
         JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT)); // Align buttons to the right
         JButton acceptButton = new JButton("Accept");
         JButton cancelButton = new JButton("Cancel");
+
         // add buttons and panel
         buttonPanel.add(acceptButton);
         buttonPanel.add(cancelButton);
         dialog.add(buttonPanel, BorderLayout.SOUTH); // Add button panel to the bottom
-
-        // Set preferred size for button panel based on button sizes
-        buttonPanel.setPreferredSize(
-                new Dimension(acceptButton.getPreferredSize().width * 2, acceptButton.getPreferredSize().height));
 
         // Accept button should take all the actions from the right panel and trying to
         // load the actions
@@ -87,9 +88,13 @@ public class ToolbarEditDialog extends JFrame {
         cancelButton.addActionListener(e -> dialog.dispose());
 
         // setting dialog size n stuff
-        dialog.setSize(600, 600);
+        dialog.setSize(400, 600);
         dialog.setLocationRelativeTo(this);
         dialog.setVisible(true);
+
+        // adjusting the button panel so it fits the buttons correctly
+        buttonPanel.setPreferredSize(
+                new Dimension(acceptButton.getPreferredSize().width * 2, acceptButton.getPreferredSize().height));
     }
 
     // add inactive actions to the left panel
@@ -102,7 +107,8 @@ public class ToolbarEditDialog extends JFrame {
         for (Action action : actions) {
             if (Andie.toolbar.getActiveActions().contains(action)) {
             } else {
-                System.out.println("Action name: " + action.getValue(Action.NAME));
+                if (testing)
+                    System.out.println("Action name: " + action.getValue(Action.NAME));
                 JButton button = new JButton((String) action.getValue(Action.NAME)); // get the name, add as a button
                 button.addActionListener(new ActionListener() {
                     @Override
