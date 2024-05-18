@@ -4,8 +4,6 @@ import java.util.*;
 import java.awt.event.*;
 import javax.swing.*;
 
-import cosc202.ToolBarTesting.ToolBarActionsDialog;
-
 /**
  * <p>
  * Actions provided by the Edit menu.
@@ -198,10 +196,8 @@ public class EditActions {
          * @param e The event triggering this callback.
          */
         public void actionPerformed(ActionEvent e) {
-            // TODO: create a prompt that dynamically updates when each action is loaded and
-            // removed from the toolbar (see the UI_Comp toolbar edit files)
-            JFrame frame = new JFrame("Edit ToolBar Actions");
-            Andie.toolBar.showEditDialog();
+            ToolbarEditDialog dialog = new ToolbarEditDialog();
+            dialog.showDialog();
         }
 
     }

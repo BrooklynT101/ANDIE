@@ -39,7 +39,7 @@ public class Andie {
     protected static ResourceBundle bundle = ResourceBundle.getBundle("CommandsBundle", locale);
 
     //creating static toolbar
-    protected static Toolbar toolBar = new Toolbar();
+    protected static Toolbar toolbar = new Toolbar();
     // Set up the main GUI frame
     protected static JFrame frame = new JFrame("ANDIE");
 
@@ -129,13 +129,13 @@ public class Andie {
         JScrollPane scrollPane = new JScrollPane(imagePanel);
 
         // Configure the custom ToolBar
-        toolBar.setFloatable(true); // Allow toolbar to be dragged
-        toolBar.setOrientation(JToolBar.HORIZONTAL); // Set the orientation of the toolbar
-        toolBar.setVisible(true);
+        toolbar.setFloatable(true); // Allow toolbar to be dragged
+        toolbar.setOrientation(JToolBar.HORIZONTAL); // Set the orientation of the toolbar
+        toolbar.setVisible(true);
 
         // Add components to the frame using BorderLayout
         frame.add(scrollPane, BorderLayout.CENTER);
-        frame.add(toolBar, BorderLayout.NORTH); // Add the ToolBar to the top
+        frame.add(toolbar, BorderLayout.NORTH); // Add the ToolBar to the top
 
         // Add in menus for various types of action the user may perform.
         JMenuBar menuBar = new JMenuBar();
@@ -176,7 +176,7 @@ public class Andie {
         menuBar.add(macroActions.createMenu());
 
         frame.setJMenuBar(menuBar);
-        frame.getContentPane().add(toolBar, BorderLayout.NORTH);
+        frame.getContentPane().add(toolbar, BorderLayout.NORTH);
         frame.pack();
         frame.setVisible(true);
     }

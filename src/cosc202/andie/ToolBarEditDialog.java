@@ -3,75 +3,162 @@ package cosc202.andie;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 /**
- * Class to support the MagicToolBar dialog, sucks too @see MagicToolBar
+ * Custom dialog
  */
-public class ToolBarEditDialog extends JDialog {
+public class ToolbarEditDialog extends JFrame {
 
-    private ArrayList<Action> allActions; // List of all available actions
-    private ArrayList<Action> selectedActions; // List of currently selected actions
-    private JPanel checkBoxPanel;
+    // static panels so methods can freely update these
+    private static JPanel inactiveActionsPanel = new JPanel();
+    private static JPanel activeActionsPanel = new JPanel();
 
-    public ToolBarEditDialog(JFrame parent, ArrayList<Action> allActions, ArrayList<Action> selectedActions) {
-        super(parent, "Edit ToolBar Actions", true);
-        this.allActions = allActions;
-        this.selectedActions = selectedActions;
-        initializeUI();
+    // default constructor
+    public ToolbarEditDialog() {
     }
 
-    public ArrayList<Action> getSelectedActions() {
-        return selectedActions;
-    }
+    // the meat of the class, shows the dialog and handles editing
+    public void showDialog() {
+        // creating the dialog box
+        JDialog dialog = new JDialog(this, "Button Dialog", true);
+        dialog.setLayout(new BorderLayout());
 
-    private void initializeUI() {
-        checkBoxPanel = new JPanel();
-        checkBoxPanel.setLayout(new GridLayout(0, 1)); // One column, variable rows
+        // adding active actions to the right panel
+        addActiveActionsToPanel(Andie.toolbar.getActiveActions());
 
-        // Create and add checkboxes for each action
-        for (Action action : allActions) {
-            JCheckBox checkBox = new JCheckBox(action.getValue(Action.NAME).toString());
-            checkBox.setSelected(selectedActions.contains(action)); // Initialize checkbox based on selected actions
-            checkBoxPanel.add(checkBox);
-        }
+        // adding inactive actions to the left panel
+        addInactiveActionsToPanel(Andie.toolbar.getInactiveActions());
 
-        // Add the checkbox panel to the dialog content pane
-        getContentPane().add(checkBoxPanel, BorderLayout.CENTER);
+        // adjusting and adding inactive actions panel
+        JScrollPane scrollPane = new JScrollPane(inactiveActionsPanel);
+        scrollPane.setBorder(BorderFactory.createTitledBorder("Inactive Actions"));
+        dialog.add(scrollPane, BorderLayout.CENTER);
 
-        // Add Save and Cancel buttons
-        JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
-        JButton saveButton = new JButton("Save");
-        saveButton.addActionListener(this::saveChanges);
+        // adjusting and adding active actions panel
+        activeActionsPanel.setBorder(BorderFactory.createTitledBorder("Active Actions"));
+        dialog.add(activeActionsPanel, BorderLayout.EAST);
+
+        // creating buttons
+        JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT)); // Align buttons to the right
+        JButton acceptButton = new JButton("Accept");
         JButton cancelButton = new JButton("Cancel");
-        cancelButton.addActionListener(e -> dispose()); // Close the dialog when Cancel is clicked
-        buttonPanel.add(saveButton);
+        // add buttons and panel
+        buttonPanel.add(acceptButton);
         buttonPanel.add(cancelButton);
-        getContentPane().add(buttonPanel, BorderLayout.SOUTH);
+        dialog.add(buttonPanel, BorderLayout.SOUTH); // Add button panel to the bottom
 
-        pack();
-        setLocationRelativeTo(null); // Center the dialog on the screen
-    }
+        // Set preferred size for button panel based on button sizes
+        buttonPanel.setPreferredSize(
+                new Dimension(acceptButton.getPreferredSize().width * 2, acceptButton.getPreferredSize().height));
 
-    private void saveChanges(ActionEvent e) {
-        // Update selectedActions based on the checkboxes
-        selectedActions.clear();
-        Component[] components = checkBoxPanel.getComponents();
-        for (Component component : components) {
-            if (component instanceof JCheckBox) {
-                JCheckBox checkBox = (JCheckBox) component;
-                if (checkBox.isSelected()) {
-                    // Find the action corresponding to the checkbox label
-                    String actionName = checkBox.getText();
-                    for (Action action : allActions) {
-                        if (action.getValue(Action.NAME).toString().equals(actionName)) {
-                            selectedActions.add(action);
+        // Accept button should take all the actions from the right panel and trying to
+        // load the actions
+        acceptButton.addActionListener(e -> {
+            // remove all actions from the toolbar
+            Andie.toolbar.removeAllActions();
+
+            // add active actions from the right panel to the toolbar
+            for (Component comp : activeActionsPanel.getComponents()) {
+                if (comp instanceof JButton) {
+                    JButton button = (JButton) comp;
+                    for (Action action : Andie.toolbar.getAllActions()) {
+                        // if action name equals buttons name
+                        if (button.getText().equals(action.getValue(Action.NAME))) {
+                            Andie.toolbar.addAction(action);
                             break;
                         }
                     }
                 }
             }
+
+            // update the actions because it'll freak out
+            Andie.toolbar.updateActions();
+
+            // repaint and validate the toolbar because see previous comment
+            Andie.toolbar.revalidate();
+            Andie.toolbar.repaint();
+            // close
+            dialog.dispose();
+        });
+
+        // Cancel button function
+        cancelButton.addActionListener(e -> dialog.dispose());
+
+        // setting dialog size n stuff
+        dialog.setSize(600, 600);
+        dialog.setLocationRelativeTo(this);
+        dialog.setVisible(true);
+    }
+
+    // add inactive actions to the left panel
+    private void addInactiveActionsToPanel(ArrayList<Action> actions) {
+        // remove everything so its not adding actions to the panel each time
+        inactiveActionsPanel.removeAll();
+        inactiveActionsPanel.setLayout(new BoxLayout(inactiveActionsPanel, BoxLayout.Y_AXIS));
+
+        // iterate over all the given actions and slam them into the panel
+        for (Action action : actions) {
+            if (Andie.toolbar.getActiveActions().contains(action)) {
+            } else {
+                System.out.println("Action name: " + action.getValue(Action.NAME));
+                JButton button = new JButton((String) action.getValue(Action.NAME)); // get the name, add as a button
+                button.addActionListener(new ActionListener() {
+                    @Override
+                    // add the functionality to flip between the panels
+                    public void actionPerformed(ActionEvent e) {
+                        JButton clickedButton = (JButton) e.getSource(); // get the button that was clicked
+                        JPanel parentPanel = (JPanel) clickedButton.getParent(); // Get the parent panel of the button
+                        JPanel targetPanel = parentPanel == inactiveActionsPanel ? activeActionsPanel
+                                : inactiveActionsPanel; // determine the target panel based on where the button isn't
+                        parentPanel.remove(clickedButton); // Remove the button from its panel
+                        targetPanel.add(clickedButton); // add the button to the other panel
+
+                        // revalidate & repaint the panels to reflect changes
+                        parentPanel.revalidate();
+                        parentPanel.repaint();
+                        targetPanel.revalidate();
+                        targetPanel.repaint();
+                    }
+                });
+                // put the button in the active actions panel
+                inactiveActionsPanel.add(button);
+            }
         }
-        dispose(); // Close the dialog after saving changes
+    }
+
+    /*
+     * Method to add active actions to the right panel
+     * 
+     * @see addInactiveActionsToPanel
+     */
+    private void addActiveActionsToPanel(ArrayList<Action> actions) {
+        // remove everything so its not adding actions to the panel each time
+        activeActionsPanel.removeAll();
+        activeActionsPanel.setLayout(new BoxLayout(activeActionsPanel, BoxLayout.Y_AXIS));
+
+        // iterate over all the given actions and slam them into the panel
+        for (Action action : actions) {
+            JButton button = new JButton((String) action.getValue(Action.NAME)); // get the name, add as a button
+            button.setName((String) action.getValue(Action.NAME));
+            button.addActionListener(new ActionListener() {
+                // add the functionality to flip between the panels
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    JButton clickedButton = (JButton) e.getSource();
+                    JPanel parentPanel = (JPanel) clickedButton.getParent();
+                    JPanel targetPanel = parentPanel == inactiveActionsPanel ? activeActionsPanel
+                            : inactiveActionsPanel;
+                    parentPanel.remove(clickedButton);
+                    targetPanel.add(clickedButton);
+                    parentPanel.revalidate();
+                    parentPanel.repaint();
+                    targetPanel.revalidate();
+                    targetPanel.repaint();
+                }
+            });
+            activeActionsPanel.add(button);
+        }
     }
 }
