@@ -40,6 +40,8 @@ public class Andie {
 
     //creating static toolbar
     protected static Toolbar toolBar = new Toolbar();
+    // Set up the main GUI frame
+    protected static JFrame frame = new JFrame("ANDIE");
 
 
     /**
@@ -69,9 +71,6 @@ public class Andie {
      */
 
     private static void createAndShowGUI() throws Exception {
-
-        // Set up the main GUI frame
-        JFrame frame = new JFrame("ANDIE");
 
         // getting icon from resource folder
         try {
@@ -108,7 +107,7 @@ public class Andie {
             public void windowClosing(WindowEvent e) {
                 // Message: Are You Sure to Close Application?
                 String message = Andie.bundle.getString("WantToClose?");
-                if (!EditableImage.saved) {
+                if (!EditableImage.isSaved) {
                     // Message: You haven't saved your changes yet.
                     message += "\n" + Andie.bundle.getString("HaveNotSaved");
                 }

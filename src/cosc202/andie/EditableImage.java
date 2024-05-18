@@ -205,7 +205,7 @@ class EditableImage {
      * @throws Exception If something goes wrong.
      */
     public void save() throws Exception {
-        saved = true;
+        isSaved = true;
         if (this.opsFilename == null) {
             this.opsFilename = this.imageFilename + ".ops";
         }
@@ -261,7 +261,7 @@ class EditableImage {
      * @throws Exception
      */
     public void export(String destinationFilePath) throws Exception {
-        saved = true;
+        isSaved = true;
         String extension;
         // trimming destinationFilePath and getting extension
         if (imageFilename == null) {
@@ -270,6 +270,7 @@ class EditableImage {
             throw new Exception("Missing image file");
         }
         if (destinationFilePath.lastIndexOf(".") != -1) {
+            // TODO make sure the format is accepted
             // saves extension given by user if there is one (without the dot)
             extension = destinationFilePath.substring(1 + destinationFilePath.lastIndexOf(".")).toLowerCase();
             // trims the file path to the name without the extension
@@ -280,10 +281,8 @@ class EditableImage {
             extension = this.imageFilename.substring(1 + this.imageFilename.lastIndexOf(".")).toLowerCase();
         }
 
-
         // Write image file based on file extension
         try {
-            File file = new File(destinationFilePath + "." + extension);
             File file = new File(destinationFilePath + "." + extension);
             ImageIO.write(current, extension, file);
             if (file.exists()) {

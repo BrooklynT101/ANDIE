@@ -29,7 +29,7 @@ public class ViewActions {
     /**
      * A list of actions for the View menu.
      */
-    protected static ArrayList<Action> actions;
+    protected ArrayList<Action> actions;
 
     /**
      * <p>
