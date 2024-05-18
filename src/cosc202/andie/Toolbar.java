@@ -11,6 +11,12 @@ import java.io.ObjectOutputStream;
 import java.net.URL;
 import java.util.ArrayList;
 
+/**
+ * Custom toolbar class that supports adding and removing action and saving user
+ * prefs to a file TODO implement saving preferences
+ * 
+ * @author Brooklyn Taylor
+ */
 public class Toolbar extends JToolBar {
 
     // Create actions
@@ -28,7 +34,11 @@ public class Toolbar extends JToolBar {
 
     protected ArrayList<Action> activeActions;
     protected ArrayList<Action> inactiveActions;
+    private boolean testing = true; // set to true to print statements for whats happening
 
+    /**
+     * Default constructor
+     */
     public Toolbar() {
         this.name = "ToolBar";
         this.maxActions = DefaultMaxSize;
@@ -75,7 +85,7 @@ public class Toolbar extends JToolBar {
             System.err.println("Too many actions in the ToolBar!");
             return false;
         }
-        
+
         String actionName = action.getValue(Action.NAME).toString();
         JButton button = new JButton(actionName);
         button.setAction(action);
@@ -89,7 +99,8 @@ public class Toolbar extends JToolBar {
     public boolean addAction(String actionName) {
         for (Action action : getAllActions()) {
             if (action.getValue(Action.NAME).equals(actionName)) {
-                System.out.println("Found action (with value key name) " + action.getValue(name));
+                if (testing)
+                    System.out.println("Found action (with value key name) " + action.getValue(name));
                 return addAction(action, loadIcon(action.getValue(Action.NAME).toString()));
             }
         }
@@ -104,7 +115,8 @@ public class Toolbar extends JToolBar {
 
         for (Action action : activeActions) {
             String name = (String) action.getValue(Action.NAME);
-            System.out.println(name + " found!");
+            if (testing)
+                System.out.println(name + " found!");
             if (actionName.equals(name)) {
                 return action;
             }
@@ -197,7 +209,7 @@ public class Toolbar extends JToolBar {
             Icon icon = new ImageIcon(newImg);
             return icon;
         } catch (Exception e) {
-            System.out.println("Couldn't create the icon " + name + ", couldnt find the resource");
+            System.err.println("Couldn't create the icon " + name + ", couldnt find the resource");
             e.printStackTrace();
             return null;
         }
@@ -249,7 +261,8 @@ public class Toolbar extends JToolBar {
             }
 
             activeActions.add(action);
-            System.out.println("Created button " + actionName);
+            if (testing)
+                System.out.println("Created button " + actionName);
         }
     }
 
