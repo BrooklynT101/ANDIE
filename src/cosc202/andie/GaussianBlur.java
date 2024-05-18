@@ -207,8 +207,8 @@ public class GaussianBlur implements ImageOperation, java.io.Serializable {
         BufferedImage expanded = expand.extending();
 
         BufferedImage image = new BufferedImage(expanded.getWidth(), expanded.getHeight(),
-                expanded.getType());
-
+               expanded.getType());
+        
         convOp.filter(expanded, image);
 
         BufferedImage output = expand.shrinking(image);

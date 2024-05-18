@@ -56,6 +56,10 @@ public class FilterActions {
                 Andie.bundle.getString("Applyasharpenfilter"), Integer.valueOf(KeyEvent.VK_S)));
         actions.add(new BlockAveragingAction(Andie.bundle.getString("BlockAveraging"), null,
                 Andie.bundle.getString("ApplyBlockAveraging"), Integer.valueOf(KeyEvent.VK_S)));
+        actions.add(new RandomScatteringAction(Andie.bundle.getString("RandomScattering"), null,
+                Andie.bundle.getString("Applyrandomscattering"), Integer.valueOf(KeyEvent.VK_S)));
+        actions.add(new Emboss1FilterAction("Emboss Filters", null, null, Integer.valueOf(KeyEvent.VK_S)));
+        actions.add(new SobelFilterAction("Sobel Filters", null, null, Integer.valueOf(KeyEvent.VK_S)));
     }
 
     /**
@@ -100,7 +104,7 @@ public class FilterActions {
 
         /**
          * <p>
-         * Callback for when the convert-to-grey action is triggered.
+         * Callback for when the mean filter action is triggered.
          * </p>
          * 
          * <p>
@@ -206,7 +210,7 @@ public class FilterActions {
 
     /**
      * <p>
-     * Action to apply a soft blur to an image once.taken from the lab book example
+     * Action to apply a soft blur to an image once, taken from the lab book example
      * <p>
      * 
      * @see SoftBlur
@@ -397,7 +401,7 @@ public class FilterActions {
 
         /**
          * <p>
-         * Callback for when the convert-to-grey action is triggered.
+         * Callback for when the median filter action is triggered.
          * </p>
          * 
          * <p>
@@ -472,9 +476,84 @@ public class FilterActions {
 
         /**
          * <p>
-         * This method is called whenever the BlurFilterAction is triggered.
-         * It prompts the user for a value, then blurs the image that number of times
+         * This method is called whenever the block averaging action is triggered.
+         * It prompts the user for a width value and a height value for the block size
+         * and the block averaging is applied to a block of the given size 
          * {@link BlockAveraging}.
+         * </p>
+         * 
+         * @param e The event triggering this callback.
+         */
+        public void actionPerformed(ActionEvent e) {
+            // Runs at least once
+            int blockWidth = 1;
+            int blockHeight = 1;
+
+            JPanel spinnerPanel = new JPanel();
+
+            // Pop-up dialog box to ask for the desired repeated operations.
+            SpinnerNumberModel xModel = new SpinnerNumberModel(1, 1, 50, 1);
+            SpinnerNumberModel yModel = new SpinnerNumberModel(1, 1, 50, 1);
+            JSpinner xSpinner = new JSpinner(xModel);
+            JSpinner ySpinner = new JSpinner(yModel);
+            // Prevents adding no 1 - 10 integers, by making the text field un editable by
+            // default.
+            ((DefaultEditor) xSpinner.getEditor()).getTextField().setEditable(false);
+            ((DefaultEditor) ySpinner.getEditor()).getTextField().setEditable(false);
+
+            spinnerPanel.add(xSpinner);
+            spinnerPanel.add(ySpinner);
+
+            int option1 = JOptionPane.showOptionDialog(null, xSpinner,
+                    Andie.bundle.getString("EnterRadiusWidth"),
+                    JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
+            int option2 = JOptionPane.showOptionDialog(null, ySpinner,
+                    Andie.bundle.getString("EnterRadiusHeight"),
+                    JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
+
+            // Check the return value from the dialog box.
+            if (option1 == JOptionPane.CANCEL_OPTION || option1 == JOptionPane.CANCEL_OPTION) {
+                return;
+            } else if (option1 == JOptionPane.OK_OPTION && option2 == JOptionPane.OK_OPTION) {
+                blockWidth = xModel.getNumber().intValue();
+                blockHeight = yModel.getNumber().intValue();
+            }
+
+            // Create and apply the filter wth the blockSIze
+            target.getImage().apply(new BlockAveraging(blockWidth, blockHeight));
+            target.repaint();
+            target.getParent().revalidate();
+        }
+    }
+
+    /**
+     * <p>
+     * Action to do the random scattering filter
+     * <p>
+     * 
+     * @see RandomScattering
+     * @author Amelia
+     */
+    public class RandomScatteringAction extends ImageAction {
+        /**
+         * Create a new blur filter action.
+         * 
+         * @param name     The name of the action (ignored if null).
+         * @param icon     An icon to use to represent the action (ignored if null).
+         * @param desc     A brief description of the action (ignored if null).
+         * @param mnemonic A mnemonic key to use as a shortcut (ignored if null).
+         */
+        RandomScatteringAction(String name, ImageIcon icon,
+                String desc, Integer mnemonic) {
+            super(name, icon, desc, mnemonic);
+        }
+
+        /**
+         * <p>
+         * This method is called whenever the random scattering action is triggered.
+         * It prompts the user for a value, then creates a neighbourhood of the given size 
+         * to apply the random scattering.
+         * {@link RandomScattering}.
          * </p>
          * 
          * @param e The event triggering this callback.
@@ -490,7 +569,7 @@ public class FilterActions {
             // default.
             ((DefaultEditor) repeatSpinner.getEditor()).getTextField().setEditable(false);
             int option = JOptionPane.showOptionDialog(null, repeatSpinner,
-                    Andie.bundle.getString("RepeatFilter"),
+                    Andie.bundle.getString("Enterfilterradius"),
                     JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
 
             // Check the return value from the dialog box.
@@ -501,10 +580,162 @@ public class FilterActions {
             }
 
             // Create and apply the filter wth the blockSIze
-            target.getImage().apply(new BlockAveraging(blockSize));
+            target.getImage().apply(new RandomScattering(blockSize));
             target.repaint();
             target.getParent().revalidate();
         }
+    }
+
+    /**
+     * <p>
+     * Action to apply a Emboss Filter to an image determined by a radius value.
+     * <p>
+     * 
+     * @see Emboss1Filter
+     * @author Ari
+     */
+    public class Emboss1FilterAction extends ImageAction {
+        int optionindex = 0;
+        private final String[] options = { "Left to Right", "Top Left to Bottem Right", "Top to Bottom", "Top Right to Bottem Left", "Right to Left", "Bottem Right to Top Left", "Bottom to Top", "Top Right to Bottom Left" };
+
+        /**
+         * Create a new Emboss filter action.
+         * 
+         * @param name     The name of the action (ignored if null).
+         * @param icon     An icon to use to represent the action (ignored if null).
+         * @param desc     A brief description of the action (ignored if null).
+         * @param mnemonic A mnemonic key to use as a shortcut (ignored if null).
+         */
+        Emboss1FilterAction(String name, ImageIcon icon,
+                String desc, Integer mnemonic) {
+            super(name, icon, desc, mnemonic);
+        }
+
+        /**
+         * <p>
+         * This method is called whenever the Emboss1FilterAction is triggered.
+         * It prompts the user for a radius, then blurs the image based on that radius.
+         * {@link Emboss1Filter}.
+         * </p>
+         * 
+         * @param e The event triggering this callback.
+         */
+        public void actionPerformed(ActionEvent e) {
+            // Determine the radius - ask the user.
+            int radius = 1;
+
+            JPanel panel = new JPanel();
+
+            JComboBox<String> dropdown = new JComboBox<String>(options);
+            int option = JOptionPane.showOptionDialog(null, dropdown, Andie.bundle.getString("EmbossOption"),
+                    JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
+
+            dropdown.setVisible(true);
+            panel.add(dropdown);
+
+            // Check the return value from the dialog box.
+            if (option == JOptionPane.CANCEL_OPTION) {
+                return;
+            } else if (option == JOptionPane.OK_OPTION) {
+                int opt = dropdown.getSelectedIndex();
+                    // Create and apply the filter
+                    if (opt == 0) {
+                        target.getImage().apply(new Emboss1Filter(1));
+                    }
+                    if (opt == 1) {
+                        target.getImage().apply(new Emboss2Filter(1));
+                    }
+                    if (opt == 2) {
+                        target.getImage().apply(new Emboss3Filter(1));
+                    }
+                    if (opt == 3) {
+                        target.getImage().apply(new Emboss4Filter(1));
+                    }
+                    if (opt == 4) {
+                        target.getImage().apply(new Emboss5Filter(1));
+                    }
+                    if (opt == 5) {
+                        target.getImage().apply(new Emboss6Filter(1));
+                    }
+                    if (opt == 6) {
+                        target.getImage().apply(new Emboss7Filter(1));
+                    }
+                    if (opt == 7) {
+                        target.getImage().apply(new Emboss8Filter(1));
+                    }
+                
+                target.repaint();
+                target.getParent().revalidate();
+            }
+        }
+
+    }
+
+     /**
+     * <p>
+     * Action to apply a Emboss Filter to an image determined by a radius value.
+     * <p>
+     * 
+     * @see HorizontalSobelFilter and @see VerticalSobelFilter
+     * @author Ari
+     */
+    public class SobelFilterAction extends ImageAction {
+        int optionindex = 0;
+        private final String[] options = {"Horizontal Sobel", "Vertical Sobel" };
+
+        /**
+         * Create a new Emboss filter action.
+         * 
+         * @param name     The name of the action (ignored if null).
+         * @param icon     An icon to use to represent the action (ignored if null).
+         * @param desc     A brief description of the action (ignored if null).
+         * @param mnemonic A mnemonic key to use as a shortcut (ignored if null).
+         */
+        SobelFilterAction(String name, ImageIcon icon,
+                String desc, Integer mnemonic) {
+            super(name, icon, desc, mnemonic);
+        }
+
+        /**
+         * <p>
+         * This method is called whenever the Emboss1FilterAction is triggered.
+         * It prompts the user for a radius, then blurs the image based on that radius.
+         * {@link Emboss1Filter}.
+         * </p>
+         * 
+         * @param e The event triggering this callback.
+         */
+        public void actionPerformed(ActionEvent e) {
+            // Determine the radius - ask the user.
+            int radius = 1;
+
+            JPanel panel = new JPanel();
+
+            JComboBox<String> dropdown = new JComboBox<String>(options);
+            int option = JOptionPane.showOptionDialog(null, dropdown, Andie.bundle.getString("EmbossOption"),
+                    JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
+
+            dropdown.setVisible(true);
+            panel.add(dropdown);
+
+            // Check the return value from the dialog box.
+            if (option == JOptionPane.CANCEL_OPTION) {
+                return;
+            } else if (option == JOptionPane.OK_OPTION) {
+                int opt = dropdown.getSelectedIndex();
+                    // Create and apply the filter
+                    if (opt == 0) {
+                        target.getImage().apply(new HorizontalSobelFilter(1));
+                    }
+                    if (opt == 1) {
+                        target.getImage().apply(new VerticalSobelFilter(1));
+                    }
+                
+                target.repaint();
+                target.getParent().revalidate();
+            }
+        }
+
     }
 
     /**

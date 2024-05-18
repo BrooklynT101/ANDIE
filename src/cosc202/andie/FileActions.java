@@ -425,7 +425,19 @@ public class FileActions {
          * @param e The event triggering this callback.
          */
         public void actionPerformed(ActionEvent e) {
-            System.exit(0);
+            if(EditableImage.isSaved){
+                // System.out.println("saved and exiting");
+                System.exit(0);
+            }else{
+                // System.out.println("need to save");
+                JFrame frame = new JFrame();
+                int result = JOptionPane.showConfirmDialog(frame, Andie.bundle.getString("Stillexit"), Andie.bundle.getString("Pleasesavebeforeexiting"), JOptionPane.YES_NO_OPTION,
+                JOptionPane.QUESTION_MESSAGE);
+                if(result == JOptionPane.YES_OPTION){
+                    System.exit(0);
+                }
+            }
+            
         }
 
     }

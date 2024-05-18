@@ -38,8 +38,9 @@ public class Andie {
             .setRegion(prefs.get("country", "NZ")).build();
     protected static ResourceBundle bundle = ResourceBundle.getBundle("CommandsBundle", locale);
 
-    // creating static toolbar
-    protected static ToolBar toolBar = new ToolBar();
+    //creating static toolbar
+    protected static Toolbar toolBar = new Toolbar();
+
 
     /**
      * <p>

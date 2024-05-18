@@ -54,8 +54,8 @@ class EditableImage {
     private String imageFilename;
     /** The file where the operation sequence is stored. */
     private String opsFilename;
-
-    public static boolean saved = true;
+    /** Boolean for if the image is saved. */
+    public static boolean isSaved;
 
     /**
      * <p>
@@ -74,6 +74,7 @@ class EditableImage {
         redoOps = new Stack<ImageOperation>();
         imageFilename = null;
         opsFilename = null;
+        isSaved = false;
     }
 
     /**
@@ -184,6 +185,7 @@ class EditableImage {
             redoOps.clear();
         }
         this.refresh();
+        isSaved = false;
     }
 
     /**
@@ -216,6 +218,7 @@ class EditableImage {
         objOut.writeObject(this.ops);
         objOut.close();
         fileOut.close();
+        isSaved = true;
     }
 
     /**
@@ -238,6 +241,7 @@ class EditableImage {
         this.imageFilename = imageFilename;
         this.opsFilename = imageFilename + ".ops";
         save();
+        isSaved = true;
     }
 
     /**
@@ -276,8 +280,10 @@ class EditableImage {
             extension = this.imageFilename.substring(1 + this.imageFilename.lastIndexOf(".")).toLowerCase();
         }
 
+
         // Write image file based on file extension
         try {
+            File file = new File(destinationFilePath + "." + extension);
             File file = new File(destinationFilePath + "." + extension);
             ImageIO.write(current, extension, file);
             if (file.exists()) {
@@ -291,7 +297,7 @@ class EditableImage {
             System.err.println("Couldn't export file: " + imageFilename + extension + "\n Exception: " + e);
             throw new Exception("Couldn't save file to directory");
         }
-
+        isSaved = true;
     }
 
     /**
@@ -302,10 +308,10 @@ class EditableImage {
      * @param op The operation to apply.
      */
     public void apply(ImageOperation op) {
-        saved = false;
         System.out.println("Successfully applied " + op.getName() + " action!");
         current = op.apply(current);
         ops.add(op);
+        isSaved = false;
     }
 
     /**
@@ -389,6 +395,7 @@ class EditableImage {
         for (ImageOperation op : ops) {
             current = op.apply(current);
         }
+        isSaved = false;
     }
 
 }

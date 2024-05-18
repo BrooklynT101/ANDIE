@@ -2,6 +2,10 @@ package cosc202.andie;
 
 import java.util.*;
 import java.awt.event.*;
+import java.awt.image.BufferedImage;
+import java.io.File;
+
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.JSpinner.DefaultEditor;
 
@@ -47,6 +51,7 @@ public class ImageActions {
                 Integer.valueOf(KeyEvent.VK_R));
         ImageResizeAction resize = new ImageResizeAction(Andie.bundle.getString("ImageResize"), null,
                 Andie.bundle.getString("ResizeImage"), Integer.valueOf(KeyEvent.VK_R));
+        DifferenceofImagesAction dif = new DifferenceofImagesAction(Andie.bundle.getString("DifferencImage"), null, Andie.bundle.getString("DifferencImage"), Integer.valueOf(KeyEvent.VK_R));
 
         // keyboard shortcuts
         resize.putValue(Action.ACCELERATOR_KEY, KeyStroke.getKeyStroke("control R"));
@@ -58,6 +63,7 @@ public class ImageActions {
         actions.add(vertFlip);
         actions.add(horiFlip);
         actions.add(resize);
+        actions.add(dif);
 
     }
 
@@ -211,6 +217,47 @@ public class ImageActions {
             int ogheight = target.getImage().getOriginalImage().getHeight();
             target.getImage()
                     .apply(new ImageResize(scale, scale, ogWidth, ogheight, target.getImage().getOriginalImage()));
+            target.repaint();
+            target.getParent().revalidate();
+        }
+
+    }
+
+    /**
+     * Resizes an image
+     * 
+     * @author Ari
+     */
+    public class DifferenceofImagesAction extends ImageAction {
+
+        DifferenceofImagesAction(String name, ImageIcon icon,
+                String desc, Integer mnemonic) {
+            super(name, icon, desc, mnemonic);
+        }
+
+        public void actionPerformed(ActionEvent e) {
+           
+
+            JFileChooser fileChooser = new JFileChooser();
+
+            int result = fileChooser.showOpenDialog(target);
+
+            BufferedImage different = target.getImage().getCurrentImage();
+
+            if (result == JFileChooser.APPROVE_OPTION) {
+                try {
+                    String imageFilepath = fileChooser.getSelectedFile().getCanonicalPath();
+                    File imageFile = new File(imageFilepath);
+                    different = ImageIO.read(imageFile);
+                    
+                } catch (Exception ex) {
+                    JFrame frame = new JFrame();
+                    JOptionPane.showMessageDialog(frame, Andie.bundle.getString("Pleasechooseanimagefile!"));
+                }
+            }
+
+            target.getImage()
+                    .apply(new DifferenceofImages(different));
             target.repaint();
             target.getParent().revalidate();
         }

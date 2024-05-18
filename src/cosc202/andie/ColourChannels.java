@@ -4,6 +4,26 @@ import java.awt.image.*;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
+/**
+ * <p>
+ * ImageOperation to allow the user to chose their intended RGB colour channel
+ * </p>
+ * 
+ * <p>
+ * this produces and image that still looks similar but is differently coloured
+ * and can rotate between the other values. The individual pixels RGB values are
+ * changed and stored for other changes.
+ * </p>
+ * 
+ * <p>
+ * <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA
+ * 4.0</a>
+ * </p>
+ * 
+ * @author Amelia Johnston
+ * @version 1.0
+ */
+
 public class ColourChannels implements ImageOperation, java.io.Serializable {
 
     public int rotation;
@@ -45,22 +65,22 @@ public class ColourChannels implements ImageOperation, java.io.Serializable {
                 int b = (argb & 0x000000FF);
 
                 if(rotation == 0){ //rgb
-                    argb = (a << 24) | (r << 16) | (g << 8) | b;
+                    argb = (a << 24) | (r << 16) | (g << 8) | b; //correct
                     // System.out.println("rgb");
                 }else if(rotation == 1){ //rbg
-                    argb = (a << 24) | (r << 16) | (b << 8) | g;
+                    argb = (a << 24) | (r << 16) | (b << 8) | g; //correct
                     // System.out.println("rbg");
                 }else if(rotation == 2){ //gbr
-                    argb = (a << 24) | (g << 16) | (b << 8) | r;
+                    argb = (a << 24) | (b << 16) | (r << 8) | g; //correct 
                     // System.out.println("gbr");
                 }else if(rotation == 3){ //grb
-                    argb = (a << 24) | (g << 16) | (r << 8) | b;
+                    argb = (a << 24) | (g << 16) | (r << 8) | b;//correct
                     // System.out.println("grb");
                 }else if(rotation == 4){ //bgr
-                    argb = (a << 24) | (b << 16) | (g << 8) | r;
+                    argb = (a << 24) | (b << 16) | (g << 8) | r; //gbr
                     // System.out.println("bgr");
                 }else if(rotation == 5){ //brg
-                    argb = (a << 24) | (b << 16) | (r << 8) | g;
+                    argb = (a << 24) | (g << 16) | (b << 8) | r; //correct
                     // System.out.println("brg");
                 }
  

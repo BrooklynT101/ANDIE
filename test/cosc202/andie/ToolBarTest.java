@@ -13,19 +13,19 @@ import java.awt.event.ActionEvent;
 import java.util.ArrayList;
 
 /**
- * Tester for the ToolBar class, making sure the toolbar methods function
+ * Tester for the Toolbar class, making sure the toolbar methods function
  * correctly
  * 
  * @author BrooklynT
  */
 public class ToolBarTest {
     /**
-     * Test to verify that open is correctly being added to the ToolBar and its
+     * Test to verify that open is correctly being added to the Toolbar and its
      * values are set correctly
      */
     @Test
     void checkOpen() {
-        ToolBar toolBar = new ToolBar();
+        Toolbar toolBar = new Toolbar();
         Assertions.assertTrue(toolBar.hasAction("Open"));
     }
 
@@ -34,7 +34,7 @@ public class ToolBarTest {
      */
     @Test
     void addAction() {
-        ToolBar toolBar = new ToolBar("Test", 15);
+        Toolbar toolBar = new Toolbar("Test", 15);
 
         // Create a dummy do nothing action
         Action dummyAction = new DummyAction("dummyAction");
@@ -48,7 +48,7 @@ public class ToolBarTest {
      */
     @Test
     void getAction() {
-        ToolBar toolBar = new ToolBar("Test", 15);
+        Toolbar toolBar = new Toolbar("Test", 15);
 
         String foundActionName = "";
         Action dummyAction = new DummyAction("dummyAction");
@@ -70,7 +70,7 @@ public class ToolBarTest {
      */
     @Test
     void removeAction() {
-        ToolBar toolBar = new ToolBar();
+        Toolbar toolBar = new Toolbar();
 
         // Create a dummy do nothing action
         Action dummyAction = new DummyAction("dummyAction");
@@ -87,7 +87,7 @@ public class ToolBarTest {
      */
     @Test
     void loadDefaultActions() {
-        ToolBar toolBar = new ToolBar();
+        Toolbar toolBar = new Toolbar();
         toolBar.loadDefaultActions();
         int expectedSize = 10; // Number of default actions
         Assertions.assertEquals(expectedSize, toolBar.activeActions.size());
@@ -98,7 +98,7 @@ public class ToolBarTest {
      */
     @Test
     void addOpenWithIcon() {
-        ToolBar toolBar = new ToolBar();
+        Toolbar toolBar = new Toolbar();
         Icon icon = toolBar.loadIcon("Open");
         assertNotNull(icon, "Icon should not be null");
         JButton button = new JButton("Open", icon);
@@ -112,7 +112,7 @@ public class ToolBarTest {
      */
     @Test
     void testDefaultActionsLoadWithIcons() {
-        ToolBar toolBar = new ToolBar();
+        Toolbar toolBar = new Toolbar();
         Component[] components = toolBar.getComponents();
         for (Component component : components) {
             if (component instanceof JButton) {
@@ -127,14 +127,14 @@ public class ToolBarTest {
      */
 
     /**
-     * Tests the constraints of the ToolBar, ensuring the addAction method doesn't
+     * Tests the constraints of the Toolbar, ensuring the addAction method doesn't
      * go above the limit
      */
     @Test
     void maxSize() {
         int maxSize = 11;
         ArrayList<Action> actions = new ArrayList<>();
-        ToolBar toolBar = new ToolBar("MaxSizeTest", maxSize, actions);
+        Toolbar toolBar = new Toolbar("MaxSizeTest", maxSize, actions);
         for (int i = 2; i <= maxSize; i++) {
             toolBar.addAction(new DummyAction("dummyAction"));
         }
@@ -162,7 +162,7 @@ public class ToolBarTest {
     }
 
     // Dummy Action class that implements the Action interface, just added so i can
-    // create do-nothing actions to add to ToolBar and tests the instance methods.
+    // create do-nothing actions to add to Toolbar and tests the instance methods.
     class DummyAction extends AbstractAction {
 
         public DummyAction(String name) {
