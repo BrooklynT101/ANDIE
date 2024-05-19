@@ -18,6 +18,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 
+@SuppressWarnings("unused")
 public class BrickBreaker extends JPanel implements KeyListener, ActionListener {
     private boolean play = false;
     private int score = 0;
