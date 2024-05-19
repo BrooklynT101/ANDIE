@@ -5,13 +5,8 @@ import java.awt.BorderLayout;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
-
-import javax.swing.JFrame;
-import javax.swing.JOptionPane;
-import javax.swing.JScrollPane;
-import javax.swing.JMenuBar;
-import javax.swing.SwingUtilities;
-import javax.swing.Timer;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyAdapter;
 
 import java.util.prefs.Preferences;
 import java.util.ResourceBundle;
@@ -58,7 +53,14 @@ public class Andie {
    protected static final int DURATION = 1500;
    // boolean to display the splash screen or not (can get annoying)
    protected static final boolean displaySplash = true;
-   private static JLayeredPane layeredPane;
+   protected static JLayeredPane layeredPane;
+   protected static boolean easterEggActivated = false;
+   // this is the key sequence to activate the easter egg, first one is Konami code
+   // second is QnQ for our group
+   protected static final int[] KEY_SEQUENCE_KONAMI = { KeyEvent.VK_UP, KeyEvent.VK_UP, KeyEvent.VK_DOWN,
+         KeyEvent.VK_DOWN, KeyEvent.VK_LEFT, KeyEvent.VK_RIGHT, KeyEvent.VK_LEFT, KeyEvent.VK_RIGHT, KeyEvent.VK_B,
+         KeyEvent.VK_A };
+   protected static final int[] KEY_SEQUENCE_GROUP_NAME = { KeyEvent.VK_Q, KeyEvent.VK_N, KeyEvent.VK_Q };
 
    /**
     * <p>
@@ -145,9 +147,26 @@ public class Andie {
             }
          }
       };
-
       frame.addWindowListener(exitListener);
 
+      // key listener for the Easter egg
+      frame.addKeyListener(new KeyAdapter() {
+         private int index = 0;
+
+         @Override
+         public void keyPressed(KeyEvent e) {
+            if (!easterEggActivated && e.getKeyCode() == KEY_SEQUENCE_GROUP_NAME[index]) {
+               index++;
+               if (index == KEY_SEQUENCE_GROUP_NAME.length) {
+                  // Easter egg activated
+                  easterEggActivated = true;
+                  activateEasterEgg();
+               }
+            } else {
+               index = 0;
+            }
+         }
+      });
       // Configure the Toolbar
       toolbar.setFloatable(true); // Allow toolbar to be dragged
       toolbar.setOrientation(0); // Set the orientation of the toolbar
@@ -162,6 +181,11 @@ public class Andie {
       frame.pack();
       frame.setVisible(true);
       frame.setAlwaysOnTop(false);
+   }
+
+   protected static void activateEasterEgg() {
+      // TODO Auto-generated method stub
+      throw new UnsupportedOperationException("Unimplemented method 'activateEasterEgg'");
    }
 
    private static void showSplashScreen() {
@@ -217,16 +241,15 @@ public class Andie {
 
    public static void addGameOverlay() {
       JFrame frame = getFrame(); // Get the frame instance
-        layeredPane = frame.getLayeredPane(); // Initialize layeredPane using the frame
+      layeredPane = frame.getLayeredPane(); // Initialize layeredPane using the frame
 
-        BrickBreaker gamePlay = new BrickBreaker(frame.getWidth(), frame.getHeight());
-        gamePlay.setOpaque(false);
+      BrickBreaker gamePlay = new BrickBreaker(frame.getWidth(), frame.getHeight());
+      gamePlay.setOpaque(false);
 
-        gamePlay.setBounds(0, 0, frame.getWidth(), frame.getHeight());
-        layeredPane.add(gamePlay, JLayeredPane.POPUP_LAYER);
-        gamePlay.requestFocusInWindow();
-  }
-  
+      gamePlay.setBounds(0, 0, frame.getWidth(), frame.getHeight());
+      layeredPane.add(gamePlay, JLayeredPane.POPUP_LAYER);
+      gamePlay.requestFocusInWindow();
+   }
 
    public static JFrame getFrame() {
       return frame;
