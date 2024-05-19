@@ -1,13 +1,10 @@
 package cosc202.andie;
 
-import java.awt.image.*;
+import java.awt.image.BufferedImage;
+import java.awt.Color;
 
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
-
-import java.awt.Color;
-// import javafx.scene.effect.Effect;
-// import javafx.scene.effect.ColourAdjust;
 
 /**
  * <p>

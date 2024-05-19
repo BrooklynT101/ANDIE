@@ -27,6 +27,7 @@ public class MedianFilter implements ImageOperation, java.io.Serializable {
      * 5x5 filter, and so forth.
      */
     private int radius;
+    private static final boolean testing = false;
 
     /**
      * <p>
@@ -84,7 +85,7 @@ public class MedianFilter implements ImageOperation, java.io.Serializable {
         }
 
         int neighbourhoodSize = ((radius * 2 + 1) * (radius * 2 + 1));
-        System.out.println(neighbourhoodSize);
+        if (testing) System.out.println(neighbourhoodSize);
 
         BufferedImage output = new BufferedImage(input.getWidth(), input.getHeight(), input.getType());
 

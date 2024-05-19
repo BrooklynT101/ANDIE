@@ -49,10 +49,12 @@ public class Toolbar extends JToolBar {
     public Toolbar(String name, int maxActions, ArrayList<Action> actions) {
         this.name = name;
         this.maxActions = maxActions;
+        this.inactiveActions = getAllActions();
         activeActions = new ArrayList<>();
         for (Action action : actions) {
             this.addAction(action, loadIcon(action.getValue(Action.NAME).toString()));
         }
+        this.inactiveActions.removeAll(actions);
     }
 
     public Toolbar(String name, int maxActions) {

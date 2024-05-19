@@ -5,9 +5,17 @@ import java.awt.BorderLayout;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
-import java.util.Locale;
-import java.util.ResourceBundle;
+
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+import javax.swing.JScrollPane;
+import javax.swing.JMenuBar;
+import javax.swing.SwingUtilities;
+import javax.swing.Timer;
+
 import java.util.prefs.Preferences;
+import java.util.ResourceBundle;
+import java.util.Locale;
 
 import javax.swing.*;
 
@@ -46,7 +54,10 @@ public class Andie {
    protected static Toolbar toolbar = new Toolbar();
    // Set up the main GUI frame
    protected static JFrame frame = new JFrame("ANDIE");
-
+   // How long the splash stays on screen (in milliseconds)
+   protected static final int DURATION = 1500;
+   // boolean to display the splash screen or not (can get annoying)
+   protected static final boolean displaySplash = true;
    private static JLayeredPane layeredPane;
 
    /**
@@ -76,6 +87,7 @@ public class Andie {
     */
 
    private static void createAndShowGUI() throws Exception {
+      frame.setAlwaysOnTop(true);
 
       // getting icon from resource folder
       try {
@@ -89,6 +101,10 @@ public class Andie {
 
       // Set this to nothing so the exitListener works.
       frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+      // The main content area is an ImagePanel
+      ImagePanel imagePanel = new ImagePanel();
+      ImageAction.setTarget(imagePanel);
+      JScrollPane scrollPane = new JScrollPane(imagePanel);
 
       /**
        * <p>
@@ -108,8 +124,12 @@ public class Andie {
        */
 
       WindowListener exitListener = new WindowAdapter() {
+
          @Override
          public void windowClosing(WindowEvent e) {
+            // if theres no image it'll just exit
+            if (!imagePanel.getImage().hasImage())
+               System.exit(0);
             // Message: Are You Sure to Close Application?
             String message = Andie.bundle.getString("WantToClose?");
             if (!EditableImage.isSaved) {
@@ -128,62 +148,71 @@ public class Andie {
 
       frame.addWindowListener(exitListener);
 
-      // The main content area is an ImagePanel
-      ImagePanel imagePanel = new ImagePanel();
-      ImageAction.setTarget(imagePanel);
-      JScrollPane scrollPane = new JScrollPane(imagePanel);
-
-      // Configure the custom ToolBar
+      // Configure the Toolbar
       toolbar.setFloatable(true); // Allow toolbar to be dragged
-      toolbar.setOrientation(JToolBar.HORIZONTAL); // Set the orientation of the toolbar
+      toolbar.setOrientation(0); // Set the orientation of the toolbar
       toolbar.setVisible(true);
 
       // Add components to the frame using BorderLayout
       frame.add(scrollPane, BorderLayout.CENTER);
       frame.add(toolbar, BorderLayout.NORTH); // Add the ToolBar to the top
 
-      // Add in menus for various types of action the user may perform.
-      JMenuBar menuBar = new JMenuBar();
-
-      // File menus are pretty standard, so things that usually go in File menus go
-      // here.
-      FileActions fileActions = new FileActions();
-      menuBar.add(fileActions.createMenu());
-
-      // Likewise Edit menus are very common, so should be clear what might go here.
-      EditActions editActions = new EditActions();
-      menuBar.add(editActions.createMenu());
-
-      // View actions control how the image is displayed, but do not alter its actual
-      // content
-      ViewActions viewActions = new ViewActions();
-      menuBar.add(viewActions.createMenu());
-
-      // Filters apply a per-pixel operation to the image, generally based on a local
-      // window
-      FilterActions filterActions = new FilterActions();
-      menuBar.add(filterActions.createMenu());
-
-      // Actions that affect the representation of colour in the image
-      ColourActions colourActions = new ColourActions();
-      menuBar.add(colourActions.createMenu());
-
-      // Actions that affect the rotation and size in the image
-      ImageActions imageActions = new ImageActions();
-      menuBar.add(imageActions.createMenu());
-
-      // Language options, change language of each menu
-      LanguageActions languageActions = new LanguageActions();
-      menuBar.add(languageActions.createMenu());
-
-      // Macro options, create macros for operations
-      MacroActions macroActions = new MacroActions();
-      menuBar.add(macroActions.createMenu());
-
-      frame.setJMenuBar(menuBar);
+      frame.setJMenuBar(createMenuBar());
       frame.getContentPane().add(toolbar, BorderLayout.NORTH);
       frame.pack();
       frame.setVisible(true);
+      frame.setAlwaysOnTop(false);
+   }
+
+   private static void showSplashScreen() {
+      SplashScreen splash = new SplashScreen(DURATION);
+      splash.showSplash();
+
+      // Use a Timer to wait for the duration
+      Timer timer = new Timer(DURATION, e -> {
+         try {
+            createAndShowGUI();
+         } catch (Exception ex) {
+            ex.printStackTrace();
+            System.exit(1);
+         }
+      });
+      timer.setRepeats(false);
+      timer.start();
+      return;
+   }
+
+   /**
+    * Add in menus for various types of action the user may perform.
+    * 
+    */
+   private static JMenuBar createMenuBar() {
+      JMenuBar menuBar = new JMenuBar();
+
+      FileActions fileActions = new FileActions();
+      menuBar.add(fileActions.createMenu());
+
+      EditActions editActions = new EditActions();
+      menuBar.add(editActions.createMenu());
+
+      ViewActions viewActions = new ViewActions();
+      menuBar.add(viewActions.createMenu());
+
+      FilterActions filterActions = new FilterActions();
+      menuBar.add(filterActions.createMenu());
+
+      ColourActions colourActions = new ColourActions();
+      menuBar.add(colourActions.createMenu());
+
+      ImageActions imageActions = new ImageActions();
+      menuBar.add(imageActions.createMenu());
+
+      LanguageActions languageActions = new LanguageActions();
+      menuBar.add(languageActions.createMenu());
+
+      MacroActions macroActions = new MacroActions();
+      menuBar.add(macroActions.createMenu());
+      return menuBar;
    }
 
    public static void addGameOverlay() {
@@ -218,16 +247,21 @@ public class Andie {
     * @see #createAndShowGUI()
     */
    public static void main(String[] args) throws Exception {
-      javax.swing.SwingUtilities.invokeLater(new Runnable() {
-         public void run() {
+      if (displaySplash) {
+         // display the splash screen and then the GUI
+         SwingUtilities.invokeLater(() -> {
+            showSplashScreen();
+         });
+      } else {
+         SwingUtilities.invokeLater(() -> {
             try {
                createAndShowGUI();
-            } catch (Exception ex) {
-               ex.printStackTrace();
-               System.exit(1);
+            } catch (Exception e) {
+               e.printStackTrace();
             }
-         }
-      });
+         });
+      }
+
    }
 
 }

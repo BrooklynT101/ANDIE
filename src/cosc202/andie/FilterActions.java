@@ -1,9 +1,20 @@
 package cosc202.andie;
 
-import java.util.*;
-import java.awt.event.*;
-import javax.swing.*;
+import javax.swing.Action;
+import javax.swing.ImageIcon;
+import javax.swing.KeyStroke;
+import javax.swing.JMenu;
+import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
+import javax.swing.JSpinner;
+import javax.swing.SpinnerNumberModel;
 import javax.swing.JSpinner.DefaultEditor;
+import javax.swing.JPanel;
+import javax.swing.JFrame;
+import javax.swing.JComboBox;
+import java.awt.event.ActionEvent;
+import java.awt.event.KeyEvent;
+import java.util.ArrayList;
 
 /**
  * <p>
@@ -478,7 +489,7 @@ public class FilterActions {
          * <p>
          * This method is called whenever the block averaging action is triggered.
          * It prompts the user for a width value and a height value for the block size
-         * and the block averaging is applied to a block of the given size 
+         * and the block averaging is applied to a block of the given size
          * {@link BlockAveraging}.
          * </p>
          * 
@@ -551,7 +562,8 @@ public class FilterActions {
         /**
          * <p>
          * This method is called whenever the random scattering action is triggered.
-         * It prompts the user for a value, then creates a neighbourhood of the given size 
+         * It prompts the user for a value, then creates a neighbourhood of the given
+         * size
          * to apply the random scattering.
          * {@link RandomScattering}.
          * </p>
@@ -596,7 +608,9 @@ public class FilterActions {
      */
     public class Emboss1FilterAction extends ImageAction {
         int optionindex = 0;
-        private final String[] options = { "Left to Right", "Top Left to Bottem Right", "Top to Bottom", "Top Right to Bottem Left", "Right to Left", "Bottem Right to Top Left", "Bottom to Top", "Top Right to Bottom Left" };
+        private final String[] options = { "Left to Right", "Top Left to Bottem Right", "Top to Bottom",
+                "Top Right to Bottem Left", "Right to Left", "Bottem Right to Top Left", "Bottom to Top",
+                "Top Right to Bottom Left" };
 
         /**
          * Create a new Emboss filter action.
@@ -621,7 +635,6 @@ public class FilterActions {
          * @param e The event triggering this callback.
          */
         public void actionPerformed(ActionEvent e) {
-
             JPanel panel = new JPanel();
 
             JComboBox<String> dropdown = new JComboBox<String>(options);
@@ -636,32 +649,32 @@ public class FilterActions {
                 return;
             } else if (option == JOptionPane.OK_OPTION) {
                 int opt = dropdown.getSelectedIndex();
-                    // Create and apply the filter
-                    if (opt == 0) {
-                        target.getImage().apply(new Emboss1Filter(1));
-                    }
-                    if (opt == 1) {
-                        target.getImage().apply(new Emboss2Filter(1));
-                    }
-                    if (opt == 2) {
-                        target.getImage().apply(new Emboss3Filter(1));
-                    }
-                    if (opt == 3) {
-                        target.getImage().apply(new Emboss4Filter(1));
-                    }
-                    if (opt == 4) {
-                        target.getImage().apply(new Emboss5Filter(1));
-                    }
-                    if (opt == 5) {
-                        target.getImage().apply(new Emboss6Filter(1));
-                    }
-                    if (opt == 6) {
-                        target.getImage().apply(new Emboss7Filter(1));
-                    }
-                    if (opt == 7) {
-                        target.getImage().apply(new Emboss8Filter(1));
-                    }
-                
+                // Create and apply the filter
+                if (opt == 0) {
+                    target.getImage().apply(new Emboss1Filter(1));
+                }
+                if (opt == 1) {
+                    target.getImage().apply(new Emboss2Filter(1));
+                }
+                if (opt == 2) {
+                    target.getImage().apply(new Emboss3Filter(1));
+                }
+                if (opt == 3) {
+                    target.getImage().apply(new Emboss4Filter(1));
+                }
+                if (opt == 4) {
+                    target.getImage().apply(new Emboss5Filter(1));
+                }
+                if (opt == 5) {
+                    target.getImage().apply(new Emboss6Filter(1));
+                }
+                if (opt == 6) {
+                    target.getImage().apply(new Emboss7Filter(1));
+                }
+                if (opt == 7) {
+                    target.getImage().apply(new Emboss8Filter(1));
+                }
+
                 target.repaint();
                 target.getParent().revalidate();
             }
@@ -669,7 +682,7 @@ public class FilterActions {
 
     }
 
-     /**
+    /**
      * <p>
      * Action to apply a Emboss Filter to an image determined by a radius value.
      * <p>
@@ -679,7 +692,7 @@ public class FilterActions {
      */
     public class SobelFilterAction extends ImageAction {
         int optionindex = 0;
-        private final String[] options = {"Horizontal Sobel", "Vertical Sobel" };
+        private final String[] options = { "Horizontal Sobel", "Vertical Sobel" };
 
         /**
          * Create a new Emboss filter action.
@@ -704,7 +717,6 @@ public class FilterActions {
          * @param e The event triggering this callback.
          */
         public void actionPerformed(ActionEvent e) {
-
             JPanel panel = new JPanel();
 
             JComboBox<String> dropdown = new JComboBox<String>(options);
@@ -719,14 +731,14 @@ public class FilterActions {
                 return;
             } else if (option == JOptionPane.OK_OPTION) {
                 int opt = dropdown.getSelectedIndex();
-                    // Create and apply the filter
-                    if (opt == 0) {
-                        target.getImage().apply(new HorizontalSobelFilter(1));
-                    }
-                    if (opt == 1) {
-                        target.getImage().apply(new VerticalSobelFilter(1));
-                    }
-                
+                // Create and apply the filter
+                if (opt == 0) {
+                    target.getImage().apply(new HorizontalSobelFilter(1));
+                }
+                if (opt == 1) {
+                    target.getImage().apply(new VerticalSobelFilter(1));
+                }
+
                 target.repaint();
                 target.getParent().revalidate();
             }

@@ -1,10 +1,24 @@
 package cosc202.andie;
 
-import java.util.*;
-import java.awt.event.*;
-import javax.swing.*;
+import javax.swing.SpinnerNumberModel;
+import javax.swing.Action;
+import javax.swing.ImageIcon;
+import javax.swing.JMenu;
+import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
+import javax.swing.JSpinner;
+import javax.swing.JPanel;
+import javax.swing.JComboBox;
+import javax.swing.JSlider;
+import javax.swing.JLabel;
+
+import java.awt.event.ActionEvent;
+import java.awt.event.KeyEvent;
+
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
+
+import java.util.ArrayList;
 
 /**
  * <p>
