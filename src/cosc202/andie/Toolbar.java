@@ -19,6 +19,7 @@ import java.util.ArrayList;
  */
 public class Toolbar extends JToolBar {
 
+    public static int CURRENT_ORIENTATION;
     // Create actions
     private FileActions FilA = new FileActions();
     private EditActions EA = new EditActions();
