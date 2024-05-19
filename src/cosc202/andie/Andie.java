@@ -1,6 +1,7 @@
 package cosc202.andie;
 
-import java.awt.*;
+import java.awt.Image;
+import java.awt.BorderLayout;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
@@ -9,6 +10,9 @@ import java.util.ResourceBundle;
 import java.util.prefs.Preferences;
 
 import javax.swing.*;
+
+import cosc202.andie.game.BrickBreaker;
+
 import javax.imageio.*;
 
 /**
@@ -42,7 +46,7 @@ public class Andie {
    protected static Toolbar toolbar = new Toolbar();
    // Set up the main GUI frame
    protected static JFrame frame = new JFrame("ANDIE");
-   
+
    private static JLayeredPane layeredPane;
 
    /**
@@ -180,6 +184,23 @@ public class Andie {
       frame.getContentPane().add(toolbar, BorderLayout.NORTH);
       frame.pack();
       frame.setVisible(true);
+   }
+
+   public static void addGameOverlay() {
+      JFrame frame = getFrame(); // Get the frame instance
+        layeredPane = frame.getLayeredPane(); // Initialize layeredPane using the frame
+
+        BrickBreaker gamePlay = new BrickBreaker(frame.getWidth(), frame.getHeight());
+        gamePlay.setOpaque(false);
+
+        gamePlay.setBounds(0, 0, frame.getWidth(), frame.getHeight());
+        layeredPane.add(gamePlay, JLayeredPane.POPUP_LAYER);
+        gamePlay.requestFocusInWindow();
+  }
+  
+
+   public static JFrame getFrame() {
+      return frame;
    }
 
    /**

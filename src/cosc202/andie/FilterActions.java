@@ -621,8 +621,6 @@ public class FilterActions {
          * @param e The event triggering this callback.
          */
         public void actionPerformed(ActionEvent e) {
-            // Determine the radius - ask the user.
-            int radius = 1;
 
             JPanel panel = new JPanel();
 
@@ -706,8 +704,6 @@ public class FilterActions {
          * @param e The event triggering this callback.
          */
         public void actionPerformed(ActionEvent e) {
-            // Determine the radius - ask the user.
-            int radius = 1;
 
             JPanel panel = new JPanel();
 

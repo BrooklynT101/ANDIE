@@ -26,7 +26,10 @@ public class BrickBreaker extends JPanel implements KeyListener, ActionListener 
     private int delay = 8;
 
     private int playerX = 310;
+    private int playerWidth = 100; // Width of the paddle
+    private int playerHeight = 8; // Height of the paddle
 
+    private int ballRadius = 10; // Radius of the ball
     private int ballposX = 120;
     private int ballposY = 350;
     private int ballXdir = -1;
@@ -34,7 +37,21 @@ public class BrickBreaker extends JPanel implements KeyListener, ActionListener 
 
     private BrickGenerator map;
 
-    public BrickBreaker() {
+    // public BrickBreaker() {
+    //     map = new BrickGenerator(3, 7);
+    //     addKeyListener(this);
+    //     setFocusable(true);
+    //     setFocusTraversalKeysEnabled(false);
+    //     timer = new Timer(delay, this);
+    //     timer.start();
+    // }
+
+    public BrickBreaker(int frameWidth, int frameHeight) {
+        // Calculate initial positions based on frame dimensions
+        playerX = (frameWidth - playerWidth) / 2; // Center the paddle horizontally
+        ballposX = frameWidth / 3; // Initial X position of the ball
+        ballposY = frameHeight / 2; // Initial Y position of the ball
+
         map = new BrickGenerator(3, 7);
         addKeyListener(this);
         setFocusable(true);
