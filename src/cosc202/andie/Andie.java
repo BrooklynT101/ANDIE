@@ -43,6 +43,8 @@ public class Andie {
    // Set up the main GUI frame
    protected static JFrame frame = new JFrame("ANDIE");
 
+   private static JLayeredPane layeredPane;
+
    /**
     * <p>
     * Launches the main GUI for the ANDIE program.
@@ -102,6 +104,7 @@ public class Andie {
        */
 
       WindowListener exitListener = new WindowAdapter() {
+         
          @Override
          public void windowClosing(WindowEvent e) {
             // Message: Are You Sure to Close Application?
@@ -119,6 +122,7 @@ public class Andie {
             }
          }
       };
+      
 
       frame.addWindowListener(exitListener);
 
@@ -127,7 +131,7 @@ public class Andie {
       ImageAction.setTarget(imagePanel);
       JScrollPane scrollPane = new JScrollPane(imagePanel);
 
-      // Configure the custom ToolBar
+      // Configure the Toolbar
       toolbar.setFloatable(true); // Allow toolbar to be dragged
       toolbar.setOrientation(JToolBar.HORIZONTAL); // Set the orientation of the toolbar
       toolbar.setVisible(true);
@@ -136,48 +140,44 @@ public class Andie {
       frame.add(scrollPane, BorderLayout.CENTER);
       frame.add(toolbar, BorderLayout.NORTH); // Add the ToolBar to the top
 
-      // Add in menus for various types of action the user may perform.
-      JMenuBar menuBar = new JMenuBar();
-
-      // File menus are pretty standard, so things that usually go in File menus go
-      // here.
-      FileActions fileActions = new FileActions();
-      menuBar.add(fileActions.createMenu());
-
-      // Likewise Edit menus are very common, so should be clear what might go here.
-      EditActions editActions = new EditActions();
-      menuBar.add(editActions.createMenu());
-
-      // View actions control how the image is displayed, but do not alter its actual
-      // content
-      ViewActions viewActions = new ViewActions();
-      menuBar.add(viewActions.createMenu());
-
-      // Filters apply a per-pixel operation to the image, generally based on a local
-      // window
-      FilterActions filterActions = new FilterActions();
-      menuBar.add(filterActions.createMenu());
-
-      // Actions that affect the representation of colour in the image
-      ColourActions colourActions = new ColourActions();
-      menuBar.add(colourActions.createMenu());
-
-      // Actions that affect the rotation and size in the image
-      ImageActions imageActions = new ImageActions();
-      menuBar.add(imageActions.createMenu());
-
-      // Language options, change language of each menu
-      LanguageActions languageActions = new LanguageActions();
-      menuBar.add(languageActions.createMenu());
-
-      // Macro options, create macros for operations
-      MacroActions macroActions = new MacroActions();
-      menuBar.add(macroActions.createMenu());
-
-      frame.setJMenuBar(menuBar);
+      frame.setJMenuBar(createMenuBar());
       frame.getContentPane().add(toolbar, BorderLayout.NORTH);
       frame.pack();
       frame.setVisible(true);
+   }
+
+   /**
+    * Add in menus for various types of action the user may perform.
+    * 
+    */
+   private static JMenuBar createMenuBar() {
+      JMenuBar menuBar = new JMenuBar();
+
+      FileActions fileActions = new FileActions();
+      menuBar.add(fileActions.createMenu());
+
+      EditActions editActions = new EditActions();
+      menuBar.add(editActions.createMenu());
+
+      ViewActions viewActions = new ViewActions();
+      menuBar.add(viewActions.createMenu());
+
+      FilterActions filterActions = new FilterActions();
+      menuBar.add(filterActions.createMenu());
+
+      ColourActions colourActions = new ColourActions();
+      menuBar.add(colourActions.createMenu());
+
+      ImageActions imageActions = new ImageActions();
+      menuBar.add(imageActions.createMenu());
+
+      LanguageActions languageActions = new LanguageActions();
+      menuBar.add(languageActions.createMenu());
+
+      MacroActions macroActions = new MacroActions();
+      menuBar.add(macroActions.createMenu());
+
+      return menuBar;
    }
 
    /**
@@ -206,5 +206,4 @@ public class Andie {
          }
       });
    }
-
 }
