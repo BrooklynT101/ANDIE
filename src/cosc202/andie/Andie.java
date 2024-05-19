@@ -42,6 +42,8 @@ public class Andie {
    protected static Toolbar toolbar = new Toolbar();
    // Set up the main GUI frame
    protected static JFrame frame = new JFrame("ANDIE");
+   
+   private static JLayeredPane layeredPane;
 
    /**
     * <p>
