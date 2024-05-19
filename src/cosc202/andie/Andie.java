@@ -1,15 +1,24 @@
 package cosc202.andie;
 
-import java.awt.*;
+import java.awt.BorderLayout;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
-import java.util.Locale;
-import java.util.ResourceBundle;
-import java.util.prefs.Preferences;
+import java.awt.Image;
 
-import javax.swing.*;
-import javax.imageio.*;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+// import javax.swing.JLayeredPane;
+import javax.swing.JScrollPane;
+import javax.swing.JMenuBar;
+import javax.swing.SwingUtilities;
+import javax.swing.Timer;
+
+import java.util.prefs.Preferences;
+import java.util.ResourceBundle;
+import java.util.Locale;
+
+import javax.imageio.ImageIO;
 
 /**
  * <p>
@@ -42,8 +51,11 @@ public class Andie {
    protected static Toolbar toolbar = new Toolbar();
    // Set up the main GUI frame
    protected static JFrame frame = new JFrame("ANDIE");
-
-   private static JLayeredPane layeredPane;
+   // How long the splash stays on screen (in milliseconds)
+   protected static final int DURATION = 1500;
+   // boolean to display the splash screen or not (can get annoying)
+   protected static final boolean displaySplash = true;
+   // private static JLayeredPane layeredPane;
 
    /**
     * <p>
@@ -72,6 +84,7 @@ public class Andie {
     */
 
    private static void createAndShowGUI() throws Exception {
+      frame.setAlwaysOnTop(true);
 
       // getting icon from resource folder
       try {
@@ -85,6 +98,10 @@ public class Andie {
 
       // Set this to nothing so the exitListener works.
       frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+      // The main content area is an ImagePanel
+      ImagePanel imagePanel = new ImagePanel();
+      ImageAction.setTarget(imagePanel);
+      JScrollPane scrollPane = new JScrollPane(imagePanel);
 
       /**
        * <p>
@@ -104,9 +121,12 @@ public class Andie {
        */
 
       WindowListener exitListener = new WindowAdapter() {
-         
+
          @Override
          public void windowClosing(WindowEvent e) {
+            // if theres no image it'll just exit
+            if (!imagePanel.getImage().hasImage())
+               System.exit(0);
             // Message: Are You Sure to Close Application?
             String message = Andie.bundle.getString("WantToClose?");
             if (!EditableImage.isSaved) {
@@ -122,18 +142,12 @@ public class Andie {
             }
          }
       };
-      
 
       frame.addWindowListener(exitListener);
 
-      // The main content area is an ImagePanel
-      ImagePanel imagePanel = new ImagePanel();
-      ImageAction.setTarget(imagePanel);
-      JScrollPane scrollPane = new JScrollPane(imagePanel);
-
       // Configure the Toolbar
       toolbar.setFloatable(true); // Allow toolbar to be dragged
-      toolbar.setOrientation(JToolBar.HORIZONTAL); // Set the orientation of the toolbar
+      toolbar.setOrientation(0); // Set the orientation of the toolbar
       toolbar.setVisible(true);
 
       // Add components to the frame using BorderLayout
@@ -144,6 +158,25 @@ public class Andie {
       frame.getContentPane().add(toolbar, BorderLayout.NORTH);
       frame.pack();
       frame.setVisible(true);
+      frame.setAlwaysOnTop(false);
+   }
+
+   private static void showSplashScreen() {
+      SplashScreen splash = new SplashScreen(DURATION);
+      splash.showSplash();
+
+      // Use a Timer to wait for the duration
+      Timer timer = new Timer(DURATION, e -> {
+         try {
+            createAndShowGUI();
+         } catch (Exception ex) {
+            ex.printStackTrace();
+            System.exit(1);
+         }
+      });
+      timer.setRepeats(false);
+      timer.start();
+      return;
    }
 
    /**
@@ -195,15 +228,21 @@ public class Andie {
     * @see #createAndShowGUI()
     */
    public static void main(String[] args) throws Exception {
-      javax.swing.SwingUtilities.invokeLater(new Runnable() {
-         public void run() {
+      if (displaySplash) {
+         // display the splash screen and then the GUI
+         SwingUtilities.invokeLater(() -> {
+            showSplashScreen();
+         });
+      } else {
+         SwingUtilities.invokeLater(() -> {
             try {
                createAndShowGUI();
-            } catch (Exception ex) {
-               ex.printStackTrace();
-               System.exit(1);
+            } catch (Exception e) {
+               e.printStackTrace();
             }
-         }
-      });
+         });
+      }
+
    }
+
 }

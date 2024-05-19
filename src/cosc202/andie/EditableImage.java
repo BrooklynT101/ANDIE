@@ -54,6 +54,7 @@ class EditableImage {
     private String imageFilename;
     /** The file where the operation sequence is stored. */
     private String opsFilename;
+    private static final boolean testing = false;
     /** Boolean for if the image is saved. */
     public static boolean isSaved;
 
@@ -307,7 +308,7 @@ class EditableImage {
      * @param op The operation to apply.
      */
     public void apply(ImageOperation op) {
-        System.out.println("Successfully applied " + op.getName() + " action!");
+        if (testing) System.out.println("Successfully applied " + op.getName() + " action!");
         current = op.apply(current);
         ops.add(op);
         isSaved = false;
