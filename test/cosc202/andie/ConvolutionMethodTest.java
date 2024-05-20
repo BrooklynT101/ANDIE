@@ -5,7 +5,6 @@ import org.junit.jupiter.api.Test;
 
 import java.awt.Color;
 import java.awt.image.BufferedImage;
-import java.awt.image.*;
 
 import javax.swing.*;;
 
@@ -26,6 +25,7 @@ public class ConvolutionMethodTest {
 
         testPanel.getImage().apply(new Emboss1Filter(1));
 
+        @SuppressWarnings("unused")
         BufferedImage output = new BufferedImage(testPanel.getImage().getCurrentImage().getWidth(),
                 testPanel.getImage().getCurrentImage().getHeight(), testPanel.getImage().getCurrentImage().getType());
         for (int y = 1; y < testPanel.getImage().getCurrentImage().getHeight(); y++) {

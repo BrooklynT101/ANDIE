@@ -29,8 +29,6 @@ public class MacroActions {
                 Andie.bundle.getString("MacroStartDef"), Integer.valueOf(KeyEvent.VK_S));
         MacroStopRecording mStop = new MacroStopRecording(Andie.bundle.getString("MacroStop"), null,
                 Andie.bundle.getString("MacroStopDef"), Integer.valueOf(KeyEvent.VK_S));
-        EasterEggAction egg = new EasterEggAction("Easter egg", null,
-                "easter egg", Integer.valueOf(KeyEvent.VK_E));
 
         // keyboard shortcuts
         mLoad.putValue(Action.ACCELERATOR_KEY, KeyStroke.getKeyStroke("control O"));
@@ -41,7 +39,6 @@ public class MacroActions {
         macroMenuActions.add(mLoad);
         macroMenuActions.add(mStart);
         macroMenuActions.add(mStop);
-        macroMenuActions.add(egg);
     }
 
     /**
@@ -286,7 +283,7 @@ public class MacroActions {
                 }
             } else {
                 // User canceled or closed the dialog
-                System.out.println("Save operation cancelled.");
+                if (testing) System.out.println("Save operation cancelled.");
             }
         }
 
@@ -304,27 +301,6 @@ public class MacroActions {
                 count++;
             }
             return message.toString();
-        }
-    }
-
-    public class EasterEggAction extends ImageAction {
-
-        /**
-         * <p>
-         * Create a new file-open action. Extends ImageAction.
-         * </p>
-         * 
-         * @param name     The name of the action (ignored if null).
-         * @param icon     An icon to use to represent the action (ignored if null).
-         * @param desc     A brief description of the action (ignored if null).
-         * @param mnemonic A mnemonic key to use as a shortcut (ignored if null).
-         */
-        EasterEggAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
-            super(name, icon, desc, mnemonic);
-        }
-
-        public void actionPerformed(ActionEvent e) {
-            Andie.activateEasterEgg();
         }
     }
 
