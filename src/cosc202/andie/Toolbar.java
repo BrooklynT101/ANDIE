@@ -19,6 +19,7 @@ import java.util.ArrayList;
  */
 public class Toolbar extends JToolBar {
 
+    public static int CURRENT_ORIENTATION;
     // Create actions
     private FileActions FilA = new FileActions();
     private EditActions EA = new EditActions();
@@ -43,25 +44,25 @@ public class Toolbar extends JToolBar {
         this.name = "ToolBar";
         this.maxActions = DefaultMaxSize;
         activeActions = new ArrayList<>();
-        loadDefaultActions();
+        loadActionsFromFile();
     }
 
-    public Toolbar(String name, int maxActions, ArrayList<Action> actions) {
-        this.name = name;
-        this.maxActions = maxActions;
-        this.inactiveActions = getAllActions();
-        activeActions = new ArrayList<>();
-        for (Action action : actions) {
-            this.addAction(action, loadIcon(action.getValue(Action.NAME).toString()));
-        }
-        this.inactiveActions.removeAll(actions);
-    }
+    // public Toolbar(String name, int maxActions, ArrayList<Action> actions) {
+    // this.name = name;
+    // this.maxActions = maxActions;
+    // this.inactiveActions = getAllActions();
+    // activeActions = new ArrayList<>();
+    // for (Action action : actions) {
+    // this.addAction(action, loadIcon(action.getValue(Action.NAME).toString()));
+    // }
+    // this.inactiveActions.removeAll(actions);
+    // }
 
     public Toolbar(String name, int maxActions) {
         this.name = name;
         this.maxActions = maxActions;
         activeActions = new ArrayList<>();
-        loadDefaultActions();
+        loadActionsFromFile();
     }
 
     public boolean addAction(Action action) {
@@ -69,17 +70,22 @@ public class Toolbar extends JToolBar {
             System.err.println("Too many actions in the ToolBar!");
             return false;
         }
+        Icon icon = loadIcon(action.getValue(Action.NAME).toString());
 
-        activeActions.add(action);
-        inactiveActions.remove(action);
-        System.err.println("Added action " + action.getValue(Action.NAME) + "!");
-        this.add(new JButton((Action) action));
+        if (icon != null) { // if there's an icon asscioated load it
+            return addAction(action, icon);
+        } else { // otherwise just add it
+            activeActions.add(action);
+            inactiveActions.remove(action);
+            System.err.println("Added action " + action.getValue(Action.NAME) + "!");
+            this.add(new JButton((Action) action));
 
-        String actionName = action.getValue(Action.NAME).toString();
-        boolean result = hasAction(actionName);
-        if (result == false)
-            System.err.println(actionName + " wasn't added!");
-        return result;
+            String actionName = action.getValue(Action.NAME).toString();
+            boolean result = hasAction(actionName);
+            if (result == false)
+                System.err.println(actionName + " wasn't added!");
+            return result;
+        }
     }
 
     public boolean addAction(Action action, Icon iconName) {
@@ -176,25 +182,18 @@ public class Toolbar extends JToolBar {
 
     public void updateActions() {
         this.activeActions = new ArrayList<>();
-        for (Component comp : getComponents()) {
+        for (Component comp : getComponents()) { // gets all active buttons
             if (comp instanceof JButton) {
                 JButton button = (JButton) comp;
-                Action action = button.getAction();
+                Action action = button.getAction(); // get the action from the button
                 if (action != null) {
-                    activeActions.add(action);
+                    activeActions.add(action); // if its not nothing add the action to the list
                 }
             }
         }
         inactiveActions = getAllActions();
 
         inactiveActions.removeAll(getActiveActions());
-    }
-
-    public void showEditDialog() {
-    }
-
-    public Component[] getButtons() {
-        return this.getComponents();
     }
 
     public Icon loadIcon(String name) {
@@ -218,8 +217,14 @@ public class Toolbar extends JToolBar {
     }
 
     public void saveActions() {
-        try (ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream("actions.ser"))) {
-            out.writeObject(activeActions);
+        try (ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream("src/resources/actions.ser"))) {
+            ArrayList<String> actionNames = new ArrayList<>();
+            for (Action action : activeActions) {
+                actionNames.add(action.getValue(Action.NAME).toString());
+            }
+            out.writeObject(actionNames);
+            if (testing)
+                System.out.println("Saved actions.ser toolbar preferences to src / resources");
         } catch (IOException e) {
             System.err.println("Couldn't save ToolBar preferences");
             e.printStackTrace();
@@ -228,15 +233,23 @@ public class Toolbar extends JToolBar {
 
     @SuppressWarnings("unchecked")
     public void loadActionsFromFile() {
+        if (testing) System.out.println("Loading from file, firstly removing all actions");
         this.removeAllActions();
 
+        if (testing)
+            System.out.println("Trying to load actions from file..");
         try (InputStream inputStream = Andie.class.getClassLoader().getResourceAsStream("actions.ser")) {
             ObjectInputStream in = new ObjectInputStream(inputStream);
-            activeActions = (ArrayList<Action>) in.readObject();
-            for (Action action : activeActions) {
-                this.add(action);
+            if (in == null) System.err.println("ObjectInputStream is null");
+            ArrayList<String> actionNames = (ArrayList<String>) in.readObject();
+            if (actionNames.isEmpty() || actionNames == null) System.err.println("action name arraylist is null");
+            for (String actionName : actionNames) {
+                if (testing)
+                    System.out.println("Found action in file: " + actionName);
+                addAction(actionName);
             }
         } catch (IOException | ClassNotFoundException | NullPointerException e) {
+            System.err.println("Couldn't find saved user preferences, loading default list of actions...");
             loadDefaultActions();
         }
     }
@@ -273,6 +286,8 @@ public class Toolbar extends JToolBar {
             this.removeAll();
             this.activeActions.clear();
             this.inactiveActions = getAllActions();
+            if (testing)
+                System.out.println("Removed all actions from toolbar");
             return true;
         } catch (Exception e) {
             System.err.println("Toolbar was already empty");
@@ -281,6 +296,7 @@ public class Toolbar extends JToolBar {
     }
 
     public void loadDefaultActions() {
+
         ArrayList<Action> defaultActions = new ArrayList<>();
         this.removeAllActions();
 
