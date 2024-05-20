@@ -313,7 +313,7 @@ public class Andie {
          SwingUtilities.invokeLater(() -> {
             try {
                createAndShowGUI();
-               activateEasterEgg();
+               // activateEasterEgg();
                if (testing) {
                   System.out.println("Frame dimensions - Height: "+frame.getHeight()+", Width: "+frame.getWidth());
                   System.out.println("Toolbar dimensions - Height: "+toolbar.getHeight()+", Width: "+toolbar.getWidth());

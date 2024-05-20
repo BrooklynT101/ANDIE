@@ -80,6 +80,11 @@ public class ToolbarEditDialog extends JFrame {
             // repaint and validate the toolbar because see previous comment
             Andie.toolbar.revalidate();
             Andie.toolbar.repaint();
+
+            // Finally save to file the user preferences
+            if (testing) System.out.println("Saving user toolbar prefs to file...");
+            Andie.toolbar.saveActions();
+
             // close
             dialog.dispose();
         });
@@ -99,16 +104,17 @@ public class ToolbarEditDialog extends JFrame {
 
     // add inactive actions to the left panel
     private void addInactiveActionsToPanel(ArrayList<Action> actions) {
+        if (testing) System.out.println("Adding actions to left panel");
         // remove everything so its not adding actions to the panel each time
         inactiveActionsPanel.removeAll();
         inactiveActionsPanel.setLayout(new BoxLayout(inactiveActionsPanel, BoxLayout.Y_AXIS));
 
-        // iterate over all the given actions and slam them into the panel
+        // iterate over all the given actions and slam them into the left panel
         for (Action action : actions) {
             if (Andie.toolbar.getActiveActions().contains(action)) {
             } else {
                 if (testing)
-                    System.out.println("Action name: " + action.getValue(Action.NAME));
+                    System.out.println("Inactive action name: " + action.getValue(Action.NAME));
                 JButton button = new JButton((String) action.getValue(Action.NAME)); // get the name, add as a button
                 button.addActionListener(new ActionListener() {
                     @Override
@@ -140,12 +146,15 @@ public class ToolbarEditDialog extends JFrame {
      * @see addInactiveActionsToPanel
      */
     private void addActiveActionsToPanel(ArrayList<Action> actions) {
+        if (testing) System.out.println("Adding active actions to right panel");
         // remove everything so its not adding actions to the panel each time
         activeActionsPanel.removeAll();
         activeActionsPanel.setLayout(new BoxLayout(activeActionsPanel, BoxLayout.Y_AXIS));
 
         // iterate over all the given actions and slam them into the panel
         for (Action action : actions) {
+            if (testing)
+                System.out.println("Active action name: " + action.getValue(Action.NAME));
             JButton button = new JButton((String) action.getValue(Action.NAME)); // get the name, add as a button
             button.setName((String) action.getValue(Action.NAME));
             button.addActionListener(new ActionListener() {
