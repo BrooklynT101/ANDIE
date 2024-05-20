@@ -18,7 +18,7 @@ public class AndieTest {
     void checkCustomIconLoading() {
         ImageIcon customIcon = null;
         try {
-            customIcon = new ImageIcon(Andie.class.getClassLoader().getResource("icon.png"));
+            customIcon = new ImageIcon(Andie.class.getClassLoader().getResource("QnQ Logo.png"));
         } catch (Exception e) {
             e.printStackTrace();
         }

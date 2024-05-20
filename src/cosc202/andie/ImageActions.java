@@ -51,7 +51,8 @@ public class ImageActions {
                 Integer.valueOf(KeyEvent.VK_R));
         ImageResizeAction resize = new ImageResizeAction(Andie.bundle.getString("ImageResize"), null,
                 Andie.bundle.getString("ResizeImage"), Integer.valueOf(KeyEvent.VK_R));
-        DifferenceofImagesAction dif = new DifferenceofImagesAction(Andie.bundle.getString("DifferencImage"), null, Andie.bundle.getString("DifferencImage"), Integer.valueOf(KeyEvent.VK_R));
+        DifferenceofImagesAction dif = new DifferenceofImagesAction(Andie.bundle.getString("DifferencImage"), null,
+                Andie.bundle.getString("DifferencImage"), Integer.valueOf(KeyEvent.VK_R));
 
         // keyboard shortcuts
         resize.putValue(Action.ACCELERATOR_KEY, KeyStroke.getKeyStroke("control R"));
@@ -138,7 +139,6 @@ public class ImageActions {
         }
     }
 
-
     /**
      * Flips an image vertically
      * 
@@ -224,7 +224,7 @@ public class ImageActions {
     }
 
     /**
-     * Resizes an image
+     * Subtracts an Image called different from active image.
      * 
      * @author Ari
      */
@@ -236,26 +236,30 @@ public class ImageActions {
         }
 
         public void actionPerformed(ActionEvent e) {
-           
 
             JFileChooser fileChooser = new JFileChooser();
 
             int result = fileChooser.showOpenDialog(target);
 
-            BufferedImage different = target.getImage().getCurrentImage();
+            BufferedImage different = null;
 
             if (result == JFileChooser.APPROVE_OPTION) {
                 try {
                     String imageFilepath = fileChooser.getSelectedFile().getCanonicalPath();
                     File imageFile = new File(imageFilepath);
                     different = ImageIO.read(imageFile);
-                    
+
                 } catch (Exception ex) {
                     JFrame frame = new JFrame();
                     JOptionPane.showMessageDialog(frame, Andie.bundle.getString("Pleasechooseanimagefile!"));
                 }
             }
 
+            if (different == null && result != JFileChooser.CANCEL_OPTION) {
+                JFrame frame = new JFrame();
+                JOptionPane.showMessageDialog(frame, Andie.bundle.getString("Pleasechooseanimagefile!"));
+
+            }
             target.getImage()
                     .apply(new DifferenceofImages(different));
             target.repaint();
@@ -266,6 +270,7 @@ public class ImageActions {
 
     /**
      * Getter method to get the actions for the colour actions
+     * 
      * @return all available actions
      */
     public ArrayList<Action> getActions() {

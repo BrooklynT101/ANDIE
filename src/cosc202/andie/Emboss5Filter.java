@@ -4,6 +4,21 @@ import java.awt.image.*;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
+/**
+ * <p>
+ * Emboss5Filter class, applies an emboss convoultion kernel.
+ * <p>
+ * 
+ * <p>
+ * Creates Emboss5Filter object and applies the emboss convolution kernel to the
+ * input image using the FilterswithNegativeResults convoltion method
+ * implementation.
+ * 
+ * 
+ * 
+ * 
+ * @author Ari Josephson
+ */
 public class Emboss5Filter implements ImageOperation, java.io.Serializable {
 
     private int radius;

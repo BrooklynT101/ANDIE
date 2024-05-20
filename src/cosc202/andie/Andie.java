@@ -88,11 +88,11 @@ public class Andie {
 
       // getting icon from resource folder
       try {
-         Image icon = ImageIO.read(Andie.class.getClassLoader().getResource("icon.png"));
+         Image icon = ImageIO.read(Andie.class.getClassLoader().getResource("QnQ Logo.png"));
          frame.setIconImage(icon);
 
       } catch (Exception e) {
-         System.out.println("Error loading icon.png");
+         System.out.println("Error loading QnQ Logo.png");
          e.printStackTrace();
       }
 
