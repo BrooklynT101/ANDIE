@@ -13,7 +13,7 @@ import java.util.ArrayList;
 
 /**
  * Custom toolbar class that supports adding and removing action and saving user
- * prefs to a file TODO implement saving preferences
+ * prefs to a file
  * 
  * @author Brooklyn Taylor
  */

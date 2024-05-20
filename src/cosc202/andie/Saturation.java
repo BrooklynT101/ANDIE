@@ -19,7 +19,7 @@ import javax.swing.JOptionPane;
  * @version 1.0
  * @see <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a>
  * 
- * //formula = S(HSV) = (max(R,G,B)-min(R,G,B)) ⁄ max(R,G,B).
+ * formula = S(HSV) = (max(R,G,B)-min(R,G,B)) / max(R,G,B).
  */
 
 public class Saturation implements ImageOperation, java.io.Serializable {
