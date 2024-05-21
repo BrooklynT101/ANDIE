@@ -13,7 +13,7 @@ import java.util.ArrayList;
 
 /**
  * Custom toolbar class that supports adding and removing action and saving user
- * prefs to a file TODO implement saving preferences
+ * prefs to a file
  * 
  * @author Brooklyn Taylor
  */
@@ -35,7 +35,7 @@ public class Toolbar extends JToolBar {
 
     protected ArrayList<Action> activeActions;
     protected ArrayList<Action> inactiveActions;
-    private boolean testing = true; // set to true to print statements for whats happening
+    private boolean testing = false; // set to true to print statements for whats happening
 
     /**
      * Default constructor

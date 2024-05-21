@@ -16,6 +16,7 @@ doc/
 *.class
 *.jar
 .DS_Store
+*.ser
 
 # Don't ignore gradle wrapper JAR
 !gradle-wrapper.jar

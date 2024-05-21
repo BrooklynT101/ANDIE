@@ -32,7 +32,7 @@ public class MacroActions {
         EasterEggAction egg = new EasterEggAction("Confetti!", null,
                 "Celebrate good times!", null);
         QnQAction qnq = new QnQAction("QnQ Easter egg", null,
-                "quacking qwazy", null);
+                "Quacking Qwazy!", null);
 
         // keyboard shortcuts
         mLoad.putValue(Action.ACCELERATOR_KEY, KeyStroke.getKeyStroke("control O"));
@@ -289,7 +289,7 @@ public class MacroActions {
                 }
             } else {
                 // User canceled or closed the dialog
-                System.out.println("Save operation cancelled.");
+                if (testing) System.out.println("Save operation cancelled.");
             }
         }
 

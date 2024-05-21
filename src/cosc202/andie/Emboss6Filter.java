@@ -4,6 +4,21 @@ import java.awt.image.*;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
+/**
+ * <p>
+ * Emboss6Filter class, applies an emboss convoultion kernel.
+ * <p>
+ * 
+ * <p>
+ * Creates Emboss6Filter object and applies the emboss convolution kernel to the
+ * input image using the FilterswithNegativeResults convoltion method
+ * implementation.
+ * 
+ * 
+ * 
+ * 
+ * @author Ari Josephson
+ */
 public class Emboss6Filter implements ImageOperation, java.io.Serializable {
 
     private int radius;

@@ -14,7 +14,6 @@ import java.awt.event.KeyAdapter;
 import java.util.prefs.Preferences;
 import java.util.ResourceBundle;
 import java.util.Locale;
-import java.util.Random;
 
 import javax.swing.JFrame;
 import javax.swing.JLayeredPane;
@@ -49,8 +48,8 @@ import javax.imageio.ImageIO;
  * @version 1.0
  */
 public class Andie {
-   // boolean for printing out test related values
-   protected static boolean testing = true;
+   //boolean for printing out test related values
+   protected static boolean testing = false;
 
    // Setting prefs
    protected static Preferences prefs = Preferences.userNodeForPackage(Andie.class);
@@ -110,20 +109,21 @@ public class Andie {
     */
 
    private static void createAndShowGUI() throws Exception {
-      frame.setAlwaysOnTop(true);
+      frame.setAlwaysOnTop(true); //so it loads on top of everything
 
       // getting icon from resource folder
       try {
-         Image icon = ImageIO.read(Andie.class.getClassLoader().getResource("icon.png"));
+         Image icon = ImageIO.read(Andie.class.getClassLoader().getResource("QnQ Logo.png"));
          frame.setIconImage(icon);
 
       } catch (Exception e) {
-         System.out.println("Error loading icon.png");
+         System.err.println("Error loading QnQ Logo.png");
          e.printStackTrace();
       }
 
       // Set this to nothing so the exitListener works.
       frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+
       // The main content area is an ImagePanel
       ImagePanel imagePanel = new ImagePanel();
       ImageAction.setTarget(imagePanel);
@@ -222,7 +222,7 @@ public class Andie {
       // frame.getContentPane().add(toolbar, BorderLayout.NORTH);
       frame.pack();
       frame.setVisible(true);
-      frame.setAlwaysOnTop(false);
+      frame.setAlwaysOnTop(false); //so it doesn't stay loaded on top of everything
    }
 
    private static void showSplashScreen() {

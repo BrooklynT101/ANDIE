@@ -32,6 +32,7 @@ public class BlockAveraging implements ImageOperation, java.io.Serializable {
     private int avgRed;
     private int avgGreen;
     private int avgBlue;
+    private boolean testing = false;
 
     BlockAveraging(int blockWidth, int blockHeight) {
         this.blockWidth = blockWidth;
@@ -48,8 +49,8 @@ public class BlockAveraging implements ImageOperation, java.io.Serializable {
             JOptionPane.showMessageDialog(frame, Andie.bundle.getString("Pleaseopenanimagefilefirst!"));
 
         }
-
-        // System.out.println("width " + blockWidth + " height " + blockHeight);
+        if (testing)
+            System.out.println("width " + blockWidth + " height " + blockHeight);
 
         BufferedImage output = new BufferedImage(input.getColorModel(), input.copyData(null),
                 input.isAlphaPremultiplied(), null);
@@ -57,18 +58,17 @@ public class BlockAveraging implements ImageOperation, java.io.Serializable {
         int numBlocksX = (input.getWidth() / blockWidth) + 1; // find how many blocks are width ways
         int numBlocksY = (input.getHeight() / blockHeight) + 1; // find how many blocks are height ways
 
-        // System.out.println("number of blocks width " + numBlocksX + " number of blocks height " + numBlocksY);
+        if (testing)
+            System.out.println("number of blocks width " + numBlocksX + " number of blocks height " + numBlocksY);
 
         for (int blockY = 0; blockY < numBlocksY; blockY++) { // loop through each block in the image
             for (int blockX = 0; blockX < numBlocksX; blockX++) {
                 // calculate the coordinates of the current block
                 int startX = blockX * blockWidth;
                 int startY = blockY * blockHeight;
-                int endX = Math.min(startX + blockWidth, input.getWidth()); //check that the start is not the same as the end
+                int endX = Math.min(startX + blockWidth, input.getWidth()); // check that the start is not the same as
+                                                                            // the end
                 int endY = Math.min(startY + blockHeight, input.getHeight());
-
-                // System.out.println("start x " + startX + " start y " + startY);
-                // System.out.println("end x " + endX + " start y " + endY);
 
                 // variables to store the total values
                 int totalRed = 0;
@@ -93,24 +93,20 @@ public class BlockAveraging implements ImageOperation, java.io.Serializable {
                     }
                 }
 
-                if(pixels == 0){
+                if (pixels == 0) {
                     avgRed = totalRed / 1;
                     avgGreen = totalGreen / 1;
-                    avgBlue = totalBlue / 1;  
-                }else{
+                    avgBlue = totalBlue / 1;
+                } else {
                     avgRed = totalRed / pixels;
                     avgGreen = totalGreen / pixels;
                     avgBlue = totalBlue / pixels;
                 }
 
                 int avgRGB = (avgRed << 16) | (avgGreen << 8) | avgBlue;
-                // System.out.println(avgRGB);
 
-                // System.out.println(input.getRGB(blockX, blockY));
-                // System.out.println(avgRGB);
-
-                for(int y = startY; y < endY; y++){
-                    for(int x = startX; x < endX; x++){
+                for (int y = startY; y < endY; y++) {
+                    for (int x = startX; x < endX; x++) {
                         output.setRGB(x, y, avgRGB);
                     }
                 }

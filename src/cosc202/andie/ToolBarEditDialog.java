@@ -17,7 +17,7 @@ public class ToolbarEditDialog extends JFrame {
     // static panels so methods can freely update these
     private static JPanel inactiveActionsPanel = new JPanel();
     private static JPanel activeActionsPanel = new JPanel();
-    private boolean testing = true; // set to true to print statements for whats happening
+    private boolean testing = false; // set to true to print statements for whats happening
 
     // default constructor
     public ToolbarEditDialog() {
