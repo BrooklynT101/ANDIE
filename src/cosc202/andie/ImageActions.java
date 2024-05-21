@@ -51,6 +51,10 @@ public class ImageActions {
                 Integer.valueOf(KeyEvent.VK_R));
         ImageResizeAction resize = new ImageResizeAction(Andie.bundle.getString("ImageResize"), null,
                 Andie.bundle.getString("ResizeImage"), Integer.valueOf(KeyEvent.VK_R));
+        CropFunctionAction crop = new CropFunctionAction(Andie.bundle.getString("CropImage"), null,
+                Andie.bundle.getString("CropImage"), Integer.valueOf(KeyEvent.VK_C));
+        DrawFunctionsAction draw = new DrawFunctionsAction(Andie.bundle.getString("DrawFunction"), null,
+                Andie.bundle.getString("DrawFunction"), Integer.valueOf(KeyEvent.VK_C));
         DifferenceofImagesAction dif = new DifferenceofImagesAction(Andie.bundle.getString("DifferencImage"), null,
                 Andie.bundle.getString("DifferencImage"), Integer.valueOf(KeyEvent.VK_R));
 
@@ -65,6 +69,8 @@ public class ImageActions {
         actions.add(horiFlip);
         actions.add(resize);
         actions.add(dif);
+        actions.add(crop);
+        actions.add(draw);
 
     }
 
@@ -278,4 +284,85 @@ public class ImageActions {
         return allActions;
     }
 
+    /**
+     * Crops an image
+     * 
+     * @author Marcus
+     */
+    public class CropFunctionAction extends ImageAction {
+
+        CropFunctionAction(String name, ImageIcon icon,
+                String desc, Integer mnemonic) {
+            super(name, icon, desc, mnemonic);
+        }
+
+        public void actionPerformed(ActionEvent e) {
+
+            if (target.getImage().getOriginalImage() == null) {
+                JFrame frame = new JFrame();
+                JOptionPane.showMessageDialog(frame, Andie.bundle.getString("Pleaseopenanimagefilefirst!"));
+            }
+            MouseEar mouseEar = target.getMouseEar();
+
+            mouseEar.setCrop(true);
+
+            mouseEar.image = target.getImage().getCurrentImage();
+            mouseEar.imageWidth = target.getImage().getOriginalImage().getWidth();
+            mouseEar.imageHeight = target.getImage().getOriginalImage().getHeight();
+
+        }
+
+    }
+
+    /**
+     * Draws on an image
+     * 
+     * @author Marcus
+     */
+    public class DrawFunctionsAction extends ImageAction {
+
+        DrawFunctionsAction(String name, ImageIcon icon,
+                String desc, Integer mnemonic) {
+            super(name, icon, desc, mnemonic);
+        }
+
+        public void actionPerformed(ActionEvent e) {
+
+            if (target.getImage().getOriginalImage() == null) {
+                JFrame frame = new JFrame();
+                JOptionPane.showMessageDialog(frame, Andie.bundle.getString("Pleaseopenanimagefilefirst!"));
+            }
+            JFrame drawFrame = new JFrame("DrawingOptions");
+            // drawFrame.setSize(400, 200);
+            DrawingOptionsDisplay display = new DrawingOptionsDisplay();
+
+            drawFrame.add(display);
+            drawFrame.pack();
+            drawFrame.setVisible(true);
+
+            MouseEar mouseEar = target.getMouseEar();
+
+            // disallow drawing operations when closed
+            drawFrame.addWindowListener(new WindowAdapter() {
+
+                public void windowClosing(WindowEvent e) {
+                    mouseEar.setDraw(false);
+                }
+            });
+
+            mouseEar.setDraw(true);
+
+            mouseEar.image = target.getImage().getCurrentImage();
+            mouseEar.imageWidth = target.getImage().getOriginalImage().getWidth();
+            mouseEar.imageHeight = target.getImage().getOriginalImage().getHeight();
+
+            mouseEar.drawOptions = display;
+
+            // target.getImage().apply(new DrawFunctions());
+            // target.repaint();
+            // target.getParent().revalidate();
+
+        }
+
+    }
 }
