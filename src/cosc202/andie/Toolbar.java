@@ -240,7 +240,6 @@ public class Toolbar extends JToolBar {
             System.out.println("Trying to load actions from file..");
         try (InputStream inputStream = Andie.class.getClassLoader().getResourceAsStream("actions.ser")) {
             ObjectInputStream in = new ObjectInputStream(inputStream);
-            if (in == null) System.err.println("ObjectInputStream is null");
             ArrayList<String> actionNames = (ArrayList<String>) in.readObject();
             if (actionNames.isEmpty() || actionNames == null) System.err.println("action name arraylist is null");
             for (String actionName : actionNames) {
