@@ -67,4 +67,20 @@ public class DrawFunction implements ImageOperation, java.io.Serializable {
     return input;
   }
 
+
+  @Override
+  public String getName() {
+      return "Draw Function";
+  }
+
+  /**
+   * Method to return 'this' as an ImageOperation to support @see MacroActions
+   */
+  @Override
+  public ImageOperation clone() {
+      DrawFunction copy = new DrawFunction( xStart,  yStart,  xEnd,  yEnd, 
+       regionXStart,  regionYStart,  regionWidth,  regionHeight,
+           colour,  shape,  style,  lineWidth);
+      return copy;
+  }
 }

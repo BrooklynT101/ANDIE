@@ -33,4 +33,18 @@ public class CropFunction implements ImageOperation, java.io.Serializable {
     
     }
 
+    @Override
+    public String getName() {
+        return "Crop Function";
+    }
+  
+    /**
+     * Method to return 'this' as an ImageOperation to support @see MacroActions
+     */
+    @Override
+    public ImageOperation clone() {
+        CropFunction copy = new CropFunction( xStart,  yStart, regionWidth,  regionHeight);
+        return copy;
+    }
+
 }
