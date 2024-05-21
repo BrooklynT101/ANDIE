@@ -6,6 +6,7 @@ import java.awt.Rectangle;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Iterator;
+import java.awt.Font;
 
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -34,13 +35,14 @@ public class QnQPanel extends JPanel {
     private long endTime;
     private final int SPAWN_DELAY = 2000; //def 2 seconds
     private final int MAX_NUM = 25;
+    private Font counterFont;
 
     public QnQPanel() {
-        setBackground(Color.black);
         frameWidth = Andie.getFrame().getWidth();
         frameHeight = Andie.getFrame().getHeight();
         this.clickCount = 0;
         crackersAndCheeses = new ArrayList<>();
+        counterFont = new Font("Serif", Font.PLAIN, 20);
 
         // timer for moving the balls
         movementTimer = new Timer(10, new ActionListener() {
@@ -87,9 +89,10 @@ public class QnQPanel extends JPanel {
                         cnqCount--;
                         clickCount++;
                         if (generationTimer.isRunning()) {
-                            generationTimer.setDelay(generationTimer.getDelay() - 100);
+                            int temp = (int) (generationTimer.getDelay() * 0.9);
+                            generationTimer.setDelay(temp);
                             if (testing)
-                                System.out.println("Current Delay: " + generationTimer.getDelay());
+                                System.out.println("Current Delay: " + temp);
                         }
                         break; // Exit the loop after removing the clicked item to avoid
                                // ConcurrentModificationException
@@ -117,7 +120,7 @@ public class QnQPanel extends JPanel {
         double gameTime = (double) (((endTime - startTime) / 1000000) / 1000);
 
         // show game over message
-        String message = "You managed to click " + clickCount + " crackers and cheeses in " + gameTime
+        String message = "You managed to eat " + clickCount + " crackers and cheeses in " + gameTime
                 + " seconds!\nWell Done you absolute legend.";
         JOptionPane.showMessageDialog(this, message, "Game Over", JOptionPane.INFORMATION_MESSAGE);
 
@@ -181,5 +184,13 @@ public class QnQPanel extends JPanel {
         for (CrackerAndCheese cnq : crackersAndCheeses) {
             cnq.draw(g); // draw each ball
         }
+        // counter and time scores top right
+        g.setColor(Color.RED);
+        g.setFont(counterFont);
+        g.drawString("Crackers clicked: " + clickCount, frameWidth - 200, 55);
+        
+        long currentTime = System.nanoTime();
+        double elapsedTime = (double) (((currentTime - startTime) / 1000000) / 1000);
+        g.drawString("Time: " + elapsedTime + " s", frameWidth - 200, 75);
     }
 }
