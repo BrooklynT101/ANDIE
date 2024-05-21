@@ -9,7 +9,7 @@ import javax.swing.*;
  * </p>
  * 
  * <p>
- * This class extends {@link JPanel} to allow for rendering of an image, as well as zooming
+ * This class extends {@link JPanel} to allow for rendering of an image, zooming
  * in and out. 
  * </p>
  * 
@@ -38,6 +38,7 @@ public class ImagePanel extends JPanel {
      * </p>
      */
     private double scale;
+    private MouseEar mouseEar;
 
     /**
      * <p>
@@ -50,6 +51,7 @@ public class ImagePanel extends JPanel {
      */
     public ImagePanel() {
         image = new EditableImage();
+        mouseEar = new MouseEar(this);
         scale = 1.0;
     }
 
@@ -137,5 +139,10 @@ public class ImagePanel extends JPanel {
             g2.drawImage(image.getCurrentImage(), null, 0, 0);
             g2.dispose();
         }
+    }
+
+    public MouseEar getMouseEar(){
+
+        return mouseEar;
     }
 }

@@ -72,6 +72,6 @@ Ongoing Annoyance
 - save ctrl + s
 - undo ctrl+z
 - redo ctrl+y
-- 
+- zoom ctrl+ '+'/'-'
 ### Additonal Features we might wanna add
 *
