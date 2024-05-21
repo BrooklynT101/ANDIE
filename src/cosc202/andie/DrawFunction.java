@@ -7,6 +7,8 @@ import java.awt.event.*;
 
 public class DrawFunction implements ImageOperation, java.io.Serializable {
 
+  int regionXStart;
+  int regionYStart; 
   int regionHeight;
   int regionWidth;
   int xStart;
@@ -28,6 +30,8 @@ public class DrawFunction implements ImageOperation, java.io.Serializable {
     this.yEnd = yEnd;
     this.regionWidth = regionWidth;
     this.regionHeight = regionHeight;
+    this.regionXStart = regionXStart;
+    this.regionYStart = regionYStart;
     this.colour = colour;
     this.shape = shape;
     this.style = style;
@@ -44,16 +48,16 @@ public class DrawFunction implements ImageOperation, java.io.Serializable {
 
     if (shape.equals("Rectangle")) {
       if (style.equals("Filled")) {
-        g2d.fillRect(xStart, yStart, regionWidth, regionHeight);
+        g2d.fillRect(regionXStart, regionYStart, regionWidth, regionHeight);
       } else {
-        g2d.drawRect(xStart, yStart, regionWidth, regionHeight);
+        g2d.drawRect(regionXStart, regionYStart, regionWidth, regionHeight);
       }
 
     } else if (shape.equals("Oval")) {
       if (style.equals("Filled")) {
-        g2d.fillOval(xStart, yStart, regionWidth, regionHeight);
+        g2d.fillOval(regionXStart, regionYStart, regionWidth, regionHeight);
       } else {
-        g2d.drawOval(xStart, yStart, regionWidth, regionHeight);
+        g2d.drawOval(regionXStart, regionYStart, regionWidth, regionHeight);
       }
 
     } else if (shape.equals("Line")) {
