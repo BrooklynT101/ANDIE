@@ -292,7 +292,7 @@ public class Andie {
    }
 
    public static void activateQNQEgg() {
-      qnqPanel = new QnQPanel(BALLS_DELAY, MAXIMUM_BALLS);
+      qnqPanel = new QnQPanel();
       JFrame frame = getFrame(); // Get the frame instance
       layeredPane = frame.getLayeredPane(); // Initialize layeredPane using the frame
       layeredPane.add(qnqPanel, JLayeredPane.POPUP_LAYER);

@@ -14,7 +14,7 @@ public class CrackerAndCheese {
     private int x, y;
     private int xSpeed, ySpeed;
     private static final int DIAMETER = 30;
-    private static final int SPEED = 0;
+    private static final int SPEED = 1;
     private Rectangle bounds;
     private int widthBounds;
     private int heightBounds;
@@ -112,10 +112,7 @@ public class CrackerAndCheese {
      * @return true if the point is inside the object, false otherwise
      */
     public boolean contains(int px, int py) {
-        int radius = DIAMETER / 2;
-        int centerX = x + radius;
-        int centerY = y + radius;
-        return Math.sqrt((px - centerX) * (px - centerX) + (py - centerY) * (py - centerY)) <= radius;
+        return px >= x && px <= x + DIAMETER && py >= y && py <= y + DIAMETER;
     }
 
     public int getX() {

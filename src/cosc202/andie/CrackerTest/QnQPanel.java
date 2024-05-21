@@ -20,25 +20,25 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 
 public class QnQPanel extends JPanel {
+    protected boolean testing = true;
     protected static List<CrackerAndCheese> crackersAndCheeses;
+    private MouseAdapter mouseListener;
     protected Timer generationTimer;
     protected Timer movementTimer;
     protected Timer gameTimer;
     protected static int frameWidth;
     protected static int frameHeight;
     protected int cnqCount = 0;
-    protected int maxNum;
-    protected boolean testing = true;
     private int clickCount;
-    protected long startTime;
+    private long startTime;
     private long endTime;
-    private MouseAdapter mouseListener;
+    private final int SPAWN_DELAY = 2000; //def 2 seconds
+    private final int MAX_NUM = 25;
 
-    public QnQPanel(int generationDelay, int maxNum) {
+    public QnQPanel() {
         setBackground(Color.black);
         frameWidth = Andie.getFrame().getWidth();
         frameHeight = Andie.getFrame().getHeight();
-        this.maxNum = maxNum;
         this.clickCount = 0;
         crackersAndCheeses = new ArrayList<>();
 
@@ -55,11 +55,11 @@ public class QnQPanel extends JPanel {
         movementTimer.start();
 
         // timer for cnq genreation
-        generationTimer = new Timer(generationDelay, new ActionListener() {
+        generationTimer = new Timer(SPAWN_DELAY, new ActionListener() {
 
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (cnqCount < maxNum) {
+                if (cnqCount < MAX_NUM) {
                     addCrackerAndCheese();
                     QnQPanel.frameWidth = Andie.getFrame().getWidth();
                     QnQPanel.frameHeight = Andie.getFrame().getHeight();
@@ -76,7 +76,7 @@ public class QnQPanel extends JPanel {
         // add mouse listener to detect clicks on the CrackerAndCheese objects
         mouseListener = new MouseAdapter() {
             @Override
-            public void mouseClicked(MouseEvent e) {
+            public void mousePressed(MouseEvent e) {
                 Iterator<CrackerAndCheese> iterator = crackersAndCheeses.iterator();
                 while (iterator.hasNext()) {
                     CrackerAndCheese cnq = iterator.next();
@@ -144,10 +144,10 @@ public class QnQPanel extends JPanel {
         cnqCount--;
         clickCount++;
         int currentDelay = generationTimer.getDelay();
-        if (generationTimer.isRunning() && currentDelay > 100) {
-            generationTimer.setDelay(currentDelay - 100);
+        if (generationTimer.isRunning() && currentDelay > 50) {
+            generationTimer.setDelay(currentDelay - 50);
             if (testing)
-                System.out.println("Current Delay: " + (currentDelay - 100));
+                System.out.println("Current Delay: " + (currentDelay - 50));
         }
     }
 
