@@ -3,6 +3,7 @@ package cosc202.andie.BallTest;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Rectangle;
+import java.util.Random;
 
 public class Ball {
     private int x, y;
@@ -11,10 +12,16 @@ public class Ball {
     private static final int SPEED = 7;
     private Rectangle bounds;
     private Color color;
+    private int widthBounds;
+    private int heightBounds;
+    private Random r = new Random();
 
-    public Ball(int initialX, int initialY, Color color) {
-        this.x = initialX;
-        this.y = initialY;
+    public Ball(int widthBounds, int heightBounds, Color color) { //TODO change color to icon
+        this.widthBounds = widthBounds;
+        this.heightBounds = heightBounds;
+        //r.nextInt(origin, bound)
+        this.x = r.nextInt(35, widthBounds - 35);
+        this.y = r.nextInt(35, heightBounds - 35);
         this.xSpeed = SPEED;
         this.ySpeed = SPEED;
         this.color = color;
@@ -24,7 +31,7 @@ public class Ball {
         x += xSpeed;
         y += ySpeed;
 
-        bounds = new Rectangle(0, 0, Main.frame.getWidth(), Main.frame.getHeight());
+        bounds = new Rectangle(0, 0, widthBounds, heightBounds);
 
         if (x <= bounds.x || x >= bounds.width - DIAMETER) {
             xSpeed = -xSpeed;
