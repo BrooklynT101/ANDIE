@@ -2,6 +2,7 @@ package cosc202.andie;
 
 import java.awt.*;
 import javax.swing.*;
+import javax.swing.border.Border;
 
 public class DrawingOptionsDisplay extends JPanel {
 
@@ -11,6 +12,7 @@ public class DrawingOptionsDisplay extends JPanel {
     JRadioButton rectangleButton;
     JRadioButton ovalButton;
     JRadioButton lineButton;
+    JColorChooser colors;
 
     ButtonGroup styleChoiceButtons;
     JRadioButton fillButton;
@@ -20,15 +22,9 @@ public class DrawingOptionsDisplay extends JPanel {
 
     public DrawingOptionsDisplay() {
 
-        setLayout(new GridLayout(3, 1));
+        colors = new JColorChooser();
 
-        String[] colourChoices = { "Black", "Red", "Blue", "Green", "Yellow" };
-        colourDropBox = new JComboBox<>(colourChoices);
-        add(new JLabel("Colour:"));
-        add(colourDropBox);
-        add(new JLabel("       "));
-        add(new JLabel("       "));
-        add(new JLabel("       "));
+        setLayout(new BorderLayout());
 
         shapeChoiceButtons = new ButtonGroup();
         rectangleButton = new JRadioButton("Rectangle");
@@ -37,42 +33,38 @@ public class DrawingOptionsDisplay extends JPanel {
         shapeChoiceButtons.add(ovalButton);
         lineButton = new JRadioButton("Line");
         shapeChoiceButtons.add(lineButton);
-        add(new JLabel("Shape:"));
-        add(rectangleButton);
-        add(ovalButton);
-        add(lineButton);
-        add(new JLabel("       "));
+        JPanel choices = new JPanel();
+        choices.setLayout(new FlowLayout());
+        add(choices, BorderLayout.LINE_START);
+        choices.add(new JLabel("Shape:"));
+        choices.add(rectangleButton);
+        choices.add(ovalButton);
+        choices.add(lineButton);
+        choices.add(new JLabel("       "));
 
         styleChoiceButtons = new ButtonGroup();
         fillButton = new JRadioButton("Fill");
         styleChoiceButtons.add(fillButton);
         outlineButton = new JRadioButton("Outline");
         styleChoiceButtons.add(outlineButton);
-        add(new JLabel("Style:"));
-        add(fillButton);
-        add(outlineButton);
+        choices.add(new JLabel("Style:"));
+        choices.add(fillButton);
+        choices.add(outlineButton);
 
-        add(new JLabel("Line Width:"));
+        choices.add(new JLabel("Line Width:"));
         SpinnerNumberModel lineWidthModel = new SpinnerNumberModel(1, 1, 10, 1);
         lineWidthSpinner = new JSpinner(lineWidthModel);
-        add(lineWidthSpinner);
+        choices.add(lineWidthSpinner);
+
+        JPanel colorpanel = new JPanel();
+        add(colorpanel, BorderLayout.PAGE_END);
+        colorpanel.add(colors);
 
     }
 
     public Color getColour() {
-        String chosenColour = (String) colourDropBox.getSelectedItem();
-        switch (chosenColour) {
-            case "Black":
-                return Color.BLACK;
-            case "Blue":
-                return Color.BLUE;
-            case "Green":
-                return Color.GREEN;
-            case "Yellow":
-                return Color.YELLOW;
-            default:
-                return Color.RED;
-        }
+        return colors.getColor();
+
     }
 
     public String getSelectedShape() {

@@ -266,22 +266,22 @@ public class ImageActions {
                 JOptionPane.showMessageDialog(frame, Andie.bundle.getString("Pleaseopenanimagefilefirst!"));
             }
             JFrame drawFrame = new JFrame("DrawingOptions");
-            //drawFrame.setSize(400, 200);
+            // drawFrame.setSize(400, 200);
             DrawingOptionsDisplay display = new DrawingOptionsDisplay();
-            
+
             drawFrame.add(display);
             drawFrame.pack();
             drawFrame.setVisible(true);
 
             MouseEar mouseEar = target.getMouseEar();
 
-            //disallow drawing operations when closed
+            // disallow drawing operations when closed
             drawFrame.addWindowListener(new WindowAdapter() {
 
-            public void windowClosing(WindowEvent e){
-                mouseEar.setDraw(false);
-            }
-        });
+                public void windowClosing(WindowEvent e) {
+                    mouseEar.setDraw(false);
+                }
+            });
 
             mouseEar.setDraw(true);
 
