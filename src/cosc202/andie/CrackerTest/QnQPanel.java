@@ -32,6 +32,7 @@ public class QnQPanel extends JPanel {
     private int clickCount;
     protected long startTime;
     private long endTime;
+    private MouseAdapter mouseListener;
 
     public QnQPanel(int generationDelay, int maxNum) {
         setBackground(Color.black);
@@ -73,7 +74,7 @@ public class QnQPanel extends JPanel {
         });
 
         // add mouse listener to detect clicks on the CrackerAndCheese objects
-        this.addMouseListener(new MouseAdapter() {
+        mouseListener = new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
                 Iterator<CrackerAndCheese> iterator = crackersAndCheeses.iterator();
@@ -87,28 +88,50 @@ public class QnQPanel extends JPanel {
                         clickCount++;
                         if (generationTimer.isRunning()) {
                             generationTimer.setDelay(generationTimer.getDelay() - 100);
-                            if (testing) System.out.println("Current Delay: " + generationTimer.getDelay());
+                            if (testing)
+                                System.out.println("Current Delay: " + generationTimer.getDelay());
                         }
-                        break; // Exit the loop after removing the clicked item to avoid ConcurrentModificationException
+                        break; // Exit the loop after removing the clicked item to avoid
+                               // ConcurrentModificationException
                     }
                 }
             }
-        });
+        };
 
+        this.addMouseListener(mouseListener);
+        // start the game time
         startTime = System.nanoTime();
     }
 
     protected void gameOver() {
+        // stop the awt timers
+        if (movementTimer != null && movementTimer.isRunning()) {
+            movementTimer.stop();
+        }
+        if (generationTimer != null && generationTimer.isRunning()) {
+            generationTimer.stop();
+        }
+
+        // calculate game time
         endTime = System.nanoTime();
         double gameTime = (double) (((endTime - startTime) / 1000000) / 1000);
+
+        // show game over message
         String message = "You managed to click " + clickCount + " crackers and cheeses in " + gameTime
                 + " seconds!\nWell Done you absolute legend.";
-        generationTimer.stop();
-        movementTimer.stop();
         JOptionPane.showMessageDialog(this, message, "Game Over", JOptionPane.INFORMATION_MESSAGE);
-        this.removeAll();
+
+        // remove the CrackerAndCheese objects from list
         crackersAndCheeses.clear();
-        Andie.frame.remove(Andie.qnqPanel);
+
+        // remove listeners
+        this.removeMouseListener(mouseListener);
+
+        // Remove the panel from the frame
+        Andie.frame.remove(this);
+
+        // repaint andie frame so its properly goneskis
+        Andie.frame.repaint();
     }
 
     public void addCrackerAndCheese() {

@@ -14,7 +14,7 @@ public class CrackerAndCheese {
     private int x, y;
     private int xSpeed, ySpeed;
     private static final int DIAMETER = 30;
-    private static final int SPEED = 3;
+    private static final int SPEED = 0;
     private Rectangle bounds;
     private int widthBounds;
     private int heightBounds;
