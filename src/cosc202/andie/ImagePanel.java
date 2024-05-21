@@ -38,6 +38,7 @@ public class ImagePanel extends JPanel {
      * </p>
      */
     private double scale;
+    //private MouseEar mouseEar;
     private MouseEar mouseEar;
 
     /**

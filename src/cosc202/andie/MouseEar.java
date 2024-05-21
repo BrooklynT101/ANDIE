@@ -157,7 +157,8 @@ public class MouseEar implements MouseListener {
             } else if (isDrawing) {
 
                ip.getImage()
-                     .apply(new DrawFunction(regionXStart, regionYStart, regionWidth, regionHeight,
+                     .apply(new DrawFunction(xStart, yStart, xEnd, yEnd,
+                           regionXStart, regionYStart, regionWidth, regionHeight,
                            drawOptions.getColour(), drawOptions.getSelectedShape(),
                            drawOptions.getSelectedStyle(), drawOptions.getLineWidth()));
                ip.repaint();

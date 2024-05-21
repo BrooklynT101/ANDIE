@@ -18,11 +18,14 @@ public class DrawFunction implements ImageOperation, java.io.Serializable {
   String style;
   int lineWidth;
 
-  DrawFunction(int xStart, int yStart, int regionWidth, int regionHeight,
+  DrawFunction(int xStart, int yStart, int xEnd, int yEnd, 
+  int regionXStart, int regionYStart, int regionWidth, int regionHeight,
       Color colour, String shape, String style, int lineWidth) {
 
     this.xStart = xStart;
     this.yStart = yStart;
+    this.xEnd = xEnd;
+    this.yEnd = yEnd;
     this.regionWidth = regionWidth;
     this.regionHeight = regionHeight;
     this.colour = colour;
@@ -54,8 +57,7 @@ public class DrawFunction implements ImageOperation, java.io.Serializable {
       }
 
     } else if (shape.equals("Line")) {
-      //g2d.setStroke(new BasicStroke(lineWidth));
-      g2d.drawLine(xStart, yStart, (xStart + regionWidth), (yStart + regionHeight));
+      g2d.drawLine(xStart, yStart, xEnd, yEnd);
 
     }
     return input;
