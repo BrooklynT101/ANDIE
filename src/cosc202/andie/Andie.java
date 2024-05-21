@@ -14,6 +14,7 @@ import java.awt.event.KeyAdapter;
 import java.util.prefs.Preferences;
 import java.util.ResourceBundle;
 import java.util.Locale;
+import java.util.Random;
 
 import javax.swing.JFrame;
 import javax.swing.JLayeredPane;
@@ -66,11 +67,7 @@ public class Andie {
    // boolean to display the splash screen or not (can get annoying)
    protected static final boolean displaySplash = false;
 
-   // this is the key sequence to activate the easter egg, first one is Konami code
-   // second is QnQ for our group
-   protected static final int[] KEY_SEQUENCE_KONAMI = { KeyEvent.VK_UP, KeyEvent.VK_UP, KeyEvent.VK_DOWN,
-         KeyEvent.VK_DOWN, KeyEvent.VK_LEFT, KeyEvent.VK_RIGHT, KeyEvent.VK_LEFT, KeyEvent.VK_RIGHT, KeyEvent.VK_B,
-         KeyEvent.VK_A };
+   // this is the key sequence to activate the easter egg
    protected static final int[] KEY_SEQUENCE_GROUP_NAME = { KeyEvent.VK_Q, KeyEvent.VK_N, KeyEvent.VK_Q };
    protected static boolean easterEggActivated = false;
    protected static Random r = new Random();

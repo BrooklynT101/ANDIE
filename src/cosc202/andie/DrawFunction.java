@@ -1,9 +1,7 @@
 package cosc202.andie;
 
 import java.awt.image.BufferedImage;
-import javax.swing.*;
 import java.awt.*;
-import java.awt.event.*;
 
 public class DrawFunction implements ImageOperation, java.io.Serializable {
 

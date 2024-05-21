@@ -16,7 +16,7 @@ public class Ball {
     private int heightBounds;
     private Random r = new Random();
 
-    public Ball(int widthBounds, int heightBounds, Color color) { //TODO change color to icon
+    public Ball(int widthBounds, int heightBounds, Color color) {
         this.widthBounds = widthBounds;
         this.heightBounds = heightBounds;
         //r.nextInt(origin, bound)
