@@ -95,6 +95,33 @@ public class DrawFunction implements ImageOperation, java.io.Serializable {
     return input;
   }
 
+  public void temporarydraw(BufferedImage input) {
+
+    Graphics2D g2d = (Graphics2D) input.getGraphics();
+    g2d.setColor(colour);
+
+    g2d.setStroke(new BasicStroke(lineWidth));
+
+    if (shape.equals("Rectangle")) {
+      if (style.equals("Filled")) {
+        g2d.fillRect(regionXStart, regionYStart, regionWidth, regionHeight);
+      } else {
+        g2d.drawRect(regionXStart, regionYStart, regionWidth, regionHeight);
+      }
+
+    } else if (shape.equals("Oval")) {
+      if (style.equals("Filled")) {
+        g2d.fillOval(regionXStart, regionYStart, regionWidth, regionHeight);
+      } else {
+        g2d.drawOval(regionXStart, regionYStart, regionWidth, regionHeight);
+      }
+
+    } else if (shape.equals("Line")) {
+      g2d.drawLine(xStart, yStart, xEnd, yEnd);
+
+    }
+  }
+
   @Override
   public String getName() {
     return "Draw Function";

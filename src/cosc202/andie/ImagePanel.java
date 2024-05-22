@@ -39,7 +39,7 @@ public class ImagePanel extends JPanel {
      */
     private double scale;
     //private MouseEar mouseEar;
-    private MouseEar mouseEar;
+    private DynamicDrawTest mouseEar;
 
     /**
      * <p>
@@ -52,7 +52,7 @@ public class ImagePanel extends JPanel {
      */
     public ImagePanel() {
         image = new EditableImage();
-        mouseEar = new MouseEar(this);
+        mouseEar = new DynamicDrawTest(this);
         scale = 1.0;
     }
 
@@ -142,7 +142,7 @@ public class ImagePanel extends JPanel {
         }
     }
 
-    public MouseEar getMouseEar(){
+    public DynamicDrawTest getMouseEar(){
 
         return mouseEar;
     }

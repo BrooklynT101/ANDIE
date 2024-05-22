@@ -48,6 +48,7 @@ public class DrawingOptionsDisplay extends JPanel {
         shapeChoiceButtons.add(ovalButton);
         lineButton = new JRadioButton("Line");
         shapeChoiceButtons.add(lineButton);
+        shapeChoiceButtons.setSelected(lineButton.getModel(), true);
         JPanel choices = new JPanel();
         choices.setLayout(new FlowLayout());
         add(choices, BorderLayout.LINE_START);
@@ -63,6 +64,7 @@ public class DrawingOptionsDisplay extends JPanel {
         styleChoiceButtons.add(fillButton);
         outlineButton = new JRadioButton("Outline");
         styleChoiceButtons.add(outlineButton);
+        styleChoiceButtons.setSelected(outlineButton.getModel(), true);
         choices.add(new JLabel("Style:"));
         choices.add(fillButton);
         choices.add(outlineButton);
