@@ -29,10 +29,12 @@ public class MacroActions {
                 Andie.bundle.getString("MacroStartDef"), Integer.valueOf(KeyEvent.VK_S));
         MacroStopRecording mStop = new MacroStopRecording(Andie.bundle.getString("MacroStop"), null,
                 Andie.bundle.getString("MacroStopDef"), Integer.valueOf(KeyEvent.VK_S));
-        EasterEggAction egg = new EasterEggAction("Confetti!", null,
-                "Celebrate good times!", null);
-        QnQAction qnq = new QnQAction("QnQ Easter egg", null,
-                "Quacking Qwazy!", null);
+        EasterEggAction egg = new EasterEggAction(Andie.bundle.getString("Confetti!"), null,
+                Andie.bundle.getString("Celebrategoodtimes!"), null);
+        QnQAction qnq = new QnQAction(Andie.bundle.getString("QnQEasteregg"), null,
+                Andie.bundle.getString("QuackingQwazy!"), null);
+
+        // Andie.bundle.getString("Quacking Qwazy!")
 
         // keyboard shortcuts
         mLoad.putValue(Action.ACCELERATOR_KEY, KeyStroke.getKeyStroke("control O"));

@@ -69,9 +69,12 @@ public class FilterActions {
                 Andie.bundle.getString("ApplyBlockAveraging"), Integer.valueOf(KeyEvent.VK_S)));
         actions.add(new RandomScatteringAction(Andie.bundle.getString("RandomScattering"), null,
                 Andie.bundle.getString("Applyrandomscattering"), Integer.valueOf(KeyEvent.VK_S)));
-        actions.add(new Emboss1FilterAction("Emboss Filters", null, null, Integer.valueOf(KeyEvent.VK_S)));
-        actions.add(new SobelFilterAction("Sobel Filters", null, null, Integer.valueOf(KeyEvent.VK_S)));
+        actions.add(new Emboss1FilterAction(Andie.bundle.getString("EmbossFilters"), null,
+                Andie.bundle.getString("Applyembossfilters"), Integer.valueOf(KeyEvent.VK_S)));
+        actions.add(new SobelFilterAction(Andie.bundle.getString("SobelFilters"), null, 
+                Andie.bundle.getString("applysobelfilters"), Integer.valueOf(KeyEvent.VK_S)));
     }
+
 
     /**
      * <p>
@@ -611,9 +614,15 @@ public class FilterActions {
      */
     public class Emboss1FilterAction extends ImageAction {
         int optionindex = 0;
-        private final String[] options = { "Left to Right", "Top Left to Bottem Right", "Top to Bottom",
-                "Top Right to Bottem Left", "Right to Left", "Bottem Right to Top Left", "Bottom to Top",
-                "Top Right to Bottom Left" };
+        private final String[] options = { Andie.bundle.getString("LefttoRight"),
+        Andie.bundle.getString("TopLefttoBottomRight"), 
+        Andie.bundle.getString("ToptoBottom"),
+        Andie.bundle.getString("TopRighttoBottomLeft"),
+        Andie.bundle.getString("RighttoLeft"), 
+        Andie.bundle.getString("BottomRighttoTopLeft"), 
+        Andie.bundle.getString("BottomtoTop"),
+        Andie.bundle.getString("TopRighttoBottomLeft") };
+
 
         /**
          * Create a new Emboss filter action.
@@ -695,7 +704,8 @@ public class FilterActions {
      */
     public class SobelFilterAction extends ImageAction {
         int optionindex = 0;
-        private final String[] options = { "Horizontal Sobel", "Vertical Sobel" };
+        private final String[] options = { Andie.bundle.getString("HorizontalSobel"), Andie.bundle.getString("VerticalSobel") };
+         
 
         /**
          * Create a new Emboss filter action.

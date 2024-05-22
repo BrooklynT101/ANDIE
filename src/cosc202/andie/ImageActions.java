@@ -57,7 +57,10 @@ public class ImageActions {
                 Andie.bundle.getString("DrawFunction"), Integer.valueOf(KeyEvent.VK_C));
         DifferenceofImagesAction dif = new DifferenceofImagesAction(Andie.bundle.getString("DifferencImage"), null,
                 Andie.bundle.getString("DifferencImage"), Integer.valueOf(KeyEvent.VK_R));
-        ErasorFunctionAction er = new ErasorFunctionAction("Erasor", null, "Erasor", Integer.valueOf(KeyEvent.VK_R));
+        ErasorFunctionAction er = new ErasorFunctionAction(Andie.bundle.getString("Erasor"), null, Andie.bundle.getString("Applyerasor"), 
+                Integer.valueOf(KeyEvent.VK_R));
+
+                // Andie.bundle.getString("Applyerasor")
 
         // keyboard shortcuts
         resize.putValue(Action.ACCELERATOR_KEY, KeyStroke.getKeyStroke("control R"));
