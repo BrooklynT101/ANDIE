@@ -54,7 +54,7 @@ The operations performed on an image is saved with the image, meaning that after
 
 
 ## Crop By Selection
-The crop by selection action allows a user to select a region of their image by mouse to crop the image to shape. The user can choose to confirm their crop by prompt before commiting. 
+The crop by selection action allows a user to select a region of their image by mouse to crop the image to shape. The user can choose to confirm their crop by prompt before committing. 
 
 ## Drawing functions
 The user has the ability to draw on their image, the drawing functions support drawing lines, boxes, and ovals. With the added option of having the shapes filled or only keeping the outline, and being able to adjust line thickness and colour options.
@@ -124,7 +124,7 @@ Throughout the creation of this project we all performed individual tests on our
 Through the use of Junit tests we ensured that certain components were functioning prior to each build, this acted as a catch before attempting to launch the main program.
 
 Some examples of testing included:
-- `Gaussian Blur`: Our test was to print output array and compare to the kernel that was expected for the Gaussian Distribution. Consultation with the lab tutors allowed Ari to determine that his filter was properly implemented, as well comparing the printed array values for the corrosponding radius values, with the expected values at each index plugged into the Gaussian equation and it lines up.
+- `Gaussian Blur`: Our test was to print output array and compare to the kernel that was expected for the Gaussian Distribution. Consultation with the lab tutors allowed Ari to determine that his filter was properly implemented, as well comparing the printed array values for the corresponding radius values, with the expected values at each index plugged into the Gaussian equation and it lines up.
 - `File Saving/Exporting`: System print lines were added to ensure that the code was able to run to a certain part of the code block, usually with simple strings ("Test1", "notSaved", etc.) this allowed us to ensure that the files were being saved or just attempting to.
 - `Colour Channel Cycling`: Using print commands to print the RGB values to the console each time the action is performed to determine if the values are actually getting rearranged. Print the RGB values before the cycle operation then print it again afterwards, allowing us to determine the values are cycling correctly.
 ```
@@ -142,10 +142,10 @@ Alpha: -1, Red: 210, Green: 208, Blue: 222
 ```
 
 ### Difference of Images
-A form of testing we implemented was testing the difference in images. This class was made to overlap our modified image on to a known correctly editied image, if the outcome was black or transparent depending on the given images. MORE INFO??
+A form of testing we implemented was testing the difference in images. This class was made to overlap our modified image on to a known correctly edited image, if the outcome was black or transparent depending on the given images. MORE INFO??
 
 ## Known errors and/or exceptions
-When trying to perform an operation on an image when one isnt currently loaded it throws a lot of exceptions into the output, this doesn't affect the program but is something to note as these are caught and printed to the terminal.
+When trying to perform an operation on an image when one isn't currently loaded it throws a lot of exceptions into the output, this doesn't affect the program but is something to note as these are caught and printed to the terminal.
 
 If an image size (width and height) is too small the ImageResize option may not work correctly.
 

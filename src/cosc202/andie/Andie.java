@@ -6,10 +6,8 @@ import java.awt.Color;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
-import java.awt.event.KeyEvent;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
-import java.awt.event.KeyAdapter;
 
 import java.util.prefs.Preferences;
 import java.util.ResourceBundle;
@@ -24,7 +22,6 @@ import javax.swing.Timer;
 import javax.swing.JMenuBar;
 import javax.swing.SwingUtilities;
 
-import cosc202.andie.Confetti.Ball;
 import cosc202.andie.Confetti.BallPanel;
 
 import javax.imageio.ImageIO;
