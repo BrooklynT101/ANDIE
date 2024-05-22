@@ -1,189 +1,225 @@
-// package cosc202.andie;
+package cosc202.andie;
 
-// import javax.swing.*;
-// import java.awt.*;
-// import java.awt.event.*;
-// import java.awt.image.BufferedImage;
-// import java.awt.event.MouseEvent;
-// import javax.swing.event.MouseInputAdapter;
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.*;
+import java.awt.image.BufferedImage;
+import java.awt.event.MouseEvent;
+import javax.swing.event.MouseInputAdapter;
 
-// public class DynamicDrawTest extends MouseInputAdapter {
+public class DynamicDrawTest extends MouseInputAdapter {
 
-//     ImagePanel ip;
-//     BufferedImage image;
+    ImagePanel ip;
+    BufferedImage image;
+    BufferedImage imagecopy;
 
-//     public static boolean isCropping;
-//     public static boolean isDrawing;
-//     public int xStart;
-//     public int yStart;
-//     private boolean startCounter = true;
-//     public int xEnd;
-//     public int yEnd;
-//     public int imageWidth;
-//     public int imageHeight;
-//     int regionXStart = 0;
-//     int regionYStart = 0;
-//     int regionWidth = 0;
-//     int regionHeight = 0;
-//     public DrawingOptionsDisplay drawOptions;
+    public static boolean isCropping;
+    public static boolean isDrawing;
+    public static boolean isErasing;
+    public int xStart;
+    public int yStart;
+    private boolean startCounter = true;
+    public int xEnd;
+    public int yEnd;
+    public int imageWidth;
+    public int imageHeight;
+    int regionXStart = 0;
+    int regionYStart = 0;
+    int regionWidth = 0;
+    int regionHeight = 0;
+    public DrawingOptionsDisplay drawOptions;
 
-//     public void setCrop(Boolean crop) {
-//         isCropping = crop;
+    public void setCrop(Boolean crop) {
+        isCropping = crop;
 
-//     }
+    }
 
-//     public void setDraw(Boolean draw) {
-//         isDrawing = draw;
+    public void setErasor(Boolean erasor) {
+        isErasing = erasor;
 
-//     }
+    }
 
-//     DynamicDrawTest(ImagePanel ip) {
-//         this.ip = ip;
-//         ip.addMouseListener(this);
-//         ip.addMouseMotionListener(this);
-  
-//      }
+    public void setDraw(Boolean draw) {
+        isDrawing = draw;
 
-//     @Override
-//     public void mouseClicked(MouseEvent e) {
-//         // Implement mouseClicked event handling
-//     }
+    }
 
-//     @Override
-//     public void mousePressed(MouseEvent e) {
-       
-//         if (e.getX() <= imageWidth && e.getY() <= imageHeight) {
+    DynamicDrawTest(ImagePanel ip) {
+        this.ip = ip;
+        ip.addMouseListener(this);
+        ip.addMouseMotionListener(this);
 
-//             if (isCropping || isDrawing) {
-//                xStart = e.getX();
-//                yStart = e.getY();
-   
-//             }
-//          }
-//     }
+    }
 
-//     @Override
-//     public void mouseReleased(MouseEvent e) {
+    @Override
+    public void mouseClicked(MouseEvent e) {
+        // Implement mouseClicked event handling
+    }
 
-//         if (isCropping) {
-  
-//            // display crop options dialogue
-//            Object[] options = { "Crop Image", "Cancel" };
-//            int choice = JOptionPane.showOptionDialog(null, null,
-//                  Andie.bundle.getString("Wouldyouliketocropthisimage?"),
-//                  JOptionPane.YES_NO_OPTION,
-//                  JOptionPane.QUESTION_MESSAGE,
-//                  null,
-//                  options, // the titles of buttons
-//                  options[0]); // default button title
-  
-//            if (choice == 0) {
-//               System.out.println("Pressed Crop");
-//               if (isCropping) {
-//                  System.out.println(regionXStart + " " + regionYStart + " " + regionWidth + " " + regionHeight);
-//                  // perform crop
-//                  ip.getImage().apply(new CropFunction(regionXStart, regionYStart, regionWidth, regionHeight));
-//                  ip.repaint();
-//                  ip.getParent().revalidate();
-//               }
-  
-//            } else if (choice == 1) {
-//               System.out.println("Pressed CANCEL");
-  
-//            }
-  
-//            setCrop(false);
-  
-//         } else if (isDrawing) {
-  
-//            ip.getImage()
-//                  .apply(new DrawFunction(regionXStart, regionYStart, xEnd, yEnd, regionWidth, regionHeight,
-//                        drawOptions.getColour(), drawOptions.getSelectedShape(),
-//                        drawOptions.getSelectedStyle(), drawOptions.getLineWidth()));
-//            ip.repaint();
-//            ip.getParent().revalidate();
-  
-//            // setDraw(false);
-//         }
-//     }
+    @Override
+    public void mousePressed(MouseEvent e) {
 
-//     @Override
-//     public void mouseEntered(MouseEvent e) {
-//         // Implement mouseEntered event handling
-//     }
+        if (e.getX() <= imageWidth && e.getY() <= imageHeight) {
 
-//     @Override
-//     public void mouseExited(MouseEvent e) {
-//         // Implement mouseExited event handling
-//     }
+            if (isCropping || isDrawing) {
+                xStart = e.getX();
+                yStart = e.getY();
 
-//     @Override
-//     public void mouseDragged(MouseEvent e) {
-        
-//         if (e.getX() <= imageWidth && e.getY() <= imageHeight) {
+            }
+        }
 
-//             if (isCropping || isDrawing) {
-   
-//                ip.invalidate();
+        imagecopy = ip.getImage().returnAcopy(image);
 
-//                xEnd = e.getX();
-//                yEnd = e.getY();
-//                }
-//                // draw proposed region and allow for 4 way selection
-//                Graphics2D g2d = (Graphics2D) image.getGraphics();
-//                g2d.setColor(Color.RED);
-//                if (xStart <= xEnd && yStart <= yEnd) { // top left -> bottom right
-   
-//                   if (isCropping) {
-//                      g2d.draw(new Rectangle(xStart, yStart, (xEnd - xStart), (yEnd - yStart)));
-//                   } // (x, y, width, height)
-//                   regionWidth = xEnd - xStart;
-//                   regionHeight = yEnd - yStart;
-//                   regionXStart = xStart;
-//                   regionYStart = yStart;
-   
-//                } else if (xStart >= xEnd && yStart <= yEnd) { // top right -> bottom left
-   
-//                   if (isCropping) {
-//                      g2d.draw(new Rectangle(xEnd, yStart, (xStart - xEnd), (yEnd - yStart)));
-//                   } // only draw if cropping
-//                   regionWidth = xStart - xEnd;
-//                   regionHeight = yEnd - yStart;
-//                   regionXStart = xEnd;
-//                   regionYStart = yStart;
-   
-//                } else if (xStart <= xEnd && yStart >= yEnd) { // bottom left -> top right
-   
-//                   if (isCropping) {
-//                      g2d.draw(new Rectangle(xStart, yEnd, (xEnd - xStart), (yStart - yEnd)));
-//                   }
-//                   regionWidth = xEnd - xStart;
-//                   regionHeight = yStart - yEnd;
-//                   regionXStart = xStart;
-//                   regionYStart = yEnd;
-   
-//                } else if (xStart >= xEnd && yStart >= yEnd) { // bottom right -> top left
-   
-//                   if (isCropping) {
-//                      g2d.draw(new Rectangle(xEnd, yEnd, (xStart - xEnd), (yStart - yEnd)));
-//                   }
-//                   regionWidth = xStart - xEnd;
-//                   regionHeight = yStart - yEnd;
-//                   regionXStart = xEnd;
-//                   regionYStart = yEnd;
-   
-//                }
-//                ip.repaint();
-//                ip.getParent().revalidate();
-   
-//                System.out.println(xStart + " " + yStart + " " + xEnd + " " + yEnd);
-   
-//             }
-//          }
-    
+    }
 
-//     @Override
-//     public void mouseMoved(MouseEvent e) {
-//         // Implement mouseMoved event handling
-//     }
-// }
+    @Override
+    public void mouseReleased(MouseEvent e) {
+
+        if (isCropping) {
+
+            // display crop options dialogue
+            Object[] options = { "Crop Image", "Cancel" };
+            int choice = JOptionPane.showOptionDialog(null, null,
+                    Andie.bundle.getString("Wouldyouliketocropthisimage?"),
+                    JOptionPane.YES_NO_OPTION,
+                    JOptionPane.QUESTION_MESSAGE,
+                    null,
+                    options, // the titles of buttons
+                    options[0]); // default button title
+
+            if (choice == 0) {
+                System.out.println("Pressed Crop");
+                if (isCropping) {
+                    System.out.println(regionXStart + " " + regionYStart + " " + regionWidth + " " + regionHeight);
+                    // perform crop
+                    ip.getImage().apply(new CropFunction(regionXStart, regionYStart, regionWidth, regionHeight));
+                    ip.repaint();
+                    ip.getParent().revalidate();
+                }
+
+            } else if (choice == 1) {
+                image.getGraphics().drawImage(imagecopy, 0, 0, null);
+
+                ip.repaint();
+                ip.getParent().revalidate();
+
+                System.out.println("Pressed CANCEL");
+
+            }
+
+            setCrop(false);
+
+        } else if (isDrawing) {
+
+            ip.getImage()
+                    .apply(new DrawFunction(xStart, yStart, xEnd, yEnd,
+                            regionXStart, regionYStart, regionWidth, regionHeight,
+                            drawOptions.getColour(), drawOptions.getSelectedShape(),
+                            drawOptions.getSelectedStyle(), drawOptions.getLineWidth()));
+            ip.repaint();
+            ip.getParent().revalidate();
+
+            // setDraw(false);
+        }
+    }
+
+    @Override
+    public void mouseEntered(MouseEvent e) {
+        // Implement mouseEntered event handling
+    }
+
+    @Override
+    public void mouseExited(MouseEvent e) {
+        // Implement mouseExited event handling
+    }
+
+    @Override
+    public void mouseDragged(MouseEvent e) {
+
+        if (e.getX() <= imageWidth && e.getY() <= imageHeight) {
+
+            if (isCropping || isDrawing) {
+
+                ip.invalidate();
+
+                xEnd = e.getX();
+                yEnd = e.getY();
+            }
+            // draw proposed region and allow for 4 way selection
+            Graphics2D g2d = (Graphics2D) image.getGraphics();
+            image.getGraphics().drawImage(imagecopy, 0, 0, null);
+            ip.repaint();
+            ip.getParent().revalidate();
+            g2d.setColor(Color.RED);
+            if (xStart <= xEnd && yStart <= yEnd) { // top left -> bottom right
+
+                if (isCropping) {
+                    g2d.draw(new Rectangle(xStart, yStart, (xEnd - xStart), (yEnd - yStart)));
+                } // (x, y, width, height)
+                regionWidth = xEnd - xStart;
+                regionHeight = yEnd - yStart;
+                regionXStart = xStart;
+                regionYStart = yStart;
+
+            } else if (xStart >= xEnd && yStart <= yEnd) { // top right -> bottom left
+
+                if (isCropping) {
+                    g2d.draw(new Rectangle(xEnd, yStart, (xStart - xEnd), (yEnd - yStart)));
+                } // only draw if cropping
+                regionWidth = xStart - xEnd;
+                regionHeight = yEnd - yStart;
+                regionXStart = xEnd;
+                regionYStart = yStart;
+
+            } else if (xStart <= xEnd && yStart >= yEnd) { // bottom left -> top right
+
+                if (isCropping) {
+                    g2d.draw(new Rectangle(xStart, yEnd, (xEnd - xStart), (yStart - yEnd)));
+                }
+                regionWidth = xEnd - xStart;
+                regionHeight = yStart - yEnd;
+                regionXStart = xStart;
+                regionYStart = yEnd;
+
+            } else if (xStart >= xEnd && yStart >= yEnd) { // bottom right -> top left
+
+                if (isCropping) {
+                    g2d.draw(new Rectangle(xEnd, yEnd, (xStart - xEnd), (yStart - yEnd)));
+                }
+                regionWidth = xStart - xEnd;
+                regionHeight = yStart - yEnd;
+                regionXStart = xEnd;
+                regionYStart = yEnd;
+
+            }
+            ip.repaint();
+            ip.getParent().revalidate();
+
+            if (isDrawing) {
+                image.getGraphics().drawImage(imagecopy, 0, 0, null);
+
+                DrawFunction d = new DrawFunction(xStart, yStart, xEnd, yEnd,
+                        regionXStart, regionYStart, regionWidth, regionHeight,
+                        drawOptions.getColour(), drawOptions.getSelectedShape(),
+                        drawOptions.getSelectedStyle(), drawOptions.getLineWidth());
+
+                d.temporarydraw(ip.getImage().getCurrentImage());
+                ip.repaint();
+                ip.getParent().revalidate();
+            }
+
+            if (isErasing) {
+                ip.getImage()
+                        .apply(new ErasorFunction(e.getX(), e.getY()));
+                System.out.println(e.getX() + "Erasor" + e.getY());
+
+            }
+
+        }
+    }
+
+    @Override
+    public void mouseMoved(MouseEvent e) {
+        // Implement mouseMoved event handling
+    }
+}

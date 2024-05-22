@@ -39,7 +39,7 @@ import javax.imageio.ImageIO;
  * @version 1.0
  */
 public class Andie {
-   //boolean for printing out test related values
+   // boolean for printing out test related values
    protected static boolean testing = false;
 
    // Setting prefs
@@ -56,9 +56,8 @@ public class Andie {
    // How long the splash stays on screen (in milliseconds)
    protected static final int DURATION = 1500;
    // boolean to display the splash screen or not (can get annoying)
-   protected static final boolean displaySplash = false;
-   
-   
+   protected static final boolean displaySplash = true;
+
    /**
     * <p>
     * Launches the main GUI for the ANDIE program.
@@ -86,7 +85,7 @@ public class Andie {
     */
 
    private static void createAndShowGUI() throws Exception {
-      frame.setAlwaysOnTop(true); //so it loads on top of everything
+      frame.setAlwaysOnTop(true); // so it loads on top of everything
 
       // getting icon from resource folder
       try {
@@ -155,13 +154,13 @@ public class Andie {
       // Add components to the frame using BorderLayout
       frame.add(scrollPane, BorderLayout.CENTER);
       frame.add(toolbar, BorderLayout.NORTH); // Add the ToolBar to the top
-      
+
       createMenuBar();
       frame.setJMenuBar(menuBar);
       frame.getContentPane().add(toolbar, BorderLayout.NORTH);
       frame.pack();
       frame.setVisible(true);
-      frame.setAlwaysOnTop(false); //so it doesn't stay loaded on top of everything
+      frame.setAlwaysOnTop(false); // so it doesn't stay loaded on top of everything
    }
 
    private static void showSplashScreen() {
@@ -245,9 +244,12 @@ public class Andie {
                createAndShowGUI();
                // activateEasterEgg();
                if (testing) {
-                  System.out.println("Frame dimensions - Height: "+frame.getHeight()+", Width: "+frame.getWidth());
-                  System.out.println("Toolbar dimensions - Height: "+toolbar.getHeight()+", Width: "+toolbar.getWidth());
-                  System.out.println("MenuBar dimensions - Height: "+menuBar.getHeight()+", Width: "+menuBar.getWidth());
+                  System.out
+                        .println("Frame dimensions - Height: " + frame.getHeight() + ", Width: " + frame.getWidth());
+                  System.out.println(
+                        "Toolbar dimensions - Height: " + toolbar.getHeight() + ", Width: " + toolbar.getWidth());
+                  System.out.println(
+                        "MenuBar dimensions - Height: " + menuBar.getHeight() + ", Width: " + menuBar.getWidth());
                }
             } catch (Exception e) {
                e.printStackTrace();

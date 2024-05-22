@@ -3,12 +3,14 @@ package cosc202.andie;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.awt.geom.Ellipse2D;
 import java.awt.image.BufferedImage;
 
 public class MouseEar implements MouseListener {
 
    ImagePanel ip;
    BufferedImage image;
+   BufferedImage imagecopy;
 
    public static boolean isCropping;
    public static boolean isDrawing;
@@ -19,6 +21,7 @@ public class MouseEar implements MouseListener {
    public int imageWidth;
    public int imageHeight;
    public DrawingOptionsDisplay drawOptions;
+   public boolean drag;
 
    public void setCrop(Boolean crop) {
       isCropping = crop;
@@ -48,8 +51,17 @@ public class MouseEar implements MouseListener {
 
    }
 
-   public void mousePressed(MouseEvent e) {
+   public void mousedragged(MouseEvent e) {
+      int currentX = e.getX();
+      int currentY = e.getY();
+      if (drag) {
+         ip.repaint();
+      }
 
+   }
+
+   public void mousePressed(MouseEvent e) {
+      drag = true;
       if (e.getX() <= imageWidth && e.getY() <= imageHeight) {
 
          if (isCropping || isDrawing) {
@@ -62,7 +74,7 @@ public class MouseEar implements MouseListener {
    }
 
    public void mouseReleased(MouseEvent e) {
-
+      drag = false;
       if (e.getX() <= imageWidth && e.getY() <= imageHeight) {
 
          if (isCropping || isDrawing) {
@@ -76,9 +88,14 @@ public class MouseEar implements MouseListener {
             int regionWidth = 0;
             int regionHeight = 0;
 
+            Image preOutline = image.getScaledInstance(
+                  ip.getImage().getCurrentImage().getWidth(), ip.getImage().getCurrentImage().getHeight(),
+                  Image.SCALE_DEFAULT);
+
             // draw proposed region and allow for 4 way selection
             Graphics2D g2d = (Graphics2D) image.getGraphics();
             g2d.setColor(Color.RED);
+
             if (xStart <= xEnd && yStart <= yEnd) { // top left -> bottom right
 
                if (isCropping) {
@@ -102,7 +119,9 @@ public class MouseEar implements MouseListener {
             } else if (xStart <= xEnd && yStart >= yEnd) { // bottom left -> top right
 
                if (isCropping) {
+
                   g2d.draw(new Rectangle(xStart, yEnd, (xEnd - xStart), (yStart - yEnd)));
+
                }
                regionWidth = xEnd - xStart;
                regionHeight = yStart - yEnd;
@@ -148,6 +167,11 @@ public class MouseEar implements MouseListener {
                   }
 
                } else if (choice == 1) {
+
+                  image.getGraphics().drawImage(imagecopy, 0, 0, null);
+
+                  ip.repaint();
+                  ip.getParent().revalidate();
                   System.out.println("Pressed CANCEL");
 
                }

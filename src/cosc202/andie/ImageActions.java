@@ -57,6 +57,7 @@ public class ImageActions {
                 Andie.bundle.getString("DrawFunction"), Integer.valueOf(KeyEvent.VK_C));
         DifferenceofImagesAction dif = new DifferenceofImagesAction(Andie.bundle.getString("DifferencImage"), null,
                 Andie.bundle.getString("DifferencImage"), Integer.valueOf(KeyEvent.VK_R));
+        ErasorFunctionAction er = new ErasorFunctionAction("Erasor", null, "Erasor", Integer.valueOf(KeyEvent.VK_R));
 
         // keyboard shortcuts
         resize.putValue(Action.ACCELERATOR_KEY, KeyStroke.getKeyStroke("control R"));
@@ -71,6 +72,7 @@ public class ImageActions {
         actions.add(dif);
         actions.add(crop);
         actions.add(draw);
+        actions.add(er);
 
     }
 
@@ -302,10 +304,11 @@ public class ImageActions {
                 JFrame frame = new JFrame();
                 JOptionPane.showMessageDialog(frame, Andie.bundle.getString("Pleaseopenanimagefilefirst!"));
             }
-            MouseEar mouseEar = target.getMouseEar();
+            DynamicDrawTest mouseEar = target.getMouseEar();
 
             mouseEar.setCrop(true);
 
+            mouseEar.imagecopy = target.getImage().returnAcopy(target.getImage().getCurrentImage());
             mouseEar.image = target.getImage().getCurrentImage();
             mouseEar.imageWidth = target.getImage().getOriginalImage().getWidth();
             mouseEar.imageHeight = target.getImage().getOriginalImage().getHeight();
@@ -340,7 +343,7 @@ public class ImageActions {
             drawFrame.pack();
             drawFrame.setVisible(true);
 
-            MouseEar mouseEar = target.getMouseEar();
+            DynamicDrawTest mouseEar = target.getMouseEar();
 
             // disallow drawing operations when closed
             drawFrame.addWindowListener(new WindowAdapter() {
@@ -363,6 +366,37 @@ public class ImageActions {
             // target.getParent().revalidate();
 
         }
+    }
+
+    /**
+     * Erasor for the image
+     * 
+     * @author Ari
+     */
+    public class ErasorFunctionAction extends ImageAction {
+
+        ErasorFunctionAction(String name, ImageIcon icon,
+                String desc, Integer mnemonic) {
+            super(name, icon, desc, mnemonic);
+        }
+
+        public void actionPerformed(ActionEvent e) {
+
+            if (target.getImage().getOriginalImage() == null) {
+                JFrame frame = new JFrame();
+                JOptionPane.showMessageDialog(frame, Andie.bundle.getString("Pleaseopenanimagefilefirst!"));
+            }
+            DynamicDrawTest mouseEar = target.getMouseEar();
+
+            mouseEar.setErasor(true);
+
+            mouseEar.imagecopy = target.getImage().returnAcopy(target.getImage().getCurrentImage());
+            mouseEar.image = target.getImage().getCurrentImage();
+            mouseEar.imageWidth = target.getImage().getOriginalImage().getWidth();
+            mouseEar.imageHeight = target.getImage().getOriginalImage().getHeight();
+
+        }
 
     }
+
 }
