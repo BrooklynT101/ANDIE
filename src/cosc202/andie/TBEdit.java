@@ -72,34 +72,35 @@ public class TBEdit extends JFrame {
                         }
                     }
                 }
-    
-                // update the actions because it'll freak out
-                Andie.toolbar.updateActions();
-    
-                // repaint and validate the toolbar because see previous comment
-                Andie.toolbar.revalidate();
-                Andie.toolbar.repaint();
-    
-                // Finally save to file the user preferences
-                if (testing) System.out.println("Saving user toolbar prefs to file...");
-                Andie.toolbar.saveActions();
-    
-                // close
-                dialog.dispose();
-            });
-    
-            // Cancel button function
-            cancelButton.addActionListener(e -> dialog.dispose());
-    
-            // setting dialog size n stuff
-            dialog.setSize(400, 600);
-            dialog.setLocationRelativeTo(this);
-            dialog.setVisible(true);
-    
-            // adjusting the button panel so it fits the buttons correctly
-            buttonPanel.setPreferredSize(
-                    new Dimension(acceptButton.getPreferredSize().width * 2, acceptButton.getPreferredSize().height));
-        }
+            }
+            // update the actions because it'll freak out
+            Andie.toolbar.updateActions();
+
+            // repaint and validate the toolbar because see previous comment
+            Andie.toolbar.revalidate();
+            Andie.toolbar.repaint();
+
+            // Finally save to file the user preferences
+            if (testing)
+                System.out.println("Saving user toolbar prefs to file...");
+            Andie.toolbar.saveActions();
+
+            // close
+            dialog.dispose();
+        });
+
+        // Cancel button function
+        cancelButton.addActionListener(e -> dialog.dispose());
+
+        // setting dialog size n stuff
+        dialog.setSize(400, 600);
+        dialog.setLocationRelativeTo(this);
+        dialog.setVisible(true);
+
+        // adjusting the button panel so it fits the buttons correctly
+        buttonPanel.setPreferredSize(
+                new Dimension(acceptButton.getPreferredSize().width * 2, acceptButton.getPreferredSize().height));
+    }
 
     // add inactive actions to the left panel
     private void addInactiveActionsToPanel(ArrayList<Action> actions) {
