@@ -326,7 +326,7 @@ public class MacroActions {
         }
 
         public void actionPerformed(ActionEvent e) {
-            Andie.activateEasterEgg();
+            Andie.activateConfetti();
         }
     }
 

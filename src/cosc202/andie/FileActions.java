@@ -122,7 +122,7 @@ public class FileActions {
          * @param e The event triggering this callback.
          */
         public void actionPerformed(ActionEvent e) {
-            int confirm = 0; // TODO check this
+            int confirm = 0;
             if (!EditableImage.isSaved && EditableImage.hasLoadedImage()) {
                 JOptionPane.showMessageDialog(Andie.frame, Andie.bundle.getString("Open?"),
                         Andie.bundle.getString("Openafile"), JOptionPane.YES_NO_OPTION);

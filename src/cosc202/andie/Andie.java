@@ -25,7 +25,6 @@ import javax.swing.JMenuBar;
 import javax.swing.SwingUtilities;
 
 import cosc202.andie.Confetti.BallPanel;
-import cosc202.andie.CrackaLackin.QnQPanel;
 
 import javax.imageio.ImageIO;
 
@@ -68,15 +67,15 @@ public class Andie {
    protected static final boolean displaySplash = false;
 
    // this is the key sequence to activate the easter egg
-   protected static final int[] KEY_SEQUENCE_GROUP_NAME = { KeyEvent.VK_Q, KeyEvent.VK_N, KeyEvent.VK_Q };
-   protected static boolean easterEggActivated = false;
+   // protected static final int[] KEY_SEQUENCE_GROUP_NAME = { KeyEvent.VK_Q, KeyEvent.VK_N, KeyEvent.VK_Q };
+   // protected static boolean easterEggActivated = false;
    protected static Random r = new Random();
 
    private static JLayeredPane layeredPane;
 
    public static QnQPanel qnqPanel;
 
-   private static BallPanel gameOverlay;
+   // private static BallPanel gameOverlay;
 
    private static final int MAXIMUM_BALLS = 50; // max number of balls
    private static final int BALLS_DELAY = 100; // in milliseconds
@@ -169,30 +168,30 @@ public class Andie {
       };
       frame.addWindowListener(exitListener);
 
-      // key listener for the Easter egg
-      KeyAdapter keyAdapter = new KeyAdapter() {
-         private int index = 0;
+      // // key listener for the Easter egg
+      // KeyAdapter keyAdapter = new KeyAdapter() {
+      //    private int index = 0;
 
-         @Override
-         public void keyPressed(KeyEvent e) {
-            if (testing)
-               System.out.println("Key pressed: " + e.getKeyChar());
-            if (!easterEggActivated && e.getKeyCode() == KEY_SEQUENCE_GROUP_NAME[index]) {
-               index++;
-               if (index == KEY_SEQUENCE_GROUP_NAME.length) {
-                  // Easter egg activated
-                  if (testing)
-                     System.out.println("Easter egg activated!");
-                  easterEggActivated = true;
-                  activateEasterEgg();
-               }
-            } else {
-               index = 0;
-            }
-         }
-      };
+      //    @Override
+      //    public void keyPressed(KeyEvent e) {
+      //       if (testing)
+      //          System.out.println("Key pressed: " + e.getKeyChar());
+      //       if (!easterEggActivated && e.getKeyCode() == KEY_SEQUENCE_GROUP_NAME[index]) {
+      //          index++;
+      //          if (index == KEY_SEQUENCE_GROUP_NAME.length) {
+      //             // Easter egg activated
+      //             if (testing)
+      //                System.out.println("Easter egg activated!");
+      //             easterEggActivated = true;
+      //             activateEasterEgg();
+      //          }
+      //       } else {
+      //          index = 0;
+      //       }
+      //    }
+      // };
 
-      frame.addKeyListener(keyAdapter);
+      // frame.addKeyListener(keyAdapter);
 
       // Add a component listener to the frame to handle resizing events
       frame.addComponentListener(new ComponentAdapter() {
@@ -272,10 +271,14 @@ public class Andie {
 
       MacroActions macroActions = new MacroActions();
       menuBar.add(macroActions.createMenu());
+      
+      FunActions funActions = new FunActions();
+      menuBar.add(funActions.createMenu());
+      
       return menuBar;
    }
 
-   public static void activateEasterEgg() {
+   public static void activateConfetti() {
       JFrame frame = getFrame();// get andie frame
       layeredPane = frame.getLayeredPane();
 

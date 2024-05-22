@@ -14,6 +14,7 @@ import java.awt.image.BufferedImage;
  * 
  * @author Marcus Woodward
  */
+@SuppressWarnings("unused")
 public class MouseEar implements MouseListener {
 
    ImagePanel ip;

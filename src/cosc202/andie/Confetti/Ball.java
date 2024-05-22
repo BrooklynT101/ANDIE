@@ -8,7 +8,7 @@ import java.util.Random;
 public class Ball {
     private int x, y;
     private int xSpeed, ySpeed;
-    private static final int DIAMETER = 15;
+    private int DIAMETER;
     private static final int SPEED = 7;
     private Rectangle bounds;
     private Color color;
@@ -25,6 +25,7 @@ public class Ball {
         this.xSpeed = SPEED;
         this.ySpeed = SPEED;
         this.color = color;
+        this.DIAMETER = r.nextInt(15, 50);
     }
 
     public void move() {
