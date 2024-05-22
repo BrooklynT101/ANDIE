@@ -57,6 +57,8 @@ class EditableImage {
     private static final boolean testing = false;
     /** Boolean for if the image is saved. */
     public static boolean isSaved;
+    /** This is a list of the supported file types */ 
+    private List<String> SUPPORTED_FILE_EXTENSIONS = new ArrayList<>(List.of("jpg", "jpeg", "png", "gif", "bmp", "tiff"));
 
     /**
      * <p>
@@ -270,10 +272,15 @@ class EditableImage {
             JOptionPane.showMessageDialog(frame, Andie.bundle.getString("Pleaseopenanimagefilefirst!"));
             throw new Exception("Missing image file");
         }
+        //if there is a given extension
         if (destinationFilePath.lastIndexOf(".") != -1) {
             // TODO make sure the format is accepted
-            // saves extension given by user if there is one (without the dot)
+            // saves extension given by user (without the dot)
             extension = destinationFilePath.substring(1 + destinationFilePath.lastIndexOf(".")).toLowerCase();
+            //checks if the given extension is supported, otherwise hits em with a prompt
+            if(!SUPPORTED_FILE_EXTENSIONS.contains(extension)) {
+                JOptionPane.showMessageDialog(Andie.getFrame(), Andie.bundle.getString("successSave"), "", JOptionPane.INFORMATION_MESSAGE);
+            }
             // trims the file path to the name without the extension
             destinationFilePath = destinationFilePath.substring(0, destinationFilePath.lastIndexOf("."));
         } else {
@@ -288,8 +295,7 @@ class EditableImage {
             ImageIO.write(current, extension, file);
             if (file.exists()) {
                 System.out.println("Successfully saved file " + destinationFilePath + "." + extension);
-                JFrame frame = new JFrame();
-                JOptionPane.showMessageDialog(frame, Andie.bundle.getString("successSave"));
+                JOptionPane.showMessageDialog(Andie.getFrame(), Andie.bundle.getString("successSave")+" "+file.toString(), "", JOptionPane.INFORMATION_MESSAGE);
             } else {
                 throw new Exception("File didn't successfully save: possible unsupported filetype");
             }

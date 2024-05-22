@@ -179,7 +179,7 @@ public class FileActions {
          */
         public void actionPerformed(ActionEvent e) {
             try {
-                target.getImage().open("src/resources/test.jpg");
+                target.getImage().open("src/resources/test-image.jpg");
             } catch (Exception ex) {
                 JFrame frame = new JFrame();
                 JOptionPane.showMessageDialog(frame, Andie.bundle.getString("DefaultError"));
