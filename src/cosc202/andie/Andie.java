@@ -14,6 +14,7 @@ import java.awt.event.KeyAdapter;
 import java.util.prefs.Preferences;
 import java.util.ResourceBundle;
 import java.util.Locale;
+import java.util.Random;
 
 import javax.swing.JFrame;
 import javax.swing.JLayeredPane;
