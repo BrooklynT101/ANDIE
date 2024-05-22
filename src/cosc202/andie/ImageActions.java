@@ -336,7 +336,6 @@ public class ImageActions {
                 JOptionPane.showMessageDialog(frame, Andie.bundle.getString("Pleaseopenanimagefilefirst!"));
             }
             JFrame drawFrame = new JFrame("DrawingOptions");
-            // drawFrame.setSize(400, 200);
             DrawingOptionsDisplay display = new DrawingOptionsDisplay();
 
             drawFrame.add(display);
@@ -353,6 +352,7 @@ public class ImageActions {
                 }
             });
 
+            // send information of current buffered image to mouse listener
             mouseEar.setDraw(true);
 
             mouseEar.image = target.getImage().getCurrentImage();

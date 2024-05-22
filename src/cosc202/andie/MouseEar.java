@@ -6,6 +6,14 @@ import java.awt.event.*;
 import java.awt.geom.Ellipse2D;
 import java.awt.image.BufferedImage;
 
+/**
+ * <p>
+ * Mouse listener Class, allows for mouse events to be tracked and used for
+ * operations
+ * <p>
+ * 
+ * @author Marcus Woodward
+ */
 public class MouseEar implements MouseListener {
 
    ImagePanel ip;
@@ -30,12 +38,6 @@ public class MouseEar implements MouseListener {
 
    public void setDraw(Boolean draw) {
       isDrawing = draw;
-
-   }
-
-   MouseEar(ImagePanel ip) {
-      this.ip = ip;
-      ip.addMouseListener(this);
 
    }
 
@@ -143,6 +145,7 @@ public class MouseEar implements MouseListener {
             ip.getParent().revalidate();
 
             System.out.println(xStart + " " + yStart + " " + xEnd + " " + yEnd);
+            System.out.println(isCropping);
 
             if (isCropping) {
 
@@ -179,7 +182,7 @@ public class MouseEar implements MouseListener {
                setCrop(false);
 
             } else if (isDrawing) {
-
+               // perform draw operation
                ip.getImage()
                      .apply(new DrawFunction(xStart, yStart, xEnd, yEnd,
                            regionXStart, regionYStart, regionWidth, regionHeight,
@@ -188,7 +191,6 @@ public class MouseEar implements MouseListener {
                ip.repaint();
                ip.getParent().revalidate();
 
-               // setDraw(false);
             }
          }
       }

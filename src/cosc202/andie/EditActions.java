@@ -196,7 +196,7 @@ public class EditActions {
          * @param e The event triggering this callback.
          */
         public void actionPerformed(ActionEvent e) {
-            ToolbarEditDialog dialog = new ToolbarEditDialog();
+            TBEdit dialog = new TBEdit();
             dialog.showDialog();
         }
 
