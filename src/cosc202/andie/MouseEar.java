@@ -3,23 +3,14 @@ package cosc202.andie;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
-import java.awt.geom.Ellipse2D;
 import java.awt.image.BufferedImage;
 
-/**
- * <p>
- * Mouse listener Class, allows for mouse events to be tracked and used for
- * operations
- * <p>
- * 
- * @author Marcus Woodward
- */
-@SuppressWarnings("unused")
 public class MouseEar implements MouseListener {
 
    ImagePanel ip;
    BufferedImage image;
    BufferedImage imagecopy;
+
 
    public static boolean isCropping;
    public static boolean isDrawing;
@@ -30,7 +21,6 @@ public class MouseEar implements MouseListener {
    public int imageWidth;
    public int imageHeight;
    public DrawingOptionsDisplay drawOptions;
-   public boolean drag;
 
    public void setCrop(Boolean crop) {
       isCropping = crop;
@@ -39,6 +29,12 @@ public class MouseEar implements MouseListener {
 
    public void setDraw(Boolean draw) {
       isDrawing = draw;
+
+   }
+
+   MouseEar(ImagePanel ip) {
+      this.ip = ip;
+      ip.addMouseListener(this);
 
    }
 
@@ -54,17 +50,9 @@ public class MouseEar implements MouseListener {
 
    }
 
-   public void mousedragged(MouseEvent e) {
-      int currentX = e.getX();
-      int currentY = e.getY();
-      if (drag) {
-         ip.repaint();
-      }
-
-   }
-
    public void mousePressed(MouseEvent e) {
-      drag = true;
+      imagecopy = ip.getImage().returnAcopy(image);
+
       if (e.getX() <= imageWidth && e.getY() <= imageHeight) {
 
          if (isCropping || isDrawing) {
@@ -77,7 +65,7 @@ public class MouseEar implements MouseListener {
    }
 
    public void mouseReleased(MouseEvent e) {
-      drag = false;
+
       if (e.getX() <= imageWidth && e.getY() <= imageHeight) {
 
          if (isCropping || isDrawing) {
@@ -91,14 +79,9 @@ public class MouseEar implements MouseListener {
             int regionWidth = 0;
             int regionHeight = 0;
 
-            Image preOutline = image.getScaledInstance(
-                  ip.getImage().getCurrentImage().getWidth(), ip.getImage().getCurrentImage().getHeight(),
-                  Image.SCALE_DEFAULT);
-
             // draw proposed region and allow for 4 way selection
             Graphics2D g2d = (Graphics2D) image.getGraphics();
             g2d.setColor(Color.RED);
-
             if (xStart <= xEnd && yStart <= yEnd) { // top left -> bottom right
 
                if (isCropping) {
@@ -122,9 +105,7 @@ public class MouseEar implements MouseListener {
             } else if (xStart <= xEnd && yStart >= yEnd) { // bottom left -> top right
 
                if (isCropping) {
-
                   g2d.draw(new Rectangle(xStart, yEnd, (xEnd - xStart), (yStart - yEnd)));
-
                }
                regionWidth = xEnd - xStart;
                regionHeight = yStart - yEnd;
@@ -146,8 +127,8 @@ public class MouseEar implements MouseListener {
             ip.getParent().revalidate();
 
             System.out.println(xStart + " " + yStart + " " + xEnd + " " + yEnd);
-            System.out.println(isCropping);
 
+            
             if (isCropping) {
 
                // display crop options dialogue
@@ -159,9 +140,7 @@ public class MouseEar implements MouseListener {
                      null,
                      options, // the titles of buttons
                      options[0]); // default button title
-
                if (choice == 0) {
-                  System.out.println("Pressed Crop");
                   if (isCropping) {
                      System.out.println(regionXStart + " " + regionYStart + " " + regionWidth + " " + regionHeight);
                      // perform crop
@@ -171,27 +150,25 @@ public class MouseEar implements MouseListener {
                   }
 
                } else if (choice == 1) {
-
                   image.getGraphics().drawImage(imagecopy, 0, 0, null);
-
                   ip.repaint();
                   ip.getParent().revalidate();
-                  System.out.println("Pressed CANCEL");
 
                }
 
                setCrop(false);
 
             } else if (isDrawing) {
-               // perform draw operation
+
                ip.getImage()
                      .apply(new DrawFunction(xStart, yStart, xEnd, yEnd,
-                           regionXStart, regionYStart, regionWidth, regionHeight,
+                        regionXStart, regionYStart, regionWidth, regionHeight,
                            drawOptions.getColour(), drawOptions.getSelectedShape(),
                            drawOptions.getSelectedStyle(), drawOptions.getLineWidth()));
                ip.repaint();
                ip.getParent().revalidate();
 
+               // setDraw(false);
             }
          }
       }
