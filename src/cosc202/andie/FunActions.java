@@ -20,6 +20,7 @@ public class FunActions {
      */
     public FunActions() {
         // initializing actions and action list
+        funMenuActions = new ArrayList<>();
         ConfettiAction confetti = new ConfettiAction(Andie.bundle.getString("Confetti!"), null,
                 Andie.bundle.getString("Celebrategoodtimes!"), null);
         QnQAction qnq = new QnQAction(Andie.bundle.getString("QnQEasteregg"), null,
