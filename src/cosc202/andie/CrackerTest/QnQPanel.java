@@ -122,7 +122,7 @@ public class QnQPanel extends JPanel {
         // show game over message
         String message = "You managed to eat " + clickCount + " crackers and cheeses in " + gameTime
                 + " seconds!\nWell Done you absolute legend.";
-        JOptionPane.showMessageDialog(this, message, "Game Over", JOptionPane.INFORMATION_MESSAGE);
+        JOptionPane.showMessageDialog(this, message);
 
         // remove the CrackerAndCheese objects from list
         crackersAndCheeses.clear();

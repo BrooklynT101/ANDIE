@@ -28,18 +28,13 @@ The ANDIE program contains many simple image editing features. Here are the oper
 - The `Save As` operation allows the user to specify the file name and directory directly. Each option will save along with the image file an *operations* file, this file saves the image operations that were performed.
 - The `Export` action allows the user to export the image with all operations preformed as a single image file, this means that it will create a copy of the image and saves a new one to the specified directory, leaving the original file unchanged. If the user specifies a different file type the system will attempt to save the desired file type and if the file doesnt correctly save to the system the method is to throw a new exception depending on the outcome.
 
-### Known supported file types
+### Supported file types
 - JPG - pass
 - JPEG - pass
 - PNG - pass
 - GIF - pass
 - BMP - pass
 - TIFF - pass
-### Known unsupported file types;
-- WBMP - fail
-- ICO - fail
-- PNM - fail
-- PCX - fail
 >Note: The user can only export to the file directories they have permissions to write to. 
 
 ## Undo and Redo Action 

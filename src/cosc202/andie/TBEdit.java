@@ -12,7 +12,7 @@ import java.util.ArrayList;
  * 
  * @author Brooklyn Taylor
  */
-public class ToolbarEditDialog extends JFrame {
+public class TBEdit extends JFrame {
 
     // static panels so methods can freely update these
     private static JPanel inactiveActionsPanel = new JPanel();
@@ -20,7 +20,7 @@ public class ToolbarEditDialog extends JFrame {
     private boolean testing = false; // set to true to print statements for whats happening
 
     // default constructor
-    public ToolbarEditDialog() {
+    public TBEdit() {
     }
 
     // the meat of the class, shows the dialog and handles editing
