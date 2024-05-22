@@ -5,6 +5,14 @@ import java.awt.*;
 import java.awt.event.*;
 import java.awt.image.BufferedImage;
 
+/**
+ * <p>
+ * Mouse listener Class, allows for mouse events to be tracked and used for
+ * operations
+ * <p>
+ * 
+ * @author Marcus Woodward
+ */
 public class MouseEar implements MouseListener {
 
    ImagePanel ip;
@@ -20,6 +28,17 @@ public class MouseEar implements MouseListener {
    public int imageHeight;
    public DrawingOptionsDisplay drawOptions;
 
+   /**
+    * <p>
+    * Constructor for MouseEar instance
+    * <p>
+    */
+   MouseEar(ImagePanel ip) {
+      this.ip = ip;
+      ip.addMouseListener(this);
+
+   }
+
    public void setCrop(Boolean crop) {
       isCropping = crop;
 
@@ -27,12 +46,6 @@ public class MouseEar implements MouseListener {
 
    public void setDraw(Boolean draw) {
       isDrawing = draw;
-
-   }
-
-   MouseEar(ImagePanel ip) {
-      this.ip = ip;
-      ip.addMouseListener(this);
 
    }
 
@@ -76,7 +89,7 @@ public class MouseEar implements MouseListener {
             int regionWidth = 0;
             int regionHeight = 0;
 
-            // draw proposed region and allow for 4 way selection
+            // draw proposed region and allow for 4 way region selection
             Graphics2D g2d = (Graphics2D) image.getGraphics();
             g2d.setColor(Color.RED);
             if (xStart <= xEnd && yStart <= yEnd) { // top left -> bottom right
@@ -124,6 +137,7 @@ public class MouseEar implements MouseListener {
             ip.getParent().revalidate();
 
             System.out.println(xStart + " " + yStart + " " + xEnd + " " + yEnd);
+            System.out.println(isCropping);
 
             if (isCropping) {
 
@@ -155,7 +169,7 @@ public class MouseEar implements MouseListener {
                setCrop(false);
 
             } else if (isDrawing) {
-
+               // perform draw operation
                ip.getImage()
                      .apply(new DrawFunction(xStart, yStart, xEnd, yEnd,
                            regionXStart, regionYStart, regionWidth, regionHeight,
@@ -164,7 +178,6 @@ public class MouseEar implements MouseListener {
                ip.repaint();
                ip.getParent().revalidate();
 
-               // setDraw(false);
             }
          }
       }

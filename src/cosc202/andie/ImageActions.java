@@ -302,6 +302,9 @@ public class ImageActions {
                 JFrame frame = new JFrame();
                 JOptionPane.showMessageDialog(frame, Andie.bundle.getString("Pleaseopenanimagefilefirst!"));
             }
+            JFrame frame = new JFrame();
+            JOptionPane.showMessageDialog(frame, Andie.bundle.getString("CropInstructions"));
+
             MouseEar mouseEar = target.getMouseEar();
 
             mouseEar.setCrop(true);
@@ -333,7 +336,6 @@ public class ImageActions {
                 JOptionPane.showMessageDialog(frame, Andie.bundle.getString("Pleaseopenanimagefilefirst!"));
             }
             JFrame drawFrame = new JFrame("DrawingOptions");
-            // drawFrame.setSize(400, 200);
             DrawingOptionsDisplay display = new DrawingOptionsDisplay();
 
             drawFrame.add(display);
@@ -350,6 +352,7 @@ public class ImageActions {
                 }
             });
 
+            // send information of current buffered image to mouse listener
             mouseEar.setDraw(true);
 
             mouseEar.image = target.getImage().getCurrentImage();
@@ -357,10 +360,6 @@ public class ImageActions {
             mouseEar.imageHeight = target.getImage().getOriginalImage().getHeight();
 
             mouseEar.drawOptions = display;
-
-            // target.getImage().apply(new DrawFunctions());
-            // target.repaint();
-            // target.getParent().revalidate();
 
         }
 
