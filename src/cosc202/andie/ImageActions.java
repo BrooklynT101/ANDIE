@@ -301,10 +301,10 @@ public class ImageActions {
             if (target.getImage().getOriginalImage() == null) {
                 JFrame frame = new JFrame();
                 JOptionPane.showMessageDialog(frame, Andie.bundle.getString("Pleaseopenanimagefilefirst!"));
+            } else {
+                JFrame frame = new JFrame();
+                JOptionPane.showMessageDialog(frame, Andie.bundle.getString("CropInstructions"));
             }
-            JFrame frame = new JFrame();
-            JOptionPane.showMessageDialog(frame, Andie.bundle.getString("CropInstructions"));
-
             MouseEar mouseEar = target.getMouseEar();
 
             mouseEar.setCrop(true);
@@ -334,33 +334,33 @@ public class ImageActions {
             if (target.getImage().getOriginalImage() == null) {
                 JFrame frame = new JFrame();
                 JOptionPane.showMessageDialog(frame, Andie.bundle.getString("Pleaseopenanimagefilefirst!"));
+            } else {
+                JFrame drawFrame = new JFrame("DrawingOptions");
+                DrawingOptionsDisplay display = new DrawingOptionsDisplay();
+
+                drawFrame.add(display);
+                drawFrame.pack();
+                drawFrame.setVisible(true);
+
+                MouseEar mouseEar = target.getMouseEar();
+
+                // disallow drawing operations when closed
+                drawFrame.addWindowListener(new WindowAdapter() {
+
+                    public void windowClosing(WindowEvent e) {
+                        mouseEar.setDraw(false);
+                    }
+                });
+
+                // send information of current buffered image to mouse listener
+                mouseEar.setDraw(true);
+
+                mouseEar.image = target.getImage().getCurrentImage();
+                mouseEar.imageWidth = target.getImage().getOriginalImage().getWidth();
+                mouseEar.imageHeight = target.getImage().getOriginalImage().getHeight();
+
+                mouseEar.drawOptions = display;
             }
-            JFrame drawFrame = new JFrame("DrawingOptions");
-            DrawingOptionsDisplay display = new DrawingOptionsDisplay();
-
-            drawFrame.add(display);
-            drawFrame.pack();
-            drawFrame.setVisible(true);
-
-            MouseEar mouseEar = target.getMouseEar();
-
-            // disallow drawing operations when closed
-            drawFrame.addWindowListener(new WindowAdapter() {
-
-                public void windowClosing(WindowEvent e) {
-                    mouseEar.setDraw(false);
-                }
-            });
-
-            // send information of current buffered image to mouse listener
-            mouseEar.setDraw(true);
-
-            mouseEar.image = target.getImage().getCurrentImage();
-            mouseEar.imageWidth = target.getImage().getOriginalImage().getWidth();
-            mouseEar.imageHeight = target.getImage().getOriginalImage().getHeight();
-
-            mouseEar.drawOptions = display;
-
         }
 
     }
