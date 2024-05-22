@@ -67,7 +67,7 @@ public class DynamicDrawTest extends MouseInputAdapter {
             }
         }
 
-        imagecopy = ip.getImage().returnAcopy(image);
+        imagecopy = ip.getImage().returnAcopy(ip.getImage().getCurrentImage());
 
     }
 
@@ -87,22 +87,18 @@ public class DynamicDrawTest extends MouseInputAdapter {
                     options[0]); // default button title
 
             if (choice == 0) {
-                System.out.println("Pressed Crop");
-                if (isCropping) {
-                    System.out.println(regionXStart + " " + regionYStart + " " + regionWidth + " " + regionHeight);
-                    // perform crop
-                    ip.getImage().apply(new CropFunction(regionXStart, regionYStart, regionWidth, regionHeight));
-                    ip.repaint();
-                    ip.getParent().revalidate();
-                }
+
+                System.out.println(regionXStart + " " + regionYStart + " " + regionWidth + " " + regionHeight);
+                // perform crop
+                ip.getImage().apply(new CropFunction(regionXStart, regionYStart, regionWidth, regionHeight));
+                ip.repaint();
+                ip.getParent().revalidate();
 
             } else if (choice == 1) {
                 image.getGraphics().drawImage(imagecopy, 0, 0, null);
 
                 ip.repaint();
                 ip.getParent().revalidate();
-
-                System.out.println("Pressed CANCEL");
 
             }
 
@@ -118,7 +114,6 @@ public class DynamicDrawTest extends MouseInputAdapter {
             ip.repaint();
             ip.getParent().revalidate();
 
-            // setDraw(false);
         }
     }
 
@@ -147,8 +142,9 @@ public class DynamicDrawTest extends MouseInputAdapter {
             // draw proposed region and allow for 4 way selection
             Graphics2D g2d = (Graphics2D) image.getGraphics();
             image.getGraphics().drawImage(imagecopy, 0, 0, null);
-            ip.repaint();
-            ip.getParent().revalidate();
+            // g2d.drawImage(imagecopy, 0, 0, null);
+            // ip.repaint();
+            // ip.getParent().revalidate();
             g2d.setColor(Color.RED);
             if (xStart <= xEnd && yStart <= yEnd) { // top left -> bottom right
 
@@ -195,7 +191,7 @@ public class DynamicDrawTest extends MouseInputAdapter {
             ip.getParent().revalidate();
 
             if (isDrawing) {
-                image.getGraphics().drawImage(imagecopy, 0, 0, null);
+                // image.getGraphics().drawImage(imagecopy, 0, 0, null);
 
                 DrawFunction d = new DrawFunction(xStart, yStart, xEnd, yEnd,
                         regionXStart, regionYStart, regionWidth, regionHeight,
@@ -206,6 +202,10 @@ public class DynamicDrawTest extends MouseInputAdapter {
                 ip.repaint();
                 ip.getParent().revalidate();
             }
+
+            // if(isFreeDrawing) {
+
+            // }
 
             if (isErasing) {
                 ip.getImage()
