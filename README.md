@@ -24,10 +24,9 @@ The ANDIE program contains many simple image editing features. Here are the oper
 - `Zoom Full`: Returns image back to it's original size.
 
 ## Image Operations - Part Two
-- `Extended Filters`: ??
-- `Filters with Negative Results`: ??
+- `Filters with Negative Results`: When a a filter provides negative results a mid-value is used to allows seamless filters. 
 - `Emboss Filters`: Gives the effect of a pressed in or raised out sheet of paper. There are eight implementations for the eight different directions of the emboss they simulate.
-- `Sobel Filters`: ??
+- `Sobel Filters`: A gradient based edge detectio filter that can be horizontal and vertical.
 - `Brightness and Contrast Adjustment`: Allows the user to change the brightness and contrast by percentage.
 - `Block Averaging`: Transform an image by dividing it into blocks of a user inputted size (seperate width and height for square and rectangle options) and replacing each block with the average pixel value of that block.
 - `Random Scattering`: A filter that makes an image look scattered by moving pixels within a chosen radius, with each pixel replaced by a random one from its neighbourhood.
@@ -54,13 +53,14 @@ This feature allows you to undo the edits you've made or redo any undone changes
 The operations performed on an image is saved with the image, meaning that after you exit the application and reload your image, you should still have access to your previous actions.
 
 ## Toolbar
-
+The toolbar is an efficent and usable way for basic functions to be displayed for the user. It begins with the most common menu options such as undo, redo, open and more. We adapted this so the user can edit their personal toolbar. 
 
 ## Crop By Selection
-
+Image cropping allows the user to select a region of the image and crop it down to the specified size. The user must click, drag and release to select the area and once completed the image is cropped down and moved back to the default position (top left hand corner). This is based on the mouse-based selection.
 
 ## Drawing functions
-
+The drawing function allows the user 
+UNSURE?
 
 ## Macros
 
@@ -73,7 +73,7 @@ The saturation filter allows users to adjust the intensity of the colours within
 A splash screen was added for when opening our ANDIE project that displays our team name (Queeze 'n Quackers) and "ANDIE - A Non-Distructive Image Editor" to notify the user of what they are opening and to show that the program is loading.
 
 ### Confetti 
-Confetti is a non functional...
+Confetti is a non functional feature that can be started and stopped with the click of the menu button. The balls bounce around the screen to create a confetti look while not effecting the image.  
 
 ### QnQ Easter Egg
 The QnQ Easter Egg is a game that produces small cheese and cracker icons that move around the screen. The aim of the game is for the user to click on the cracker to remove it from the screen and collect points. Once 25 crackers are on the screen the game is over and the users total points are displayed. 
@@ -82,13 +82,10 @@ The QnQ Easter Egg is a game that produces small cheese and cracker icons that m
 A feature we implemented for usability for the choice to open a default image. This can be done through the menu bar or through the keyboard shortcut (Control-D). This opens the a clock tower image for people to test the features of ANDIE before editing their chosen image. 
 
 ### Toolbar Editing
-TODO
+The toolbar editing allows the user to add menu bar options to the tool bar and remove them when needed. There is no limit on the amount of options on the tool bar but a suggestion pops up when the user puts more than 10 items in the toolbar that it may have issues with the usability of the display.
 
 ### Colour Cycler vs Colour Channels 
 We implemented the Colour channel Cycling in two seperate ways, the colour cycler allows the user to cycle through the desired RGB colour channels one by one, contrasting to the colour channels option in the menu bar where the usre can choose their desired colour channel within the 6 colour channels.
-
-### Difference of Images
-TODO
 
 ## MultiLingual Support
 The Multilingual support feature allows users to use our ANDIE project in the set language of both English and Maori. The default langauge is set to English but if the user chooses to they can set the language to Maori, this prompts a restart of the system to apply the change. Upon reopening, the language and all the menu options are converted to the new chosen language. 
@@ -104,7 +101,7 @@ The main contributions our team members made are as follows:
 `Amelia Johnston`: Completed the Colour actions (**Colour Inversion**, **Colour Channel Cycling**, **Saturation**, **Contrast** and **Brightness Adjustment**),  **Image Rotation**, **Block Averaging** and **Random Scattering** . 
 
 
-`Ari Josephson`: Completed the **Gaussian Blur**, **Image Resize**, **Multilingual Support**, *Emboss and Edge Detection**, **Filters with Negative Results**, and **Extended Filters**.
+`Ari Josephson`: Completed the **Gaussian Blur**, **Image Resize**, **Multilingual Support**, **Emboss and Edge Detection**, **Filters with Negative Results**, and **Extended Filters**.
 
 
 `Brooklyn Taylor`: Completed the **Sharpen Filter**, **Blur Filter**, **Image Flip** (horizontal/vertical), **Image Exporting**, **Macros**, **Splash Screen**, **Confetti and Easter Egg**, **Toolbar** and **Keyboard Shortcuts**. 
@@ -140,6 +137,10 @@ Alpha: -1, Red: 45, Green: 47, Blue: 33
 After colour inversion
 Alpha: -1, Red: 210, Green: 208, Blue: 222
 ```
+
+### Difference of Images
+A form of testing we implemented was testing the difference in images. This class was made to overlap our modified image on to a known correctly editied image, if the outcome was black or transparent depending on the given images. MORE INFO??
+
 ## Known errors and/or exceptions
 When trying to perform an operation on an image when one isnt currently loaded it throws a lot of exceptions into the output, this doesn't affect the program but is something to note as these are caught and printed to the terminal.
 
