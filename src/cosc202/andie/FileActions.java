@@ -122,25 +122,32 @@ public class FileActions {
          * @param e The event triggering this callback.
          */
         public void actionPerformed(ActionEvent e) {
-            JFileChooser fileChooser = new JFileChooser();
-
-            int result = fileChooser.showOpenDialog(target);
-
-            if (result == JFileChooser.APPROVE_OPTION) {
-                try {
-                    String imageFilepath = fileChooser.getSelectedFile().getCanonicalPath();
-                    target.getImage().open(imageFilepath);
-                } catch (Exception ex) {
-                    // System.exit(1);
-                    JFrame frame = new JFrame();
-                    JOptionPane.showMessageDialog(frame, Andie.bundle.getString("Pleasechooseanimagefile!"));
-                }
+            int confirm = 0; // TODO check this
+            if (!EditableImage.isSaved && EditableImage.hasLoadedImage()) {
+                JOptionPane.showMessageDialog(Andie.frame, Andie.bundle.getString("Open?"),
+                        Andie.bundle.getString("Openafile"), JOptionPane.YES_NO_OPTION);
             }
 
-            target.repaint();
-            target.getParent().revalidate();
-        }
+            if (confirm == 0) {
+                JFileChooser fileChooser = new JFileChooser();
 
+                int result = fileChooser.showOpenDialog(target);
+
+                if (result == JFileChooser.APPROVE_OPTION) {
+                    try {
+                        String imageFilepath = fileChooser.getSelectedFile().getCanonicalPath();
+                        target.getImage().open(imageFilepath);
+                    } catch (Exception ex) {
+                        // System.exit(1);
+                        JFrame frame = new JFrame();
+                        JOptionPane.showMessageDialog(frame, Andie.bundle.getString("Pleasechooseanimagefile!"));
+                    }
+                }
+
+                target.repaint();
+                target.getParent().revalidate();
+            }
+        }
     }
 
     /**
@@ -179,7 +186,7 @@ public class FileActions {
          */
         public void actionPerformed(ActionEvent e) {
             try {
-                target.getImage().open("src/resources/test-image.jpg");
+                target.getImage().open("src/resources/test-image.png");
             } catch (Exception ex) {
                 JFrame frame = new JFrame();
                 JOptionPane.showMessageDialog(frame, Andie.bundle.getString("DefaultError"));
@@ -425,19 +432,20 @@ public class FileActions {
          * @param e The event triggering this callback.
          */
         public void actionPerformed(ActionEvent e) {
-            if(EditableImage.isSaved){
+            if (EditableImage.isSaved) {
                 // System.out.println("saved and exiting");
                 System.exit(0);
-            }else{
+            } else {
                 // System.out.println("need to save");
                 JFrame frame = new JFrame();
-                int result = JOptionPane.showConfirmDialog(frame, Andie.bundle.getString("Stillexit"), Andie.bundle.getString("Pleasesavebeforeexiting"), JOptionPane.YES_NO_OPTION,
-                JOptionPane.QUESTION_MESSAGE);
-                if(result == JOptionPane.YES_OPTION){
+                int result = JOptionPane.showConfirmDialog(frame, Andie.bundle.getString("Stillexit"),
+                        Andie.bundle.getString("Pleasesavebeforeexiting"), JOptionPane.YES_NO_OPTION,
+                        JOptionPane.QUESTION_MESSAGE);
+                if (result == JOptionPane.YES_OPTION) {
                     System.exit(0);
                 }
             }
-            
+
         }
 
     }
