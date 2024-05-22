@@ -42,17 +42,17 @@ public class DrawingOptionsDisplay extends JPanel {
 
         // add shape buttons
         shapeChoiceButtons = new ButtonGroup();
-        rectangleButton = new JRadioButton("Rectangle");
+        rectangleButton = new JRadioButton(Andie.bundle.getString("Rectangle"));
         shapeChoiceButtons.add(rectangleButton);
-        ovalButton = new JRadioButton("Oval");
+        ovalButton = new JRadioButton(Andie.bundle.getString("Oval"));
         shapeChoiceButtons.add(ovalButton);
-        lineButton = new JRadioButton("Line");
+        lineButton = new JRadioButton(Andie.bundle.getString("Line"));
         shapeChoiceButtons.add(lineButton);
         shapeChoiceButtons.setSelected(lineButton.getModel(), true);
         JPanel choices = new JPanel();
         choices.setLayout(new FlowLayout());
         add(choices, BorderLayout.LINE_START);
-        choices.add(new JLabel("Shape:"));
+        choices.add(new JLabel(Andie.bundle.getString("Shape")));
         choices.add(rectangleButton);
         choices.add(ovalButton);
         choices.add(lineButton);
@@ -60,17 +60,17 @@ public class DrawingOptionsDisplay extends JPanel {
 
         // add style buttons
         styleChoiceButtons = new ButtonGroup();
-        fillButton = new JRadioButton("Fill");
+        fillButton = new JRadioButton(Andie.bundle.getString("Fill"));
         styleChoiceButtons.add(fillButton);
-        outlineButton = new JRadioButton("Outline");
+        outlineButton = new JRadioButton(Andie.bundle.getString("Outline"));
         styleChoiceButtons.add(outlineButton);
         styleChoiceButtons.setSelected(outlineButton.getModel(), true);
-        choices.add(new JLabel("Style:"));
+        choices.add(new JLabel(Andie.bundle.getString("Style")));
         choices.add(fillButton);
         choices.add(outlineButton);
 
         // add line width spinner
-        choices.add(new JLabel("Line Width:"));
+        choices.add(new JLabel(Andie.bundle.getString("LineWidth")));
         SpinnerNumberModel lineWidthModel = new SpinnerNumberModel(1, 1, 10, 1);
         lineWidthSpinner = new JSpinner(lineWidthModel);
         choices.add(lineWidthSpinner);

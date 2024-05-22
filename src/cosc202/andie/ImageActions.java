@@ -311,11 +311,13 @@ public class ImageActions {
             // MouseEar mouseEar = target.getMouseEar();
 
             mouseEar.setCrop(true);
+            mouseEar.setDraw(false);
 
             mouseEar.imagecopy = target.getImage().returnAcopy(target.getImage().getCurrentImage());
             mouseEar.image = target.getImage().getCurrentImage();
+
             mouseEar.imageWidth = target.getImage().getOriginalImage().getWidth();
-            mouseEar.imageHeight = target.getImage().getOriginalImage().getHeight();
+            mouseEar.imageHeight = target.getImage().getOriginalImage().getWidth();
 
         }
 
@@ -347,7 +349,7 @@ public class ImageActions {
                 drawFrame.setVisible(true);
 
                 DynamicDrawTest mouseEar = target.getMouseEar();
-
+                    
                 // disallow drawing operations when closed
                 drawFrame.addWindowListener(new WindowAdapter() {
 
@@ -358,10 +360,12 @@ public class ImageActions {
 
                 // send information of current buffered image to mouse listener
                 mouseEar.setDraw(true);
+                // mouseEar.setCrop(false);
 
+                mouseEar.imagecopy = target.getImage().returnAcopy(target.getImage().getCurrentImage());
                 mouseEar.image = target.getImage().getCurrentImage();
                 mouseEar.imageWidth = target.getImage().getOriginalImage().getWidth();
-                mouseEar.imageHeight = target.getImage().getOriginalImage().getHeight();
+                mouseEar.imageHeight = target.getImage().getOriginalImage().getWidth();
 
                 mouseEar.drawOptions = display;
             }
