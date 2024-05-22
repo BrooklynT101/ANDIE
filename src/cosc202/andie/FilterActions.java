@@ -69,9 +69,12 @@ public class FilterActions {
                 Andie.bundle.getString("ApplyBlockAveraging"), Integer.valueOf(KeyEvent.VK_S)));
         actions.add(new RandomScatteringAction(Andie.bundle.getString("RandomScattering"), null,
                 Andie.bundle.getString("Applyrandomscattering"), Integer.valueOf(KeyEvent.VK_S)));
-        actions.add(new Emboss1FilterAction("Emboss Filters", null, null, Integer.valueOf(KeyEvent.VK_S)));
-        actions.add(new SobelFilterAction("Sobel Filters", null, null, Integer.valueOf(KeyEvent.VK_S)));
+        actions.add(new Emboss1FilterAction(Andie.bundle.getString("EmbossFilters"), null,
+                Andie.bundle.getString("Applyembossfilters"), Integer.valueOf(KeyEvent.VK_S)));
+        actions.add(new SobelFilterAction(Andie.bundle.getString("SobelFilters"), null, 
+                Andie.bundle.getString("applysobelfilters"), Integer.valueOf(KeyEvent.VK_S)));
     }
+
 
     /**
      * <p>
@@ -523,17 +526,23 @@ public class FilterActions {
                     JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
 
             // Check the return value from the dialog box.
-            if (option1 == JOptionPane.CANCEL_OPTION || option1 == JOptionPane.CANCEL_OPTION) {
-                return;
-            } else if (option1 == JOptionPane.OK_OPTION && option2 == JOptionPane.OK_OPTION) {
+            // if (option1 == JOptionPane.CANCEL_OPTION || option1 == JOptionPane.CANCEL_OPTION) {
+            //     return;
+            // } else if (option1 == JOptionPane.OK_OPTION && option2 == JOptionPane.OK_OPTION) {
+            //     blockWidth = xModel.getNumber().intValue();
+            //     blockHeight = yModel.getNumber().intValue();
+            // }
+
+            if (option1 == JOptionPane.OK_OPTION && option2 == JOptionPane.OK_OPTION) {
                 blockWidth = xModel.getNumber().intValue();
                 blockHeight = yModel.getNumber().intValue();
+                // Create and apply the filter wth the blockSIze
+                target.getImage().apply(new BlockAveraging(blockWidth, blockHeight));
+                target.repaint();
+                target.getParent().revalidate();
             }
 
-            // Create and apply the filter wth the blockSIze
-            target.getImage().apply(new BlockAveraging(blockWidth, blockHeight));
-            target.repaint();
-            target.getParent().revalidate();
+            
         }
     }
 
@@ -575,26 +584,23 @@ public class FilterActions {
             int blockSize = 1;
 
             // Pop-up dialog box to ask for the desired repeated operations.
-            SpinnerNumberModel repeatModel = new SpinnerNumberModel(1, 1, 10, 1);
+            SpinnerNumberModel repeatModel = new SpinnerNumberModel(1, 1, 100, 1);
             JSpinner repeatSpinner = new JSpinner(repeatModel);
             // Prevents adding no 1 - 10 integers, by making the text field un editable by
             // default.
             ((DefaultEditor) repeatSpinner.getEditor()).getTextField().setEditable(false);
             int option = JOptionPane.showOptionDialog(null, repeatSpinner,
-                    Andie.bundle.getString("Enterfilterradius"),
+                    Andie.bundle.getString("Enterfilterradius2"),
                     JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
 
             // Check the return value from the dialog box.
-            if (option == JOptionPane.CANCEL_OPTION) {
-                return;
-            } else if (option == JOptionPane.OK_OPTION) {
+            if (option == JOptionPane.OK_OPTION) {
                 blockSize = repeatModel.getNumber().intValue();
+                // Create and apply the filter wth the blockSIze
+                target.getImage().apply(new RandomScattering(blockSize));
+                target.repaint();
+                target.getParent().revalidate();
             }
-
-            // Create and apply the filter wth the blockSIze
-            target.getImage().apply(new RandomScattering(blockSize));
-            target.repaint();
-            target.getParent().revalidate();
         }
     }
 
@@ -608,9 +614,15 @@ public class FilterActions {
      */
     public class Emboss1FilterAction extends ImageAction {
         int optionindex = 0;
-        private final String[] options = { "Left to Right", "Top Left to Bottem Right", "Top to Bottom",
-                "Top Right to Bottem Left", "Right to Left", "Bottem Right to Top Left", "Bottom to Top",
-                "Top Right to Bottom Left" };
+        private final String[] options = { Andie.bundle.getString("LefttoRight"),
+        Andie.bundle.getString("TopLefttoBottomRight"), 
+        Andie.bundle.getString("ToptoBottom"),
+        Andie.bundle.getString("TopRighttoBottomLeft"),
+        Andie.bundle.getString("RighttoLeft"), 
+        Andie.bundle.getString("BottomRighttoTopLeft"), 
+        Andie.bundle.getString("BottomtoTop"),
+        Andie.bundle.getString("TopRighttoBottomLeft") };
+
 
         /**
          * Create a new Emboss filter action.
@@ -692,7 +704,8 @@ public class FilterActions {
      */
     public class SobelFilterAction extends ImageAction {
         int optionindex = 0;
-        private final String[] options = { "Horizontal Sobel", "Vertical Sobel" };
+        private final String[] options = { Andie.bundle.getString("HorizontalSobel"), Andie.bundle.getString("VerticalSobel") };
+         
 
         /**
          * Create a new Emboss filter action.
