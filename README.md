@@ -73,8 +73,9 @@ A splash screen was added for when opening our ANDIE project that displays our t
 Confetti is a fun visual effect on the ANDIE program, it quickly loads in a series of 50 randomized balls in both colour and size that bounce around the screen. You can still use the program as this is just a visual effect.
 
 ### QnQ Game
-The QnQ Easter Egg is a game that produces small cheese and cracker icons that move around the screen. The aim of the game is for the user to click on the cracker to remove it from the screen and collect points. Once 25 crackers are on the screen the game is over and the users total points are displayed. 
+The Queeze n Quackers game has you click on cracker and cheese objects as they spin and bounce around the screen. The aim of the game is to click on as many crackers as you can before too many flood the screen, once there are 30 crackers its game over and your score is given to you, displaying both the amount of Cracker and Cheeses eaten as well as your time score. Be wary, as each time you click a cracker the faster they spawn on screen.
 
+`The resident high score is 33 crackers eaten in 26 seconds!`
 ### Default Image 
 A feature we implemented for usability for the choice to open a default image. This can be done through the menu bar or through the keyboard shortcut (Control-D). This opens the a clock tower image for people to test the features of ANDIE before editing their chosen image. 
 
