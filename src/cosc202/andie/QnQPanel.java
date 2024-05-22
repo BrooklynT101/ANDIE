@@ -17,6 +17,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 
+
 public class QnQPanel extends JPanel {
     protected boolean testing = true;
     protected static List<CrackerAndCheese> crackersAndCheeses;
@@ -64,7 +65,7 @@ public class QnQPanel extends JPanel {
                     QnQPanel.frameHeight = Andie.getFrame().getHeight();
                     cnqCount++;
                     if (testing)
-                        System.out.println("Cracker and Cheese Count: " + cnqCount);
+                        System.out.println(Andie.bundle.getString("CrackerandCheeseCount") + cnqCount);
                 } else {
                     generationTimer.stop(); // Stop the timer when the max number of balls is reached
                     gameOver();
@@ -89,7 +90,7 @@ public class QnQPanel extends JPanel {
                             int temp = (int) (generationTimer.getDelay() * 0.9);
                             generationTimer.setDelay(temp);
                             if (testing)
-                                System.out.println("Current Delay: " + temp);
+                                System.out.println(Andie.bundle.getString("CurrentDelay") + temp); 
                         }
                         break; // Exit the loop after removing the clicked item to avoid
                                // ConcurrentModificationException
@@ -117,9 +118,11 @@ public class QnQPanel extends JPanel {
         double gameTime = (double) (((endTime - startTime) / 1000000) / 1000);
 
         // show game over message
-        String message = "You managed to eat " + clickCount + " crackers and cheeses in " + gameTime
-                + " seconds!\nWell Done you absolute legend.";
+        String message = Andie.bundle.getString("managedToEat") + clickCount + Andie.bundle.getString("crackersAndCheese") + gameTime
+                + Andie.bundle.getString("seconds") + "\n" + Andie.bundle.getString("welldone");
         JOptionPane.showMessageDialog(this, message);
+
+        // Andie.bundle.getString("welldone")
 
         // remove the CrackerAndCheese objects from list
         crackersAndCheeses.clear();
@@ -184,10 +187,11 @@ public class QnQPanel extends JPanel {
         // counter and time scores top right
         g.setColor(Color.RED);
         g.setFont(counterFont);
-        g.drawString("Crackers clicked: " + clickCount, frameWidth - 200, 55);
+        g.drawString(Andie.bundle.getString("CrackersClicked") + clickCount, frameWidth - 200, 55);
         
         long currentTime = System.nanoTime();
         double elapsedTime = (double) (((currentTime - startTime) / 1000000) / 1000);
-        g.drawString("Time: " + elapsedTime + " s", frameWidth - 200, 75);
+        g.drawString(Andie.bundle.getString("Time") + elapsedTime + " s", frameWidth - 200, 75);
     }
 }
+

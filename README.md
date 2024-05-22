@@ -24,10 +24,9 @@ The ANDIE program contains many simple image editing features. Here are the oper
 - `Zoom Full`: Returns image back to it's original size.
 
 ## Image Operations - Part Two
-- `Extended Filters`: ??
-- `Filters with Negative Results`: ??
+- `Filters with Negative Results`: When a a filter provides negative results a mid-value is used to allows seamless filters. 
 - `Emboss Filters`: Gives the effect of a pressed in or raised out sheet of paper. There are eight implementations for the eight different directions of the emboss they simulate.
-- `Sobel Filters`: ??
+- `Sobel Filters`: A gradient based edge detection filter that can be horizontal and vertical.
 - `Brightness and Contrast Adjustment`: Allows the user to change the brightness and contrast by percentage.
 - `Block Averaging`: Transform an image by dividing it into blocks of a user inputted size (separate width and height for square and rectangle options) and replacing each block with the average pixel value of that block.
 - `Random Scattering`: A filter that makes an image look scattered by moving pixels within a chosen radius, with each pixel replaced by a random one from its neighbourhood.
@@ -82,7 +81,7 @@ A feature we implemented for usability for the choice to open a default image. T
 ### Toolbar and Toolbar Editing
 The ANDIE program includes a Toolbar of the common operations to use for the image, accompanied by a related icon and description, they allow the user to easily perform image actions without needing to search for them in menu options.
 
-To extend the usability of the common tools in the Toolbar an edit dialog was implemented, allowing the user to edit the actions that are loaded to their Toolbar. This action also saves their preferences to a file in the resources folder, this means that when the program is launched it will load these preferences to the Toolbar, otherwise defining a default list of operations.
+To extend the usability of the common tools in the Toolbar an edit dialog was implemented, allowing the user to edit the actions that are loaded to their Toolbar. This action also saves their preferences to a file in the resources folder, this means that when the program is launched it will load these preferences to the Toolbar, otherwise defining a default list of operations. There is no limit on the amount of options on the tool bar but a suggestion pops up when the user puts more than 10 items in the Toolbar that it may have issues with the usability of the display (i.e., Actions might display off screen).
 
 ### Colour Cycler vs Colour Channels 
 We implemented the Colour channel Cycling in two separate ways, the colour cycler allows the user to cycle through the desired RGB colour channels one by one, contrasting to the colour channels option in the menu bar where the user can choose their desired colour channel within the 6 colour channels.
@@ -140,6 +139,10 @@ Alpha: -1, Red: 45, Green: 47, Blue: 33
 After colour inversion
 Alpha: -1, Red: 210, Green: 208, Blue: 222
 ```
+
+### Difference of Images
+A form of testing we implemented was testing the difference in images. This class was made to overlap our modified image on to a known correctly editied image, if the outcome was black or transparent depending on the given images. MORE INFO??
+
 ## Known errors and/or exceptions
 When trying to perform an operation on an image when one isnt currently loaded it throws a lot of exceptions into the output, this doesn't affect the program but is something to note as these are caught and printed to the terminal.
 
