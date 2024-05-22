@@ -34,6 +34,7 @@ public abstract class ImageAction extends AbstractAction {
      * This is common to all ImageActions.
      */
     protected static ImagePanel target;
+    protected String actionName;
 
     /**
      * <p>
@@ -59,6 +60,7 @@ public abstract class ImageAction extends AbstractAction {
         if (mnemonic != null) {
             putValue(MNEMONIC_KEY, mnemonic);
         }
+        this.actionName = name;
     }
 
     /**
@@ -83,4 +85,8 @@ public abstract class ImageAction extends AbstractAction {
         return target;
     }
 
+
+    public String getName() {
+        return actionName;
+    }
 }

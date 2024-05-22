@@ -1,4 +1,4 @@
-package cosc202.andie.BallTest;
+package cosc202.andie.Confetti;
 
 import java.awt.Color;
 import java.awt.Graphics;
@@ -8,7 +8,7 @@ import java.util.Random;
 public class Ball {
     private int x, y;
     private int xSpeed, ySpeed;
-    private static final int DIAMETER = 30;
+    private static final int DIAMETER = 15;
     private static final int SPEED = 7;
     private Rectangle bounds;
     private Color color;

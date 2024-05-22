@@ -39,17 +39,17 @@ public class FileActions {
         FileOpenAction open = new FileOpenAction(Andie.bundle.getString("Open"), null,
                 Andie.bundle.getString("Openafile"), Integer.valueOf(KeyEvent.VK_O));
         FileTestImageAction testImage = new FileTestImageAction(Andie.bundle.getString("TestImage"), null,
-                Andie.bundle.getString("TestImageDesc"), Integer.valueOf(KeyEvent.VK_D));
+                Andie.bundle.getString("TestImageDesc"), Integer.valueOf(KeyEvent.VK_T));
         FileDefaultAction defaultImage = new FileDefaultAction(Andie.bundle.getString("Default"), null,
                 Andie.bundle.getString("DefaultDesc"), Integer.valueOf(KeyEvent.VK_D));
         FileSaveAction save = new FileSaveAction(Andie.bundle.getString("Save"), null,
                 Andie.bundle.getString("Savethefile"), Integer.valueOf(KeyEvent.VK_S));
         FileSaveAsAction saveas = new FileSaveAsAction(Andie.bundle.getString("SaveAs"), null,
-                Andie.bundle.getString("Saveacopy"), Integer.valueOf(KeyEvent.VK_A));
+                Andie.bundle.getString("Saveacopy"), null);
         FileExportAction export = new FileExportAction(Andie.bundle.getString("Export"), null,
-                Andie.bundle.getString("Exportimage"), Integer.valueOf(KeyEvent.VK_A));
+                Andie.bundle.getString("Exportimage"), Integer.valueOf(KeyEvent.VK_P));
         FileExitAction exit = new FileExitAction(Andie.bundle.getString("Exit"), null,
-                Andie.bundle.getString("Exittheprogram"), Integer.valueOf(0));
+                Andie.bundle.getString("Exittheprogram"), Integer.valueOf(KeyEvent.VK_E));
 
         // keyboard shortcuts
         open.putValue(Action.ACCELERATOR_KEY, KeyStroke.getKeyStroke("control O"));

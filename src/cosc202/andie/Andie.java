@@ -24,8 +24,8 @@ import javax.swing.Timer;
 import javax.swing.JMenuBar;
 import javax.swing.SwingUtilities;
 
-import cosc202.andie.BallTest.BallPanel;
-import cosc202.andie.CrackerTest.QnQPanel;
+import cosc202.andie.Confetti.BallPanel;
+import cosc202.andie.CrackaLackin.QnQPanel;
 
 import javax.imageio.ImageIO;
 
@@ -49,7 +49,7 @@ import javax.imageio.ImageIO;
  * @version 1.0
  */
 public class Andie {
-   //boolean for printing out test related values
+   // boolean for printing out test related values
    protected static boolean testing = false;
 
    // Setting prefs
@@ -76,8 +76,10 @@ public class Andie {
 
    public static QnQPanel qnqPanel;
 
-   private static final int MAXIMUM_BALLS = 20; // max number of balls
-   private static final int BALLS_DELAY = 2000; // in milliseconds
+   private static BallPanel gameOverlay;
+
+   private static final int MAXIMUM_BALLS = 50; // max number of balls
+   private static final int BALLS_DELAY = 100; // in milliseconds
 
    /**
     * <p>
@@ -106,7 +108,7 @@ public class Andie {
     */
 
    private static void createAndShowGUI() throws Exception {
-      frame.setAlwaysOnTop(true); //so it loads on top of everything
+      frame.setAlwaysOnTop(true); // so it loads on top of everything
 
       // getting icon from resource folder
       try {
@@ -219,7 +221,7 @@ public class Andie {
       // frame.getContentPane().add(toolbar, BorderLayout.NORTH);
       frame.pack();
       frame.setVisible(true);
-      frame.setAlwaysOnTop(false); //so it doesn't stay loaded on top of everything
+      frame.setAlwaysOnTop(false); // so it doesn't stay loaded on top of everything
    }
 
    private static void showSplashScreen() {
@@ -276,16 +278,34 @@ public class Andie {
    public static void activateEasterEgg() {
       JFrame frame = getFrame(); // Get the frame instance
       layeredPane = frame.getLayeredPane(); // Initialize layeredPane using the frame
-      BallPanel gameOverlay = new BallPanel(frame.getWidth(), frame.getHeight(), BALLS_DELAY, MAXIMUM_BALLS);
-      layeredPane.add(gameOverlay, JLayeredPane.POPUP_LAYER);
 
-      // define the panel
-      gameOverlay.setOpaque(false);
-      gameOverlay.setBackground(Color.red);
-      gameOverlay.setBounds(0, 0, frame.getWidth(), frame.getHeight());
+      // Check if the BallPanel is already running
+      BallPanel existingBallPanel = null;
+      for (int i = 0; i < layeredPane.getComponentCount(); i++) {
+         if (layeredPane.getComponent(i) instanceof BallPanel) {
+            existingBallPanel = (BallPanel) layeredPane.getComponent(i);
+            break;
+         }
+      }
 
-      gameOverlay.requestFocusInWindow();
-      gameOverlay.startGeneratingBalls();
+      if (existingBallPanel != null && BallPanel.isRunning) {
+         existingBallPanel.endConfetti();
+         layeredPane.remove(existingBallPanel);
+      } else {
+         BallPanel gameOverlay = new BallPanel(frame.getWidth(), frame.getHeight(), BALLS_DELAY, MAXIMUM_BALLS);
+         layeredPane.add(gameOverlay, JLayeredPane.POPUP_LAYER);
+
+         // Define the panel
+         gameOverlay.setOpaque(false);
+         gameOverlay.setBackground(Color.red);
+         gameOverlay.setBounds(0, 0, frame.getWidth(), frame.getHeight());
+
+         gameOverlay.requestFocusInWindow();
+         gameOverlay.startGeneratingBalls();
+      }
+
+      layeredPane.revalidate();
+      layeredPane.repaint();
    }
 
    public static void activateQNQEgg() {
@@ -330,14 +350,14 @@ public class Andie {
          SwingUtilities.invokeLater(() -> {
             try {
                createAndShowGUI();
-               // activateEasterEgg();
                if (testing) {
                   System.out
                         .println("Frame dimensions - Height: " + frame.getHeight() + ", Width: " + frame.getWidth());
                   System.out.println(
                         "Toolbar dimensions - Height: " + toolbar.getHeight() + ", Width: " + toolbar.getWidth());
                   // System.out.println(
-                        // "MenuBar dimensions - Height: " + menuBar.getHeight() + ", Width: " + menuBar.getWidth());
+                  // "MenuBar dimensions - Height: " + menuBar.getHeight() + ", Width: " +
+                  // menuBar.getWidth());
                }
             } catch (Exception e) {
                e.printStackTrace();

@@ -274,12 +274,12 @@ class EditableImage {
         }
         //if there is a given extension
         if (destinationFilePath.lastIndexOf(".") != -1) {
-            // TODO make sure the format is accepted
             // saves extension given by user (without the dot)
             extension = destinationFilePath.substring(1 + destinationFilePath.lastIndexOf(".")).toLowerCase();
             //checks if the given extension is supported, otherwise hits em with a prompt
             if(!SUPPORTED_FILE_EXTENSIONS.contains(extension)) {
-                JOptionPane.showMessageDialog(Andie.getFrame(), Andie.bundle.getString("successSave"), "", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(Andie.getFrame(), Andie.bundle.getString("UnsupportedFileType"), Andie.bundle.getString("CouldntExport"), JOptionPane.INFORMATION_MESSAGE);
+                return;
             }
             // trims the file path to the name without the extension
             destinationFilePath = destinationFilePath.substring(0, destinationFilePath.lastIndexOf("."));

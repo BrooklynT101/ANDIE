@@ -1,4 +1,4 @@
-package cosc202.andie.BallTest;
+package cosc202.andie.Confetti;
 
 import java.awt.Color;
 import java.awt.Graphics;
@@ -6,8 +6,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.Timer;
+
+import cosc202.andie.Andie;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -20,7 +24,8 @@ public class BallPanel extends JPanel {
     private int ballCount = 0;
     @SuppressWarnings("unused")
     private int maxBalls;
-    private boolean testing = true;
+    private boolean testing = false;
+    public static boolean isRunning;
 
     public BallPanel(int frameWidth, int frameHeight,int generationDelay, int maxBalls) {
         this.frameWidth = frameWidth;
@@ -55,6 +60,27 @@ public class BallPanel extends JPanel {
         });
     }
 
+    public void endConfetti() {
+        // stop the awt timers
+        if (movementTimer != null && movementTimer.isRunning()) {
+            movementTimer.stop();
+        }
+        if (generationTimer != null && generationTimer.isRunning()) {
+            generationTimer.stop();
+        }
+
+        // remove the ball objects from list
+        balls.clear();
+
+        // Remove the panel from the frame
+        Andie.frame.remove(this);
+
+        // repaint andie frame so its properly goneskis
+        Andie.frame.repaint();
+        if (testing) System.out.println("Stopped running confetti");
+        isRunning = false;
+    }
+
     public void addBall() {
         Color color = new Color(r.nextInt(256), r.nextInt(256), r.nextInt(256));
         Ball ball = new Ball(frameWidth, frameHeight, color);
@@ -62,6 +88,8 @@ public class BallPanel extends JPanel {
     }
 
     public void startGeneratingBalls() {
+        if (testing) System.out.println("Started Running confetti");
+        isRunning = true;
         generationTimer.start();
     }
 
