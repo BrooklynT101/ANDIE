@@ -25,7 +25,7 @@ import javax.swing.JMenuBar;
 import javax.swing.SwingUtilities;
 
 import cosc202.andie.Confetti.BallPanel;
-import cosc202.andie.CrackaLackin.QnQPanel;
+// import cosc202.andie.CrackaLackin.QnQPanel;
 
 import javax.imageio.ImageIO;
 

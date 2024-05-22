@@ -26,7 +26,7 @@ The ANDIE program contains many simple image editing features. Here are the oper
 ## Image Operations - Part Two
 - `Filters with Negative Results`: When a a filter provides negative results a mid-value is used to allows seamless filters. 
 - `Emboss Filters`: Gives the effect of a pressed in or raised out sheet of paper. There are eight implementations for the eight different directions of the emboss they simulate.
-- `Sobel Filters`: A gradient based edge detectio filter that can be horizontal and vertical.
+- `Sobel Filters`: A gradient based edge detection filter that can be horizontal and vertical.
 - `Brightness and Contrast Adjustment`: Allows the user to change the brightness and contrast by percentage.
 - `Block Averaging`: Transform an image by dividing it into blocks of a user inputted size (seperate width and height for square and rectangle options) and replacing each block with the average pixel value of that block.
 - `Random Scattering`: A filter that makes an image look scattered by moving pixels within a chosen radius, with each pixel replaced by a random one from its neighbourhood.
