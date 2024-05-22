@@ -31,7 +31,7 @@ public class Toolbar extends JToolBar {
 
     private String name;
     private int maxActions;
-    private static final int DefaultMaxSize = 10;
+    private static final int DefaultMaxSize = 1000;
 
     protected ArrayList<Action> activeActions;
     protected ArrayList<Action> inactiveActions;
@@ -94,7 +94,8 @@ public class Toolbar extends JToolBar {
             return false;
         }
 
-        String actionName = action.getValue(Action.NAME).toString();
+        ImageAction imageAction = (ImageAction) action;
+        String actionName = imageAction.getName();
         JButton button = new JButton(actionName);
         button.setAction(action);
         button.setIcon(loadIcon(actionName));
@@ -246,6 +247,9 @@ public class Toolbar extends JToolBar {
                 if (testing)
                     System.out.println("Found action in file: " + actionName);
                 addAction(actionName);
+            }
+            if (activeActions.isEmpty()) {
+                loadDefaultActions();
             }
         } catch (IOException | ClassNotFoundException | NullPointerException e) {
             System.err.println("Couldn't find saved user preferences, loading default list of actions...");

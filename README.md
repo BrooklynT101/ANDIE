@@ -150,3 +150,20 @@ The Image operations file not existing exception needs to be caught and display 
 
 ## Authors
 Created by Amelia Johnston, Ari Josephson, Brooklyn Taylor, and Marcus Woodward
+
+
+
+
+
+
+
+
+Attributes:
+- <a href="https://www.flaticon.com/free-icons/open-folder" title="open folder icons">Open folder icons created by Freepik - Flaticon</a>
+- <a href="https://www.flaticon.com/free-icons/on" title="on icons">On icons created by Icontive - Flaticon</a>
+- <a href="https://www.flaticon.com/free-icons/zoom-out" title="zoom out icons">Zoom out icons created by Gregor Cresnar - Flaticon</a>
+- <a href="https://www.flaticon.com/free-icons/zoom-in" title="zoom in icons">Zoom in icons created by Gregor Cresnar - Flaticon</a>
+- <a href="https://www.flaticon.com/free-icons/edit-tool" title="edit tool icons">Edit tool icons created by Creatype - Flaticon</a>
+- <a href="https://www.flaticon.com/free-icons/save" title="save icons">Save icons created by Freepik - Flaticon</a>
+- <a href="https://www.flaticon.com/free-icons/draw" title="draw icons">Draw icons created by Freepik - Flaticon</a>
+- <a href="https://www.flaticon.com/free-icons/settings" title="settings icons">Settings icons created by Freepik - Flaticon</a>

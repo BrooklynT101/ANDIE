@@ -38,12 +38,12 @@ public class EditActions {
         // initialising actions and action list
         actions = new ArrayList<Action>();
         UndoAction undo = new UndoAction(Andie.bundle.getString("Undo"), null, Andie.bundle.getString("Undo"),
-                Integer.valueOf(KeyEvent.VK_Z));
+                null);
         RedoAction redo = new RedoAction(Andie.bundle.getString("Redo"), null, Andie.bundle.getString("Redo"),
-                Integer.valueOf(KeyEvent.VK_Y));
+                null);
         ToolBarEditAction toolbarEdit = new ToolBarEditAction(Andie.bundle.getString("ToolBarEdit"), null,
                 Andie.bundle.getString("ToolBarEdit"),
-                Integer.valueOf(KeyEvent.VK_T));
+                null);
 
         // keyboard shortcuts
         undo.putValue(Action.ACCELERATOR_KEY, KeyStroke.getKeyStroke("control Z"));

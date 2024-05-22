@@ -24,8 +24,8 @@ import javax.swing.Timer;
 import javax.swing.JMenuBar;
 import javax.swing.SwingUtilities;
 
-import cosc202.andie.BallTest.BallPanel;
-import cosc202.andie.CrackerTest.QnQPanel;
+import cosc202.andie.Confetti.BallPanel;
+import cosc202.andie.CrackaLackin.QnQPanel;
 
 import javax.imageio.ImageIO;
 
@@ -76,8 +76,10 @@ public class Andie {
 
    public static QnQPanel qnqPanel;
 
-   private static final int MAXIMUM_BALLS = 20; // max number of balls
-   private static final int BALLS_DELAY = 2000; // in milliseconds
+   private static BallPanel gameOverlay;
+
+   private static final int MAXIMUM_BALLS = 50; // max number of balls
+   private static final int BALLS_DELAY = 100; // in milliseconds
 
    /**
     * <p>
@@ -274,18 +276,37 @@ public class Andie {
    }
 
    public static void activateEasterEgg() {
-      JFrame frame = getFrame(); // Get the frame instance
-      layeredPane = frame.getLayeredPane(); // Initialize layeredPane using the frame
-      BallPanel gameOverlay = new BallPanel(frame.getWidth(), frame.getHeight(), BALLS_DELAY, MAXIMUM_BALLS);
-      layeredPane.add(gameOverlay, JLayeredPane.POPUP_LAYER);
+      JFrame frame = getFrame();// get andie frame
+      layeredPane = frame.getLayeredPane();
 
-      // define the panel
-      gameOverlay.setOpaque(false);
-      gameOverlay.setBackground(Color.red);
-      gameOverlay.setBounds(0, 0, frame.getWidth(), frame.getHeight());
+      // check if BallPanel is already running
+      BallPanel existingBallPanel = null;
+      for (int i = 0; i < layeredPane.getComponentCount(); i++) {
+         if (layeredPane.getComponent(i) instanceof BallPanel) {
+            existingBallPanel = (BallPanel) layeredPane.getComponent(i);
+            break;
+         }
+      }
 
-      gameOverlay.requestFocusInWindow();
-      gameOverlay.startGeneratingBalls();
+      // end it
+      if (existingBallPanel != null && BallPanel.isRunning) {
+         existingBallPanel.endConfetti();
+         layeredPane.remove(existingBallPanel);
+      } else {
+         BallPanel gameOverlay = new BallPanel(frame.getWidth(), frame.getHeight(), BALLS_DELAY, MAXIMUM_BALLS);
+         layeredPane.add(gameOverlay, JLayeredPane.POPUP_LAYER);
+
+         // define the panel
+         gameOverlay.setOpaque(false);
+         gameOverlay.setBackground(Color.red);
+         gameOverlay.setBounds(0, 0, frame.getWidth(), frame.getHeight());
+
+         gameOverlay.requestFocusInWindow();
+         gameOverlay.startGeneratingBalls();
+      }
+
+      layeredPane.revalidate();
+      layeredPane.repaint();
    }
 
    public static void activateQNQEgg() {
@@ -330,7 +351,6 @@ public class Andie {
          SwingUtilities.invokeLater(() -> {
             try {
                createAndShowGUI();
-               // activateEasterEgg();
                if (testing) {
                   System.out
                         .println("Frame dimensions - Height: " + frame.getHeight() + ", Width: " + frame.getWidth());

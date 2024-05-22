@@ -24,9 +24,9 @@ public class MacroActions {
         // initializing actions and action list
         macroMenuActions = new ArrayList<Action>();
         MacroLoadAction mLoad = new MacroLoadAction(Andie.bundle.getString("MacroLoad"), null,
-                Andie.bundle.getString("MacroLoadDef"), Integer.valueOf(KeyEvent.VK_L));
+                Andie.bundle.getString("MacroLoadDef"), null);
         MacroStartRecording mStart = new MacroStartRecording(Andie.bundle.getString("MacroStart"), null,
-                Andie.bundle.getString("MacroStartDef"), Integer.valueOf(KeyEvent.VK_S));
+                Andie.bundle.getString("MacroStartDef"), null);
         MacroStopRecording mStop = new MacroStopRecording(Andie.bundle.getString("MacroStop"), null,
                 Andie.bundle.getString("MacroStopDef"), Integer.valueOf(KeyEvent.VK_S));
         EasterEggAction egg = new EasterEggAction(Andie.bundle.getString("Confetti!"), null,
@@ -35,11 +35,6 @@ public class MacroActions {
                 Andie.bundle.getString("QuackingQwazy!"), null);
 
         // Andie.bundle.getString("Quacking Qwazy!")
-
-        // keyboard shortcuts
-        mLoad.putValue(Action.ACCELERATOR_KEY, KeyStroke.getKeyStroke("control O"));
-        mStart.putValue(Action.ACCELERATOR_KEY, KeyStroke.getKeyStroke("control D"));
-        mStop.putValue(Action.ACCELERATOR_KEY, KeyStroke.getKeyStroke("control S"));
 
         // adding actions to list
         macroMenuActions.add(mLoad);
@@ -63,8 +58,6 @@ public class MacroActions {
         }
         return macroMenu;
     }
-
-    // TODO: add macro quick action to menu
 
     /**
      * Getter method for the macro menu actions
@@ -130,12 +123,18 @@ public class MacroActions {
                     // Operations file is taken from a saved file (if any), and saved to a stack
                     // that holds ImageOperations
                     Stack<ImageOperation> opsFromFile = (Stack<ImageOperation>) objIn.readObject();
-
-                    // apply the macro
-                    // TODO: change this to be a singular action similar to how the blur function
-                    // works
+                    StringBuilder builder = new StringBuilder();
+                    builder.append(Andie.bundle.getString("ApplyMacro?") + "\n\n");
                     for (ImageOperation operation : opsFromFile) {
-                        target.getImage().apply(operation);
+                        builder.append(operation.getName() + "\n");
+                    }
+                    int option = JOptionPane.showConfirmDialog(Andie.frame, builder.toString(),
+                            Andie.bundle.getString("ApplyMacro?"), JOptionPane.OK_CANCEL_OPTION);
+                    // apply the macro
+                    if (option == JOptionPane.OK_OPTION) {
+                        for (ImageOperation operation : opsFromFile) {
+                            target.getImage().apply(operation);
+                        }
                     }
 
                     objIn.close();
@@ -176,8 +175,6 @@ public class MacroActions {
             super(name, icon, desc, mnemonic);
         }
 
-        // TODO: make it so if the macro is recording and start is called again it
-        // simply stops it
         public void actionPerformed(ActionEvent e) {
             if (isRunning) {
                 JFrame frame = new JFrame();
@@ -223,38 +220,37 @@ public class MacroActions {
 
         public void actionPerformed(ActionEvent e) {
             if (isRunning == false) {
-                System.err.println("Macro not running"); // TODO: add an actual prompt here?
+                JOptionPane.showMessageDialog(Andie.frame, Andie.bundle.getString("MacroNotRecording"));
                 return;
             } else {
                 isRunning = false;
-            }
-            // create a deepcopy of the operations, else it'll just mess with the images
-            // operations
-            Stack<ImageOperation> newOperations = MacroActions.deepCopy(target.getImage().getCurrentOperations());
-            // TODO: if newOps is empty then the message just says ayo
-            if (testing)
-                System.out.println("Original Operations: " + MacroActions.originalOperations.toString());
 
-            if (newOperations.size() == MacroActions.originalOperations.size()) {
+                // create a deepcopy of the operations, else it'll just mess with the images
+                // operations
+                Stack<ImageOperation> newOperations = MacroActions.deepCopy(target.getImage().getCurrentOperations());
                 if (testing)
-                    System.out.println("Lists are same size");
-            } else {
+                    System.out.println("Original Operations: " + MacroActions.originalOperations.toString());
+
+                if (newOperations.size() == MacroActions.originalOperations.size()) {
+                    if (testing)
+                        System.out.println("Lists are same size");
+                } else {
+                    if (testing)
+                        System.out.println("New Operations (before loop): " + newOperations.toString());
+                    for (int i = 0; i < MacroActions.originalOperations.size(); i++) {
+                        newOperations.pop();
+                    }
+                }
                 if (testing)
-                    System.out.println("New Operations (before loop): " + newOperations.toString());
-                for (int i = 0; i < MacroActions.originalOperations.size(); i++) {
-                    newOperations.pop();
+                    System.out.println("New Operations (after loop): " + newOperations.toString());
+
+                // Prompt to save the macro
+                int option = JOptionPane.showConfirmDialog(null, buildActionListMessage(newOperations),
+                        "Save Macro", JOptionPane.YES_NO_OPTION);
+                if (option == JOptionPane.YES_OPTION) {
+                    saveMacro(newOperations);
                 }
             }
-            if (testing)
-                System.out.println("New Operations (after loop): " + newOperations.toString());
-
-            // Prompt to save the macro
-            int option = JOptionPane.showConfirmDialog(null, buildActionListMessage(newOperations),
-                    "Save Macro", JOptionPane.YES_NO_OPTION);
-            if (option == JOptionPane.YES_OPTION) {
-                saveMacro(newOperations);
-            }
-
         }
 
         /**
@@ -291,7 +287,8 @@ public class MacroActions {
                 }
             } else {
                 // User canceled or closed the dialog
-                if (testing) System.out.println("Save operation cancelled.");
+                if (testing)
+                    System.out.println("Save operation cancelled.");
             }
         }
 
