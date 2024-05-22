@@ -2,13 +2,13 @@
 
 Welcome to ANDIE, ANDIE is used to perform simple operations on image files and save them. ANDIE also saves the list of image operations that were performed on it, this is so when the image is opened again (and assuming it wasn't moved away from the operations file) the undo commands will still work. This can also be used to view the steps taken to achieve the final result
 
-## Image Operations
+## Image Operations - Part One 
 
 The ANDIE program contains many simple image editing features. Here are the operations you can perform in the program:
 
 - `Convert To Grey`: Convert an image to become greyscale, by editing each pixels RBG values.
 - `Image Inversion`: Converts an images RGB values to the inverse of their original values.
-- `Colour Channel Cycling`: Allows a user to cycle the colour channels to any possible configuration based on how the user specifies the colour channel.
+- `Colour Channel Cycling`: Allows a user to select a RGB channels from a menu of the 6 possible RGB channels, changing the colour scheme of the image.
 - `Mean Filter`: A simple blurring filter that smooths out the image by finding the mean value of the surrounding kernel around a pixel and applying the mean value to that pixel.
 - `Soft Blur`: Blurs an image by a *soft* margin.
 - `Median Filter`: Uses a local neighbourhood with a specified radius to blur an image.
@@ -22,6 +22,17 @@ The ANDIE program contains many simple image editing features. Here are the oper
 - `Zoom In`: Zooms in at 10 percent.
 - `Zoom Out`: Zooms out at 10 percent.
 - `Zoom Full`: Returns image back to it's original size.
+
+## Image Operations - Part Two
+- `Extended Filters`: ??
+- `Filters with Negative Results`: ??
+- `Emboss Filters`: Gives the effect of a pressed in or raised out sheet of paper. There are eight implementations for the eight different directions of the emboss they simulate.
+- `Sobel Filters`: ??
+- `Brightness and Contrast Adjustment`: Allows the user to change the brightness and contrast by percentage.
+- `Block Averaging`: Transform an image by dividing it into blocks of a user inputted size (seperate width and height for square and rectangle options) and replacing each block with the average pixel value of that block.
+- `Random Scattering`: A filter that makes an image look scattered by moving pixels within a chosen radius, with each pixel replaced by a random one from its neighbourhood.
+- `Keyboard Shortcuts`: Allows users to use their keyboard for easy access. We implemented the most common shortcuts for usability such as undo, redo, and save etc.
+- `Mouse-Based Region Selection`: Allows the user to select of region of the image by dragging and releasing. 
 
 ## Saving images
 - The `Save` action saves the image operations file in the directory the image was opened in, replacing (or creating) image operations file and keeping the original image unchanged. 
@@ -42,28 +53,61 @@ This feature allows you to undo the edits you've made or redo any undone changes
 
 The operations performed on an image is saved with the image, meaning that after you exit the application and reload your image, you should still have access to your previous actions.
 
-## MultiLingual Support
-```
-The Multilingual support feature allows users to use our ANDIE project in the set language of both English and Maori. The default langauge is set to English but if the user chooses to they can set the language to Maori, this prompts a restart of the system to apply the change. Upon reopening, the language and all the menu options are converted to the new chosen language. 
-```
+## Toolbar
 
-### Contribution
+
+## Crop By Selection
+
+
+## Drawing functions
+
+
+## Macros
+
+
+## Additional Features
+### Saturation Filter 
+The saturation filter allows users to adjust the intensity of the colours withing the image by specifying a percentage change. This operation enhances or dimishes the vibrancy of colours, providing control over the image's overall colour saturation.
+
+### Splash Screen 
+A splash screen was added for when opening our ANDIE project that displays our team name (Queeze 'n Quackers) and "ANDIE - A Non-Distructive Image Editor" to notify the user of what they are opening and to show that the program is loading.
+
+### Confetti 
+Confetti is a non functional...
+
+### QnQ Easter Egg
+The QnQ Easter Egg is a game that produces small cheese and cracker icons that move around the screen. The aim of the game is for the user to click on the cracker to remove it from the screen and collect points. Once 25 crackers are on the screen the game is over and the users total points are displayed. 
+
+### Default Image 
+A feature we implemented for usability for the choice to open a default image. This can be done through the menu bar or through the keyboard shortcut (Control-D). This opens the a clock tower image for people to test the features of ANDIE before editing their chosen image. 
+
+### Toolbar Editing
+TODO
+
+### Colour Cycler vs Colour Channels 
+We implemented the Colour channel Cycling in two seperate ways, the colour cycler allows the user to cycle through the desired RGB colour channels one by one, contrasting to the colour channels option in the menu bar where the usre can choose their desired colour channel within the 6 colour channels.
+
+## MultiLingual Support
+The Multilingual support feature allows users to use our ANDIE project in the set language of both English and Maori. The default langauge is set to English but if the user chooses to they can set the language to Maori, this prompts a restart of the system to apply the change. Upon reopening, the language and all the menu options are converted to the new chosen language. 
+
+## Contribution
 Within our group of 4 we divided the project up to fit our strengths. We each took a 'difficult' operation to begin, later moving on to simpler areas of the project. Once all the image and file actions were added we went back into our code, implementing the Multilingual feature and developing our exception handling within any area of code that seemed necessary. 
 We Developed our Andie, Incramentally, implementing our features in seperate branchs, ensuring each individual feature is tested and known to work before merged to main.
+In the second part of the project we split everything into 4 sections by their similar tasks. Each person took over one section and developed the features within. 
 
 The main contributions our team members made are as follows:
 
 
-`Amelia Johnston`: Completed the Colour actions (**Colour Inversion** and **Colour Channel Cycling**) and **Image Rotation**. 
+`Amelia Johnston`: Completed the Colour actions (**Colour Inversion**, **Colour Channel Cycling**, **Saturation**, **Contrast** and **Brightness Adjustment**),  **Image Rotation**, **Block Averaging** and **Random Scattering** . 
 
 
-`Ari Josephson`: Completed the **Gaussian Blur**, **Image Resize** and the **Multilingual Support**.
+`Ari Josephson`: Completed the **Gaussian Blur**, **Image Resize**, **Multilingual Support**, *Emboss and Edge Detection**, **Filters with Negative Results**, and **Extended Filters**.
 
 
-`Brooklyn Taylor`: Completed the **Sharpen Filter**, **Blur Filter**, **Image Flip** (horizontal/vertical) and **Image Exporting**. 
+`Brooklyn Taylor`: Completed the **Sharpen Filter**, **Blur Filter**, **Image Flip** (horizontal/vertical), **Image Exporting**, **Macros**, **Splash Screen**, **Confetti and Easter Egg**, **Toolbar** and **Keyboard Shortcuts**. 
 
 
-`Marcus Woodward`: Completed the **Median Filter**, and tackled a large portion of **Exception** and **Error Handling**
+`Marcus Woodward`: Completed the **Median Filter**, **Mouse-based Region Selection**, **Image Cropping**, **Drawing Operations** and tackled a large portion of **Exception** and **Error Handling**.
 
 ## Notable code edits
 During development two blurring actions were added to the ANDIE program, the naming of the two were inconsistent with it features and implementations, so Brooklyn worked to replace and rename the two classes to make the actions clearer to those reading the actions code. BlurOption (Now BlurFilter) originally applied a single blur whereas SoftBlur had a user dictate the number of filter operations.

@@ -213,7 +213,7 @@ public class ColourActions {
             target.repaint();
             target.getParent().revalidate();
 
-            System.out.println(rotationCount);
+            // System.out.println(rotationCount);
 
             if(rotationCount >= 6){
                 rotationCount = 1;
@@ -346,7 +346,7 @@ public class ColourActions {
             if (option == JOptionPane.CANCEL_OPTION) { // do we need to check that one works? do both need to work?
                 return;
             } else {
-                System.out.println("its working");
+                // System.out.println("its working");
                 brightness = brightnessModel.getNumber().intValue();
                 contrast = contrastModel.getNumber().intValue();
 
@@ -430,7 +430,7 @@ public class ColourActions {
             }
 
             //int rotationNum = dropdown.getSelectedIndex();
-            System.out.println(rotationNum);
+            // System.out.println(rotationNum);
 
             target.getImage().apply(new ColourChannels(rotationNum));
             target.repaint();
