@@ -138,6 +138,14 @@ class EditableImage {
         return new BufferedImage(cm, raster, isAlphaPremultiplied, null);
     }
 
+    /*
+     * Returns a deep copy, to be used for get prior states without
+     * drawings on them.
+     */
+    public BufferedImage returnAcopy(BufferedImage bi) {
+        return deepCopy(bi);
+    }
+
     /**
      * <p>
      * Open an image from a file.
@@ -314,7 +322,8 @@ class EditableImage {
      * @param op The operation to apply.
      */
     public void apply(ImageOperation op) {
-        if (testing) System.out.println("Successfully applied " + op.getName() + " action!");
+        if (testing)
+            System.out.println("Successfully applied " + op.getName() + " action!");
         current = op.apply(current);
         ops.add(op);
         isSaved = false;

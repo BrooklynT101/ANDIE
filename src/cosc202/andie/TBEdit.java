@@ -73,7 +73,6 @@ public class TBEdit extends JFrame {
                     }
                 }
             }
-
             // update the actions because it'll freak out
             Andie.toolbar.updateActions();
 
@@ -82,7 +81,8 @@ public class TBEdit extends JFrame {
             Andie.toolbar.repaint();
 
             // Finally save to file the user preferences
-            if (testing) System.out.println("Saving user toolbar prefs to file...");
+            if (testing)
+                System.out.println("Saving user toolbar prefs to file...");
             Andie.toolbar.saveActions();
 
             // close
@@ -104,7 +104,8 @@ public class TBEdit extends JFrame {
 
     // add inactive actions to the left panel
     private void addInactiveActionsToPanel(ArrayList<Action> actions) {
-        if (testing) System.out.println("Adding actions to left panel");
+        if (testing)
+            System.out.println("Adding actions to left panel");
         // remove everything so its not adding actions to the panel each time
         inactiveActionsPanel.removeAll();
         inactiveActionsPanel.setLayout(new BoxLayout(inactiveActionsPanel, BoxLayout.Y_AXIS));
@@ -146,7 +147,8 @@ public class TBEdit extends JFrame {
      * @see addInactiveActionsToPanel
      */
     private void addActiveActionsToPanel(ArrayList<Action> actions) {
-        if (testing) System.out.println("Adding active actions to right panel");
+        if (testing)
+            System.out.println("Adding active actions to right panel");
         // remove everything so its not adding actions to the panel each time
         activeActionsPanel.removeAll();
         activeActionsPanel.setLayout(new BoxLayout(activeActionsPanel, BoxLayout.Y_AXIS));

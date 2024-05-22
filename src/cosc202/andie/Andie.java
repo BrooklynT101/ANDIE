@@ -49,7 +49,7 @@ import javax.imageio.ImageIO;
  * @version 1.0
  */
 public class Andie {
-   //boolean for printing out test related values
+   // boolean for printing out test related values
    protected static boolean testing = false;
 
    // Setting prefs
@@ -106,7 +106,7 @@ public class Andie {
     */
 
    private static void createAndShowGUI() throws Exception {
-      frame.setAlwaysOnTop(true); //so it loads on top of everything
+      frame.setAlwaysOnTop(true); // so it loads on top of everything
 
       // getting icon from resource folder
       try {
@@ -219,7 +219,7 @@ public class Andie {
       // frame.getContentPane().add(toolbar, BorderLayout.NORTH);
       frame.pack();
       frame.setVisible(true);
-      frame.setAlwaysOnTop(false); //so it doesn't stay loaded on top of everything
+      frame.setAlwaysOnTop(false); // so it doesn't stay loaded on top of everything
    }
 
    private static void showSplashScreen() {
@@ -337,7 +337,8 @@ public class Andie {
                   System.out.println(
                         "Toolbar dimensions - Height: " + toolbar.getHeight() + ", Width: " + toolbar.getWidth());
                   // System.out.println(
-                        // "MenuBar dimensions - Height: " + menuBar.getHeight() + ", Width: " + menuBar.getWidth());
+                  // "MenuBar dimensions - Height: " + menuBar.getHeight() + ", Width: " +
+                  // menuBar.getWidth());
                }
             } catch (Exception e) {
                e.printStackTrace();
