@@ -8,15 +8,16 @@ import java.util.List;
 import java.util.Iterator;
 import java.awt.Font;
 
+import javax.swing.JLayeredPane;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
 import java.awt.event.MouseEvent;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
-
 
 public class QnQPanel extends JPanel {
     protected boolean testing = true;
@@ -31,7 +32,7 @@ public class QnQPanel extends JPanel {
     private int clickCount;
     private long startTime;
     private long endTime;
-    private final int SPAWN_DELAY = 2000; //def 2 seconds
+    private final int SPAWN_DELAY = 2000; // def 2 seconds
     private final int MAX_NUM = 25;
     private Font counterFont;
 
@@ -65,7 +66,7 @@ public class QnQPanel extends JPanel {
                     QnQPanel.frameHeight = Andie.getFrame().getHeight();
                     cnqCount++;
                     if (testing)
-                        System.out.println(Andie.bundle.getString("CrackerandCheeseCount") + cnqCount);
+                        System.out.println("Cracker and Cheese Count: " + cnqCount);
                 } else {
                     generationTimer.stop(); // Stop the timer when the max number of balls is reached
                     gameOver();
@@ -90,7 +91,7 @@ public class QnQPanel extends JPanel {
                             int temp = (int) (generationTimer.getDelay() * 0.9);
                             generationTimer.setDelay(temp);
                             if (testing)
-                                System.out.println(Andie.bundle.getString("CurrentDelay") + temp); 
+                                System.out.println("Current Delay: " + temp);
                         }
                         break; // Exit the loop after removing the clicked item to avoid
                                // ConcurrentModificationException
@@ -118,17 +119,29 @@ public class QnQPanel extends JPanel {
         double gameTime = (double) (((endTime - startTime) / 1000000) / 1000);
 
         // show game over message
-        String message = Andie.bundle.getString("managedToEat") + clickCount + Andie.bundle.getString("crackersAndCheese") + gameTime
+        String message = Andie.bundle.getString("managedToEat") + clickCount
+                + Andie.bundle.getString("crackersAndCheese") + gameTime
                 + Andie.bundle.getString("seconds") + "\n" + Andie.bundle.getString("welldone");
         JOptionPane.showMessageDialog(this, message);
-
-        // Andie.bundle.getString("welldone")
+        // String message = "You managed to eat " + clickCount + " crackers and cheeses
+        // in " + gameTime
+        // + " seconds!\nWell Done you absolute legend.";
+        // JOptionPane.showMessageDialog(this, message, "Game Over",
+        // JOptionPane.INFORMATION_MESSAGE);
 
         // remove the CrackerAndCheese objects from list
         crackersAndCheeses.clear();
 
         // remove listeners
         this.removeMouseListener(mouseListener);
+
+        // Remove the panel from the layered pane
+        JLayeredPane layeredPane = Andie.getFrame().getLayeredPane();
+        layeredPane.remove(this);
+
+        // Repaint the layered pane to ensure the panel is gone
+        layeredPane.revalidate();
+        layeredPane.repaint();
 
         // Remove the panel from the frame
         Andie.frame.remove(this);
@@ -187,11 +200,15 @@ public class QnQPanel extends JPanel {
         // counter and time scores top right
         g.setColor(Color.RED);
         g.setFont(counterFont);
+
+        // g.drawString("Crackers clicked: " + clickCount, frameWidth - 200, 55);
+        // long currentTime = System.nanoTime();
+        // double elapsedTime = (double) (((currentTime - startTime) / 1000000) / 1000);
+        // g.drawString("Time: " + elapsedTime + " s", frameWidth - 200, 75);
+
         g.drawString(Andie.bundle.getString("CrackersClicked") + clickCount, frameWidth - 200, 55);
-        
         long currentTime = System.nanoTime();
         double elapsedTime = (double) (((currentTime - startTime) / 1000000) / 1000);
         g.drawString(Andie.bundle.getString("Time") + elapsedTime + " s", frameWidth - 200, 75);
     }
 }
-

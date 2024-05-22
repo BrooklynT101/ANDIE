@@ -24,6 +24,7 @@ import javax.swing.Timer;
 import javax.swing.JMenuBar;
 import javax.swing.SwingUtilities;
 
+import cosc202.andie.Confetti.Ball;
 import cosc202.andie.Confetti.BallPanel;
 
 import javax.imageio.ImageIO;
@@ -73,7 +74,8 @@ public class Andie {
 
    private static JLayeredPane layeredPane;
 
-   public static QnQPanel qnqPanel;
+   protected static QnQPanel qnqPanel;
+   protected static BallPanel ballPanel;
 
    // private static BallPanel gameOverlay;
 
@@ -204,6 +206,9 @@ public class Andie {
             if (qnqPanel != null) {
                Andie.qnqPanel.updatePanelSize(Andie.frame.getWidth(), Andie.frame.getHeight());
             }
+            if (ballPanel != null && BallPanel.isRunning) {
+               Andie.ballPanel.updatePanelSize(Andie.frame.getWidth(), Andie.frame.getHeight());
+            }
          }
       });
 
@@ -296,16 +301,16 @@ public class Andie {
          existingBallPanel.endConfetti();
          layeredPane.remove(existingBallPanel);
       } else {
-         BallPanel gameOverlay = new BallPanel(frame.getWidth(), frame.getHeight(), BALLS_DELAY, MAXIMUM_BALLS);
-         layeredPane.add(gameOverlay, JLayeredPane.POPUP_LAYER);
+         ballPanel = new BallPanel(frame.getWidth(), frame.getHeight(), BALLS_DELAY, MAXIMUM_BALLS);
+         layeredPane.add(ballPanel, JLayeredPane.POPUP_LAYER);
 
          // define the panel
-         gameOverlay.setOpaque(false);
-         gameOverlay.setBackground(Color.red);
-         gameOverlay.setBounds(0, 0, frame.getWidth(), frame.getHeight());
+         ballPanel.setOpaque(false);
+         ballPanel.setBackground(Color.red);
+         ballPanel.setBounds(0, 0, frame.getWidth(), frame.getHeight());
 
-         gameOverlay.requestFocusInWindow();
-         gameOverlay.startGeneratingBalls();
+         ballPanel.requestFocusInWindow();
+         ballPanel.startGeneratingBalls();
       }
 
       layeredPane.revalidate();
