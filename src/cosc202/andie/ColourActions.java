@@ -529,18 +529,15 @@ public class ColourActions {
                     null,
                     null);
 
-            // Check the return value from the dialog box.
-            if (option == JOptionPane.CANCEL_OPTION) { 
-                return;
-            } else {
+            if(option == JOptionPane.YES_OPTION){
                 saturation = saturationModel.getNumber().intValue();
-
+                // Create and apply the filter
+                target.getImage().apply(new Saturation(saturation));
+                target.repaint();
+                target.getParent().revalidate();
             }
 
-            // Create and apply the filter
-            target.getImage().apply(new Saturation(saturation));
-            target.repaint();
-            target.getParent().revalidate();
+            
         }
 
     }

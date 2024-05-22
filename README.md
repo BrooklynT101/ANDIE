@@ -87,6 +87,9 @@ TODO
 ### Colour Cycler vs Colour Channels 
 We implemented the Colour channel Cycling in two seperate ways, the colour cycler allows the user to cycle through the desired RGB colour channels one by one, contrasting to the colour channels option in the menu bar where the usre can choose their desired colour channel within the 6 colour channels.
 
+### Difference of Images
+TODO
+
 ## MultiLingual Support
 The Multilingual support feature allows users to use our ANDIE project in the set language of both English and Maori. The default langauge is set to English but if the user chooses to they can set the language to Maori, this prompts a restart of the system to apply the change. Upon reopening, the language and all the menu options are converted to the new chosen language. 
 

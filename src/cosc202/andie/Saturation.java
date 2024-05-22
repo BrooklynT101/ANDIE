@@ -42,7 +42,7 @@ public class Saturation implements ImageOperation, java.io.Serializable {
         BufferedImage output = new BufferedImage(input.getColorModel(), input.copyData(null),
                 input.isAlphaPremultiplied(), null);
         
-        System.out.println(saturation);
+        // System.out.println(saturation);
 
         float saturationFactor = 1 + (float) saturation / 100;
 
