@@ -31,7 +31,6 @@ public class SharpenFilter implements ImageOperation, java.io.Serializable {
    /**
     * Default Constructor for the sharpen filter, with a default
     * radius of 1
-    * /TODO: test if the radius being changed influences the filter
     */
    public SharpenFilter(int t) {
       this.t = t; // the amount of times to apply the filter

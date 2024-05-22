@@ -1,4 +1,4 @@
-package cosc202.andie.CrackerTest;
+package cosc202.andie;
 
 import java.awt.Color;
 import java.awt.Graphics;
@@ -7,8 +7,6 @@ import java.awt.Rectangle;
 import java.awt.RenderingHints;
 import java.awt.image.BufferedImage;
 import java.util.Random;
-
-import cosc202.andie.Andie;
 
 public class CrackerAndCheese {
     private int x, y;

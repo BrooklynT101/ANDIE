@@ -24,8 +24,7 @@ import javax.swing.Timer;
 import javax.swing.JMenuBar;
 import javax.swing.SwingUtilities;
 
-import cosc202.andie.BallTest.BallPanel;
-import cosc202.andie.CrackerTest.QnQPanel;
+import cosc202.andie.Confetti.BallPanel;
 
 import javax.imageio.ImageIO;
 
@@ -68,16 +67,18 @@ public class Andie {
    protected static final boolean displaySplash = false;
 
    // this is the key sequence to activate the easter egg
-   protected static final int[] KEY_SEQUENCE_GROUP_NAME = { KeyEvent.VK_Q, KeyEvent.VK_N, KeyEvent.VK_Q };
-   protected static boolean easterEggActivated = false;
+   // protected static final int[] KEY_SEQUENCE_GROUP_NAME = { KeyEvent.VK_Q, KeyEvent.VK_N, KeyEvent.VK_Q };
+   // protected static boolean easterEggActivated = false;
    protected static Random r = new Random();
 
    private static JLayeredPane layeredPane;
 
    public static QnQPanel qnqPanel;
 
-   private static final int MAXIMUM_BALLS = 20; // max number of balls
-   private static final int BALLS_DELAY = 2000; // in milliseconds
+   // private static BallPanel gameOverlay;
+
+   private static final int MAXIMUM_BALLS = 50; // max number of balls
+   private static final int BALLS_DELAY = 100; // in milliseconds
 
    /**
     * <p>
@@ -167,30 +168,30 @@ public class Andie {
       };
       frame.addWindowListener(exitListener);
 
-      // key listener for the Easter egg
-      KeyAdapter keyAdapter = new KeyAdapter() {
-         private int index = 0;
+      // // key listener for the Easter egg
+      // KeyAdapter keyAdapter = new KeyAdapter() {
+      //    private int index = 0;
 
-         @Override
-         public void keyPressed(KeyEvent e) {
-            if (testing)
-               System.out.println("Key pressed: " + e.getKeyChar());
-            if (!easterEggActivated && e.getKeyCode() == KEY_SEQUENCE_GROUP_NAME[index]) {
-               index++;
-               if (index == KEY_SEQUENCE_GROUP_NAME.length) {
-                  // Easter egg activated
-                  if (testing)
-                     System.out.println("Easter egg activated!");
-                  easterEggActivated = true;
-                  activateEasterEgg();
-               }
-            } else {
-               index = 0;
-            }
-         }
-      };
+      //    @Override
+      //    public void keyPressed(KeyEvent e) {
+      //       if (testing)
+      //          System.out.println("Key pressed: " + e.getKeyChar());
+      //       if (!easterEggActivated && e.getKeyCode() == KEY_SEQUENCE_GROUP_NAME[index]) {
+      //          index++;
+      //          if (index == KEY_SEQUENCE_GROUP_NAME.length) {
+      //             // Easter egg activated
+      //             if (testing)
+      //                System.out.println("Easter egg activated!");
+      //             easterEggActivated = true;
+      //             activateEasterEgg();
+      //          }
+      //       } else {
+      //          index = 0;
+      //       }
+      //    }
+      // };
 
-      frame.addKeyListener(keyAdapter);
+      // frame.addKeyListener(keyAdapter);
 
       // Add a component listener to the frame to handle resizing events
       frame.addComponentListener(new ComponentAdapter() {
@@ -270,22 +271,45 @@ public class Andie {
 
       MacroActions macroActions = new MacroActions();
       menuBar.add(macroActions.createMenu());
+      
+      FunActions funActions = new FunActions();
+      menuBar.add(funActions.createMenu());
+      
       return menuBar;
    }
 
-   public static void activateEasterEgg() {
-      JFrame frame = getFrame(); // Get the frame instance
-      layeredPane = frame.getLayeredPane(); // Initialize layeredPane using the frame
-      BallPanel gameOverlay = new BallPanel(frame.getWidth(), frame.getHeight(), BALLS_DELAY, MAXIMUM_BALLS);
-      layeredPane.add(gameOverlay, JLayeredPane.POPUP_LAYER);
+   public static void activateConfetti() {
+      JFrame frame = getFrame();// get andie frame
+      layeredPane = frame.getLayeredPane();
 
-      // define the panel
-      gameOverlay.setOpaque(false);
-      gameOverlay.setBackground(Color.red);
-      gameOverlay.setBounds(0, 0, frame.getWidth(), frame.getHeight());
+      // check if BallPanel is already running
+      BallPanel existingBallPanel = null;
+      for (int i = 0; i < layeredPane.getComponentCount(); i++) {
+         if (layeredPane.getComponent(i) instanceof BallPanel) {
+            existingBallPanel = (BallPanel) layeredPane.getComponent(i);
+            break;
+         }
+      }
 
-      gameOverlay.requestFocusInWindow();
-      gameOverlay.startGeneratingBalls();
+      // end it
+      if (existingBallPanel != null && BallPanel.isRunning) {
+         existingBallPanel.endConfetti();
+         layeredPane.remove(existingBallPanel);
+      } else {
+         BallPanel gameOverlay = new BallPanel(frame.getWidth(), frame.getHeight(), BALLS_DELAY, MAXIMUM_BALLS);
+         layeredPane.add(gameOverlay, JLayeredPane.POPUP_LAYER);
+
+         // define the panel
+         gameOverlay.setOpaque(false);
+         gameOverlay.setBackground(Color.red);
+         gameOverlay.setBounds(0, 0, frame.getWidth(), frame.getHeight());
+
+         gameOverlay.requestFocusInWindow();
+         gameOverlay.startGeneratingBalls();
+      }
+
+      layeredPane.revalidate();
+      layeredPane.repaint();
    }
 
    public static void activateQNQEgg() {
@@ -330,7 +354,6 @@ public class Andie {
          SwingUtilities.invokeLater(() -> {
             try {
                createAndShowGUI();
-               // activateEasterEgg();
                if (testing) {
                   System.out
                         .println("Frame dimensions - Height: " + frame.getHeight() + ", Width: " + frame.getWidth());

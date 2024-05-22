@@ -2,7 +2,6 @@ package cosc202.andie;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.*;
 import java.awt.image.BufferedImage;
 import java.awt.event.MouseEvent;
 import javax.swing.event.MouseInputAdapter;
@@ -18,6 +17,7 @@ public class DynamicDrawTest extends MouseInputAdapter {
     public static boolean isErasing;
     public int xStart;
     public int yStart;
+    // private boolean startCounter = true;
     public int xEnd;
     public int yEnd;
     public int imageWidth;

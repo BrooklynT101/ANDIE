@@ -57,8 +57,11 @@ class EditableImage {
     private static final boolean testing = false;
     /** Boolean for if the image is saved. */
     public static boolean isSaved;
-    /** This is a list of the supported file types */ 
-    private List<String> SUPPORTED_FILE_EXTENSIONS = new ArrayList<>(List.of("jpg", "jpeg", "png", "gif", "bmp", "tiff"));
+    /** Boolean for if the image is there. */
+    public static boolean hasImage;
+    /** This is a list of the supported file types */
+    private List<String> SUPPORTED_FILE_EXTENSIONS = new ArrayList<>(
+            List.of("jpg", "jpeg", "png", "gif", "bmp", "tiff"));
 
     /**
      * <p>
@@ -164,6 +167,7 @@ class EditableImage {
      * @throws Exception If something goes wrong.
      */
     public void open(String filePath) throws Exception {
+
         imageFilename = filePath;
         opsFilename = imageFilename + ".ops";
         File imageFile = new File(imageFilename);
@@ -197,6 +201,7 @@ class EditableImage {
         }
         this.refresh();
         isSaved = false;
+hasImage = true;
     }
 
     /**
@@ -280,14 +285,15 @@ class EditableImage {
             JOptionPane.showMessageDialog(frame, Andie.bundle.getString("Pleaseopenanimagefilefirst!"));
             throw new Exception("Missing image file");
         }
-        //if there is a given extension
+        // if there is a given extension
         if (destinationFilePath.lastIndexOf(".") != -1) {
-            // TODO make sure the format is accepted
             // saves extension given by user (without the dot)
             extension = destinationFilePath.substring(1 + destinationFilePath.lastIndexOf(".")).toLowerCase();
-            //checks if the given extension is supported, otherwise hits em with a prompt
-            if(!SUPPORTED_FILE_EXTENSIONS.contains(extension)) {
-                JOptionPane.showMessageDialog(Andie.getFrame(), Andie.bundle.getString("successSave"), "", JOptionPane.INFORMATION_MESSAGE);
+            // checks if the given extension is supported, otherwise hits em with a prompt
+            if (!SUPPORTED_FILE_EXTENSIONS.contains(extension)) {
+                JOptionPane.showMessageDialog(Andie.getFrame(), Andie.bundle.getString("UnsupportedFileType"),
+                        Andie.bundle.getString("CouldntExport"), JOptionPane.INFORMATION_MESSAGE);
+                return;
             }
             // trims the file path to the name without the extension
             destinationFilePath = destinationFilePath.substring(0, destinationFilePath.lastIndexOf("."));
@@ -303,7 +309,9 @@ class EditableImage {
             ImageIO.write(current, extension, file);
             if (file.exists()) {
                 System.out.println("Successfully saved file " + destinationFilePath + "." + extension);
-                JOptionPane.showMessageDialog(Andie.getFrame(), Andie.bundle.getString("successSave")+" "+file.toString(), "", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(Andie.getFrame(),
+                        Andie.bundle.getString("successSave") + " " + file.toString(), "",
+                        JOptionPane.INFORMATION_MESSAGE);
             } else {
                 throw new Exception("File didn't successfully save: possible unsupported filetype");
             }
@@ -411,6 +419,10 @@ class EditableImage {
             current = op.apply(current);
         }
         isSaved = false;
+    }
+
+    public static boolean hasLoadedImage() {
+        return hasImage;
     }
 
 }

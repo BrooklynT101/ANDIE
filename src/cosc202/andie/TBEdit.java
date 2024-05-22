@@ -18,6 +18,7 @@ public class TBEdit extends JFrame {
     private static JPanel inactiveActionsPanel = new JPanel();
     private static JPanel activeActionsPanel = new JPanel();
     private boolean testing = false; // set to true to print statements for whats happening
+    protected static JDialog dialog;
 
     // default constructor
     public TBEdit() {
@@ -26,7 +27,7 @@ public class TBEdit extends JFrame {
     // the meat of the class, shows the dialog and handles editing
     public void showDialog() {
         // creating the dialog box
-        JDialog dialog = new JDialog(this, "Button Dialog", true);
+        dialog = new JDialog(this, "Button Dialog", true);
         dialog.setLayout(new BorderLayout());
 
         // adding active actions to the right panel
@@ -57,36 +58,46 @@ public class TBEdit extends JFrame {
         // Accept button should take all the actions from the right panel and trying to
         // load the actions
         acceptButton.addActionListener(e -> {
-            // remove all actions from the toolbar
-            Andie.toolbar.removeAllActions();
+            int confirm = 0;
+            if (activeActionsPanel.getComponents().length > 10) {
+                // JOptionPane.showConfirmDialog(TBEdit.dialog,
+                // Andie.bundle.getString("TooManyActions"));
+                confirm = JOptionPane.showConfirmDialog(TBEdit.dialog, Andie.bundle.getString("TooManyActions"),
+                        Andie.bundle.getString("continue"), JOptionPane.OK_CANCEL_OPTION);
+            }
+            if (confirm == 0) {
+                // remove all actions from the toolbar
+                Andie.toolbar.removeAllActions();
 
-            // add active actions from the right panel to the toolbar
-            for (Component comp : activeActionsPanel.getComponents()) {
-                if (comp instanceof JButton) {
-                    JButton button = (JButton) comp;
-                    for (Action action : Andie.toolbar.getAllActions()) {
-                        // if action name equals buttons name
-                        if (button.getText().equals(action.getValue(Action.NAME))) {
-                            Andie.toolbar.addAction(action);
-                            break;
+                // add active actions from the right panel to the toolbar
+                for (Component comp : activeActionsPanel.getComponents()) {
+                    if (comp instanceof JButton) {
+                        JButton button = (JButton) comp;
+                        for (Action action : Andie.toolbar.getAllActions()) {
+                            // if action name equals buttons name
+                            if (button.getText().equals(action.getValue(Action.NAME))) {
+                                Andie.toolbar.addAction(action);
+                                break;
+                            }
                         }
                     }
                 }
+
+                // update the actions because it'll freak out
+                Andie.toolbar.updateActions();
+
+                // repaint and validate the toolbar because see previous comment
+                Andie.toolbar.revalidate();
+                Andie.toolbar.repaint();
+
+                // Finally save to file the user preferences
+                if (testing)
+                    System.out.println("Saving user toolbar prefs to file...");
+                Andie.toolbar.saveActions();
+
+                // close
+                dialog.dispose();
             }
-            // update the actions because it'll freak out
-            Andie.toolbar.updateActions();
-
-            // repaint and validate the toolbar because see previous comment
-            Andie.toolbar.revalidate();
-            Andie.toolbar.repaint();
-
-            // Finally save to file the user preferences
-            if (testing)
-                System.out.println("Saving user toolbar prefs to file...");
-            Andie.toolbar.saveActions();
-
-            // close
-            dialog.dispose();
         });
 
         // Cancel button function
