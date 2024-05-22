@@ -18,8 +18,6 @@ public class DrawFunction implements ImageOperation, java.io.Serializable {
   String style;
   int lineWidth;
 
-<<<<<<< HEAD
-=======
   /**
    * <p>
    * Construct a draw Function to be performed.
@@ -42,7 +40,6 @@ public class DrawFunction implements ImageOperation, java.io.Serializable {
    * @param style        fill/outline
    * @param lineWidth    stroke width
    */
->>>>>>> 29f489a4d84752067d274c11094b53c01f045b86
   DrawFunction(int xStart, int yStart, int xEnd, int yEnd,
       int regionXStart, int regionYStart, int regionWidth, int regionHeight,
       Color colour, String shape, String style, int lineWidth) {
@@ -98,7 +95,6 @@ public class DrawFunction implements ImageOperation, java.io.Serializable {
     return input;
   }
 
-<<<<<<< HEAD
   public void temporarydraw(BufferedImage input) {
 
     Graphics2D g2d = (Graphics2D) input.getGraphics();
@@ -126,8 +122,6 @@ public class DrawFunction implements ImageOperation, java.io.Serializable {
     }
   }
 
-=======
->>>>>>> 29f489a4d84752067d274c11094b53c01f045b86
   @Override
   public String getName() {
     return "Draw Function";
